@@ -1,5 +1,11 @@
-function App() {
-  return <div>Hello World!</div>;
-}
+import EditablePage from './EditablePage';
+
+const App = () => {
+  return (
+    <>
+      <EditablePage />
+    </>
+  );
+};
 
 export default App;
