@@ -1,21 +1,61 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import EditableBlock from "./EditableBlock";
 import uid from "./utils/uid";
 import fetchedData from "./data.json";
 
 import styled from "styled-components";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import setCaretToEnd from "./utils/setCaretToEnd";
 
 const EditPage = () => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
+  // const [blocks, setBlocks] = useState(initialBlock);
   const [blocks, setBlocks] = useState(fetchedData);
+  const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
+  const [commandAction, setCommandAction] = useState(null);
+
+  const focusNewBlock = useCallback(
+    (prevBlock) => {
+      const blockId = blocks[prevBlock + 1].id;
+      const newBlock = document.querySelector(`.${blockId}`);
+      if (newBlock) {
+        newBlock.focus();
+      }
+    },
+    [blocks]
+  );
+  const focusPrevBlock = useCallback(
+    (nextBlock) => {
+      const blockId = blocks[nextBlock - 1].id;
+      const prevBlock = document.querySelector(`.${blockId}`);
+      // we have to move last caret in that paragraph
+      if (prevBlock) {
+        setCaretToEnd(prevBlock);
+      }
+    },
+    [blocks]
+  );
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
     console.log("block length changed");
-  }, [blocks.length]);
+    if (commandAction === "Enter") {
+      // focus to new block
+      focusNewBlock(currentBlockIndex);
+    } else if (commandAction === "Backspace") {
+      // focus to previous block, if it exists
+      if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
+    }
+  }, [
+    blocks.length,
+    commandAction,
+    currentBlockIndex,
+    focusNewBlock,
+    focusPrevBlock,
+  ]);
 
   const updatePageHandler = (updatedBlock) => {
+    setCommandAction(null);
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
     const updatedBlocks = [...blocks];
     updatedBlocks[index] = {
@@ -28,17 +68,20 @@ const EditPage = () => {
   };
 
   const addBlockHandler = (currentBlock) => {
-    const newBlock = { id: uid(), html: "", tag: "p", flag: "false" };
+    setCommandAction(currentBlock.command);
+    const newBlock = { id: uid(), html: "", tag: "p", flag: 0 };
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
+    setCurrentBlockIndex(index);
     const updatedBlocks = [...blocks];
     updatedBlocks.splice(index + 1, 0, newBlock);
     setBlocks(updatedBlocks);
   };
 
   const deleteBlockHandler = (currentBlock) => {
-    const previousBlock = currentBlock.ref.previousElementSibling;
-    if (previousBlock) {
-      const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
+    setCommandAction(currentBlock.command);
+    const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
+    setCurrentBlockIndex(index);
+    if (index > 0) {
       const updatedBlocks = [...blocks];
       updatedBlocks.splice(index, 1);
       setBlocks(updatedBlocks);
@@ -58,11 +101,11 @@ const EditPage = () => {
     if (prevHtml.length === 0 && nextHtml.length === 0) {
       updatedBlocks[index] = {
         ...updatedBlocks[index],
-        flag: "true",
+        flag: 1,
       };
     } else if (prevHtml.length === 0 && nextHtml.length !== 0) {
-      const updateBlock = { id: uid(), html: newHtml, tag: "p", flag: "true" };
-      const newBlock = { id: uid(), html: nextHtml, tag: "p", flag: "false" };
+      const updateBlock = { id: uid(), html: newHtml, tag: "p", flag: 1 };
+      const newBlock = { id: uid(), html: nextHtml, tag: "p", flag: 0 };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
     } else if (prevHtml.length !== 0 && nextHtml.length === 0) {
@@ -70,9 +113,9 @@ const EditPage = () => {
         id: uid(),
         html: prevHtml,
         tag: "p",
-        flag: "false",
+        flag: 0,
       };
-      const newBlock = { id: uid(), html: newHtml, tag: "p", flag: "true" };
+      const newBlock = { id: uid(), html: newHtml, tag: "p", flag: 1 };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
     } else if (prevHtml.length !== 0 && nextHtml.length !== 0) {
@@ -80,12 +123,12 @@ const EditPage = () => {
         id: uid(),
         html: prevHtml,
         tag: "p",
-        flag: "false",
+        flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
-      const newBlock = { id: uid(), html: newHtml, tag: "p", flag: "true" };
+      const newBlock = { id: uid(), html: newHtml, tag: "p", flag: 1 };
       updatedBlocks.splice(index + 1, 0, newBlock);
-      const nextBlock = { id: uid(), html: nextHtml, tag: "p", flag: "false" };
+      const nextBlock = { id: uid(), html: nextHtml, tag: "p", flag: 0 };
       updatedBlocks.splice(index + 2, 0, nextBlock);
     }
     setBlocks(updatedBlocks);

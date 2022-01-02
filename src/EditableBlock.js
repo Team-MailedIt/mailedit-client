@@ -12,7 +12,7 @@ class EditableBlock extends React.Component {
       htmlBackup: null,
       html: "",
       tag: "p",
-      flag: "false",
+      flag: 0,
       previousKey: null,
       actionMenuOpen: false,
       actionMenuPosition: { x: null, y: null },
@@ -35,6 +35,11 @@ class EditableBlock extends React.Component {
       tag: this.props.tag,
       flag: this.props.flag,
     });
+  }
+
+  componentWillUnmount() {
+    // In case, the user deleted the block, we need to cleanup all listeners
+    document.removeEventListener("click", this.closeActionMenu, false);
   }
 
   // component render 최적화
@@ -72,9 +77,10 @@ class EditableBlock extends React.Component {
       this.setState({ htmlBackup: this.state.html });
     }
     if (e.key === "Enter") {
-      if (this.state.previousKey === "Enter") {
+      if (this.state.previousKey === "Control") {
         e.preventDefault();
         this.props.addBlock({
+          command: e.key,
           id: this.props.id,
           ref: this.contentEditable.current,
         });
@@ -83,6 +89,7 @@ class EditableBlock extends React.Component {
     if (e.key === "Backspace" && !this.state.html) {
       e.preventDefault();
       this.props.deleteBlock({
+        command: e.key,
         id: this.props.id,
         ref: this.contentEditable.current,
       });
@@ -181,11 +188,12 @@ class EditableBlock extends React.Component {
             paddingBottom: "12px",
             paddingLeft: "6px",
             paddingRight: "6px",
-            background: this.props.flag === "true" ? "#DBE1F6" : "#F1F3F5",
-            border: this.props.flag === "true" ? "1px solid #4C6EF5" : null,
+            background: this.props.flag ? "#DBE1F6" : "#F1F3F5",
+            border: this.props.flag ? "1px solid #4C6EF5" : null,
             outlineColor: "#4C6EF5",
             borderRadius: "2px",
             fontSize: "12px",
+            width: "100%",
           }}
           innerRef={this.contentEditable}
           html={this.state.html}
@@ -194,6 +202,7 @@ class EditableBlock extends React.Component {
           onChange={this.onChangeHandler}
           onKeyDown={this.onKeyDownHandler}
           onMouseUp={this.handleMouseUp}
+          className={this.props.id}
         />
       </>
     );
