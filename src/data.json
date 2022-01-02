@@ -3,12 +3,12 @@
     "id": "kxprp3s9xfqaj1dgsrd",
     "html": "블럭 사이 간격은 일단 6px, left, right padding 6px, top, bottom padding은 12px로 잡았습니다. 일단 최대한 디자인 시스템이랑 똑같이 만들려고 했는데, font는 적용안 했어요. 추가로 오류 발견시 말해주세요..",
     "tag": "p",
-    "flag": "false"
+    "flag": 0
   },
   {
     "id": "kxprufeacvsuthhot4",
     "html": "찾은 오류 : 블럭 지정 시 처음이나 맨 마지막이 공백일 경우 오류가 생긴다. / 한글 입력시 자음모음이 끊긴다",
     "tag": "p",
-    "flag": "true"
+    "flag": 1
   }
 ]

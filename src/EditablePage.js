@@ -9,6 +9,7 @@ import setCaretToEnd from './utils/setCaretToEnd';
 
 const EditPage = () => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
+  // const [blocks, setBlocks] = useState(initialBlock);
   const [blocks, setBlocks] = useState(fetchedData);
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
@@ -68,7 +69,7 @@ const EditPage = () => {
 
   const addBlockHandler = (currentBlock) => {
     setCommandAction(currentBlock.command);
-    const newBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
+    const newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
     const updatedBlocks = [...blocks];
@@ -100,11 +101,11 @@ const EditPage = () => {
     if (prevHtml.length === 0 && nextHtml.length === 0) {
       updatedBlocks[index] = {
         ...updatedBlocks[index],
-        flag: 'true',
+        flag: 1,
       };
     } else if (prevHtml.length === 0 && nextHtml.length !== 0) {
-      const updateBlock = { id: uid(), html: newHtml, tag: 'p', flag: 'true' };
-      const newBlock = { id: uid(), html: nextHtml, tag: 'p', flag: 'false' };
+      const updateBlock = { id: uid(), html: newHtml, tag: 'p', flag: 1 };
+      const newBlock = { id: uid(), html: nextHtml, tag: 'p', flag: 0 };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
     } else if (prevHtml.length !== 0 && nextHtml.length === 0) {
@@ -112,9 +113,9 @@ const EditPage = () => {
         id: uid(),
         html: prevHtml,
         tag: 'p',
-        flag: 'false',
+        flag: 0,
       };
-      const newBlock = { id: uid(), html: newHtml, tag: 'p', flag: 'true' };
+      const newBlock = { id: uid(), html: newHtml, tag: 'p', flag: 1 };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
     } else if (prevHtml.length !== 0 && nextHtml.length !== 0) {
@@ -122,12 +123,12 @@ const EditPage = () => {
         id: uid(),
         html: prevHtml,
         tag: 'p',
-        flag: 'false',
+        flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
-      const newBlock = { id: uid(), html: newHtml, tag: 'p', flag: 'true' };
+      const newBlock = { id: uid(), html: newHtml, tag: 'p', flag: 1 };
       updatedBlocks.splice(index + 1, 0, newBlock);
-      const nextBlock = { id: uid(), html: nextHtml, tag: 'p', flag: 'false' };
+      const nextBlock = { id: uid(), html: nextHtml, tag: 'p', flag: 0 };
       updatedBlocks.splice(index + 2, 0, nextBlock);
     }
     setBlocks(updatedBlocks);
