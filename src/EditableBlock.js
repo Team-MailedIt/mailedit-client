@@ -193,6 +193,7 @@ class EditableBlock extends React.Component {
             outlineColor: '#4C6EF5',
             borderRadius: '2px',
             fontSize: '12px',
+            width: '100%',
           }}
           innerRef={this.contentEditable}
           html={this.state.html}

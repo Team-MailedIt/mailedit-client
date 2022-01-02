@@ -54,6 +54,7 @@ const EditPage = () => {
   ]);
 
   const updatePageHandler = (updatedBlock) => {
+    setCommandAction(null);
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
     const updatedBlocks = [...blocks];
     updatedBlocks[index] = {
