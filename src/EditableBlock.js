@@ -37,6 +37,11 @@ class EditableBlock extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    // In case, the user deleted the block, we need to cleanup all listeners
+    document.removeEventListener('click', this.closeActionMenu, false);
+  }
+
   // component render 최적화
   shouldComponentUpdate(nextProps, nextState) {
     if (
