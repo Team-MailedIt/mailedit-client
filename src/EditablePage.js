@@ -1,16 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from './utils/uid';
 import fetchedData from './data.json';
 
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import setCaretToEnd from './utils/setCaretToEnd';
 
 const EditPage = () => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
   const [blocks, setBlocks] = useState(fetchedData);
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
+
+  const focusNewBlock = useCallback(
+    (prevBlock) => {
+      const blockId = blocks[prevBlock + 1].id;
+      const newBlock = document.querySelector(`.${blockId}`);
+      if (newBlock) {
+        newBlock.focus();
+      }
+    },
+    [blocks]
+  );
+  const focusPrevBlock = useCallback(
+    (nextBlock) => {
+      const blockId = blocks[nextBlock - 1].id;
+      const prevBlock = document.querySelector(`.${blockId}`);
+      // we have to move last caret in that paragraph
+      if (prevBlock) {
+        setCaretToEnd(prevBlock);
+      }
+    },
+    [blocks]
+  );
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
@@ -19,10 +42,16 @@ const EditPage = () => {
       // focus to new block
       focusNewBlock(currentBlockIndex);
     } else if (commandAction === 'Backspace') {
-      // focus to previous block
-      focusPrevBlock(currentBlockIndex);
+      // focus to previous block, if it exists
+      if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
-  }, [blocks.length]);
+  }, [
+    blocks.length,
+    commandAction,
+    currentBlockIndex,
+    focusNewBlock,
+    focusPrevBlock,
+  ]);
 
   const updatePageHandler = (updatedBlock) => {
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
@@ -35,18 +64,6 @@ const EditPage = () => {
     };
     setBlocks(updatedBlocks);
   };
-
-  function focusNewBlock(prevBlock) {
-    console.log('focus to new block' + prevBlock);
-    const blockId = blocks[prevBlock + 1].id;
-    const newBlock = document.querySelector(`.${blockId}`);
-    if (newBlock) {
-      newBlock.focus();
-    }
-  }
-  function focusPrevBlock(nextBlock) {
-    console.log('focus to prev block' + nextBlock);
-  }
 
   const addBlockHandler = (currentBlock) => {
     setCommandAction(currentBlock.command);
