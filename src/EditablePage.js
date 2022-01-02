@@ -77,10 +77,9 @@ const EditPage = () => {
 
   const deleteBlockHandler = (currentBlock) => {
     setCommandAction(currentBlock.command);
-    const previousBlock = currentBlock.ref.previousElementSibling;
-    if (previousBlock) {
-      const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
-      setCurrentBlockIndex(index);
+    const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
+    setCurrentBlockIndex(index);
+    if (index > 0) {
       const updatedBlocks = [...blocks];
       updatedBlocks.splice(index, 1);
       setBlocks(updatedBlocks);
