@@ -9,10 +9,19 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 const EditPage = () => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
   const [blocks, setBlocks] = useState(fetchedData);
+  const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
+  const [commandAction, setCommandAction] = useState(null);
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
     console.log('block length changed');
+    if (commandAction === 'Enter') {
+      // focus to new block
+      focusNewBlock(currentBlockIndex);
+    } else if (commandAction === 'Backspace') {
+      // focus to previous block
+      focusPrevBlock(currentBlockIndex);
+    }
   }, [blocks.length]);
 
   const updatePageHandler = (updatedBlock) => {
@@ -27,18 +36,34 @@ const EditPage = () => {
     setBlocks(updatedBlocks);
   };
 
+  function focusNewBlock(prevBlock) {
+    console.log('focus to new block' + prevBlock);
+    const blockId = blocks[prevBlock + 1].id;
+    const newBlock = document.querySelector(`.${blockId}`);
+    if (newBlock) {
+      newBlock.focus();
+    }
+  }
+  function focusPrevBlock(nextBlock) {
+    console.log('focus to prev block' + nextBlock);
+  }
+
   const addBlockHandler = (currentBlock) => {
+    setCommandAction(currentBlock.command);
     const newBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
+    setCurrentBlockIndex(index);
     const updatedBlocks = [...blocks];
     updatedBlocks.splice(index + 1, 0, newBlock);
     setBlocks(updatedBlocks);
   };
 
   const deleteBlockHandler = (currentBlock) => {
+    setCommandAction(currentBlock.command);
     const previousBlock = currentBlock.ref.previousElementSibling;
     if (previousBlock) {
       const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
+      setCurrentBlockIndex(index);
       const updatedBlocks = [...blocks];
       updatedBlocks.splice(index, 1);
       setBlocks(updatedBlocks);

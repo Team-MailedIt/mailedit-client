@@ -73,7 +73,6 @@ class EditableBlock extends React.Component {
   }
 
   onKeyDownHandler(e) {
-    console.log(e.key);
     if (e.key === '/') {
       this.setState({ htmlBackup: this.state.html });
     }
@@ -81,6 +80,7 @@ class EditableBlock extends React.Component {
       if (this.state.previousKey === 'Control') {
         e.preventDefault();
         this.props.addBlock({
+          command: e.key,
           id: this.props.id,
           ref: this.contentEditable.current,
         });
@@ -89,6 +89,7 @@ class EditableBlock extends React.Component {
     if (e.key === 'Backspace' && !this.state.html) {
       e.preventDefault();
       this.props.deleteBlock({
+        command: e.key,
         id: this.props.id,
         ref: this.contentEditable.current,
       });
@@ -200,6 +201,7 @@ class EditableBlock extends React.Component {
           onChange={this.onChangeHandler}
           onKeyDown={this.onKeyDownHandler}
           onMouseUp={this.handleMouseUp}
+          className={this.props.id}
         />
       </>
     );
