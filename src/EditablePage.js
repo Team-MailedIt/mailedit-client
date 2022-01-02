@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditableBlock from "./EditableBlock";
 import uid from "./utils/uid";
 import fetchedData from "./data.json";
@@ -9,6 +9,11 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 const EditPage = () => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
   const [blocks, setBlocks] = useState(fetchedData);
+
+  // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
+  useEffect(() => {
+    console.log("block length changed");
+  }, [blocks.length]);
 
   const updatePageHandler = (updatedBlock) => {
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
@@ -28,9 +33,6 @@ const EditPage = () => {
     const updatedBlocks = [...blocks];
     updatedBlocks.splice(index + 1, 0, newBlock);
     setBlocks(updatedBlocks);
-    // this.setState({ blocks: updatedBlocks }, () => {
-    //   currentBlock.ref.nextElementSibling.focus();
-    // });
   };
 
   const deleteBlockHandler = (currentBlock) => {
@@ -40,10 +42,6 @@ const EditPage = () => {
       const updatedBlocks = [...blocks];
       updatedBlocks.splice(index, 1);
       setBlocks(updatedBlocks);
-      // this.setState({ blocks: updatedBlocks }, () => {
-      //   setCaretToEnd(previousBlock);
-      //   previousBlock.focus();
-      // });
     }
   };
 

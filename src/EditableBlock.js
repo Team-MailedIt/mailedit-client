@@ -6,7 +6,6 @@ import FloatingButton from "../src/components/workspace/FloatingButton";
 
 class EditableBlock extends React.Component {
   constructor(props) {
-    console.log("constructor");
     super(props);
     this.contentEditable = React.createRef();
     this.state = {
@@ -30,7 +29,6 @@ class EditableBlock extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     this.setState({
       ...this.state,
       html: this.props.html,
@@ -46,15 +44,12 @@ class EditableBlock extends React.Component {
       this.state.flag !== nextState.flag ||
       this.state.actionMenuOpen !== nextState.actionMenuOpen
     ) {
-      console.log("true : " + this.props.id);
-      console.log("html : " + this.props.html);
       return true;
     }
     return false;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate : " + this.props.id);
     const htmlChanged = prevState.html !== this.state.html;
     const tagChanged = this.props.tag !== this.state.tag;
     const blockChanged = prevState.flag !== this.state.flag;
@@ -69,7 +64,6 @@ class EditableBlock extends React.Component {
     }
   }
   onChangeHandler(e) {
-    console.log("onChangeHandler");
     this.setState({ ...this.state, html: e.target.value });
   }
 
