@@ -1,8 +1,8 @@
 import React from 'react';
 import ContentEditable from 'react-contenteditable';
-import getSelection from './utils/getSelection';
-import getCaretCoordinates from './utils/getCaretCoordinates';
-import FloatingButton from '../src/components/workspace/FloatingButton';
+import getSelection from '../../utils/getSelection';
+import getCaretCoordinates from '../../utils/getCaretCoordinates';
+import FloatingButton from './FloatingButton';
 
 class EditableBlock extends React.Component {
   constructor(props) {

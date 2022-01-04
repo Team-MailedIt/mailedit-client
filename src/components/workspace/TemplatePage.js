@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import parsedData from './replaced.json';
+import parsedData from '../../replaced.json';
 
 const TemplatePage = () => {
   const [blocks, setBlocks] = useState(parsedData);

@@ -1,13 +1,16 @@
-import EditablePage from './EditablePage';
-import TemplatePage from './TemplatePage';
+import { Route, Routes } from 'react-router';
+import Landing from './pages/Landing';
+import Home from './pages/Home';
+import WorkSpace from './pages/WorkSpace';
 
 const App = () => {
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <TemplatePage />
-        <EditablePage />
-      </div>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/workspace" element={<WorkSpace />} />
+      </Routes>
     </>
   );
 };

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import EditableBlock from './EditableBlock';
-import uid from './utils/uid';
-import fetchedData from './data.json';
+import uid from '../../utils/uid';
+import fetchedData from '../../data.json';
 
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import setCaretToEnd from './utils/setCaretToEnd';
+import setCaretToEnd from '../../utils/setCaretToEnd';
 
 const EditPage = () => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
