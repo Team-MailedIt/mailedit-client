@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SignInModal from "../components/signin/SignInModal";
+import SignIn from "../components/signin/SignIn";
 
 const Landing = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,7 +10,7 @@ const Landing = () => {
 
   return (
     <>
-      <SignInModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <SignIn isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       <button onClick={handleSignInBtnClick}>로그인 버튼</button>
     </>
   );

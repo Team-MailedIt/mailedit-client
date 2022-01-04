@@ -2,11 +2,12 @@ import styled from "styled-components";
 import ReactModal from "react-modal";
 import GoogleLogin from "react-google-login";
 
-const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
+const SignIn = ({ isModalOpen, setIsModalOpen }) => {
   const onSuccess = (res) => {
     console.log("onSucess: ", res);
-    console.log("userProfile: ", res.profileObj);
-    console.log("tokenObj: ", res.tokenObj);
+    console.log("idToken: ", res.tokenObj.id_token);
+    localStorage.setItem("userData", JSON.stringify(res.profileObj));
+    localStorage.setItem("accessToken", res.accessToken);
   };
 
   const onFailure = (res) => {
@@ -52,4 +53,4 @@ const Input = styled.input`
 
 const SubmitBtn = styled.button``;
 
-export default SignInModal;
+export default SignIn;
