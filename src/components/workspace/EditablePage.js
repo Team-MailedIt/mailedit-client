@@ -7,12 +7,20 @@ import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 
-const EditPage = () => {
+const EditPage = ({ passedBlocks }) => {
   // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
   // const [blocks, setBlocks] = useState(initialBlock);
   const [blocks, setBlocks] = useState(fetchedData);
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
+
+  // 넘겨받은 block 배열 맨 뒤에 set
+  useEffect(() => {
+    console.log(passedBlocks);
+    if (passedBlocks) {
+      setBlocks([...blocks, passedBlocks]);
+    }
+  }, [passedBlocks]);
 
   const focusNewBlock = useCallback(
     (prevBlock) => {

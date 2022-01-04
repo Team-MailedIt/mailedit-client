@@ -2,14 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import parsedData from '../../replaced.json';
 
-const TemplatePage = () => {
+const TemplatePage = ({ getBlockFromTemplate }) => {
   const [blocks, setBlocks] = useState(parsedData);
 
   const onClickHandler = (e) => {
     const { id } = e.target;
-
-    console.log(blocks[id].html);
-    // 해당 id
+    getBlockFromTemplate(blocks[id]);
   };
 
   return (
