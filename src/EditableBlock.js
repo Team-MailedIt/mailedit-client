@@ -75,8 +75,7 @@ class EditableBlock extends React.Component {
   onKeyDownHandler(e) {
     if (e.key === '/') {
       this.setState({ htmlBackup: this.state.html });
-    }
-    if (e.key === 'Enter') {
+    } else if (e.key === 'Enter') {
       if (this.state.previousKey === 'Control') {
         e.preventDefault();
         this.props.addBlock({
@@ -85,8 +84,7 @@ class EditableBlock extends React.Component {
           ref: this.contentEditable.current,
         });
       }
-    }
-    if (e.key === 'Backspace' && !this.state.html) {
+    } else if (e.key === 'Backspace' && !this.state.html) {
       e.preventDefault();
       this.props.deleteBlock({
         command: e.key,

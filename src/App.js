@@ -1,9 +1,13 @@
 import EditablePage from './EditablePage';
+import TemplatePage from './TemplatePage';
 
 const App = () => {
   return (
     <>
-      <EditablePage />
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <TemplatePage />
+        <EditablePage />
+      </div>
     </>
   );
 };

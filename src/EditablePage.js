@@ -38,7 +38,7 @@ const EditPage = () => {
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
-    console.log('block length changed');
+    // console.log('block length changed');
     if (commandAction === 'Enter') {
       // focus to new block
       focusNewBlock(currentBlockIndex);
@@ -191,7 +191,7 @@ const Box = styled.div`
   padding-top: 24px;
   border: 1px solid black;
   border-radius: 2px;
-  background: #ffffff;
+  background: #f1f3f5;
 `;
 
 const DragBtn = styled.div`
