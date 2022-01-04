@@ -1,11 +1,8 @@
-import EditablePage from './EditablePage';
+// import EditablePage from "./EditablePage";
+import Landing from "./pages/Landing";
 
 const App = () => {
-  return (
-    <>
-      <EditablePage />
-    </>
-  );
+  return <Landing />;
 };
 
 export default App;
