@@ -80,6 +80,7 @@ const EditPage = ({ passedBlocks }) => {
   ]);
 
   const updatePageHandler = (updatedBlock) => {
+    setCommandAction(null);
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
     const updatedBlocks = [...blocks];
     updatedBlocks[index] = {
@@ -123,6 +124,7 @@ const EditPage = ({ passedBlocks }) => {
   };
 
   const updateBlockHandler = (currentBlock) => {
+    setCommandAction(null);
     const { startPoint, endPoint } = currentBlock;
     const targetHtml = currentBlock.html;
     // 쪼개지는 범위에 따라 빈 string에 대한 핸들링 필요
@@ -138,8 +140,18 @@ const EditPage = ({ passedBlocks }) => {
         flag: 1,
       };
     } else if (prevHtml.length === 0 && nextHtml.length !== 0) {
-      const updateBlock = { id: uid(), html: newHtml, tag: 'p', flag: 1 };
-      const newBlock = { id: uid(), html: nextHtml, tag: 'p', flag: 0 };
+      const updateBlock = {
+        id: uid(),
+        html: newHtml,
+        tag: 'p',
+        flag: 1,
+      };
+      const newBlock = {
+        id: uid(),
+        html: nextHtml,
+        tag: 'p',
+        flag: 0,
+      };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
     } else if (prevHtml.length !== 0 && nextHtml.length === 0) {
@@ -149,7 +161,12 @@ const EditPage = ({ passedBlocks }) => {
         tag: 'p',
         flag: 0,
       };
-      const newBlock = { id: uid(), html: newHtml, tag: 'p', flag: 1 };
+      const newBlock = {
+        id: uid(),
+        html: newHtml,
+        tag: 'p',
+        flag: 1,
+      };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
     } else if (prevHtml.length !== 0 && nextHtml.length !== 0) {
@@ -160,9 +177,19 @@ const EditPage = ({ passedBlocks }) => {
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
-      const newBlock = { id: uid(), html: newHtml, tag: 'p', flag: 1 };
+      const newBlock = {
+        id: uid(),
+        html: newHtml,
+        tag: 'p',
+        flag: 1,
+      };
       updatedBlocks.splice(index + 1, 0, newBlock);
-      const nextBlock = { id: uid(), html: nextHtml, tag: 'p', flag: 0 };
+      const nextBlock = {
+        id: uid(),
+        html: nextHtml,
+        tag: 'p',
+        flag: 0,
+      };
       updatedBlocks.splice(index + 2, 0, nextBlock);
     }
     setBlocks(updatedBlocks);
