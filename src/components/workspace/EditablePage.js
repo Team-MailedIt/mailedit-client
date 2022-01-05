@@ -1,13 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
 // import fetchedData from '../../data.json';
+// import { useStateWithCallbackLazy } from 'use-state-with-callback';
 
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 
 const EditPage = ({ passedBlocks }) => {
+  const scrollRef = useRef();
   const initialBlock = {
     id: uid(),
     html: 'placeholder 달자',
@@ -19,19 +21,21 @@ const EditPage = ({ passedBlocks }) => {
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
 
+  function scrollToBottom() {
+    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
+    console.log('do scroll');
     if (passedBlocks) {
-      setBlocks((blocks) => [...blocks, passedBlocks]);
-      const lastBlock = blocks.at(-1);
-      addBlockHandler({
-        ...lastBlock,
-        command: 'Enter',
-        passed: 1,
-        html: passedBlocks.html,
-      });
+      setBlocks((b) => [...b, passedBlocks]);
     }
   }, [passedBlocks]);
+
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [blocks]);
 
   const focusNewBlock = useCallback(
     (prevBlock) => {
@@ -86,7 +90,6 @@ const EditPage = ({ passedBlocks }) => {
   };
 
   const addBlockHandler = (currentBlock) => {
-    console.log(currentBlock);
     setCommandAction(currentBlock.command);
     let newBlock = {};
     if (currentBlock.passed) {
@@ -178,49 +181,54 @@ const EditPage = ({ passedBlocks }) => {
     <DragDropContext onDragEnd={handleDndChange}>
       <Droppable droppableId="todosDroppable">
         {(provided) => (
-          <Box {...provided.droppableProps} ref={provided.innerRef}>
-            {blocks.map(({ id, tag, html, flag }, index) => (
-              <Draggable key={id} draggableId={id} index={index}>
-                {(provided) => (
-                  <Wrapper
-                    ref={provided.innerRef}
-                    {...provided.dragHandleProps}
-                    {...provided.draggableProps}
-                    key={id}
-                  >
-                    <DragBtn>↕️</DragBtn>
-                    <EditableBlock
-                      id={id}
-                      tag={tag}
-                      html={html}
-                      flag={flag}
-                      updatePage={updatePageHandler}
-                      addBlock={addBlockHandler}
-                      deleteBlock={deleteBlockHandler}
-                      updateBlock={updateBlockHandler}
-                    />
-                  </Wrapper>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </Box>
+          <Container ref={scrollRef}>
+            <Box {...provided.droppableProps} ref={provided.innerRef}>
+              {blocks.map(({ id, tag, html, flag }, index) => (
+                <Draggable key={id} draggableId={id} index={index}>
+                  {(provided) => (
+                    <Wrapper
+                      ref={provided.innerRef}
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      key={id}
+                    >
+                      <DragBtn>↕️</DragBtn>
+                      <EditableBlock
+                        id={id}
+                        tag={tag}
+                        html={html}
+                        flag={flag}
+                        updatePage={updatePageHandler}
+                        addBlock={addBlockHandler}
+                        deleteBlock={deleteBlockHandler}
+                        updateBlock={updateBlockHandler}
+                      />
+                      <div ref={scrollRef} />
+                    </Wrapper>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </Box>
+          </Container>
         )}
       </Droppable>
     </DragDropContext>
   );
 };
 
-const Box = styled.div`
+const Container = styled.div`
   width: 450px;
   height: 70vh;
-  overflow-y: scroll;
   margin: 24px;
   padding-top: 24px;
   border: 1px solid black;
   border-radius: 2px;
   background: #f1f3f5;
+  overflow-y: scroll;
 `;
+
+const Box = styled.div``;
 
 const DragBtn = styled.div`
   height: 100%;
