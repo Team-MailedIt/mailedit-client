@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
-import fetchedData from '../../data.json';
+// import fetchedData from '../../data.json';
 
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -23,6 +23,13 @@ const EditPage = ({ passedBlocks }) => {
   useEffect(() => {
     if (passedBlocks) {
       setBlocks((blocks) => [...blocks, passedBlocks]);
+      const lastBlock = blocks.at(-1);
+      addBlockHandler({
+        ...lastBlock,
+        command: 'Enter',
+        passed: 1,
+        html: passedBlocks.html,
+      });
     }
   }, [passedBlocks]);
 
@@ -50,7 +57,6 @@ const EditPage = ({ passedBlocks }) => {
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
-    // console.log('block length changed');
     if (commandAction === 'Enter') {
       // focus to new block
       focusNewBlock(currentBlockIndex);
@@ -80,8 +86,19 @@ const EditPage = ({ passedBlocks }) => {
   };
 
   const addBlockHandler = (currentBlock) => {
+    console.log(currentBlock);
     setCommandAction(currentBlock.command);
-    const newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
+    let newBlock = {};
+    if (currentBlock.passed) {
+      newBlock = {
+        id: uid(),
+        html: currentBlock.html,
+        tag: 'p',
+        flag: 1,
+      };
+    } else {
+      newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
+    }
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
     const updatedBlocks = [...blocks];
