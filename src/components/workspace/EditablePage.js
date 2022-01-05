@@ -2,17 +2,16 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
 // import fetchedData from '../../data.json';
-// import { useStateWithCallbackLazy } from 'use-state-with-callback';
 
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 
 const EditPage = ({ passedBlocks }) => {
-  const scrollRef = useRef();
+  const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
-    html: 'placeholder 달자',
+    html: '',
     tag: 'p',
     flag: 0,
   };
@@ -21,21 +20,25 @@ const EditPage = ({ passedBlocks }) => {
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
 
-  function scrollToBottom() {
-    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+  function scrollToBottom(index) {
+    const element = scrollRef.current.children[0].children[index - 1];
+
+    element.scrollIntoView({
+      block: 'end',
+      behavior: 'smooth',
+    });
   }
 
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
-    console.log('do scroll');
     if (passedBlocks) {
       setBlocks((b) => [...b, passedBlocks]);
     }
   }, [passedBlocks]);
 
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [blocks]);
+  useEffect(() => {
+    scrollToBottom(blocks.length);
+  }, [blocks.length]);
 
   const focusNewBlock = useCallback(
     (prevBlock) => {
@@ -77,7 +80,6 @@ const EditPage = ({ passedBlocks }) => {
   ]);
 
   const updatePageHandler = (updatedBlock) => {
-    setCommandAction(null);
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
     const updatedBlocks = [...blocks];
     updatedBlocks[index] = {
@@ -113,7 +115,7 @@ const EditPage = ({ passedBlocks }) => {
     setCommandAction(currentBlock.command);
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
-    if (index > 0) {
+    if (blocks.length > 1) {
       const updatedBlocks = [...blocks];
       updatedBlocks.splice(index, 1);
       setBlocks(updatedBlocks);
@@ -194,6 +196,7 @@ const EditPage = ({ passedBlocks }) => {
                     >
                       <DragBtn>↕️</DragBtn>
                       <EditableBlock
+                        ref={(elem) => (scrollRef.current[index] = elem)}
                         id={id}
                         tag={tag}
                         html={html}
@@ -203,7 +206,6 @@ const EditPage = ({ passedBlocks }) => {
                         deleteBlock={deleteBlockHandler}
                         updateBlock={updateBlockHandler}
                       />
-                      <div ref={scrollRef} />
                     </Wrapper>
                   )}
                 </Draggable>

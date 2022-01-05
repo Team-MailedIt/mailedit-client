@@ -16,7 +16,6 @@ const TemplatePage = ({ getBlockFromTemplate }) => {
         html: newString,
       };
     });
-    console.log(updatedBlocks);
     setParsedBlocks(updatedBlocks);
   }, [blocks]);
 
