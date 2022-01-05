@@ -16,9 +16,7 @@ const WorkSpace = () => {
   };
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
-    >
+    <div>
       <Link to={'/'}>
         <h1>go to landing</h1>
       </Link>

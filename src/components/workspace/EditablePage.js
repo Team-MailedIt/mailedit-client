@@ -16,9 +16,8 @@ const EditPage = ({ passedBlocks }) => {
 
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
-    console.log(passedBlocks);
     if (passedBlocks) {
-      setBlocks([...blocks, passedBlocks]);
+      setBlocks((blocks) => [...blocks, passedBlocks]);
     }
   }, [passedBlocks]);
 
@@ -191,10 +190,9 @@ const EditPage = ({ passedBlocks }) => {
 };
 
 const Box = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 450px;
-  min-height: 580px;
+  height: 70vh;
+  overflow-y: scroll;
   margin: 24px;
   padding-top: 24px;
   border: 1px solid black;
