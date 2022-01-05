@@ -8,9 +8,14 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 
 const EditPage = ({ passedBlocks }) => {
-  // const initialBlock = { id: uid(), html: '', tag: 'p', flag: 'false' };
-  // const [blocks, setBlocks] = useState(initialBlock);
-  const [blocks, setBlocks] = useState(fetchedData);
+  const initialBlock = {
+    id: uid(),
+    html: 'placeholder 달자',
+    tag: 'p',
+    flag: 0,
+  };
+  const [blocks, setBlocks] = useState([initialBlock]);
+  // const [blocks, setBlocks] = useState(fetchedData);
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
 
