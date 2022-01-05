@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import { normalize } from "styled-normalize";
+import { createGlobalStyle } from 'styled-components';
+import { normalize } from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
@@ -25,7 +25,6 @@ a{
 }
 
 p{
-  font-size: 12px
   display: block;
   
   margin-block-start: 0px;

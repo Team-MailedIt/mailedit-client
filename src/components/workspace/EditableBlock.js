@@ -190,7 +190,6 @@ class EditableBlock extends React.Component {
             border: this.props.flag ? '1px solid #4C6EF5' : null,
             outlineColor: '#4C6EF5',
             borderRadius: '2px',
-            fontSize: '12px',
             width: '100%',
           }}
           innerRef={this.contentEditable}
