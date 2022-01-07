@@ -12,7 +12,6 @@ html,
     
     padding: 0;
     margin-right: 40px;
-
   }
   a {
   text-decoration-line: none;
@@ -20,7 +19,7 @@ html,
   }
 
 p{
-  display: block;
+  /* display: block; */
   
   margin-block-start: 0px;
   margin-block-end: 6px;

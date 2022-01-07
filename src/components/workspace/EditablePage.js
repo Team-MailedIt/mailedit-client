@@ -6,6 +6,8 @@ import uid from '../../utils/uid';
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
+import COLORS from '../../constants/colors';
+import { DragIcon } from '../../constants/icons';
 
 const EditPage = ({ passedBlocks }) => {
   const scrollRef = useRef([]);
@@ -221,7 +223,9 @@ const EditPage = ({ passedBlocks }) => {
                       {...provided.draggableProps}
                       key={id}
                     >
-                      <DragBtn>↕️</DragBtn>
+                      <DragBtn>
+                        <DragIcon src="/img/drag.png" />
+                      </DragBtn>
                       <EditableBlock
                         ref={(elem) => (scrollRef.current[index] = elem)}
                         id={id}
@@ -248,20 +252,15 @@ const EditPage = ({ passedBlocks }) => {
 
 const Container = styled.div`
   /* padding-top: 24px; */
-  height: 73vh;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 2px;
-  background: #f1f3f5;
+  /* display: flex;
+  flex-direction: column; */
   overflow-y: scroll;
 `;
 
 const Box = styled.div``;
 
 const DragBtn = styled.div`
-  height: 100%;
-  margin-left: 10px;
+  margin-right: 14px;
 `;
 
 const Wrapper = styled.div`

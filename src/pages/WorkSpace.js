@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { VerticalLine } from '../components/workspace/Components';
-import EditPage from '../components/workspace/EditablePage';
 import EditorContainer from '../components/workspace/EditorContainer';
 import TemplatePage from '../components/workspace/TemplatePage';
 import uid from '../utils/uid';
@@ -21,13 +18,12 @@ const WorkSpace = () => {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 0.5px 1fr',
+        gridTemplateColumns: 'repeat(2, minmax(530px, auto))',
+        columnGap: '20px',
       }}
     >
       <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
-      <VerticalLine />
-      <EditorContainer />
-      {/* <EditPage passedBlocks={blocks} /> */}
+      <EditorContainer passedBlocks={blocks} />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 const COLORS = {
   /* Main Colors */
   primary: '#5C7CFA',
+  blockBackground: '#5274EF26',
+  blockBorder: '#5274EF',
 
   indigo0: '#EEF1FE',
   indigo2: '#BAC8FF',
@@ -24,7 +26,7 @@ const COLORS = {
   UIWhite: '#FFFFFF',
 
   /* Background Colors */
-  backgroundWhite: '#FFFFFF',
+  backgroundWhite: '#F5F8FF',
   sidebar: '#5C7CFA',
 
   /* Tag Colors */
@@ -32,7 +34,6 @@ const COLORS = {
   tagPink: '#E64980', // Pink-c
   tagGreen: '#38D9A9', // Green-c
   tagYellow: '#FAB005', // Yellow-c
-  tagBlue: '#15AABF', // Blue-c
   tagPurple: '#BE4BDB', // Purple-c
 };
 

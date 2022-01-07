@@ -12,7 +12,8 @@ const FontStyle = createGlobalStyle`
     font-family: 'Pretendard-Regular';
   }
 p {
-  font-size:12px;
+  font-size:16px;
+  line-height:24px;
 }
  
 `;

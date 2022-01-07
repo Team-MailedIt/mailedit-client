@@ -6,7 +6,12 @@ import Sidebar from './components/commons/Sidebar';
 
 const App = () => {
   return (
-    <div style={{ display: 'flex' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.7fr 8.3fr',
+      }}
+    >
       <Sidebar />
       {/* 일단은 sidebar 전체 적용되게 했는데 세부적으로 구현 들어가면 각 페이지별로 사이드바 다르게 구현해서 넣으면 될 듯 */}
       <Routes>

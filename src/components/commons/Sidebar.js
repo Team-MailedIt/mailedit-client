@@ -6,7 +6,6 @@ const Sidebar = () => {
 
 export const SidebarContainer = styled.section`
   height: 100vh;
-  min-width: 217px;
 
   background: #5274ef;
 `;
