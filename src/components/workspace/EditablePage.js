@@ -247,10 +247,10 @@ const EditPage = ({ passedBlocks }) => {
 };
 
 const Container = styled.div`
-  width: 450px;
-  height: 70vh;
-  margin: 24px;
-  padding-top: 24px;
+  /* padding-top: 24px; */
+  height: 73vh;
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
   border-radius: 2px;
   background: #f1f3f5;

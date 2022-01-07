@@ -25,36 +25,40 @@ const TemplatePage = ({ getBlockFromTemplate }) => {
   };
 
   return (
-    <Box>
-      <h3>[00팀] 00/00 00프로젝트 회의 일정 공유</h3>
-      {parsedBlocks.map(({ id, tag, html, flag }, index) => (
-        <Block id={index} key={id} onClick={onClickHandler}>
-          {html}
-        </Block>
-      ))}
-    </Box>
+    <GridContainer>
+      <Box>
+        <h3>[00팀] 00/00 00프로젝트 회의 일정 공유</h3>
+        {parsedBlocks.map(({ id, tag, html, flag }, index) => (
+          <Block id={index} key={id} onClick={onClickHandler}>
+            {html}
+          </Block>
+        ))}
+      </Box>
+    </GridContainer>
   );
 };
-
+const GridContainer = styled.div``;
 const Box = styled.div`
-  width: 450px;
-  height: 70vh;
-  margin: 24px;
-  padding-top: 24px;
+  /* width: 50%; */
+  /* height: 70vh; */
+  display: flex;
+  flex-direction: column;
+  margin: 68px;
+  /* padding-top: 24px; */
   border: 1px solid black;
-  border-radius: 2px;
+  /* border-radius: 2px; */
   background: #ffffff;
 `;
 const Block = styled.div`
-  margin: 10px;
+  /* margin: 10px; */
   white-space: pre-wrap;
 
-  padding: 6px;
+  /* padding: 6px; */
 
-  background: #dbe1f6;
+  /* background: #dbe1f6; */
   border: 1px solid #4c6ef5;
 
-  font-size: 12px;
+  /* font-size: 12px; */
 `;
 
 export default TemplatePage;

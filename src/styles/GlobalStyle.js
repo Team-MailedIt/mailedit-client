@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
+import COLORS from '../constants/colors';
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
@@ -9,8 +10,8 @@ html,
     height: 100vh;
     width: 100vw;
     
-    margin: 0;
     padding: 0;
+    margin-right: 40px;
 
   }
   a {
@@ -26,6 +27,13 @@ p{
   /* margin-inline-start: 0px;
   margin-inline-end: 0px; */
 }
+
+::placeholder {
+  color: ${COLORS.gray5};
+  opacity: 1; /* Firefox */
+}
+
+
 `;
 
 export default GlobalStyle;
