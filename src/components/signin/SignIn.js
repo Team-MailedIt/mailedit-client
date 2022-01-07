@@ -2,7 +2,7 @@ import styled from "styled-components";
 import GoogleLogin from "react-google-login";
 import API from "../../utils/API";
 import { useState } from "react";
-import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const SignIn = () => {
   const [user, setUser] = useState({
@@ -17,8 +17,19 @@ const SignIn = () => {
     API.post("/signin", JSON.stringify(user)).then((res) => {
       localStorage.setItem("accessToken", res.data.token.access);
       localStorage.setItem("refreshToken", res.data.token.refresh);
+      localStorage.setItem(
+        "expiredAt",
+        jwtDecode(res.data.token.access).exp * 1000
+      );
 
-      alert(res.data.message);
+      const decoded = jwtDecode(res.data.token.access);
+      const iat = decoded.iat;
+      const exp = decoded.exp;
+      const now = Date.now();
+
+      console.log("만료 시간: ", new Date(exp * 1000));
+      console.log("현재 시간: ", new Date(now));
+      console.log("만료 시간 5분 전: ", new Date(exp * 1000 - 300000));
     });
   };
 
@@ -48,6 +59,9 @@ const SignIn = () => {
   };
 
   const handleSignOutBtnClick = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    console.log("exp: ", Date(jwtDecode(accessToken).exp));
+    console.log("iat: ", Date(jwtDecode(accessToken).iat));
     localStorage.clear();
     console.log("로그아웃됨");
   };
@@ -65,9 +79,8 @@ const SignIn = () => {
   };
 
   const onSuccess = async (res) => {
-    console.log("onSucess: ", res);
+    // console.log("onSucess: ", res);
     localStorage.setItem("userData", JSON.stringify(res.profileObj));
-    localStorage.setItem("accessToken", res.accessToken);
     localStorage.setItem("idToken", res.tokenObj.id_token);
 
     const params = new URLSearchParams();
@@ -78,8 +91,10 @@ const SignIn = () => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
-      .then((result) => {
-        console.log(result);
+      .then((res) => {
+        console.log("google: ", res);
+        localStorage.setItem("accessToken", res.data.token.access);
+        localStorage.setItem("refreshToken", res.data.token.refresh);
       })
       .catch((err) => {
         console.log(err);
