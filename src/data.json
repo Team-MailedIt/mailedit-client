@@ -1,13 +1,31 @@
 [
   {
     "id": "kxprp3s9xfqaj1dgsrd",
-    "html": "블럭 사이 간격은 일단 6px, left, right padding 6px, top, bottom padding은 12px로 잡았습니다. 일단 최대한 디자인 시스템이랑 똑같이 만들려고 했는데, font는 적용안 했어요. 추가로 오류 발견시 말해주세요..",
+    "html": "000님 안녕하세요, 저는 00팀 000입니다.",
     "tag": "p",
-    "flag": 0
+    "flag": 1
   },
   {
     "id": "kxprufeacvsuthhot4",
-    "html": "찾은 오류 : 블럭 지정 시 처음이나 맨 마지막이 공백일 경우 오류가 생긴다. / 한글 입력시 자음모음이 끊긴다",
+    "html": "00 프로젝트와 관련해서 00팀이 주최하는 회의를 진행하고자 합니다.<div>이번 회의일정은 다음과 같습니다.</div>",
+    "tag": "p",
+    "flag": 1
+  },
+  {
+    "id": "kxprp3s9xfqaj1dgard",
+    "html": "1. 일시: 0000년 00월 00일 오전/오후 00시 ~  00시 <div>2. 장소: (장소)</div><div>3. 안건: (안건)</div>4. 참석 대상: (참석 대상)<div>5. 사전 준비사항: (사전 준비사항)</div>",
+    "tag": "p",
+    "flag": 1
+  },
+  {
+    "id": "kxydhiwx4nuqllb33iw",
+    "html": "부득이하게 본 회의에 참석이 어려우신 경우, 원활한 회의 진행을 위해 00월 00일 오전/오후 00시까지 회신 부탁드립니다.",
+    "tag": "p",
+    "flag": 1
+  },
+  {
+    "id": "kxydi9ryaymjilivbli",
+    "html": "감사합니다.<div>000 드림.</div>",
     "tag": "p",
     "flag": 1
   }

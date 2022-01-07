@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const FontStyle = createGlobalStyle`
 @font-face {
@@ -11,6 +11,9 @@ const FontStyle = createGlobalStyle`
 * {
     font-family: 'Pretendard-Regular';
   }
+p {
+  font-size:12px;
+}
  
 `;
 

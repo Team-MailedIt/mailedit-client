@@ -25,3 +25,4 @@ yarn-error.log*
 
 # security
 .env
+package-lock.json
