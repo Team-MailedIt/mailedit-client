@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 import fetchedData from '../../data.json';
+import {
+  TemplateSubTitle,
+  TemplateTitle,
+  TemplateSelectButton,
+  VerticalLine,
+} from './Components';
+import { PrevIcon } from '../../constants/icons';
 
 const TemplatePage = ({ getBlockFromTemplate }) => {
   const [blocks, setBlocks] = useState(fetchedData);
@@ -25,36 +33,59 @@ const TemplatePage = ({ getBlockFromTemplate }) => {
   };
 
   return (
-    <Box>
-      <h3>[00팀] 00/00 00프로젝트 회의 일정 공유</h3>
-      {parsedBlocks.map(({ id, tag, html, flag }, index) => (
-        <Block id={index} key={id} onClick={onClickHandler}>
-          {html}
-        </Block>
-      ))}
-    </Box>
+    <>
+      <div>
+        <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
+          <PrevIcon src="img/prevIcon.png" width="32px" height="32px" />
+        </RowContainer>
+        <div style={{ marginLeft: '40px', marginRight: '40px' }}>
+          <Container style={{ marginTop: '24px' }}>
+            <RowContainer>
+              <TemplateTitle>일정 공유</TemplateTitle>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: 'space-between' }}>
+              <TemplateSubTitle>
+                제목: [OO팀] OO/OO 프로젝트 회의 일정 공유
+              </TemplateSubTitle>
+              <TemplateSelectButton>템플릿 쓰기</TemplateSelectButton>
+            </RowContainer>
+          </Container>
+          <Container style={{ marginTop: '20px' }}>
+            {parsedBlocks.map(({ id, tag, html, flag }, index) => (
+              <Block id={index} key={id} onClick={onClickHandler}>
+                {html}
+              </Block>
+            ))}
+          </Container>
+        </div>
+      </div>
+    </>
   );
 };
-
-const Box = styled.div`
-  width: 450px;
-  height: 70vh;
-  margin: 24px;
-  padding-top: 24px;
-  border: 1px solid black;
-  border-radius: 2px;
-  background: #ffffff;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 24px;
+  padding-right: 24px;
+`;
+const RowContainer = styled.div`
+  display: flex;
+  flex-direction: 'row';
+  align-items: 'center';
+  margin-bottom: 8px;
 `;
 const Block = styled.div`
-  margin: 10px;
   white-space: pre-wrap;
-
-  padding: 6px;
-
-  background: #dbe1f6;
-  border: 1px solid #4c6ef5;
-
-  font-size: 12px;
+  border: 1px solid ${COLORS.blockBorder};
+  background: ${COLORS.blockBackground};
+  border-radius: 2px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  line-height: 24px;
+  font-size: 16px;
 `;
 
 export default TemplatePage;
