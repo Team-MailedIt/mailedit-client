@@ -17,32 +17,38 @@ const SignIn = () => {
     API.post("/signin", JSON.stringify(user)).then((res) => {
       localStorage.setItem("accessToken", res.data.token.access);
       localStorage.setItem("refreshToken", res.data.token.refresh);
-      localStorage.setItem(
-        "expiredAt",
-        jwtDecode(res.data.token.access).exp * 1000
-      );
+      localStorage.setItem("expiredAt", jwtDecode(res.data.token.access).exp);
 
-      const decoded = jwtDecode(res.data.token.access);
-      const iat = decoded.iat;
-      const exp = decoded.exp;
-      const now = Date.now();
+      const accessToken = res.data.token.access;
+      API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-      console.log("만료 시간: ", new Date(exp * 1000));
-      console.log("현재 시간: ", new Date(now));
-      console.log("만료 시간 5분 전: ", new Date(exp * 1000 - 300000));
+      // const refreshToken = localStorage.getItem("refreshToken");
+      const expiredAt = parseInt(localStorage.getItem("expiredAt"));
+
+      const exp = expiredAt * 1000; // 13자리
+      const now = Date.now(); // 13자리
+
+      // console.log("signin: ", exp - now);
+      // const decoded = jwtDecode(res.data.token.access);
+      // const iat = decoded.iat;
+      // const exp = decoded.exp;
+      // const now = Date.now();
+
+      // console.log("만료 시간: ", new Date(exp * 1000));
+      // console.log("현재 시간: ", new Date(now));
+      // console.log("만료 시간 5분 전: ", new Date(exp * 1000 - 300000));
     });
   };
 
   const handleTestBtnClick = () => {
     const token = localStorage.getItem("accessToken");
-    console.log("accessToken: ", token);
 
     API.get("/test", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      alert(res.data);
+      // alert(res.data);
     });
   };
 
@@ -59,9 +65,6 @@ const SignIn = () => {
   };
 
   const handleSignOutBtnClick = () => {
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("exp: ", Date(jwtDecode(accessToken).exp));
-    console.log("iat: ", Date(jwtDecode(accessToken).iat));
     localStorage.clear();
     console.log("로그아웃됨");
   };
