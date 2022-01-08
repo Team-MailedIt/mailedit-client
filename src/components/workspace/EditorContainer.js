@@ -20,7 +20,7 @@ const EditorContainer = ({ passedBlocks }) => {
           display: 'flex',
           justifyContent: 'flex-end',
           marginRight: '40px',
-          marginTop: '20px',
+          marginTop: '24px',
         }}
       >
         <TemplateSaveButton>템플릿 저장하기</TemplateSaveButton>
@@ -31,13 +31,14 @@ const EditorContainer = ({ passedBlocks }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   background: ${COLORS.UIWhite};
   border-left: 0.5px solid ${COLORS.gray5};
 `;
 const BodyContainer = styled.div`
-  border: none;
-  height: 73vh;
+  border: 1px solid black;
+  height: 788px;
+  max-width: 664px;
   background: ${COLORS.backgroundWhite};
   margin-left: 40px;
   margin-right: 40px;

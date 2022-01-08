@@ -252,8 +252,10 @@ const EditPage = ({ passedBlocks }) => {
 
 const Container = styled.div`
   /* padding-top: 24px; */
-  /* display: flex;
-  flex-direction: column; */
+  /* height: 688px;
+  width: 612px; */
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
 `;
 
@@ -267,6 +269,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: ;
 `;
 
 export default EditPage;

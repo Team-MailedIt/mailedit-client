@@ -43,7 +43,9 @@ export default HeaderContainer;
 const Container = styled.div`
   /* display: flex; */
   /* flex-direction: 'column'; */
-  /* margin-top: 72px; */
+  /* width: 460px; */
+  diaplay: flex;
+  margin-top: 72px;
   margin-left: 40px;
 `;
 const RowContainer = styled.div`

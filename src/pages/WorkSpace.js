@@ -26,7 +26,7 @@ const WorkSpace = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(530px, auto))',
+          gridTemplateColumns: '1fr 1fr',
         }}
       >
         <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />

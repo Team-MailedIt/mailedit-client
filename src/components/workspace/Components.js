@@ -34,8 +34,8 @@ export const TemplateSubTitle = styled.span`
 `;
 
 export const TemplateSaveButton = styled.button`
-  width: 161px;
-  height: 33px;
+  width: 173px;
+  height: 40px;
 
   border: none;
   background: ${COLORS.primary};
