@@ -38,7 +38,7 @@ const TemplatePage = ({ getBlockFromTemplate }) => {
         <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
           <PrevIcon src="img/prevIcon.png" width="32px" height="32px" />
         </RowContainer>
-        <div style={{ paddingLeft: '68px', paddingRight: '68px' }}>
+        <div style={{ marginLeft: '40px', marginRight: '40px' }}>
           <Container style={{ marginTop: '24px' }}>
             <RowContainer>
               <TemplateTitle>일정 공유</TemplateTitle>

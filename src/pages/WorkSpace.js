@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Sidebar from '../components/commons/Sidebar';
 import EditorContainer from '../components/workspace/EditorContainer';
 import TemplatePage from '../components/workspace/TemplatePage';
 import uid from '../utils/uid';
@@ -18,12 +19,19 @@ const WorkSpace = () => {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, minmax(530px, auto))',
-        columnGap: '20px',
+        gridTemplateColumns: '1.7fr 8.3fr',
       }}
     >
-      <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
-      <EditorContainer passedBlocks={blocks} />
+      <Sidebar />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, minmax(530px, auto))',
+        }}
+      >
+        <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
+        <EditorContainer passedBlocks={blocks} />
+      </div>
     </div>
   );
 };

@@ -48,6 +48,7 @@ export const TemplateSaveButton = styled.button`
 `;
 export const TemplateTitleInput = styled.input`
   height: 29px;
+  width: 450px;
 
   font-style: normal;
   font-weight: 600;

@@ -19,7 +19,7 @@ const EditorContainer = ({ passedBlocks }) => {
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
-          marginRight: '20px',
+          marginRight: '40px',
           marginTop: '20px',
         }}
       >
@@ -39,8 +39,8 @@ const BodyContainer = styled.div`
   border: none;
   height: 73vh;
   background: ${COLORS.backgroundWhite};
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
   padding-left: 26px;
   padding-right: 26px;
   border-radius: 2px;
