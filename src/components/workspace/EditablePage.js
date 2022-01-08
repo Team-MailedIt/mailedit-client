@@ -6,10 +6,9 @@ import uid from '../../utils/uid';
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
-import COLORS from '../../constants/colors';
 import { DragIcon } from '../../constants/icons';
 
-const EditPage = ({ passedBlocks }) => {
+const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
@@ -252,8 +251,9 @@ const EditPage = ({ passedBlocks }) => {
 
 const Container = styled.div`
   /* padding-top: 24px; */
-  /* height: 688px;
-  width: 612px; */
+  height: 688px;
+  /* height: 80%; */
+
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

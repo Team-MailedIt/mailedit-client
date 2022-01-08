@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import useInput from '../../hooks/useInput';
 import {
   TemplateTitleInput,
   TemplateMemoInput,
@@ -6,7 +8,24 @@ import {
   SubTitle,
   TemplateMemoInputContainer,
 } from './Components';
-const HeaderContainer = () => {
+const HeaderContainer = ({ handleHeaderData }) => {
+  const [title, setTitle] = useInput('');
+  const [subtitle, setSubtitle] = useInput('');
+  const [group, setGroup] = useState();
+
+  // set state to EditorContainer
+  useEffect(() => {
+    handleHeaderData({
+      title: title,
+      subtitle: subtitle,
+      group: { name: '학교', color: '#38D9A9' },
+    });
+  }, [title, subtitle, group]);
+
+  const handleGroup = () => {
+    window.alert('아직 미구현');
+  };
+
   return (
     <Container>
       <RowContainer>
@@ -14,8 +33,8 @@ const HeaderContainer = () => {
           type="text"
           placeholder="템플릿의 제목을 입력하세요"
           size="50"
-          // value={username}
-          // onChange={setUserId}
+          value={title}
+          onChange={setTitle}
         />
       </RowContainer>
       <RowContainer style={{ marginTop: '16px' }}>
@@ -25,14 +44,16 @@ const HeaderContainer = () => {
             type="text"
             placeholder="상황, 받는 사람, 목적 등을 입력하세요"
             size="30"
-            // value={username}
-            // onChange={setUserId}
+            value={subtitle}
+            onChange={setSubtitle}
           />
         </TemplateMemoInputContainer>
       </RowContainer>
       <RowContainer style={{ marginTop: '8px', marginBottom: '16px' }}>
         <SubTitle>그룹</SubTitle>
-        <TemplateSelectGroupButton>그룹 지정하기</TemplateSelectGroupButton>
+        <TemplateSelectGroupButton onClick={handleGroup}>
+          그룹 지정하기
+        </TemplateSelectGroupButton>
       </RowContainer>
     </Container>
   );

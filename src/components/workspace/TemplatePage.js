@@ -6,7 +6,6 @@ import {
   TemplateSubTitle,
   TemplateTitle,
   TemplateSelectButton,
-  VerticalLine,
 } from './Components';
 import { PrevIcon } from '../../constants/icons';
 
