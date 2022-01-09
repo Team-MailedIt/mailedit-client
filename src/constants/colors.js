@@ -23,7 +23,7 @@ const COLORS = {
   gray9: '#212529',
 
   /* Text Colors */
-  UIBlack: '#000000',
+  UIBlack: '#111111',
   UIWhite: '#FFFFFF',
 
   /* Background Colors */

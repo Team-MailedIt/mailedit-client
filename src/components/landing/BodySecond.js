@@ -29,8 +29,6 @@ const Container = styled.div`
 
   justify-content: center;
   align-items: center;
-
-  border: 1px solid black;
 `;
 const HeadingContainer = styled.div`
   display: flex;
