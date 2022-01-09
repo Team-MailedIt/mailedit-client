@@ -159,3 +159,16 @@ export const BodySpan = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+export const CreateTemplateButton = styled.button`
+  width: 228px;
+  height: 48px;
+
+  border: none;
+  background: ${COLORS.blockBorder};
+  border-radius: 4px;
+
+  color: ${COLORS.UIWhite};
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+`;
