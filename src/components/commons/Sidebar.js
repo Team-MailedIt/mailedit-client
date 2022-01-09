@@ -12,32 +12,32 @@ import Checkbox from "react-custom-checkbox";
 
 const Sidebar = () => {
   // dummy data
-  const [groups, setGroups] = useState(null);
-
-  // {
-  //   userId: 5,
-  //   id: 1,
-  //   name: "학교",
-  //   color: "#3138FF",
-  // },
-  // {
-  //   userId: 5,
-  //   id: 2,
-  //   name: "회사",
-  //   color: "#E64980",
-  // },
-  // {
-  //   userId: 5,
-  //   id: 3,
-  //   name: "그룹2",
-  //   color: "#38D9A9",
-  // },
-  // {
-  //   userId: 5,
-  //   id: 4,
-  //   name: "그룹3",
-  //   color: "#FAB005",
-  // },
+  const [groups, setGroups] = useState([
+    {
+      userId: 5,
+      id: 1,
+      name: "학교",
+      color: "#3138FF",
+    },
+    {
+      userId: 5,
+      id: 2,
+      name: "회사",
+      color: "#E64980",
+    },
+    {
+      userId: 5,
+      id: 3,
+      name: "그룹2",
+      color: "#38D9A9",
+    },
+    {
+      userId: 5,
+      id: 4,
+      name: "그룹3",
+      color: "#FAB005",
+    },
+  ]);
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -262,13 +262,11 @@ const NoTemplates = styled.div`
   height: 44px;
 
   margin: 24px 39px 0px 40px;
-  font-size: 15px;
-  line-height: 22px;
-  color: white;
 
-  padding: 0;
-  background: none;
-  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22px;
 `;
 
 export default Sidebar;
