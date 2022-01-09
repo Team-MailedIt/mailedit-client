@@ -46,3 +46,10 @@ export const Illust_2 = styled.img`
   width: 1400px;
   height: 598px;
 `;
+export const FooterLogo = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 180;
+  height: 35px;
+`;

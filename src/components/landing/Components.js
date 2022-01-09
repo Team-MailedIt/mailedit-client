@@ -172,3 +172,12 @@ export const CreateTemplateButton = styled.button`
   text-decoration: none;
   font-size: 20px;
 `;
+export const FooterBodySpan = styled.span`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: ${COLORS.UIWhite};
+  display: flex;
+  align-items: center;
+`;
