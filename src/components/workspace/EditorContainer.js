@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import { TemplateSaveButton, HorizontalLine, CopyButton } from './Components';
 import EditPage from './EditablePage';
 import HeaderContainer from './HeaderContainer';
+import { CopyContext } from '../../contexts/CopyContexts';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
+  const { setActionHandler } = useContext(CopyContext);
 
   const handleHeaderData = (newValue) => {
     setHeaderData(newValue);
@@ -18,7 +20,7 @@ const EditorContainer = ({ passedBlocks }) => {
   };
 
   const copyButtonHandler = () => {
-    getBlocksHandler();
+    setActionHandler(true);
     window.alert('복사되었습니다!');
   };
 

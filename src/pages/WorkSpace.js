@@ -3,6 +3,7 @@ import Sidebar from '../components/commons/Sidebar';
 import EditorContainer from '../components/workspace/EditorContainer';
 import TemplatePage from '../components/workspace/TemplatePage';
 import uid from '../utils/uid';
+import CopyContextProvider from '../contexts/CopyContexts';
 
 const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
@@ -23,15 +24,17 @@ const WorkSpace = () => {
       }}
     >
       <Sidebar />
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-        }}
-      >
-        <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
-        <EditorContainer passedBlocks={blocks} />
-      </div>
+      <CopyContextProvider>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+          }}
+        >
+          <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
+          <EditorContainer passedBlocks={blocks} />
+        </div>
+      </CopyContextProvider>
     </div>
   );
 };
