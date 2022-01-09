@@ -1,16 +1,13 @@
 import styled from "styled-components";
-import COLORS from "../../constants/colors";
-
-import search from "../../constants/icons/search.svg";
-import star from "../../constants/icons/star.svg";
-
-import logo from "../../constants/icons/logo.svg";
-import check from "../../constants/icons/check.svg";
-
 import { useState } from "react";
-import Checkbox from "react-custom-checkbox";
 
-const Sidebar = () => {
+import logo from "../../../constants/icons/logo.svg";
+import search from "../../../constants/icons/search.svg";
+import star from "../../../constants/icons/star.svg";
+
+import COLORS from "../../../constants/colors";
+
+const SidebarPresenter = ({ contents, item, button }) => {
   // dummy data
   const [groups, setGroups] = useState([
     {
@@ -39,12 +36,6 @@ const Sidebar = () => {
     },
   ]);
 
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckBoxClick = () => {
-    setIsChecked(!isChecked);
-  };
-
   return (
     <Wrapper>
       <Logo src={logo} />
@@ -53,66 +44,29 @@ const Sidebar = () => {
         <Input placeholder="템플릿을 검색하세요" spellCheck={false} />
       </SearchingField>
       <MyTemplate>마이템플릿</MyTemplate>
-
-      {groups ? (
-        <>
-          <Group>
-            <StarIcon src={star} />
-            <GroupName>즐겨찾기</GroupName>
-          </Group>
-          <Border />
-          <SelectAllWrapper>
-            <SelectAll>전체선택</SelectAll>
-            <Checkbox
-              checked={isChecked}
-              icon={
-                <div
-                  style={{
-                    display: "flex",
-                    backgroundColor: "#FFFFFF",
-                  }}
-                >
-                  <CheckIcon src={check} />
-                </div>
-              }
-              borderColor="#FFFFFF"
-              borderRadius="2px"
-              borderWidth="1px"
-              style={{ overflow: "hidden" }}
-              size="16px"
-            />
-          </SelectAllWrapper>
-          {groups.map((group) => (
+      <Group>
+        <StarIcon src={star} />
+        <GroupName>즐겨찾기</GroupName>
+      </Group>
+      <Border />
+      {item}
+      <>
+        {groups ? (
+          groups.map((group) => (
             <Group key={group.id}>
               <GroupIndex color={group.color} />
               <GroupName>{group.name}</GroupName>
-              <Checkbox
-                checked={isChecked}
-                icon={
-                  <div
-                    style={{
-                      display: "flex",
-                      backgroundColor: "#FFFFFF",
-                    }}
-                  >
-                    <CheckIcon src={check} />
-                  </div>
-                }
-                borderColor="#FFFFFF"
-                borderRadius="2px"
-                borderWidth="1px"
-                style={{ overflow: "hidden" }}
-                size="16px"
-                onClick={handleCheckBoxClick}
-              />
+              {button}
             </Group>
-          ))}
-        </>
-      ) : (
-        <NoTemplates>
-          마이템플릿이 아직 없네요! <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-        </NoTemplates>
-      )}
+          ))
+        ) : (
+          <NoTemplates>
+            마이템플릿이 아직 없네요!
+            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
+          </NoTemplates>
+        )}
+      </>
+      {contents}
     </Wrapper>
   );
 };
@@ -215,31 +169,6 @@ const GroupName = styled.span`
   color: ${COLORS.UIWhite};
 `;
 
-const SelectAll = styled.span`
-  width: 56px;
-  height: 20px;
-  margin: 2px 168px 2px 4px;
-
-  font-size: 16px;
-  line-height: 19px;
-
-  color: ${COLORS.UIWhite};
-`;
-
-const SelectAllWrapper = styled.div`
-  width: 252px;
-  height: 24px;
-
-  margin: 21px 40px 0px 36px;
-
-  display: flex;
-  flex-direction: row;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 const Border = styled.hr`
   width: 246px;
   height: 0.5px;
@@ -257,11 +186,6 @@ const GroupIndex = styled.div`
   background: ${(props) => props.color};
 `;
 
-const CheckIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
 const NoTemplates = styled.div`
   width: 249px;
   height: 44px;
@@ -274,4 +198,4 @@ const NoTemplates = styled.div`
   line-height: 22px;
 `;
 
-export default Sidebar;
+export default SidebarPresenter;

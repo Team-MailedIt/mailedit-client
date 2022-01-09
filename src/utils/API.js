@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const API = axios.create({
   baseURL: "https://mailedit.kro.kr/api",
@@ -7,42 +8,43 @@ const API = axios.create({
   },
 });
 
-// API.interceptors.response.use((config) => {
-//   // 요청을 보내기 전에 access token의 만료 시간과 가까운지 확인
-//   const refreshToken = localStorage.getItem("refreshToken");
-//   const expiredAt = parseInt(localStorage.getItem("expiredAt"));
+API.interceptors.request.use((config) => {
+  // 요청을 보내기 전에 헤더에 토큰 값을 붙이기
+  const accessToken = localStorage.getItem("accessToken");
+  accessToken && (config.headers.Authorization = `Bearer ${accessToken}`);
 
-//   const exp = expiredAt * 1000; // 13자리
-//   const now = Date.now(); // 13자리
+  // 구글 로그인의 경우 id token 값을 헤더에 붙이기
+  const idToken = localStorage.getItem("idToken");
+  idToken && (config.headers.Authorization = idToken);
 
-//   // 1800000: 30분
-//   // 만료 시간과 현재 시간의 차이가 5분(300000) 미만이면 토큰 재발급 요청
-//   if (refreshToken) {
-//     const params = new URLSearchParams();
-//     params.append("refresh", refreshToken);
+  const refreshToken = localStorage.getItem("refreshToken");
 
-//     // 만료 시간과의 차이가 5초 ~ 5.001초 만큼 남았다면
-//     if (exp - now < 30000) {
-//       API.post("/token/refresh", params, {
-//         headers: {
-//           "Content-Type": "application/x-www-form-urlencoded",
-//         },
-//       })
-//         .then((res) => {
-//           localStorage.setItem("accessToken", res.data.access);
-//           console.log(res);
-//           // localStorage.setItem("expiredAt", jwtDecode(res.data.access).exp);
-//           alert("토큰 재발급됨!");
-//         })
-//         .catch((err) => {
-//           console.log("err: ", err);
-//           alert("토큰 재발급 중 오류!");
-//         });
-//       console.log("확인");
-//     }
-//   }
+  const exp = jwtDecode(accessToken).exp * 1000;
+  const now = Date.now();
 
-//   return config;
-// });
+  if (refreshToken) {
+    const params = new URLSearchParams();
+    params.append("refresh", refreshToken);
+
+    // 토큰 만료까지 5분 미만의 시간이 남았다면 재발급 요청
+    if (exp - now < 30000) {
+      axios
+        .post("https://mailedit.kro.kr/api/token/refresh", params, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
+        .then((res) => {
+          localStorage.setItem("accessToken", res.data.access);
+          alert("토큰 재발급됨!");
+        })
+        .catch((err) => {
+          console.log("err: ", err);
+          alert("토큰 재발급 중 오류!");
+        });
+    }
+  }
+  return config;
+});
 
 export default API;

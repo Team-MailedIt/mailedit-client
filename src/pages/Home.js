@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Sidebar from "../components/commons/Sidebar";
+import MainSidebar from "../components/home/MainSidebar";
 import styled from "styled-components";
 
 const Home = () => {
   return (
     <Wrapper>
-      <Sidebar />
+      <MainSidebar />
       <h1>I'm home page</h1>
       <Link to={"/workspace"}>
         <span>go to workspace</span>

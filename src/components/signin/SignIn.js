@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GoogleLogin from "react-google-login";
+import jwtDecode from "jwt-decode";
 
 import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
