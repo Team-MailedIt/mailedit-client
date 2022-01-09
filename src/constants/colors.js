@@ -3,6 +3,7 @@ const COLORS = {
   primary: '#5C7CFA',
   blockBackground: '#5274EF26',
   blockBorder: '#5274EF',
+  bodyBlue: '#2850DD',
 
   indigo0: '#EEF1FE',
   indigo2: '#BAC8FF',

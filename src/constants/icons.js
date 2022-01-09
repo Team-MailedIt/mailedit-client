@@ -30,3 +30,19 @@ export const Illust_1 = styled.img`
   width: 594px;
   height: 409px;
 `;
+
+export const BodyLogo = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 452px;
+  height: 92px;
+`;
+
+export const Illust_2 = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 1400px;
+  height: 598px;
+`;
