@@ -14,8 +14,9 @@ const SignInModal = ({ isModalOpen, setIsModalOpen, contents }) => {
 };
 
 const Modal = styled(ReactModal)`
-  width: 400px;
-  height: 600px;
+  width: 300px;
+  height: 450px;
+
   background: #ffffff;
   border: 1px solid grey;
   border-radius: 10px;

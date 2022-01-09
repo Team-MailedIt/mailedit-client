@@ -1,95 +1,65 @@
 import styled from "styled-components";
 import GoogleLogin from "react-google-login";
+
 import API from "../../utils/API";
-import { useState } from "react";
-import jwtDecode from "jwt-decode";
+import useInputs from "../../hooks/useInputs";
 
 const SignIn = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [name, setName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const handleSignInBtnClick = () => {
-    API.post("/signin", JSON.stringify(user)).then((res) => {
-      localStorage.setItem("accessToken", res.data.token.access);
-      localStorage.setItem("refreshToken", res.data.token.refresh);
-      localStorage.setItem("expiredAt", jwtDecode(res.data.token.access).exp);
-
-      const accessToken = res.data.token.access;
-      API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-      // const refreshToken = localStorage.getItem("refreshToken");
-      const expiredAt = parseInt(localStorage.getItem("expiredAt"));
-
-      const exp = expiredAt * 1000; // 13자리
-      const now = Date.now(); // 13자리
-
-      // console.log("signin: ", exp - now);
-      // const decoded = jwtDecode(res.data.token.access);
-      // const iat = decoded.iat;
-      // const exp = decoded.exp;
-      // const now = Date.now();
-
-      // console.log("만료 시간: ", new Date(exp * 1000));
-      // console.log("현재 시간: ", new Date(now));
-      // console.log("만료 시간 5분 전: ", new Date(exp * 1000 - 300000));
+  const [{ name, email, password, confirmPassword }, handleInputChange, reset] =
+    useInputs({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     });
-  };
 
-  const handleTestBtnClick = () => {
-    const token = localStorage.getItem("accessToken");
+  const signInUser = { email: email, password: password };
+  const signUpUser = { name: name, email: email, password: password };
 
-    API.get("/test", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      // alert(res.data);
-    });
-  };
-
+  // 회원가입
   const handleSignUpBtnClick = () => {
-    if (user.password === confirmPassword) {
-      API.post("/signup", JSON.stringify({ ...user, username: name })).then(
-        (res) => {
-          alert(res.data.message);
-        }
-      );
+    if (password === confirmPassword) {
+      API.post("/signup", JSON.stringify(signUpUser)).then((res) => {
+        alert(res.data.message);
+      });
     } else {
       alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     }
   };
 
+  // 로그인
+  const handleSignInBtnClick = () => {
+    API.post("/login", JSON.stringify(signInUser)).then((res) => {
+      localStorage.setItem("accessToken", res.data.token.access);
+      localStorage.setItem("refreshToken", res.data.token.refresh);
+
+      // 헤더에 access token 값 붙이기
+      const accessToken = res.data.token.access;
+      API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    });
+  };
+
+  // 로그인한 사용자만 요청 가능한 api 테스트
+  const handleTestBtnClick = () => {
+    API.get("/test").then((res) => {
+      alert(res.data);
+    });
+  };
+
+  // 로그아웃
   const handleSignOutBtnClick = () => {
     localStorage.clear();
     console.log("로그아웃됨");
   };
 
-  const handleInputFormChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  const handleInputChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const onSuccess = async (res) => {
-    // console.log("onSucess: ", res);
+  // 구글 로그인 성공 시
+  const onGoogleSignInSuccess = async (res) => {
     localStorage.setItem("userData", JSON.stringify(res.profileObj));
-    localStorage.setItem("idToken", res.tokenObj.id_token);
 
     const params = new URLSearchParams();
     params.append("idToken", res.tokenObj.id_token);
 
-    API.post("/google/login", params, {
+    API.post("/login/google", params, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -104,7 +74,8 @@ const SignIn = () => {
       });
   };
 
-  const onFailure = (res) => {
+  // 구글 로그인 실패 시
+  const onGoogleSignInFailure = (res) => {
     console.log("onFailure: ", res);
   };
 
@@ -113,41 +84,40 @@ const SignIn = () => {
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_API_KEY}
         buttonText="구글로 계속하기"
-        onSuccess={onSuccess}
-        onFailure={onFailure}
+        onSuccess={onGoogleSignInSuccess}
+        onFailure={onGoogleSignInFailure}
       />
       <Input
+        type="name"
         name="name"
         value={name}
-        onChange={handleChange}
+        onChange={handleInputChange}
         placeholder="이름"
-        type="name"
       />
       <Input
-        name="email"
-        value={user.email}
-        onChange={handleInputFormChange}
-        placeholder="이메일"
         type="email"
+        name="email"
+        value={email}
+        onChange={handleInputChange}
+        placeholder="이메일"
       />
       <Input
-        name="password"
-        value={user.password}
-        onChange={handleInputFormChange}
-        placeholder="비밀번호"
         type="password"
+        name="password"
+        value={password}
+        onChange={handleInputChange}
+        placeholder="비밀번호"
       />
       <Input
+        type="password"
         name="confirmPassword"
         value={confirmPassword}
         onChange={handleInputChange}
         placeholder="비밀번호 확인"
-        type="password"
       />
       <SubmitBtn onClick={handleSignUpBtnClick}>회원가입</SubmitBtn>
       <SubmitBtn onClick={handleSignInBtnClick}>로그인</SubmitBtn>
       <SubmitBtn onClick={handleSignOutBtnClick}>로그아웃</SubmitBtn>
-
       <SubmitBtn onClick={handleTestBtnClick}>Test</SubmitBtn>
     </>
   );

@@ -16,9 +16,7 @@ a{
   color: black;
 }
 
-p{
-  /* display: block; */
-  
+p{  
   margin-block-start: 0px;
   margin-block-end: 6px;
 }
@@ -26,6 +24,15 @@ p{
 ::placeholder {
   color: ${COLORS.gray5};
   opacity: 1; /* Firefox */
+}
+
+
+input:focus , select:focus, option:focus, textarea:focus, button:focus{
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer
 }
 
 

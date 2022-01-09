@@ -50,7 +50,7 @@ const Sidebar = () => {
       <Logo src={logo} />
       <SearchingField>
         <SearchIcon src={search} />
-        <Input placeholder="템플릿을 검색하세요" />
+        <Input placeholder="템플릿을 검색하세요" spellCheck={false} />
       </SearchingField>
       <MyTemplate>마이템플릿</MyTemplate>
 
@@ -150,9 +150,6 @@ const Input = styled.input`
 
   background: none;
   border: none;
-  &:focus {
-    outline: none;
-  }
   color: white;
 
   &::placeholder {
@@ -195,6 +192,10 @@ const Group = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StarIcon = styled.img`
@@ -233,6 +234,10 @@ const SelectAllWrapper = styled.div`
 
   display: flex;
   flex-direction: row;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Border = styled.hr`
