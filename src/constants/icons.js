@@ -22,3 +22,11 @@ export const MainLogo = styled.img`
   width: 220px;
   height: 44px;
 `;
+
+export const Illust_1 = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 594px;
+  height: 409px;
+`;

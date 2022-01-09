@@ -30,3 +30,37 @@ export const VerticalLine = styled.div`
   width: 0.5px;
   height: 18px;
 `;
+
+export const MainHeading = styled.span`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 44px;
+  line-height: 140%;
+  color: ${COLORS.UIBlack};
+  display: flex;
+  align-items: center;
+`;
+
+export const MainSubHeading = styled.span`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 140%;
+  color: ${COLORS.UIBlack};
+  display: flex;
+  align-items: center;
+`;
+
+export const LookAroundButton = styled.button`
+  width: 246px;
+  height: 52px;
+
+  border: none;
+  background: ${COLORS.primary};
+  border-radius: 4px;
+
+  color: ${COLORS.UIWhite};
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+`;
