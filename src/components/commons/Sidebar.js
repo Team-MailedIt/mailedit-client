@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import COLORS from "../../constants/colors";
 
-import search from "../../constants/icons/sidebar/search.svg";
-import star from "../../constants/icons/sidebar/star.svg";
+import search from "../../constants/icons/search.svg";
+import star from "../../constants/icons/star.svg";
 
-import logo from "../../constants/icons/sidebar/logo.svg";
+import logo from "../../constants/icons/logo.svg";
+import check from "../../constants/icons/check.svg";
+
 import { useState } from "react";
+import Checkbox from "react-custom-checkbox";
 
 const Sidebar = () => {
+  // dummy data
   const [groups, setGroups] = useState([
     {
       userId: 5,
@@ -35,6 +39,12 @@ const Sidebar = () => {
     },
   ]);
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckBoxClick = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <Wrapper>
       <Logo src={logo} />
@@ -47,9 +57,23 @@ const Sidebar = () => {
         <StarIcon src={star} />
         <GroupName>즐겨찾기</GroupName>
       </Group>
-
       <Border />
       <SelectAll>전체선택</SelectAll>
+      <Checkbox
+        checked={isChecked}
+        icon={<CheckBoxWrapper src={check} />}
+        style={{
+          width: 16,
+          height: 16,
+          borderRadius: 1,
+        }}
+        borderWidth={2}
+        borderColor={COLORS.UIWhite}
+        borderRadius={3}
+        backgroundColor="#FFFFFF"
+        size={16}
+        onChange={handleCheckBoxClick}
+      />
       {groups.map((group) => (
         <Group key={group.id}>
           <GroupIndex color={group.color} />
@@ -80,6 +104,7 @@ const SearchingField = styled.section`
 
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   background: #748ffc;
 
@@ -100,7 +125,6 @@ const Input = styled.input`
   &::placeholder {
     color: ${COLORS.indigo1};
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 19px;
@@ -119,7 +143,6 @@ const MyTemplate = styled.span`
   height: 26px;
   margin: 42px 192px 24px 40px;
 
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
   line-height: 26px;
@@ -138,7 +161,7 @@ const Group = styled.section`
 
   display: flex;
   flex-direction: row;
-  justify-contents: center;
+  align-items: center;
 `;
 
 const StarIcon = styled.img`
@@ -148,10 +171,10 @@ const StarIcon = styled.img`
 `;
 
 const GroupName = styled.span`
+  width: 160px;
   height: 20px;
-  margin: 2px 2px 0px 8px;
+  margin: 2px 52px 0px 8px;
 
-  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
 
@@ -161,7 +184,7 @@ const GroupName = styled.span`
 const SelectAll = styled.span`
   width: 56px;
   height: 20px;
-  margin: 21px 0px 0px 40px;
+  margin: 21px 168px 0px 40px;
 
   font-size: 16px;
   line-height: 19px;
@@ -174,7 +197,7 @@ const Border = styled.hr`
   height: 0.5px;
   margin: 16px 46px 22px 36px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.25);
 `;
 
 const GroupIndex = styled.div`
@@ -184,6 +207,12 @@ const GroupIndex = styled.div`
 
   border-radius: 1px;
   background: ${(props) => props.color};
+`;
+
+const CheckBoxWrapper = styled.div`
+  width: 12px;
+  height: 12px;
+  background: "#FFFFFF";
 `;
 
 export default Sidebar;
