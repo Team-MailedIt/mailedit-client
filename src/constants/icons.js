@@ -23,7 +23,7 @@ export const MainLogo = styled.img`
   height: 44px;
 `;
 
-export const Illust_1 = styled.img`
+export const Illust1 = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
@@ -39,7 +39,7 @@ export const BodyLogo = styled.img`
   height: 92px;
 `;
 
-export const Illust_2 = styled.img`
+export const Illust2 = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;

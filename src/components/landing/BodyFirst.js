@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Illust_1 } from '../../constants/icons';
+import { Illust1 } from '../../constants/icons';
 import { MainHeading, MainSubHeading, LookAroundButton } from './Components';
 
 const BodyFirst = () => {
@@ -19,7 +19,7 @@ const BodyFirst = () => {
         <LookAroundButton>둘러보기</LookAroundButton>
       </LeftContainer>
       <RightContainer style={{ marginLeft: '54px', marginTop: '67px' }}>
-        <Illust_1 src="./img/illust_1.png" />
+        <Illust1 src="./img/illust_1.png" />
       </RightContainer>
     </Container>
   );

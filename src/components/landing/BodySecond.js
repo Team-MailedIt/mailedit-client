@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BodyLogo, Illust_2 } from '../../constants/icons';
+import { BodyLogo, Illust2 } from '../../constants/icons';
 import COLORS from '../../constants/colors';
 const BodySecond = () => {
   return (
@@ -15,7 +15,7 @@ const BodySecond = () => {
         선두합니다.
       </SubHeading>
       <div style={{ paddingTop: '76px' }}>
-        <Illust_2 src="./img/illust_2.png" />
+        <Illust2 src="./img/illust_2.png" />
       </div>
     </Container>
   );
