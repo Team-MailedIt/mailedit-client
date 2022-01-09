@@ -3,6 +3,7 @@ import ContentEditable from 'react-contenteditable';
 import getSelection from '../../utils/getSelection';
 import getCaretCoordinates from '../../utils/getCaretCoordinates';
 import FloatingButton from './FloatingButton';
+import COLORS from '../../constants/colors';
 
 class EditableBlock extends React.Component {
   constructor(props) {
@@ -180,14 +181,14 @@ class EditableBlock extends React.Component {
         <ContentEditable
           //disabled={false} // use true to disable editing
           style={{
-            marginLeft: '24px',
-            marginRight: '24px',
-            paddingTop: '12px',
-            paddingBottom: '12px',
-            paddingLeft: '6px',
-            paddingRight: '6px',
-            background: this.props.flag ? '#DBE1F6' : '#F1F3F5',
-            border: this.props.flag ? '1px solid #4C6EF5' : null,
+            // marginLeft: '24px',
+            // marginRight: '24px',
+            paddingTop: '4px',
+            paddingBottom: '4px',
+            paddingLeft: '12px',
+            // paddingRight: '6px',
+            background: this.props.flag ? COLORS.blockBackground : COLORS.gray1,
+            border: this.props.flag ? `1px solid ${COLORS.blockBorder}` : null,
             outlineColor: '#4C6EF5',
             borderRadius: '2px',
             width: '100%',

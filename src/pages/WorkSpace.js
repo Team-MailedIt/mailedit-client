@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import EditPage from '../components/workspace/EditablePage';
+import Sidebar from '../components/commons/Sidebar';
+import EditorContainer from '../components/workspace/EditorContainer';
 import TemplatePage from '../components/workspace/TemplatePage';
 import uid from '../utils/uid';
 
@@ -16,13 +16,21 @@ const WorkSpace = () => {
   };
 
   return (
-    <div>
-      <Link to={'/'}>
-        <h1>go to landing</h1>
-      </Link>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.7fr 8.3fr',
+      }}
+    >
+      <Sidebar />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, minmax(530px, auto))',
+        }}
+      >
         <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
-        <EditPage passedBlocks={blocks} />
+        <EditorContainer passedBlocks={blocks} />
       </div>
     </div>
   );

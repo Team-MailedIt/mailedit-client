@@ -28,7 +28,7 @@ const COLORS = {
   UIWhite: "#FFFFFF",
 
   /* Background Colors */
-  backgroundWhite: "#FFFFFF",
+  backgroundWhite: "#F5F8FF",
   sidebar: "#5C7CFA",
 
   /* Tag Colors */
