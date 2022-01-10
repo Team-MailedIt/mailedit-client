@@ -50,6 +50,20 @@ export const FooterLogo = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
-  width: 180;
+  width: 180px;
   height: 35px;
+`;
+export const GearIcon = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 12px;
+  height: 12px;
+`;
+export const PlusIcon = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 8px;
+  height: 8px;
 `;

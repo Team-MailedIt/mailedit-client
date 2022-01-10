@@ -1,15 +1,59 @@
 import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
-export const Container = styled.div`
-  position: absolute;
-  width: 336px;
-  z-index: 1;
+export const Heading = styled.span`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: ${COLORS.UIBlack};
+  display: flex;
+  align-items: center;
+`;
 
-  // looks
-  background-color: #fff;
-  padding: 1.125em 1.5em;
-  font-size: 1.25em;
-  border-radius: 1rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
-    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+export const SubHeading = styled.span`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: ${COLORS.gray7};
+  display: flex;
+  align-items: center;
+`;
+
+export const AddNewGroupSpan = styled.span`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: ${COLORS.gray6};
+  display: flex;
+  align-items: center;
+`;
+
+export const CancleButton = styled.button`
+  width: 40px;
+  height: 18px;
+  background: ${COLORS.gray4};
+  border: none;
+  border-radius: 2px;
+
+  color: ${COLORS.UIWhite};
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+`;
+export const ConfirmButton = styled.button`
+  width: 40px;
+  height: 18px;
+  background: ${COLORS.primary};
+  border: none;
+  border-radius: 2px;
+
+  color: ${COLORS.UIWhite};
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
 `;

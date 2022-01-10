@@ -9,6 +9,7 @@ import {
   TemplateMemoInputContainer,
 } from './Components';
 import BubbleContainer from '../bubble/BubbleContainer';
+import fetchedData from '../../fetchedData.json';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -67,6 +68,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
       <BubbleContainer
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
+        fetchedData={fetchedData}
       />
     </Container>
   );
