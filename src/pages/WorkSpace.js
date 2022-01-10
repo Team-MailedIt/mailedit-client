@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Sidebar from '../components/commons/Sidebar';
 import EditorContainer from '../components/workspace/EditorContainer';
 import TemplatePage from '../components/workspace/TemplatePage';
 import uid from '../utils/uid';
@@ -23,7 +22,7 @@ const WorkSpace = () => {
         gridTemplateColumns: '1.7fr 8.3fr',
       }}
     >
-      <Sidebar />
+      <div style={{ width: '100%', height: '1vh' }}></div>
       <CopyContextProvider>
         <div
           style={{

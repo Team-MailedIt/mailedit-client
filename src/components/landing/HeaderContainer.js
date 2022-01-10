@@ -1,8 +1,17 @@
 import styled from 'styled-components';
 import { MainLogo } from '../../constants/icons';
 import { SignUp, SpanLink, VerticalLine } from './Components';
+import { useState } from 'react';
+import SignIn from '../../components/signin/SignIn';
+import SignInModal from '../../components/signin/SignInModal';
 
 const HeaderContainer = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSignInBtnClick = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <Container>
       <Header>
@@ -10,10 +19,20 @@ const HeaderContainer = () => {
         <RightContainer>
           <SpanLink style={{ marginRight: '32px' }}>둘러보기</SpanLink>
           <VerticalLine style={{ marginRight: '32px' }} />
-          <SpanLink style={{ marginRight: '32px' }}>로그인</SpanLink>
+          <SpanLink
+            style={{ marginRight: '32px' }}
+            onClick={handleSignInBtnClick}
+          >
+            로그인
+          </SpanLink>
           <SignUp>지금 시작하기</SignUp>
         </RightContainer>
       </Header>
+      <SignInModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        contents={<SignIn />}
+      />
     </Container>
   );
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import { FooterLogo } from '../../constants/icons';
-import { FooterBodySpan } from './Components';
+import { FooterBodySpan, FooterBodySpanButton } from './Components';
 
 const FooterDefault = () => {
   // 일단 확정인 footer만 적용
@@ -42,13 +42,13 @@ const FooterDefault = () => {
         <div
           style={{ display: 'flex', flexDirection: 'row', marginRight: '98px' }}
         >
-          <FooterBodySpan style={{ marginRight: '48px' }}>
+          <FooterBodySpanButton style={{ marginRight: '48px' }}>
             이용약관
-          </FooterBodySpan>
-          <FooterBodySpan style={{ marginRight: '48px' }}>
+          </FooterBodySpanButton>
+          <FooterBodySpanButton style={{ marginRight: '48px' }}>
             개인정보처리방침
-          </FooterBodySpan>
-          <FooterBodySpan>문의하기</FooterBodySpan>
+          </FooterBodySpanButton>
+          <FooterBodySpanButton>문의하기</FooterBodySpanButton>
         </div>
       </div>
     </Container>

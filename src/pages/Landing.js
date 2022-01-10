@@ -4,12 +4,6 @@ import FooterContainer from '../components/landing/FooterContainer';
 import styled from 'styled-components';
 
 const Landing = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSignInBtnClick = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   return (
     <Container>
       <HeaderContainer />

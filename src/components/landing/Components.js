@@ -23,6 +23,10 @@ export const SpanLink = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const VerticalLine = styled.div`
@@ -63,6 +67,9 @@ export const LookAroundButton = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const BodyContainer = styled.div`
@@ -180,4 +187,17 @@ export const FooterBodySpan = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+`;
+
+export const FooterBodySpanButton = styled.span`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: ${COLORS.UIWhite};
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -80,5 +80,9 @@ const SpanLink = styled.span`
   color: ${COLORS.blockBorder};
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export default BodyThird;
