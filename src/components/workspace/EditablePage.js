@@ -69,7 +69,7 @@ const EditPage = ({ passedBlocks }) => {
     if (commandAction === 'Enter') {
       // focus to new block
       focusNewBlock(currentBlockIndex);
-    } else if (commandAction === 'Backspace') {
+    } else if (commandAction === "Backspace") {
       // focus to previous block, if it exists
       if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
@@ -160,7 +160,7 @@ const EditPage = ({ passedBlocks }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: 'p',
+        tag: "p",
         flag: 0,
       };
       const newBlock = {
@@ -175,7 +175,7 @@ const EditPage = ({ passedBlocks }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: 'p',
+        tag: "p",
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
