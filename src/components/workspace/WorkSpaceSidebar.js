@@ -1,20 +1,11 @@
-import { useState } from "react";
 import styled from "styled-components";
-import Checkbox from "react-custom-checkbox";
-import check from "../../constants/icons/check.svg";
 import COLORS from "../../constants/colors";
 import Accordion from "../commons/Accordion";
 import logo from "../../constants/icons/logo.svg";
 import search from "../../constants/icons/search.svg";
 import star from "../../constants/icons/star.svg";
-
+import SearchDropDown from "../commons/SearchDropDown";
 const WorkSpaceSidebar = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckBoxClick = () => {
-    setIsChecked(!isChecked);
-  };
-
   const groups = [
     {
       title: "학교",
@@ -54,10 +45,12 @@ const WorkSpaceSidebar = () => {
     <Wrapper>
       <NoScrollWrapper>
         <Logo src={logo} />
+
         <SearchingField>
           <SearchIcon src={search} />
           <Input placeholder="템플릿을 검색하세요" spellCheck={false} />
         </SearchingField>
+        {/* <SearchDropDown /> */}
       </NoScrollWrapper>
       <ScrollWrapper>
         <MyTemplate>마이템플릿</MyTemplate>
@@ -116,7 +109,7 @@ const ScrollWrapper = styled.div`
     &::-webkit-scrollbar-thumb {
       background: ${COLORS.indigo1};
       background-clip: padding-box;
-      border-radius: 15px;
+      border-radius: 20px;
       border: 13px solid transparent;
     }
   }

@@ -66,9 +66,11 @@ const Group = styled.div`
   height: 24px;
 
   display: flex;
+
   align-items: center;
   flex-direction: row;
   justify-content: center;
+
   margin-top: 12px;
   height: 32px;
 `;
@@ -81,7 +83,9 @@ const GroupName = styled.span`
   color: #ffffff;
 
   font-size: 16px;
-  line-height: 19px;
+
+  display: flex;
+  align-items: center;
 `;
 
 const IconWrapper = styled.img`
