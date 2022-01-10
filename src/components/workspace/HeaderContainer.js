@@ -8,10 +8,18 @@ import {
   SubTitle,
   TemplateMemoInputContainer,
 } from './Components';
+import BubbleContainer from '../bubble/BubbleContainer';
+
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
   const [subtitle, setSubtitle] = useInput('');
   const [group, setGroup] = useState();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSignInBtnClick = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   // set state to EditorContainer
   useEffect(() => {
@@ -23,7 +31,8 @@ const HeaderContainer = ({ handleHeaderData }) => {
   }, [title, subtitle, group]);
 
   const handleGroup = () => {
-    window.alert('아직 미구현');
+    setIsModalOpen(true);
+    console.log('open bubble');
   };
 
   return (
@@ -55,6 +64,10 @@ const HeaderContainer = ({ handleHeaderData }) => {
           그룹 지정하기
         </TemplateSelectGroupButton>
       </RowContainer>
+      <BubbleContainer
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </Container>
   );
 };
