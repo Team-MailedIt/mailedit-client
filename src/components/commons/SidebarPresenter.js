@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import logo from "../../../constants/icons/logo.svg";
-import search from "../../../constants/icons/search.svg";
-import star from "../../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
+import search from "../../constants/icons/search.svg";
+import star from "../../constants/icons/star.svg";
 
-import COLORS from "../../../constants/colors";
+import COLORS from "../../constants/colors";
 
-const SidebarPresenter = ({ contents, item, button }) => {
+const SidebarPresenter = ({ contents, sellectAll, button }) => {
   // dummy data
   const [groups, setGroups] = useState([
     {
@@ -49,7 +49,7 @@ const SidebarPresenter = ({ contents, item, button }) => {
         <GroupName>즐겨찾기</GroupName>
       </Group>
       <Border />
-      {item}
+      {sellectAll}
       <>
         {groups ? (
           groups.map((group) => (
