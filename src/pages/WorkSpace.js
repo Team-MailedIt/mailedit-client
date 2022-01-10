@@ -1,8 +1,8 @@
-import { useState } from "react";
-import WorkSpaceSidebar from "../components/workspace/WorkSpaceSidebar";
-import EditorContainer from "../components/workspace/EditorContainer";
-import TemplatePage from "../components/workspace/TemplatePage";
-import uid from "../utils/uid";
+import { useState } from 'react';
+import EditorContainer from '../components/workspace/EditorContainer';
+import TemplatePage from '../components/workspace/TemplatePage';
+import uid from '../utils/uid';
+import CopyContextProvider from '../contexts/CopyContexts';
 
 const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
@@ -18,20 +18,22 @@ const WorkSpace = () => {
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "1.7fr 8.3fr",
+        display: 'grid',
+        gridTemplateColumns: '1.7fr 8.3fr',
       }}
     >
-      <WorkSpaceSidebar />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, minmax(530px, auto))",
-        }}
-      >
-        <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
-        <EditorContainer passedBlocks={blocks} />
-      </div>
+      <div style={{ width: '100%', height: '1vh' }}></div>
+      <CopyContextProvider>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+          }}
+        >
+          <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
+          <EditorContainer passedBlocks={blocks} />
+        </div>
+      </CopyContextProvider>
     </div>
   );
 };

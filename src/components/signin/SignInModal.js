@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import ReactModal from "react-modal";
+import styled from 'styled-components';
+import ReactModal from 'react-modal';
 
 const SignInModal = ({ isModalOpen, setIsModalOpen, contents }) => {
   return (

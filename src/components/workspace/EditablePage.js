@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, useContext } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
-// import fetchedData from '../../data.json';
 
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
-import COLORS from '../../constants/colors';
 import { DragIcon } from '../../constants/icons';
+import { CopyContext } from '../../contexts/CopyContexts';
 
-const EditPage = ({ passedBlocks }) => {
+const EditPage = ({ passedBlocks, getBlocksHandler }) => {
+  const { action, setActionHandler } = useContext(CopyContext);
   const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
@@ -18,7 +18,6 @@ const EditPage = ({ passedBlocks }) => {
     flag: 0,
   };
   const [blocks, setBlocks] = useState([initialBlock]);
-  // const [blocks, setBlocks] = useState(fetchedData);
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
 
@@ -30,6 +29,15 @@ const EditPage = ({ passedBlocks }) => {
       behavior: 'smooth',
     });
   }
+
+  // copy block data
+  useEffect(() => {
+    if (action) {
+      console.log('copy block data');
+      getBlocksHandler(blocks);
+      setActionHandler(false);
+    }
+  }, [action, setActionHandler, getBlocksHandler, blocks]);
 
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
@@ -252,8 +260,11 @@ const EditPage = ({ passedBlocks }) => {
 
 const Container = styled.div`
   /* padding-top: 24px; */
-  /* display: flex;
-  flex-direction: column; */
+  height: 688px;
+  /* height: 80%; */
+
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
 `;
 
@@ -267,6 +278,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: ;
 `;
 
 export default EditPage;
