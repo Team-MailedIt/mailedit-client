@@ -45,6 +45,7 @@ const SidebarPresenter = ({ myTemplateList, baseTemplateList }) => {
           <Input
             placeholder="템플릿을 검색하세요"
             spellCheck={false}
+            value={inputText}
             onChange={handleInputChange}
           />
           {inputText && (

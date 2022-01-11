@@ -15,7 +15,26 @@ const MainSidebar = () => {
   };
 
   // dummy data
-  const [groups, setGroups] = useState(null);
+  const [groups, setGroups] = useState([
+    {
+      userId: 6,
+      id: 2,
+      name: "학교",
+      color: "#38D9A9",
+    },
+    {
+      userId: 6,
+      id: 3,
+      name: "회사",
+      color: "#FFEC99",
+    },
+    {
+      userId: 6,
+      id: 4,
+      name: "외주",
+      color: "#FA5252",
+    },
+  ]);
 
   return (
     <SidebarPresenter
@@ -23,26 +42,28 @@ const MainSidebar = () => {
         <>
           {groups ? (
             <>
-              <SidebarGroup
-                title={"즐겨찾기"}
-                icon={<StarIcon src={star} />}
-                item={
-                  <Checkbox
-                    checked={isChecked}
-                    icon={
-                      <CheckBoxWrapper>
-                        <CheckIcon src={check} />
-                      </CheckBoxWrapper>
-                    }
-                    borderColor="#FFFFFF"
-                    borderRadius="2px"
-                    borderWidth="1px"
-                    style={{ overflow: "hidden" }}
-                    size="16px"
-                    onClick={handleCheckBoxClick}
-                  />
-                }
-              />
+              <GroupWrapper>
+                <SidebarGroup
+                  title={"즐겨찾기"}
+                  icon={<StarIcon src={star} />}
+                  item={
+                    <Checkbox
+                      checked={isChecked}
+                      icon={
+                        <CheckBoxWrapper>
+                          <CheckIcon src={check} />
+                        </CheckBoxWrapper>
+                      }
+                      borderColor="#FFFFFF"
+                      borderRadius="2px"
+                      borderWidth="1px"
+                      style={{ overflow: "hidden" }}
+                      size="16px"
+                      onClick={handleCheckBoxClick}
+                    />
+                  }
+                />
+              </GroupWrapper>
               <Border />
               <SelectAllWrapper>
                 <SelectAll>전체 선택</SelectAll>
@@ -61,28 +82,30 @@ const MainSidebar = () => {
                   onClick={handleCheckBoxClick}
                 />
               </SelectAllWrapper>
-              {groups.map((group) => (
-                <SidebarGroup
-                  title={group.name}
-                  icon={<Index color={group.color} />}
-                  item={
-                    <Checkbox
-                      checked={isChecked}
-                      icon={
-                        <CheckBoxWrapper>
-                          <CheckIcon src={check} />
-                        </CheckBoxWrapper>
-                      }
-                      borderColor="#FFFFFF"
-                      borderRadius="2px"
-                      borderWidth="1px"
-                      style={{ overflow: "hidden" }}
-                      size="16px"
-                      onClick={handleCheckBoxClick}
-                    />
-                  }
-                />
-              ))}
+              <GroupWrapper>
+                {groups.map((group) => (
+                  <SidebarGroup
+                    title={group.name}
+                    icon={<Index color={group.color} />}
+                    item={
+                      <Checkbox
+                        checked={isChecked}
+                        icon={
+                          <CheckBoxWrapper>
+                            <CheckIcon src={check} />
+                          </CheckBoxWrapper>
+                        }
+                        borderColor="#FFFFFF"
+                        borderRadius="2px"
+                        borderWidth="1px"
+                        style={{ overflow: "hidden" }}
+                        size="16px"
+                        onClick={handleCheckBoxClick}
+                      />
+                    }
+                  />
+                ))}
+              </GroupWrapper>
             </>
           ) : (
             <NoTemplates>
@@ -111,39 +134,6 @@ const Border = styled.hr`
   background-color: rgba(255, 255, 255, 0.25);
 `;
 
-const NoTemplates = styled.div`
-  width: 249px;
-  height: 44px;
-
-  margin: 24px 39px 0px 40px;
-
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 22px;
-`;
-
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  background: #ffffff;
-`;
-
-const CheckIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-const SelectAll = styled.span`
-  width: 60px;
-  height: 20px;
-  margin: 2px 164px 2px 4px;
-
-  font-size: 16px;
-  line-height: 19px;
-
-  color: ${COLORS.UIWhite};
-`;
-
 const SelectAllWrapper = styled.div`
   width: 252px;
   height: 24px;
@@ -156,6 +146,44 @@ const SelectAllWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const SelectAll = styled.span`
+  width: 60px;
+  height: 20px;
+  margin: 2px 165px 2px 4px;
+
+  font-size: 16px;
+  line-height: 19px;
+
+  color: ${COLORS.UIWhite};
+`;
+
+const GroupWrapper = styled.div`
+  width: 252px;
+  margin-left: 36px;
+`;
+
+const CheckBoxWrapper = styled.div`
+  display: flex;
+  background: #ffffff;
+`;
+
+const CheckIcon = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+const NoTemplates = styled.div`
+  width: 249px;
+  height: 44px;
+
+  margin: 24px 39px 0px 40px;
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22px;
 `;
 
 const Index = styled.div`
