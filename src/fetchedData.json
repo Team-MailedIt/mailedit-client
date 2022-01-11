@@ -1,14 +1,17 @@
 [
   {
     "title": "회사",
-    "color": "#3138FF"
+    "color": "#3138FF",
+    "id": 1
   },
   {
     "title": "학교",
-    "color": "#FA5252"
+    "color": "#FA5252",
+    "id": 2
   },
   {
     "title": "외주",
-    "color": "#38D9A9"
+    "color": "#38D9A9",
+    "id": 3
   }
 ]

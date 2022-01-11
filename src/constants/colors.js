@@ -5,6 +5,7 @@ const COLORS = {
   blockBorder: '#5274EF',
   bodyBlue: '#2850DD',
 
+  indigo0: '#EDF2FF',
   indigo1: '#EEF1FE',
   indigo2: '#BAC8FF',
   indigo4: '#ADBDFC',

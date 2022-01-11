@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
-const GroupComponent = ({ title, color }) => {
+const GroupComponent = ({ title, color, selected, handleSelectGroup }) => {
+  const onClick = () => {
+    handleSelectGroup({
+      title: title,
+      color: color,
+    });
+  };
+
   return (
-    <Wrapper>
+    <Wrapper selected={selected} title={title} onClick={onClick}>
       <Index color={color} />
       <Title style={{ marginLeft: '8px' }}>{title}</Title>
     </Wrapper>
@@ -14,6 +21,16 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+
+  background: ${(props) =>
+    props.selected === props.title ? COLORS.indigo0 : 'none'};
+
+  border-radius: 2px;
+
   &:hover {
     cursor: pointer;
   }

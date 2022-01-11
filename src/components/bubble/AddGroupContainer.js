@@ -9,7 +9,7 @@ const AddGroupContainer = () => {
     name: '',
   });
   return (
-    <ColContainer style={{ marginTop: '10px' }}>
+    <ColContainer style={{ marginTop: '18px' }}>
       <SubHeading>그룹명</SubHeading>
       <InputContainer>
         <Input

@@ -66,3 +66,16 @@ export const ConfirmButton = styled.button`
   font-size: 10px;
   line-height: 12px;
 `;
+export const AddGroupButton = styled.button`
+  width: 59px;
+  height: 20px;
+  background: ${COLORS.primary};
+  border: none;
+  border-radius: 2px;
+
+  color: ${COLORS.UIWhite};
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+`;

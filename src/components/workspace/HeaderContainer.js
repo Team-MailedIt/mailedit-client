@@ -10,17 +10,17 @@ import {
 } from './Components';
 import BubbleContainer from '../bubble/BubbleContainer';
 import fetchedData from '../../fetchedData.json';
+import GroupComponent from '../commons/GroupComponent';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
   const [subtitle, setSubtitle] = useInput('');
-  const [group, setGroup] = useState();
+  const [group, setGroup] = useState({
+    title: '',
+    color: '',
+  });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSignInBtnClick = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
   // set state to EditorContainer
   useEffect(() => {
@@ -31,9 +31,15 @@ const HeaderContainer = ({ handleHeaderData }) => {
     });
   }, [title, subtitle, group]);
 
-  const handleGroup = () => {
+  const openModal = () => {
     setIsModalOpen(true);
-    console.log('open bubble');
+  };
+  const handleSelected = (target) => {
+    setGroup(target);
+  };
+  const handleGroupComponent = () => {
+    console.log('jjhi');
+    openModal();
   };
 
   return (
@@ -61,14 +67,23 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <RowContainer style={{ marginTop: '8px', marginBottom: '16px' }}>
         <SubTitle>그룹</SubTitle>
-        <TemplateSelectGroupButton onClick={handleGroup}>
-          그룹 지정하기
-        </TemplateSelectGroupButton>
+        {group.title ? (
+          <GroupComponent
+            title={group.title}
+            color={group.color}
+            handleSelectGroup={handleGroupComponent}
+          />
+        ) : (
+          <TemplateSelectGroupButton onClick={openModal}>
+            그룹 지정하기
+          </TemplateSelectGroupButton>
+        )}
       </RowContainer>
       <BubbleContainer
         isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
         fetchedData={fetchedData}
+        setIsModalOpen={setIsModalOpen}
+        handleSelected={handleSelected}
       />
     </Container>
   );
