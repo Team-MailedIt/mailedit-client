@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
 import MainSidebar from "../components/home/MainSidebar";
 import styled from "styled-components";
+import HomeWrapper from "../components/home/HomeWrapper";
 
 const Home = () => {
   return (
     <Wrapper>
       <MainSidebar />
-      <h1>I'm home page</h1>
-      <Link to={"/workspace"}>
-        <span>go to workspace</span>
-      </Link>
+      <HomeWrapper />
     </Wrapper>
   );
 };
