@@ -69,7 +69,8 @@ export const ConfirmButton = styled.button`
 export const AddGroupButton = styled.button`
   width: 59px;
   height: 20px;
-  background: ${COLORS.primary};
+  background: ${({ addChecker }) =>
+    addChecker ? COLORS.primary : COLORS.gray4};
   border: none;
   border-radius: 2px;
 

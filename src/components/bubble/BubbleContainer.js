@@ -30,15 +30,17 @@ const BubbleContainer = ({
     title: '',
     color: '',
   });
+  const [addChecker, setAddChecker] = useState(false);
+  const [temp, setTemp] = useState({});
 
   // state 초기화
   const init = () => {
-    console.log('init state!');
     setMode(true);
     setSelected({
       title: '',
       color: '',
     });
+    setAddChecker(false);
   };
 
   // 취소 버튼
@@ -54,6 +56,20 @@ const BubbleContainer = ({
     handleSelected(selected);
   };
 
+  // 새 그룹 추가 확인 버튼
+  const handleConfirmAddNewGroup = () => {
+    // add new group!
+    if (addChecker) {
+      const prevState = [...group, temp];
+      setGroup(prevState);
+      init();
+    } else {
+      setIsModalOpen(false);
+      init();
+    }
+    handleSelected(selected);
+  };
+
   // 새 그룹 추가하기 버튼 클릭
   const handleMode = () => {
     setMode(false);
@@ -62,6 +78,14 @@ const BubbleContainer = ({
   // 그룹 클릭하여 선택하였을 때 return으로 해당 그룹 정보 받음
   const handleSelectGroup = (groupData) => {
     setSelected(groupData);
+  };
+
+  const formChecker = (validator) => {
+    if (validator) setAddChecker(true);
+  };
+
+  const handleAddNewGroup = (element) => {
+    setTemp(element);
   };
 
   return (
@@ -85,7 +109,7 @@ const BubbleContainer = ({
         </RowContainer>
 
         <ColContainer style={{ marginTop: '12px' }}>
-          {group.map(({ title, color, id }, index) => {
+          {group.map(({ title, color, id }) => {
             return (
               <div key={id} style={{ marginBottom: '2px' }}>
                 <GroupComponent
@@ -104,7 +128,10 @@ const BubbleContainer = ({
             <DefaultContainer />
           </div>
         ) : (
-          <AddGroupContainer />
+          <AddGroupContainer
+            formChecker={formChecker}
+            handleAddNewGroup={handleAddNewGroup}
+          />
         )}
 
         <HorizontalLine style={{ marginTop: '16px' }} />
@@ -120,9 +147,9 @@ const BubbleContainer = ({
             </ConfirmButton>
           ) : (
             <AddGroupButton
-              onClick={handleConfirm}
+              onClick={handleConfirmAddNewGroup}
               style={{ marginLeft: '8px' }}
-              // form check해서 버튼 활성화,비활성화
+              addChecker={addChecker}
             >
               추가하기
             </AddGroupButton>

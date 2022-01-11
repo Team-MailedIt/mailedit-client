@@ -1,18 +1,38 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import useInputs from '../../hooks/useInputs';
+import uid from '../../utils/uid';
 import ColorPalet from './ColorPalet';
 import { ColContainer, SubHeading } from './Components';
 
-const AddGroupContainer = () => {
+const AddGroupContainer = ({ formChecker, handleAddNewGroup }) => {
   const [{ groupName }, handleInputChange] = useInputs({
-    name: '',
+    groupName: '',
   });
+  const [selectedColor, setSelctedColor] = useState('');
+
+  useEffect(() => {
+    if (groupName !== '' && selectedColor !== '') {
+      formChecker(true);
+      handleAddNewGroup({
+        title: groupName,
+        color: selectedColor,
+        id: uid(),
+      });
+    }
+  }, [groupName, selectedColor]);
+
+  const handleColorPalet = (target) => {
+    setSelctedColor(target);
+  };
+
   return (
     <ColContainer style={{ marginTop: '18px' }}>
       <SubHeading>그룹명</SubHeading>
       <InputContainer>
         <Input
+          autoComplete="off"
           type="text"
           name="groupName"
           value={groupName}
@@ -23,7 +43,10 @@ const AddGroupContainer = () => {
       <SubHeading style={{ marginTop: '20px', marginBottom: '12px' }}>
         그룹색상
       </SubHeading>
-      <ColorPalet />
+      <ColorPalet
+        handleColorPalet={handleColorPalet}
+        selectedColor={selectedColor}
+      />
     </ColContainer>
   );
 };
