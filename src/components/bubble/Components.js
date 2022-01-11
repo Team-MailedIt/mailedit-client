@@ -4,8 +4,8 @@ import COLORS from '../../constants/colors';
 export const Heading = styled.span`
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 19px;
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
@@ -14,9 +14,9 @@ export const Heading = styled.span`
 export const SubHeading = styled.span`
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
-  color: ${COLORS.gray7};
+  font-size: 14px;
+  line-height: 17px;
+  color: ${COLORS.gray8};
   display: flex;
   align-items: center;
 `;
@@ -32,8 +32,8 @@ export const AddNewGroupSpan = styled.span`
 `;
 
 export const CancleButton = styled.button`
-  width: 40px;
-  height: 18px;
+  width: 42px;
+  height: 20px;
   background: ${COLORS.gray4};
   border: none;
   border-radius: 2px;
@@ -45,8 +45,8 @@ export const CancleButton = styled.button`
   line-height: 12px;
 `;
 export const ConfirmButton = styled.button`
-  width: 40px;
-  height: 18px;
+  width: 42px;
+  height: 20px;
   background: ${COLORS.primary};
   border: none;
   border-radius: 2px;

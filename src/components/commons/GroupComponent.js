@@ -5,7 +5,7 @@ const GroupComponent = ({ title, color }) => {
   return (
     <Wrapper>
       <Index color={color} />
-      <Title style={{ marginLeft: '5px' }}>{title}</Title>
+      <Title style={{ marginLeft: '8px' }}>{title}</Title>
     </Wrapper>
   );
 };

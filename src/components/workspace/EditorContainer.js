@@ -36,7 +36,7 @@ const EditorContainer = ({ passedBlocks }) => {
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <CopyButton onClick={copyButtonHandler}>복사하기</CopyButton>
         </div>
-        <HorizontalLine />
+        <HorizontalLine style={{ marginBottom: '24px' }} />
         <EditPage
           passedBlocks={passedBlocks}
           getBlocksHandler={getBlocksHandler}

@@ -11,7 +11,7 @@ import GroupComponent from '../commons/GroupComponent';
 import { useState } from 'react';
 // import { GearIcon } from '../../constants/icons';
 import { PlusIcon } from '../../constants/icons';
-import { HorizontalLine, VerticalLine } from '../workspace/Components';
+import { HorizontalLine } from '../workspace/Components';
 
 const BubbleContainer = ({ isModalOpen, setIsModalOpen, fetchedData }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
@@ -25,27 +25,52 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, fetchedData }) => {
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Heading>그룹 지정하기</Heading>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div
+          style={{ display: 'flex', flexDirection: 'row', paddingTop: '20px' }}
+        >
           <SubHeading>기존 그룹</SubHeading>
           {/* <GearIcon src="./img/gear.png" /> */}
         </div>
-        {group.map(({ title, color }, index) => {
-          return <GroupComponent key={index} title={title} color={color} />;
-        })}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            marginTop: '12px',
+          }}
+        >
+          {group.map(({ title, color }, index) => {
+            return (
+              <div
+                key={index}
+                style={{ display: 'flex', marginBottom: '10px' }}
+              >
+                <GroupComponent title={title} color={color} />
+              </div>
+            );
+          })}
+        </div>
         <div
           style={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
+            marginTop: '10px',
           }}
         >
-          <PlusIcon src="./img/plus.png" />
+          <PlusIcon style={{ marginRight: '4px' }} src="./img/plus.png" />
           <AddNewGroupSpan>새 그룹 추가하기</AddNewGroupSpan>
         </div>
-        <HorizontalLine />
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <HorizontalLine style={{ marginTop: '16px' }} />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'end',
+            marginTop: '12px',
+          }}
+        >
           <CancleButton>취소</CancleButton>
-          <ConfirmButton>확인</ConfirmButton>
+          <ConfirmButton style={{ marginLeft: '8px' }}>확인</ConfirmButton>
         </div>
       </div>
     </Modal>
@@ -57,7 +82,7 @@ const Modal = styled(ReactModal)`
   top: 17vh;
   left: 63.4vw;
 
-  width: 336px;
+  width: 328px;
   background: #ffffff;
 
   // looks

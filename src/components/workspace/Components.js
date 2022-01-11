@@ -8,7 +8,6 @@ export const VerticalLine = styled.div`
 export const HorizontalLine = styled.div`
   width: 100%;
   border-top: 0.5px solid ${COLORS.gray5};
-  margin-bottom: 24px;
 `;
 export const TemplateTitle = styled.span`
   font-style: normal;
