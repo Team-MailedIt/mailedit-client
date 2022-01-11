@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
+export const ColContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+export const RowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const Heading = styled.span`
   font-style: normal;
   font-weight: 600;

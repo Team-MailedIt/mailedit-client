@@ -6,16 +6,35 @@ import {
   AddNewGroupSpan,
   CancleButton,
   ConfirmButton,
+  ColContainer,
+  RowContainer,
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
 import { useState } from 'react';
 // import { GearIcon } from '../../constants/icons';
 import { PlusIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
+import AddGroupContainer from './AddGroupContainer';
+import DefaultContainer from './DefaultContainer';
 
 const BubbleContainer = ({ isModalOpen, setIsModalOpen, fetchedData }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
+  // 추가 기능이 있어서 set도 있어야 함
   const [group, setGroup] = useState(fetchedData);
+  const [mode, setMode] = useState(true);
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirm = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleMode = () => {
+    setMode(false);
+    console.log('>???');
+  };
 
   return (
     <Modal
@@ -23,56 +42,40 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, fetchedData }) => {
       onRequestClose={() => setIsModalOpen(false)}
       ariaHideApp={false}
     >
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <ColContainer>
         <Heading>그룹 지정하기</Heading>
-        <div
-          style={{ display: 'flex', flexDirection: 'row', paddingTop: '20px' }}
-        >
+        <RowContainer style={{ paddingTop: '20px' }}>
           <SubHeading>기존 그룹</SubHeading>
           {/* <GearIcon src="./img/gear.png" /> */}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: '12px',
-          }}
-        >
+        </RowContainer>
+
+        <ColContainer style={{ marginTop: '12px' }}>
           {group.map(({ title, color }, index) => {
             return (
-              <div
-                key={index}
-                style={{ display: 'flex', marginBottom: '10px' }}
-              >
+              <div key={index} style={{ marginBottom: '10px' }}>
                 <GroupComponent title={title} color={color} />
               </div>
             );
           })}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: '10px',
-          }}
-        >
-          <PlusIcon style={{ marginRight: '4px' }} src="./img/plus.png" />
-          <AddNewGroupSpan>새 그룹 추가하기</AddNewGroupSpan>
-        </div>
+        </ColContainer>
+
+        {mode ? (
+          <div onClick={handleMode}>
+            <DefaultContainer />
+          </div>
+        ) : (
+          <AddGroupContainer />
+        )}
+
         <HorizontalLine style={{ marginTop: '16px' }} />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'end',
-            marginTop: '12px',
-          }}
-        >
-          <CancleButton>취소</CancleButton>
-          <ConfirmButton style={{ marginLeft: '8px' }}>확인</ConfirmButton>
-        </div>
-      </div>
+
+        <RowContainer style={{ justifyContent: 'end', marginTop: '12px' }}>
+          <CancleButton onClick={handleClose}>취소</CancleButton>
+          <ConfirmButton onClick={handleConfirm} style={{ marginLeft: '8px' }}>
+            확인
+          </ConfirmButton>
+        </RowContainer>
+      </ColContainer>
     </Modal>
   );
 };
@@ -90,7 +93,8 @@ const Modal = styled(ReactModal)`
   padding: 1.125em 1.5em;
   font-size: 1.25em;
   border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
+    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
 
   &::before {
     // layout

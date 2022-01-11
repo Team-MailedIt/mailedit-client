@@ -14,6 +14,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Index = styled.div`
