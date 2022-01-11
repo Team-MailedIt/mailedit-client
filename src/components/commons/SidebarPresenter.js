@@ -1,81 +1,107 @@
 import styled from "styled-components";
-import { useState } from "react";
-
+import COLORS from "../../constants/colors";
 import logo from "../../constants/icons/logo.svg";
 import search from "../../constants/icons/search.svg";
-import star from "../../constants/icons/star.svg";
+import remove from "../../constants/icons/remove.svg";
 
-import COLORS from "../../constants/colors";
+import { useState } from "react";
 
-const SidebarPresenter = ({ contents, sellectAll, button }) => {
-  // dummy data
-  const [groups, setGroups] = useState([
-    {
-      userId: 5,
-      id: 1,
-      name: "학교",
-      color: "#3138FF",
-    },
-    {
-      userId: 5,
-      id: 2,
-      name: "회사",
-      color: "#E64980",
-    },
-    {
-      userId: 5,
-      id: 3,
-      name: "그룹2",
-      color: "#38D9A9",
-    },
-    {
-      userId: 5,
-      id: 4,
-      name: "그룹3",
-      color: "#FAB005",
-    },
-  ]);
+const SidebarPresenter = ({ myTemplateList, baseTemplateList }) => {
+  const lists = [
+    { id: 1, title: "템플릿1" },
+    { id: 2, title: "템플릿2" },
+    { id: 3, title: "템플릿3" },
+    { id: 4, title: "템플릿4" },
+    { id: 5, title: "템플릿5" },
+    { id: 6, title: "템플릿6" },
+    { id: 7, title: "템플릿7" },
+    { id: 8, title: "템플릿8" },
+    { id: 9, title: "템플릿9" },
+    { id: 10, title: "템플릿10" },
+    { id: 11, title: "템플릿11" },
+    { id: 12, title: "템플릿12" },
+    { id: 13, title: "템플릿13" },
+  ];
+
+  const [inputText, setInputText] = useState("");
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  // 템플릿 검색
+  const results = lists.filter((l) => inputText && l.title.includes(inputText));
+
+  const handleRemoveBtnClick = () => {
+    setInputText("");
+  };
 
   return (
     <Wrapper>
-      <Logo src={logo} />
-      <SearchingField>
-        <SearchIcon src={search} />
-        <Input placeholder="템플릿을 검색하세요" spellCheck={false} />
-      </SearchingField>
-      <MyTemplate>마이템플릿</MyTemplate>
-      <Group>
-        <StarIcon src={star} />
-        <GroupName>즐겨찾기</GroupName>
-      </Group>
-      <Border />
-      {sellectAll}
-      <>
-        {groups ? (
-          groups.map((group) => (
-            <Group key={group.id}>
-              <GroupIndex color={group.color} />
-              <GroupName>{group.name}</GroupName>
-              {button}
-            </Group>
-          ))
-        ) : (
-          <NoTemplates>
-            마이템플릿이 아직 없네요!
-            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-          </NoTemplates>
-        )}
-      </>
-      {contents}
+      <FixedSection>
+        <Logo src={logo} />
+        <SearchingField>
+          <SearchIcon src={search} />
+          <Input
+            placeholder="템플릿을 검색하세요"
+            spellCheck={false}
+            onChange={handleInputChange}
+          />
+          {inputText && (
+            <RemoveIcon src={remove} onClick={handleRemoveBtnClick} />
+          )}
+        </SearchingField>
+        {results.length != 0 ? (
+          <SearchResultWrapper>
+            {results.map((r, i) => (
+              <SearchResultTitle key={"r" + i}>{r.title}</SearchResultTitle>
+            ))}
+          </SearchResultWrapper>
+        ) : null}
+      </FixedSection>
+
+      <MovableSection>
+        <MyTemplate>마이템플릿</MyTemplate>
+        {myTemplateList}
+        {baseTemplateList}
+      </MovableSection>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.aside`
   width: 328px;
-  height: 1080px;
 
   background: ${COLORS.primary};
+`;
+
+const FixedSection = styled.section`
+  width: 100%;
+  height: 208px;
+`;
+
+const MovableSection = styled.div`
+  width: 100%;
+  height: 872px;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    height: 100%;
+    width: 29px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      height: 100%;
+      width: 29px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: ${COLORS.indigo1};
+      background-clip: padding-box;
+      border-radius: 20px;
+      border: 13px solid transparent;
+    }
+  }
 `;
 
 const Logo = styled.img`
@@ -97,6 +123,43 @@ const SearchingField = styled.section`
 
   border-radius: 2px;
   margin: 48px 36px 0px 40px;
+`;
+
+const SearchResultWrapper = styled.div`
+  width: 252px;
+  background: ${COLORS.indigo4};
+
+  position: relative;
+  z-index: 2;
+
+  margin-left: 40px;
+
+  padding-bottom: 9px;
+  border-radius: 0 0 2px 2px;
+  border-top: 1px solid ${COLORS.UIWhite};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SearchResultTitle = styled.div`
+  width: 228px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+
+  margin-top: 9px;
+  padding-left: 8px;
+
+  border-radius: 2px;
+
+  &:hover {
+    background: ${COLORS.indigo1};
+    cursor: pointer;
+  }
 `;
 
 const Input = styled.input`
@@ -122,10 +185,21 @@ const SearchIcon = styled.img`
   margin: 10px 0px 10px 12px;
 `;
 
+const RemoveIcon = styled.img`
+  width: 12px;
+  height: 12px;
+
+  margin-left: 14px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const MyTemplate = styled.span`
   width: 96px;
   height: 26px;
-  margin: 42px 192px 24px 40px;
+  margin: 0px 192px 24px 40px;
 
   font-weight: 600;
   font-size: 22px;
@@ -135,67 +209,6 @@ const MyTemplate = styled.span`
   align-items: center;
 
   color: ${COLORS.UIWhite};
-`;
-
-const Group = styled.section`
-  width: 252px;
-  height: 24px;
-
-  margin: 12px 40px 0 36px;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const StarIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  margin: 3px 0px 3px 4px;
-`;
-
-const GroupName = styled.span`
-  width: 160px;
-  height: 20px;
-  margin: 2px 52px 0px 8px;
-
-  font-size: 16px;
-  line-height: 19px;
-
-  color: ${COLORS.UIWhite};
-`;
-
-const Border = styled.hr`
-  width: 246px;
-  height: 0.5px;
-  margin: 16px 46px 22px 36px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.25);
-`;
-
-const GroupIndex = styled.div`
-  width: 4px;
-  height: 16px;
-  margin: 4px 0px 4px 4px;
-
-  border-radius: 1px;
-  background: ${(props) => props.color};
-`;
-
-const NoTemplates = styled.div`
-  width: 249px;
-  height: 44px;
-
-  margin: 24px 39px 0px 40px;
-
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 22px;
 `;
 
 export default SidebarPresenter;

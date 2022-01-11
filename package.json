@@ -17,7 +17,6 @@
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
-    "react-select-search": "^3.0.9",
     "styled-components": "^5.3.3",
     "styled-normalize": "^8.0.7",
     "web-vitals": "^2.1.2"

@@ -2,15 +2,14 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import expand from "../../constants/icons/expand.svg";
 import collapse from "../../constants/icons/collapse.svg";
+import SidebarGroup from "./SidebarGroup";
 
-const Accordion = ({ title, index, list }) => {
+const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
   const [isCollapse, setIsCollapse] = useState(false);
 
-  const handleButtonClick = (event) => {
-    event.stopPropagation();
-
+  const handleButtonClick = () => {
     if (parentRef.current === null || childRef.current === null) {
       return;
     }
@@ -32,19 +31,20 @@ const Accordion = ({ title, index, list }) => {
 
   return (
     <Container>
-      <Group onClick={handleButtonClick}>
-        <GroupIndex color={index} />
-        <GroupName>{title}</GroupName>
-        {buttonIcon}
-      </Group>
+      <SidebarGroup
+        item={buttonIcon}
+        title={title}
+        onClick={handleButtonClick}
+        icon={icon}
+      />
       <ListWrapper ref={parentRef}>
-        <List ref={childRef}>
-          {list.map((item) => (
-            <TemplateTitle>
-              <TemplateName>{item}</TemplateName>
+        <ListItem ref={childRef}>
+          {list.map((item, i) => (
+            <TemplateTitle key={"i" + i}>
+              <TemplateName>{item.title}</TemplateName>
             </TemplateTitle>
           ))}
-        </List>
+        </ListItem>
       </ListWrapper>
     </Container>
   );
@@ -61,47 +61,11 @@ const Container = styled.div`
   margin-left: 40px;
 `;
 
-const Group = styled.div`
-  width: 100%;
-  height: 24px;
-
-  display: flex;
-
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-
-  margin-top: 12px;
-  height: 32px;
-`;
-
-const GroupName = styled.span`
-  width: 160px;
-  height: 20px;
-
-  margin: 2px 52px 2px 8px;
-  color: #ffffff;
-
-  font-size: 16px;
-
-  display: flex;
-  align-items: center;
-`;
-
 const IconWrapper = styled.img`
   width: 16px;
   height: 12px;
 
   margin: 6px 8px 6px 0px;
-`;
-
-const GroupIndex = styled.div`
-  width: 4px;
-  height: 16px;
-  margin: 4px 0px 4px 4px;
-
-  border-radius: 1px;
-  background: ${(props) => props.color};
 `;
 
 const ListWrapper = styled.div`
@@ -110,7 +74,7 @@ const ListWrapper = styled.div`
   transition: height 0.35s ease, background 0.35s ease;
 `;
 
-const List = styled.div`
+const ListItem = styled.div`
   padding: 0.1px;
   color: #ffffff;
 `;

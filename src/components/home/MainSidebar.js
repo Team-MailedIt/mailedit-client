@@ -3,10 +3,9 @@ import styled from "styled-components";
 import Checkbox from "react-custom-checkbox";
 import check from "../../constants/icons/check.svg";
 import COLORS from "../../constants/colors";
-
-import logo from "../../constants/icons/logo.svg";
-import search from "../../constants/icons/search.svg";
+import SidebarPresenter from "../commons/SidebarPresenter";
 import star from "../../constants/icons/star.svg";
+import SidebarGroup from "../commons/SidebarGroup";
 
 const MainSidebar = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -16,72 +15,37 @@ const MainSidebar = () => {
   };
 
   // dummy data
-  const [groups, setGroups] = useState([
-    {
-      userId: 5,
-      id: 1,
-      name: "학교",
-      color: "#3138FF",
-    },
-    {
-      userId: 5,
-      id: 2,
-      name: "회사",
-      color: "#E64980",
-    },
-    {
-      userId: 5,
-      id: 3,
-      name: "그룹2",
-      color: "#38D9A9",
-    },
-    {
-      userId: 5,
-      id: 4,
-      name: "그룹3",
-      color: "#FAB005",
-    },
-  ]);
+  const [groups, setGroups] = useState(null);
 
   return (
-    <Wrapper>
-      <Logo src={logo} />
-      <SearchingField>
-        <SearchIcon src={search} />
-        <Input placeholder="템플릿을 검색하세요" spellCheck={false} />
-      </SearchingField>
-      <MyTemplate>마이템플릿</MyTemplate>
-      <Group>
-        <StarIcon src={star} />
-        <GroupName>즐겨찾기</GroupName>
-      </Group>
-      <Border />
-      {
-        <SelectAllWrapper>
-          <SelectAll>전체 선택</SelectAll>
-          <Checkbox
-            checked={isChecked}
-            icon={
-              <CheckBoxWrapper>
-                <CheckIcon src={check} />
-              </CheckBoxWrapper>
-            }
-            borderColor="#FFFFFF"
-            borderRadius="2px"
-            borderWidth="1px"
-            style={{ overflow: "hidden" }}
-            size="16px"
-            onClick={handleCheckBoxClick}
-          />
-        </SelectAllWrapper>
-      }
-      <>
-        {groups ? (
-          groups.map((group) => (
-            <Group key={group.id}>
-              <GroupIndex color={group.color} />
-              <GroupName>{group.name}</GroupName>
-              {
+    <SidebarPresenter
+      myTemplateList={
+        <>
+          {groups ? (
+            <>
+              <SidebarGroup
+                title={"즐겨찾기"}
+                icon={<StarIcon src={star} />}
+                item={
+                  <Checkbox
+                    checked={isChecked}
+                    icon={
+                      <CheckBoxWrapper>
+                        <CheckIcon src={check} />
+                      </CheckBoxWrapper>
+                    }
+                    borderColor="#FFFFFF"
+                    borderRadius="2px"
+                    borderWidth="1px"
+                    style={{ overflow: "hidden" }}
+                    size="16px"
+                    onClick={handleCheckBoxClick}
+                  />
+                }
+              />
+              <Border />
+              <SelectAllWrapper>
+                <SelectAll>전체 선택</SelectAll>
                 <Checkbox
                   checked={isChecked}
                   icon={
@@ -96,100 +60,41 @@ const MainSidebar = () => {
                   size="16px"
                   onClick={handleCheckBoxClick}
                 />
-              }
-            </Group>
-          ))
-        ) : (
-          <NoTemplates>
-            마이템플릿이 아직 없네요!
-            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-          </NoTemplates>
-        )}
-      </>
-    </Wrapper>
+              </SelectAllWrapper>
+              {groups.map((group) => (
+                <SidebarGroup
+                  title={group.name}
+                  icon={<Index color={group.color} />}
+                  item={
+                    <Checkbox
+                      checked={isChecked}
+                      icon={
+                        <CheckBoxWrapper>
+                          <CheckIcon src={check} />
+                        </CheckBoxWrapper>
+                      }
+                      borderColor="#FFFFFF"
+                      borderRadius="2px"
+                      borderWidth="1px"
+                      style={{ overflow: "hidden" }}
+                      size="16px"
+                      onClick={handleCheckBoxClick}
+                    />
+                  }
+                />
+              ))}
+            </>
+          ) : (
+            <NoTemplates>
+              마이템플릿이 아직 없네요!
+              <br />첫 템플릿을 만들어 보는 것은 어떨까요?
+            </NoTemplates>
+          )}
+        </>
+      }
+    />
   );
 };
-
-const Wrapper = styled.aside`
-  width: 328px;
-  height: 1080px;
-
-  background: ${COLORS.primary};
-`;
-
-const Logo = styled.img`
-  width: 220px;
-  height: 44px;
-
-  margin: 36px 68px 0 40px;
-`;
-
-const SearchingField = styled.section`
-  width: 252px;
-  height: 38px;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  background: #748ffc;
-
-  border-radius: 2px;
-  margin: 48px 36px 0px 40px;
-`;
-
-const Input = styled.input`
-  margin-left: 12px;
-
-  background: none;
-  border: none;
-  color: white;
-
-  &::placeholder {
-    color: ${COLORS.indigo1};
-    font-size: 16px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
-  }
-`;
-
-const SearchIcon = styled.img`
-  width: 18px;
-  heigt: 18px;
-
-  margin: 10px 0px 10px 12px;
-`;
-
-const MyTemplate = styled.span`
-  width: 96px;
-  height: 26px;
-  margin: 42px 192px 24px 40px;
-
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 26px;
-
-  display: flex;
-  align-items: center;
-
-  color: ${COLORS.UIWhite};
-`;
-
-const Group = styled.section`
-  width: 252px;
-  height: 24px;
-
-  margin: 12px 40px 0 36px;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
 
 const StarIcon = styled.img`
   width: 18px;
@@ -197,32 +102,13 @@ const StarIcon = styled.img`
   margin: 3px 0px 3px 4px;
 `;
 
-const GroupName = styled.span`
-  width: 160px;
-  height: 20px;
-  margin: 2px 52px 0px 8px;
-
-  font-size: 16px;
-  line-height: 19px;
-
-  color: ${COLORS.UIWhite};
-`;
-
 const Border = styled.hr`
   width: 246px;
   height: 0.5px;
-  margin: 16px 46px 22px 36px;
+  margin: 16px 46px 16px 36px;
+
   border: none;
   background-color: rgba(255, 255, 255, 0.25);
-`;
-
-const GroupIndex = styled.div`
-  width: 4px;
-  height: 16px;
-  margin: 4px 0px 4px 4px;
-
-  border-radius: 1px;
-  background: ${(props) => props.color};
 `;
 
 const NoTemplates = styled.div`
@@ -270,6 +156,14 @@ const SelectAllWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Index = styled.div`
+  width: 4px;
+  height: 16px;
+
+  border-radius: 1px;
+  background: ${(props) => props.color};
 `;
 
 export default MainSidebar;
