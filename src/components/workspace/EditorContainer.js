@@ -7,10 +7,13 @@ import HeaderContainer from './HeaderContainer';
 import { CopyContext } from '../../contexts/CopyContexts';
 import parseBlocks from '../../utils/parseBlocks';
 import copy from 'copy-to-clipboard';
+import ModalContainer from '../alertModal/ModalContainer';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
   const { setActionHandler } = useContext(CopyContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOption, setModalOption] = useState('');
 
   const handleHeaderData = (newValue) => {
     setHeaderData(newValue);
@@ -27,12 +30,15 @@ const EditorContainer = ({ passedBlocks }) => {
 
   const copyButtonHandler = () => {
     setActionHandler(true);
-    window.alert('복사되었습니다!');
+    setModalOption('copy');
+    setIsModalOpen(true);
   };
 
   // 마지막 save 버튼 눌렀을 경우
   const handleSaveTemplate = () => {
+    setModalOption('save');
     console.log(headerData);
+    setIsModalOpen(true);
   };
 
   return (
@@ -53,6 +59,12 @@ const EditorContainer = ({ passedBlocks }) => {
           템플릿 저장하기
         </TemplateSaveButton>
       </FooterContainer>
+
+      <ModalContainer
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        modalOption={modalOption}
+      />
     </Container>
   );
 };
