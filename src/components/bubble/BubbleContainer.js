@@ -10,7 +10,7 @@ import {
   AddGroupButton,
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 // import { GearIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
@@ -82,13 +82,10 @@ const BubbleContainer = ({
     setSelected(groupData);
   };
 
-  const formChecker = (validator) => {
-    if (validator) setAddChecker(true);
-  };
-
-  const handleAddNewGroup = (element) => {
+  const handleAddNewGroup = useCallback((element) => {
     setTemp(element);
-  };
+    setAddChecker(true);
+  }, []);
 
   return (
     <Modal
@@ -131,10 +128,7 @@ const BubbleContainer = ({
             <DefaultContainer />
           </div>
         ) : (
-          <AddGroupContainer
-            formChecker={formChecker}
-            handleAddNewGroup={handleAddNewGroup}
-          />
+          <AddGroupContainer handleAddNewGroup={handleAddNewGroup} />
         )}
 
         <HorizontalLine style={{ marginTop: '16px' }} />

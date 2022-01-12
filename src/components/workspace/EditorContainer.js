@@ -15,12 +15,9 @@ const EditorContainer = ({ passedBlocks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOption, setModalOption] = useState('');
 
-  const handleHeaderData = useCallback(
-    (newValue) => {
-      setHeaderData(newValue);
-    },
-    [headerData]
-  );
+  const handleHeaderData = useCallback((newValue) => {
+    setHeaderData(newValue);
+  }, []);
 
   // EditablePage에서 useContext로 복사하기를 하면 실행되는 함수.
   // block data를 가져와서 parsing하여 setState.

@@ -6,7 +6,7 @@ import uid from '../../utils/uid';
 import ColorPalet from './ColorPalet';
 import { ColContainer, SubHeading } from './Components';
 
-const AddGroupContainer = ({ formChecker, handleAddNewGroup }) => {
+const AddGroupContainer = ({ handleAddNewGroup }) => {
   const [{ groupName }, handleInputChange] = useInputs({
     groupName: '',
   });
@@ -14,14 +14,13 @@ const AddGroupContainer = ({ formChecker, handleAddNewGroup }) => {
 
   useEffect(() => {
     if (groupName !== '' && selectedColor !== '') {
-      formChecker(true);
       handleAddNewGroup({
         title: groupName,
         color: selectedColor,
         id: uid(),
       });
     }
-  }, [groupName, selectedColor]);
+  }, [groupName, selectedColor, handleAddNewGroup]);
 
   const handleColorPalet = (target) => {
     setSelctedColor(target);

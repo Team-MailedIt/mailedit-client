@@ -30,7 +30,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
       subtitle: subtitle,
       group: group,
     });
-  }, [title, subtitle, group]);
+  }, [title, subtitle, group, handleHeaderData]);
 
   const openModal = () => {
     setIsModalOpen(true);
