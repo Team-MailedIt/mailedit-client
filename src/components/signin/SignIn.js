@@ -15,7 +15,7 @@ const SignIn = () => {
     });
 
   const signInUser = { email: email, password: password };
-  const signUpUser = { name: name, email: email, password: password };
+  const signUpUser = { username: name, email: email, password: password };
 
   // 회원가입
   const handleSignUpBtnClick = () => {

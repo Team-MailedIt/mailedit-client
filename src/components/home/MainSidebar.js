@@ -10,29 +10,47 @@ import SidebarGroup from "../commons/SidebarGroup";
 const MainSidebar = () => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleCheckBoxClick = () => {
-    setIsChecked(!isChecked);
+  const handleCheckBoxClick = (e) => {
+    console.log("id: ", e.target.id);
   };
 
   // dummy data
   const [groups, setGroups] = useState([
     {
       userId: 6,
-      id: 2,
+      id: 112,
       name: "학교",
       color: "#38D9A9",
     },
     {
       userId: 6,
-      id: 3,
+      id: 113,
       name: "회사",
       color: "#FFEC99",
     },
     {
       userId: 6,
-      id: 4,
+      id: 114,
       name: "외주",
       color: "#FA5252",
+    },
+    {
+      userId: 6,
+      id: 115,
+      name: "그룹1",
+      color: "#BE4BDB",
+    },
+    {
+      userId: 6,
+      id: 116,
+      name: "그룹2",
+      color: "#66D9E8",
+    },
+    {
+      userId: 6,
+      id: 117,
+      name: "그룹3",
+      color: "#3138FF",
     },
   ]);
 
@@ -48,6 +66,7 @@ const MainSidebar = () => {
                   icon={<StarIcon src={star} />}
                   item={
                     <Checkbox
+                      id={"likeCheckBox"}
                       checked={isChecked}
                       icon={
                         <CheckBoxWrapper>
@@ -68,6 +87,7 @@ const MainSidebar = () => {
               <SelectAllWrapper>
                 <SelectAll>전체 선택</SelectAll>
                 <Checkbox
+                  id={"sellectAllCheckBox"}
                   checked={isChecked}
                   icon={
                     <CheckBoxWrapper>
@@ -89,6 +109,7 @@ const MainSidebar = () => {
                     icon={<Index color={group.color} />}
                     item={
                       <Checkbox
+                        id={group.id}
                         checked={isChecked}
                         icon={
                           <CheckBoxWrapper>
@@ -125,10 +146,10 @@ const StarIcon = styled.img`
   margin: 3px 0px 3px 4px;
 `;
 
-const Border = styled.hr`
+const Border = styled.div`
   width: 246px;
   height: 0.5px;
-  margin: 16px 46px 16px 36px;
+  margin: 16px 0px 16px 36px;
 
   border: none;
   background-color: rgba(255, 255, 255, 0.25);
@@ -138,7 +159,7 @@ const SelectAllWrapper = styled.div`
   width: 252px;
   height: 24px;
 
-  margin: 21px 40px 0px 36px;
+  margin: 21px 0px 0px 34px;
 
   display: flex;
   flex-direction: row;
@@ -151,17 +172,16 @@ const SelectAllWrapper = styled.div`
 const SelectAll = styled.span`
   width: 60px;
   height: 20px;
-  margin: 2px 165px 2px 4px;
+  margin: 2px 164px 2px 4px;
 
   font-size: 16px;
-  line-height: 19px;
 
   color: ${COLORS.UIWhite};
 `;
 
 const GroupWrapper = styled.div`
   width: 252px;
-  margin-left: 36px;
+  margin-left: 34px;
 `;
 
 const CheckBoxWrapper = styled.div`

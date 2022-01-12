@@ -3,12 +3,19 @@ import COLORS from "../../constants/colors";
 import liked from "../../constants/icons/liked.svg";
 import notLiked from "../../constants/icons/notLiked.svg";
 import bin from "../../constants/icons/bin.svg";
+import { useState } from "react";
 
-const Thumbnail = () => {
+const Thumbnail = ({ color }) => {
+  const [isStar, setIsStar] = useState(false);
+
+  const handleStarClick = () => {
+    setIsStar(!isStar);
+  };
+
   return (
-    <Main>
+    <Wrapper>
       <IndexArea>
-        <Index />
+        <Index color={color} />
       </IndexArea>
       <Title>안내문 등 제목이 들어가는 위치다</Title>
       <BodyWrapper>
@@ -16,23 +23,31 @@ const Thumbnail = () => {
           메모가 일단 표시된다 그리고 만약 사용자가 안 쓴 경우 첫 줄을 자동으로
           넣어준다
         </Preview>
-        <Liked src={liked} />
+        {isStar ? (
+          <Liked src={liked} onClick={handleStarClick} />
+        ) : (
+          <Liked src={notLiked} onClick={handleStarClick} />
+        )}
       </BodyWrapper>
       <Bottom>
         <Time>10:00pm에 수정됨</Time>
         <Border />
         <Bin src={bin} />
       </Bottom>
-    </Main>
+    </Wrapper>
   );
 };
 
-const Main = styled.div`
+const Wrapper = styled.div`
   width: 340px;
   height: 196px;
   border-radius: 8px;
 
+  margin-top: 22px;
+
   background: ${COLORS.UIWhite};
+
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 `;
 
 const IndexArea = styled.div`
@@ -49,7 +64,7 @@ const Index = styled.div`
 
   border-radius: 0px 4px 0px 0px;
 
-  border-top: 8px solid ${COLORS.tagGreen};
+  border-top: 8px solid ${(props) => props.color};
   border-left: 12px solid transparent;
 `;
 
@@ -60,7 +75,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
 
-  margin: 32px 20px 0px 20px;
+  margin: 24px 20px 0px 20px;
 
   font-family: Pretendard-SemiBold;
   font-size: 22px;
@@ -97,6 +112,10 @@ const Liked = styled.img`
 
   margin-top: 18px;
   margin-left: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Bottom = styled.div`
@@ -137,6 +156,10 @@ const Bin = styled.img`
   height: 18px;
 
   margin-left: 11px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Thumbnail;
