@@ -6,22 +6,29 @@ import EditPage from './EditablePage';
 import HeaderContainer from './HeaderContainer';
 import { CopyContext } from '../../contexts/CopyContexts';
 import parseBlocks from '../../utils/parseBlocks';
+import copy from 'copy-to-clipboard';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
   const { setActionHandler } = useContext(CopyContext);
+  const [parsedString, setParsedString] = useState({
+    value: '',
+    copied: false,
+  });
 
   const handleHeaderData = (newValue) => {
     setHeaderData(newValue);
   };
 
+  // EditablePage에서 useContext로 복사하기를 하면 실행되는 함수.
+  // block data를 가져와서 parsing하여 setState.
   const getBlocksHandler = (data) => {
     // we need to parse data
     // <div> -> \n, delete -> </div>
-    const parsedString = parseBlocks(data);
+    // const newString = parseBlocks(data);
     // copy to clipboard
-
-    console.log(parsedString);
+    const temp = parseBlocks(data);
+    copy(temp);
   };
 
   const copyButtonHandler = () => {
