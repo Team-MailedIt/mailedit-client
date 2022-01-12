@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
-const GroupComponent = ({ title, color, selected, handleSelectGroup }) => {
+const GroupComponent = ({ title, color, id, selected, handleSelectGroup }) => {
   const onClick = () => {
     handleSelectGroup({
+      id: id,
       title: title,
       color: color,
     });

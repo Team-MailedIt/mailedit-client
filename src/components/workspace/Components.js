@@ -24,6 +24,9 @@ export const CopyButton = styled.span`
   display: flex;
   align-items: center;
   text-decoration-line: underline;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const TemplateSubTitle = styled.span`
   font-style: normal;

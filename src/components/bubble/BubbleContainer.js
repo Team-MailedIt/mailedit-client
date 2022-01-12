@@ -27,6 +27,7 @@ const BubbleContainer = ({
   const [group, setGroup] = useState(fetchedData);
   const [mode, setMode] = useState(true);
   const [selected, setSelected] = useState({
+    id: 0,
     title: '',
     color: '',
   });
@@ -37,6 +38,7 @@ const BubbleContainer = ({
   const init = () => {
     setMode(true);
     setSelected({
+      id: 0,
       title: '',
       color: '',
     });
@@ -115,6 +117,7 @@ const BubbleContainer = ({
                 <GroupComponent
                   title={title}
                   color={color}
+                  id={id}
                   selected={selected.title}
                   handleSelectGroup={handleSelectGroup}
                 />

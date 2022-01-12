@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import { TemplateSaveButton, HorizontalLine, CopyButton } from './Components';
@@ -15,9 +15,12 @@ const EditorContainer = ({ passedBlocks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOption, setModalOption] = useState('');
 
-  const handleHeaderData = (newValue) => {
-    setHeaderData(newValue);
-  };
+  const handleHeaderData = useCallback(
+    (newValue) => {
+      setHeaderData(newValue);
+    },
+    [headerData]
+  );
 
   // EditablePage에서 useContext로 복사하기를 하면 실행되는 함수.
   // block data를 가져와서 parsing하여 setState.
@@ -36,8 +39,12 @@ const EditorContainer = ({ passedBlocks }) => {
 
   // 마지막 save 버튼 눌렀을 경우
   const handleSaveTemplate = () => {
-    setModalOption('save');
+    // save
+    // title, memo, group
+    // content
     console.log(headerData);
+
+    setModalOption('save');
     setIsModalOpen(true);
   };
 

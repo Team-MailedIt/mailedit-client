@@ -16,6 +16,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
   const [subtitle, setSubtitle] = useInput('');
   const [group, setGroup] = useState({
+    id: 0,
     title: '',
     color: '',
   });
@@ -27,7 +28,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
     handleHeaderData({
       title: title,
       subtitle: subtitle,
-      group: { name: '학교', color: '#38D9A9' },
+      group: group,
     });
   }, [title, subtitle, group]);
 
@@ -38,7 +39,6 @@ const HeaderContainer = ({ handleHeaderData }) => {
     setGroup(target);
   };
   const handleGroupComponent = () => {
-    console.log('jjhi');
     openModal();
   };
 
