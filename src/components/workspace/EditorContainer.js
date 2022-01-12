@@ -5,6 +5,7 @@ import { TemplateSaveButton, HorizontalLine, CopyButton } from './Components';
 import EditPage from './EditablePage';
 import HeaderContainer from './HeaderContainer';
 import { CopyContext } from '../../contexts/CopyContexts';
+import parseBlocks from '../../utils/parseBlocks';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
@@ -15,8 +16,12 @@ const EditorContainer = ({ passedBlocks }) => {
   };
 
   const getBlocksHandler = (data) => {
-    console.log('get block data');
-    console.log(data);
+    // we need to parse data
+    // <div> -> \n, delete -> </div>
+    const parsedString = parseBlocks(data);
+    // copy to clipboard
+
+    console.log(parsedString);
   };
 
   const copyButtonHandler = () => {
