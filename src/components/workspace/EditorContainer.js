@@ -11,10 +11,6 @@ import copy from 'copy-to-clipboard';
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
   const { setActionHandler } = useContext(CopyContext);
-  const [parsedString, setParsedString] = useState({
-    value: '',
-    copied: false,
-  });
 
   const handleHeaderData = (newValue) => {
     setHeaderData(newValue);
@@ -25,10 +21,8 @@ const EditorContainer = ({ passedBlocks }) => {
   const getBlocksHandler = (data) => {
     // we need to parse data
     // <div> -> \n, delete -> </div>
-    // const newString = parseBlocks(data);
-    // copy to clipboard
-    const temp = parseBlocks(data);
-    copy(temp);
+    const parsedString = parseBlocks(data);
+    copy(parsedString);
   };
 
   const copyButtonHandler = () => {
