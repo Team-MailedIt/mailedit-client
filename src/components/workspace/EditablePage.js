@@ -33,7 +33,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   // copy block data
   useEffect(() => {
     if (action) {
-      console.log('copy block data');
+      // console.log('copy block data');
       getBlocksHandler(blocks);
       setActionHandler(false);
     }
@@ -77,7 +77,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     if (commandAction === 'Enter') {
       // focus to new block
       focusNewBlock(currentBlockIndex);
-    } else if (commandAction === "Backspace") {
+    } else if (commandAction === 'Backspace') {
       // focus to previous block, if it exists
       if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
@@ -168,7 +168,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       const newBlock = {
@@ -183,7 +183,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
