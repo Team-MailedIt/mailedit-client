@@ -28,14 +28,11 @@ const BodyForth = () => {
           flexDirection: 'row',
           marginTop: '86px',
           width: '72vw',
-          border: '1px solid black',
           justifyContent: 'space-between',
         }}
       >
-        <div
-          style={{ width: '687px', height: '450px', border: '1px solid black' }}
-        >
-          <p>사진주세요</p>
+        <div style={{ width: '687px', height: '450px' }}>
+          <SecondGif src="./img/secondGif.gif" />
         </div>
         <div
           style={{
@@ -62,6 +59,13 @@ const BodyForth = () => {
     </BodyContainer>
   );
 };
+const SecondGif = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 687px;
+  height: 450px;
+`;
 
 const PillContainer = styled.div`
   display: flex;

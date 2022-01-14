@@ -33,15 +33,17 @@ const HeaderContainer = () => {
         setIsModalOpen={setIsModalOpen}
         contents={<SignIn />}
       />
+      <MainGif src="./img/mainGif.gif" />
     </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 588px;
-  background: linear-gradient(126.85deg, #365bdf 41.71%, #aebffb 90.44%);
+  background: linear-gradient(126.85deg, #2d53db 41.71%, #93aaff 90.44%);
 `;
 const Header = styled.div`
   display: flex;
@@ -53,7 +55,6 @@ const Header = styled.div`
   margin-left: 48px;
 
   height: 116px;
-  width: 100vw;
 `;
 const RightContainer = styled.div`
   display: flex;
@@ -61,4 +62,13 @@ const RightContainer = styled.div`
 
   align-items: center;
 `;
+
+const MainGif = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 1920px;
+  height: 472px;
+`;
+
 export default HeaderContainer;
