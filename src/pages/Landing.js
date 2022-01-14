@@ -1,7 +1,7 @@
-import HeaderContainer from '../components/landing/HeaderContainer';
-import BodyContainer from '../components/landing/BodyContainer';
-import FooterContainer from '../components/landing/FooterContainer';
-import styled from 'styled-components';
+import HeaderContainer from "../components/landing/HeaderContainer";
+import BodyContainer from "../components/landing/BodyContainer";
+import FooterContainer from "../components/landing/FooterContainer";
+import styled from "styled-components";
 
 const Landing = () => {
   return (

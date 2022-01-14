@@ -1,21 +1,15 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import expand from "./expand.svg";
-import collapse from "./collapse.svg";
+import expand from "../../constants/icons/expand.svg";
+import collapse from "../../constants/icons/collapse.svg";
+import SidebarGroup from "./SidebarGroup";
 
-const Accordion = () => {
-  const groups = [
-    { title: "학교", templates: ["템플릿1", "템플릿2", "템플릿3"] },
-    { title: "회사", templates: ["템플릿4", "템플릿5", "템플릿6"] },
-  ];
-
+const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
   const [isCollapse, setIsCollapse] = useState(false);
 
-  const handleButtonClick = (event) => {
-    event.stopPropagation();
-
+  const handleButtonClick = () => {
     if (parentRef.current === null || childRef.current === null) {
       return;
     }
@@ -37,22 +31,24 @@ const Accordion = () => {
 
   return (
     <Container>
-      <Group onClick={handleButtonClick}>
-        {groups.map((t) => t.title)}
-        {buttonIcon}
-      </Group>
+      <SidebarGroup
+        item={buttonIcon}
+        title={title}
+        onClick={handleButtonClick}
+        icon={icon}
+      />
       <ListWrapper ref={parentRef}>
-        <List ref={childRef}>{groups.map((t) => t.templates)}</List>
+        <ListItem ref={childRef}>
+          {list.map((item, i) => (
+            <TemplateTitle key={"i" + i}>
+              <TemplateName>{item.title}</TemplateName>
+            </TemplateTitle>
+          ))}
+        </ListItem>
       </ListWrapper>
     </Container>
   );
 };
-
-const IconWrapper = styled.img`
-  width: 16px;
-  height: 12px;
-  background: pink;
-`;
 
 const Container = styled.div`
   width: 252px;
@@ -62,27 +58,41 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  border: 1px solid grey;
+  margin-left: 40px;
 `;
 
-const Group = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+const IconWrapper = styled.img`
+  width: 16px;
+  height: 12px;
 
-  height: 32px;
-  margin: 0 32px 0 8px;
+  margin: 6px 8px 6px 0px;
 `;
 
 const ListWrapper = styled.div`
-  margin: 5px;
-  padding: 0 8px;
+  width: 252px;
   overflow: hidden;
   transition: height 0.35s ease, background 0.35s ease;
 `;
 
-const List = styled.div`
+const ListItem = styled.div`
   padding: 0.1px;
+  color: #ffffff;
+`;
+
+const TemplateTitle = styled.div`
+  width: 252px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+
+  margin: 8px 40px 0px 0px;
+`;
+
+const TemplateName = styled.div`
+  width: 160px;
+  height: 20px;
+  margin-left: 16px;
 `;
 
 export default Accordion;

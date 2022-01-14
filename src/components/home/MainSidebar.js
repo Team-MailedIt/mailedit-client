@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Checkbox from "react-custom-checkbox";
-import SidebarPresenter from "../commons/sidebar/SidebarPresenter";
 import check from "../../constants/icons/check.svg";
 import COLORS from "../../constants/colors";
+import SidebarPresenter from "../commons/SidebarPresenter";
+import star from "../../constants/icons/star.svg";
+import SidebarGroup from "../commons/SidebarGroup";
 
 const MainSidebar = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -12,66 +14,124 @@ const MainSidebar = () => {
     setIsChecked(!isChecked);
   };
 
+  // dummy data
+  const [groups, setGroups] = useState([
+    {
+      userId: 6,
+      id: 2,
+      name: "학교",
+      color: "#38D9A9",
+    },
+    {
+      userId: 6,
+      id: 3,
+      name: "회사",
+      color: "#FFEC99",
+    },
+    {
+      userId: 6,
+      id: 4,
+      name: "외주",
+      color: "#FA5252",
+    },
+  ]);
+
   return (
     <SidebarPresenter
-      item={
-        <SelectAllWrapper>
-          <SelectAll>전체 선택</SelectAll>
-          <Checkbox
-            checked={isChecked}
-            icon={
-              <CheckBoxWrapper>
-                <CheckIcon src={check} />
-              </CheckBoxWrapper>
-            }
-            borderColor="#FFFFFF"
-            borderRadius="2px"
-            borderWidth="1px"
-            style={{ overflow: "hidden" }}
-            size="16px"
-            onClick={handleCheckBoxClick}
-          />
-        </SelectAllWrapper>
-      }
-      button={
-        <Checkbox
-          checked={isChecked}
-          icon={
-            <CheckBoxWrapper>
-              <CheckIcon src={check} />
-            </CheckBoxWrapper>
-          }
-          borderColor="#FFFFFF"
-          borderRadius="2px"
-          borderWidth="1px"
-          style={{ overflow: "hidden" }}
-          size="16px"
-          onClick={handleCheckBoxClick}
-        />
+      myTemplateList={
+        <>
+          {groups ? (
+            <>
+              <GroupWrapper>
+                <SidebarGroup
+                  title={"즐겨찾기"}
+                  icon={<StarIcon src={star} />}
+                  item={
+                    <Checkbox
+                      checked={isChecked}
+                      icon={
+                        <CheckBoxWrapper>
+                          <CheckIcon src={check} />
+                        </CheckBoxWrapper>
+                      }
+                      borderColor="#FFFFFF"
+                      borderRadius="2px"
+                      borderWidth="1px"
+                      style={{ overflow: "hidden" }}
+                      size="16px"
+                      onClick={handleCheckBoxClick}
+                    />
+                  }
+                />
+              </GroupWrapper>
+              <Border />
+              <SelectAllWrapper>
+                <SelectAll>전체 선택</SelectAll>
+                <Checkbox
+                  checked={isChecked}
+                  icon={
+                    <CheckBoxWrapper>
+                      <CheckIcon src={check} />
+                    </CheckBoxWrapper>
+                  }
+                  borderColor="#FFFFFF"
+                  borderRadius="2px"
+                  borderWidth="1px"
+                  style={{ overflow: "hidden" }}
+                  size="16px"
+                  onClick={handleCheckBoxClick}
+                />
+              </SelectAllWrapper>
+              <GroupWrapper>
+                {groups.map((group) => (
+                  <SidebarGroup
+                    title={group.name}
+                    icon={<Index color={group.color} />}
+                    item={
+                      <Checkbox
+                        checked={isChecked}
+                        icon={
+                          <CheckBoxWrapper>
+                            <CheckIcon src={check} />
+                          </CheckBoxWrapper>
+                        }
+                        borderColor="#FFFFFF"
+                        borderRadius="2px"
+                        borderWidth="1px"
+                        style={{ overflow: "hidden" }}
+                        size="16px"
+                        onClick={handleCheckBoxClick}
+                      />
+                    }
+                  />
+                ))}
+              </GroupWrapper>
+            </>
+          ) : (
+            <NoTemplates>
+              마이템플릿이 아직 없네요!
+              <br />첫 템플릿을 만들어 보는 것은 어떨까요?
+            </NoTemplates>
+          )}
+        </>
       }
     />
   );
 };
 
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  background: #ffffff;
+const StarIcon = styled.img`
+  width: 18px;
+  height: 18px;
+  margin: 3px 0px 3px 4px;
 `;
 
-const CheckIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`;
+const Border = styled.hr`
+  width: 246px;
+  height: 0.5px;
+  margin: 16px 46px 16px 36px;
 
-const SelectAll = styled.span`
-  width: 60px;
-  height: 20px;
-  margin: 2px 164px 2px 4px;
-
-  font-size: 16px;
-  line-height: 19px;
-
-  color: ${COLORS.UIWhite};
+  border: none;
+  background-color: rgba(255, 255, 255, 0.25);
 `;
 
 const SelectAllWrapper = styled.div`
@@ -86,6 +146,52 @@ const SelectAllWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const SelectAll = styled.span`
+  width: 60px;
+  height: 20px;
+  margin: 2px 165px 2px 4px;
+
+  font-size: 16px;
+  line-height: 19px;
+
+  color: ${COLORS.UIWhite};
+`;
+
+const GroupWrapper = styled.div`
+  width: 252px;
+  margin-left: 36px;
+`;
+
+const CheckBoxWrapper = styled.div`
+  display: flex;
+  background: #ffffff;
+`;
+
+const CheckIcon = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+const NoTemplates = styled.div`
+  width: 249px;
+  height: 44px;
+
+  margin: 24px 39px 0px 40px;
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22px;
+`;
+
+const Index = styled.div`
+  width: 4px;
+  height: 16px;
+
+  border-radius: 1px;
+  background: ${(props) => props.color};
 `;
 
 export default MainSidebar;

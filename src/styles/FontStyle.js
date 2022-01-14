@@ -37,7 +37,7 @@ const FontStyle = createGlobalStyle`
 }
 
 * {
-  font-family: 'Pretendard-Regular';
+  font-family: 'Pretendard-Light';
 }
 
 p {
