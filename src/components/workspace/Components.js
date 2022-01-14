@@ -8,7 +8,6 @@ export const VerticalLine = styled.div`
 export const HorizontalLine = styled.div`
   width: 100%;
   border-top: 0.5px solid ${COLORS.gray5};
-  margin-bottom: 24px;
 `;
 export const TemplateTitle = styled.span`
   font-style: normal;
@@ -25,6 +24,9 @@ export const CopyButton = styled.span`
   display: flex;
   align-items: center;
   text-decoration-line: underline;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const TemplateSubTitle = styled.span`
   font-style: normal;

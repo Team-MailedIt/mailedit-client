@@ -5,10 +5,18 @@ const COLORS = {
   blockBorder: "#5274EF",
   bodyBlue: "#2850DD",
 
+<<<<<<< HEAD
   indigo1: "#EEF1FE",
   indigo2: "#BAC8FF",
   indigo4: "#ADBDFC",
   maileditBlue: "#5274EF",
+=======
+  indigo0: '#EDF2FF',
+  indigo1: '#EEF1FE',
+  indigo2: '#BAC8FF',
+  indigo4: '#ADBDFC',
+  maileditBlue: '#5274EF',
+>>>>>>> selectGroup
 
   /* Background Colors */
   bgWhite: "#FFFFFF",

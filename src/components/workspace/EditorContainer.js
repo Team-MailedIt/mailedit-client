@@ -1,32 +1,48 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import { TemplateSaveButton, HorizontalLine, CopyButton } from './Components';
 import EditPage from './EditablePage';
 import HeaderContainer from './HeaderContainer';
 import { CopyContext } from '../../contexts/CopyContexts';
+import parseBlocks from '../../utils/parseBlocks';
+import copy from 'copy-to-clipboard';
+import ModalContainer from '../alertModal/ModalContainer';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
   const { setActionHandler } = useContext(CopyContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOption, setModalOption] = useState('');
 
-  const handleHeaderData = (newValue) => {
+  const handleHeaderData = useCallback((newValue) => {
     setHeaderData(newValue);
-  };
+  }, []);
 
+  // EditablePage에서 useContext로 복사하기를 하면 실행되는 함수.
+  // block data를 가져와서 parsing하여 setState.
   const getBlocksHandler = (data) => {
-    console.log('get block data');
-    console.log(data);
+    // we need to parse data
+    // <div> -> \n, delete -> </div>
+    const parsedString = parseBlocks(data);
+    copy(parsedString);
   };
 
   const copyButtonHandler = () => {
     setActionHandler(true);
-    window.alert('복사되었습니다!');
+    setModalOption('copy');
+    setIsModalOpen(true);
   };
 
   // 마지막 save 버튼 눌렀을 경우
   const handleSaveTemplate = () => {
+    // save
+    // title, memo, group
+    // content
     console.log(headerData);
+
+    setModalOption('save');
+    setIsModalOpen(true);
   };
 
   return (
@@ -36,7 +52,7 @@ const EditorContainer = ({ passedBlocks }) => {
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <CopyButton onClick={copyButtonHandler}>복사하기</CopyButton>
         </div>
-        <HorizontalLine />
+        <HorizontalLine style={{ marginBottom: '24px' }} />
         <EditPage
           passedBlocks={passedBlocks}
           getBlocksHandler={getBlocksHandler}
@@ -47,6 +63,12 @@ const EditorContainer = ({ passedBlocks }) => {
           템플릿 저장하기
         </TemplateSaveButton>
       </FooterContainer>
+
+      <ModalContainer
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        modalOption={modalOption}
+      />
     </Container>
   );
 };
