@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 import { Illust1 } from '../../constants/icons';
 import { MainHeading, MainSubHeading, LookAroundButton } from './Components';
+import { useNavigate } from 'react-router';
 
 const BodyFirst = () => {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/home');
+  };
   return (
     <Container>
       <LeftContainer style={{ marginTop: '104px' }}>
@@ -16,7 +22,7 @@ const BodyFirst = () => {
           <br />
           보다 쉽게 실무 이메일을 작성할 수 있도록 돕는 서비스입니다.
         </MainSubHeading>
-        <LookAroundButton>둘러보기</LookAroundButton>
+        <LookAroundButton onClick={goToHome}>둘러보기</LookAroundButton>
       </LeftContainer>
       <RightContainer style={{ marginLeft: '54px', marginTop: '67px' }}>
         <Illust1 src="./img/illust_1.png" />

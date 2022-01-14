@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
+import { useNavigate } from 'react-router';
 
 const FooterHeader = () => {
-  // 일단 확정인 footer만 적용
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/home');
+  };
   return (
     <>
       <FooterImgBackgroundDiv src="./img/footerImg.png">
@@ -23,7 +28,7 @@ const FooterHeader = () => {
           </RowContainer>
         </div>
         <div style={{ marginTop: '86px' }}>
-          <FooterButton>지금 시작하기</FooterButton>
+          <FooterButton onClick={goToHome}>지금 시작하기</FooterButton>
         </div>
       </FooterImgBackgroundDiv>
     </>

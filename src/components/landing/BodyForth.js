@@ -10,8 +10,14 @@ import {
   BodySpan,
   CreateTemplateButton,
 } from './Components';
+import { useNavigate } from 'react-router';
 
 const BodyForth = () => {
+  const navigate = useNavigate();
+
+  const goToWorkSpace = () => {
+    navigate('/workspace');
+  };
   return (
     <BodyContainer>
       <PillContainer style={{ marginTop: '112px' }}>
@@ -51,7 +57,10 @@ const BodyForth = () => {
             메일의 구조를 반영한 블록을 활용해
           </BodySpan>
           <BodySpan>보다 쉽게 나만의 템플릿을 만들어 보세요</BodySpan>
-          <CreateTemplateButton style={{ marginTop: '40px' }}>
+          <CreateTemplateButton
+            onClick={goToWorkSpace}
+            style={{ marginTop: '40px' }}
+          >
             템플릿 만들러 가기
           </CreateTemplateButton>
         </div>

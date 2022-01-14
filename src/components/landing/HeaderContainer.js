@@ -4,20 +4,31 @@ import { SignUp, SpanLink, VerticalLine } from './Components';
 import { useState } from 'react';
 import SignIn from '../../components/signin/SignIn';
 import SignInModal from '../../components/signin/SignInModal';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSignInBtnClick = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const goToHome = () => {
+    navigate('/home');
+  };
+  const goToLanding = () => {
+    window.location.reload();
+  };
+
   return (
     <Container>
       <Header>
-        <MainLogo src="./img/mainlogo.png" />
+        <MainLogo onClick={goToLanding} src="./img/mainlogo.png" />
         <RightContainer>
-          <SpanLink style={{ marginRight: '32px' }}>둘러보기</SpanLink>
+          <SpanLink onClick={goToHome} style={{ marginRight: '32px' }}>
+            둘러보기
+          </SpanLink>
           <VerticalLine style={{ marginRight: '32px' }} />
           <SpanLink
             style={{ marginRight: '32px' }}
