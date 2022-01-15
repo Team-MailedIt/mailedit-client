@@ -8,22 +8,38 @@ import {
   SubTitle,
   TemplateMemoInputContainer,
 } from './Components';
+import BubbleContainer from '../bubble/BubbleContainer';
+import fetchedData from '../../fetchedData.json';
+import GroupComponent from '../commons/GroupComponent';
+
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
   const [subtitle, setSubtitle] = useInput('');
-  const [group, setGroup] = useState();
+  const [group, setGroup] = useState({
+    id: 0,
+    title: '',
+    color: '',
+  });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // set state to EditorContainer
   useEffect(() => {
     handleHeaderData({
       title: title,
       subtitle: subtitle,
-      group: { name: '학교', color: '#38D9A9' },
+      group: group,
     });
-  }, [title, subtitle, group]);
+  }, [title, subtitle, group, handleHeaderData]);
 
-  const handleGroup = () => {
-    window.alert('아직 미구현');
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleSelected = (target) => {
+    setGroup(target);
+  };
+  const handleGroupComponent = () => {
+    openModal();
   };
 
   return (
@@ -51,10 +67,24 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <RowContainer style={{ marginTop: '8px', marginBottom: '16px' }}>
         <SubTitle>그룹</SubTitle>
-        <TemplateSelectGroupButton onClick={handleGroup}>
-          그룹 지정하기
-        </TemplateSelectGroupButton>
+        {group.title ? (
+          <GroupComponent
+            title={group.title}
+            color={group.color}
+            handleSelectGroup={handleGroupComponent}
+          />
+        ) : (
+          <TemplateSelectGroupButton onClick={openModal}>
+            그룹 지정하기
+          </TemplateSelectGroupButton>
+        )}
       </RowContainer>
+      <BubbleContainer
+        isModalOpen={isModalOpen}
+        fetchedData={fetchedData}
+        setIsModalOpen={setIsModalOpen}
+        handleSelected={handleSelected}
+      />
     </Container>
   );
 };

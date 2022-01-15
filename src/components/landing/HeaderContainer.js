@@ -4,20 +4,31 @@ import { SignUp, SpanLink, VerticalLine } from './Components';
 import { useState } from 'react';
 import SignIn from '../../components/signin/SignIn';
 import SignInModal from '../../components/signin/SignInModal';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSignInBtnClick = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const goToHome = () => {
+    navigate('/home');
+  };
+  const goToLanding = () => {
+    window.location.reload();
+  };
+
   return (
     <Container>
       <Header>
-        <MainLogo src="./img/mainlogo.png" />
+        <MainLogo onClick={goToLanding} src="./img/mainlogo.png" />
         <RightContainer>
-          <SpanLink style={{ marginRight: '32px' }}>둘러보기</SpanLink>
+          <SpanLink onClick={goToHome} style={{ marginRight: '32px' }}>
+            둘러보기
+          </SpanLink>
           <VerticalLine style={{ marginRight: '32px' }} />
           <SpanLink
             style={{ marginRight: '32px' }}
@@ -33,15 +44,17 @@ const HeaderContainer = () => {
         setIsModalOpen={setIsModalOpen}
         contents={<SignIn />}
       />
+      <MainGif src="./img/mainGif.gif" />
     </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 588px;
-  background: linear-gradient(126.85deg, #365bdf 41.71%, #aebffb 90.44%);
+  background: linear-gradient(126.85deg, #2d53db 41.71%, #93aaff 90.44%);
 `;
 const Header = styled.div`
   display: flex;
@@ -53,7 +66,6 @@ const Header = styled.div`
   margin-left: 48px;
 
   height: 116px;
-  width: 100vw;
 `;
 const RightContainer = styled.div`
   display: flex;
@@ -61,4 +73,13 @@ const RightContainer = styled.div`
 
   align-items: center;
 `;
+
+const MainGif = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 1920px;
+  height: 472px;
+`;
+
 export default HeaderContainer;

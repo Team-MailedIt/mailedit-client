@@ -3,7 +3,7 @@ import COLORS from "../../constants/colors";
 import liked from "../../constants/icons/liked.svg";
 import notLiked from "../../constants/icons/notLiked.svg";
 import bin from "../../constants/icons/bin.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import API from "../../utils/API";
 
 const Thumbnail = ({
@@ -15,15 +15,14 @@ const Thumbnail = ({
   handleBinIconClick,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
-  const [selectedId, setSelectedId] = useState(id);
 
-  const handleStarClick = async () => {
+  const handleStarClick = () => {
     setIsLiked(!isLiked);
 
-    await API.patch(
-      `/templates/${selectedId}`,
-      JSON.stringify({ isStar: isLiked, groupId: null })
-    ).then((res) => console.log(res.data.isStar));
+    API.patch(
+      `/templates/${id}`,
+      JSON.stringify({ isStar: !isLiked, groupId: null })
+    );
   };
 
   return (
@@ -34,7 +33,7 @@ const Thumbnail = ({
       <Title id={id}>{title}</Title>
       <BodyWrapper id={id}>
         <Subtitle id={id}>{subtitle}</Subtitle>
-        {isStar ? (
+        {isLiked ? (
           <Liked
             src={liked}
             id={id}

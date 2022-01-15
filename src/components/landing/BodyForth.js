@@ -10,8 +10,14 @@ import {
   BodySpan,
   CreateTemplateButton,
 } from './Components';
+import { useNavigate } from 'react-router';
 
 const BodyForth = () => {
+  const navigate = useNavigate();
+
+  const goToWorkSpace = () => {
+    navigate('/workspace');
+  };
   return (
     <BodyContainer>
       <PillContainer style={{ marginTop: '112px' }}>
@@ -28,14 +34,11 @@ const BodyForth = () => {
           flexDirection: 'row',
           marginTop: '86px',
           width: '72vw',
-          border: '1px solid black',
           justifyContent: 'space-between',
         }}
       >
-        <div
-          style={{ width: '687px', height: '450px', border: '1px solid black' }}
-        >
-          <p>사진주세요</p>
+        <div style={{ width: '687px', height: '450px' }}>
+          <SecondGif src="./img/secondGif.gif" />
         </div>
         <div
           style={{
@@ -54,7 +57,10 @@ const BodyForth = () => {
             메일의 구조를 반영한 블록을 활용해
           </BodySpan>
           <BodySpan>보다 쉽게 나만의 템플릿을 만들어 보세요</BodySpan>
-          <CreateTemplateButton style={{ marginTop: '40px' }}>
+          <CreateTemplateButton
+            onClick={goToWorkSpace}
+            style={{ marginTop: '40px' }}
+          >
             템플릿 만들러 가기
           </CreateTemplateButton>
         </div>
@@ -62,6 +68,13 @@ const BodyForth = () => {
     </BodyContainer>
   );
 };
+const SecondGif = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 687px;
+  height: 450px;
+`;
 
 const PillContainer = styled.div`
   display: flex;

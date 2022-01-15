@@ -68,6 +68,8 @@ const HomePresenter = () => {
                 title={t.title}
                 subtitle={t.subtitle}
                 isStar={t.isStar}
+                group={t.group}
+                groupId={t.groupId}
                 updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
                 handleBinIconClick={handleBinIconClick}
               />
