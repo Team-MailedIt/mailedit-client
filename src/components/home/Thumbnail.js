@@ -3,36 +3,57 @@ import COLORS from "../../constants/colors";
 import liked from "../../constants/icons/liked.svg";
 import notLiked from "../../constants/icons/notLiked.svg";
 import bin from "../../constants/icons/bin.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import API from "../../utils/API";
 
-const Thumbnail = ({ color }) => {
-  const [isStar, setIsStar] = useState(false);
+const Thumbnail = ({
+  id,
+  title,
+  subtitle,
+  isStar,
+  updatedAt,
+  handleBinIconClick,
+}) => {
+  const [isLiked, setIsLiked] = useState(isStar);
+  const [selectedId, setSelectedId] = useState(id);
 
-  const handleStarClick = () => {
-    setIsStar(!isStar);
+  const handleStarClick = async () => {
+    setIsLiked(!isLiked);
+
+    await API.patch(
+      `/templates/${selectedId}`,
+      JSON.stringify({ isStar: isLiked, groupId: null })
+    ).then((res) => console.log(res.data.isStar));
   };
 
   return (
-    <Wrapper>
-      <IndexArea>
-        <Index color={color} />
+    <Wrapper id={id}>
+      <IndexArea id={id}>
+        <Index color={COLORS.tagYellow} id={id} />
       </IndexArea>
-      <Title>안내문 등 제목이 들어가는 위치다</Title>
-      <BodyWrapper>
-        <Preview>
-          메모가 일단 표시된다 그리고 만약 사용자가 안 쓴 경우 첫 줄을 자동으로
-          넣어준다
-        </Preview>
+      <Title id={id}>{title}</Title>
+      <BodyWrapper id={id}>
+        <Subtitle id={id}>{subtitle}</Subtitle>
         {isStar ? (
-          <Liked src={liked} onClick={handleStarClick} />
+          <Liked
+            src={liked}
+            id={id}
+            value={isLiked}
+            onClick={handleStarClick}
+          />
         ) : (
-          <Liked src={notLiked} onClick={handleStarClick} />
+          <Liked
+            src={notLiked}
+            id={id}
+            value={isLiked}
+            onClick={handleStarClick}
+          />
         )}
       </BodyWrapper>
       <Bottom>
-        <Time>10:00pm에 수정됨</Time>
+        <Time>{updatedAt}에 수정됨</Time>
         <Border />
-        <Bin src={bin} />
+        <Bin src={bin} id={id} onClick={handleBinIconClick} />
       </Bottom>
     </Wrapper>
   );
@@ -93,12 +114,12 @@ const BodyWrapper = styled.div`
   flex-direction: row;
 `;
 
-const Preview = styled.div`
+const Subtitle = styled.div`
   width: 264px;
   height: 42px;
 
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 
   font-size: 16px;
   line-height: 22px;
@@ -130,7 +151,7 @@ const Bottom = styled.div`
 `;
 
 const Time = styled.div`
-  width: 140px;
+  width: 260px;
   height: 20px;
 
   margin-left: 24px;
@@ -146,7 +167,7 @@ const Border = styled.div`
   width: 1px;
   height: 24px;
 
-  margin-left: 135px;
+  margin-left: 15px;
 
   background: ${COLORS.gray4};
 `;

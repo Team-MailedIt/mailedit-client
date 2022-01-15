@@ -103,8 +103,9 @@ const MainSidebar = () => {
                 />
               </SelectAllWrapper>
               <GroupWrapper>
-                {groups.map((group) => (
+                {groups.map((group, i) => (
                   <SidebarGroup
+                    key={"g" + i}
                     title={group.name}
                     icon={<Index color={group.color} />}
                     item={

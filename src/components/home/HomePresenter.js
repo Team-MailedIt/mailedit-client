@@ -1,23 +1,50 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import COLORS from "../../constants/colors";
 import Thumbnail from "./Thumbnail";
+import API from "../../utils/API";
 
 import mainComIllu from "../../constants/icons/mainComIllu.svg";
 import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
 import dots from "../../constants/icons/dots.svg";
-import collaps from "../../constants/icons/collapse.svg";
 import unfold from "../../constants/icons/unfold.svg";
+import { useEffect, useState } from "react";
 
 const HomePresenter = () => {
+  const user = JSON.parse(localStorage.getItem("userData"));
+  const [myTemplates, setMyTemplates] = useState([]);
+  const navigate = useNavigate();
+
+  const [selectedId, setSelectedId] = useState(null);
+
+  useEffect(() => {
+    API.get("/templates/my").then((res) => {
+      setMyTemplates(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
+  const handleSignOutBtnClick = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
+  const handleBinIconClick = async (e) => {
+    setSelectedId(e.target.id);
+    await API.delete(`/templates/${selectedId}`).then((res) => {
+      console.log(res.data);
+    });
+  };
+
   return (
     <Wrapper>
       <Top>
         <Hello>
-          안녕하세요 김주현님, 오늘도 이메일 작성의 고수가 되어 보세요!
+          {`안녕하세요 ${user.givenName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`}
         </Hello>
         <TopRight>
-          <LogOut>로그아웃</LogOut>
+          <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
           <Link to={"/workspace"}>
             <GoToWorkSpace>템플릿 만들기</GoToWorkSpace>
           </Link>
@@ -25,26 +52,26 @@ const HomePresenter = () => {
       </Top>
       <MyTemplateArea>
         <MyTemplateInfo>
-          <UserName>김주현님의 마이템플릿</UserName>
+          <UserName>{`${user.givenName}님의 마이템플릿`}</UserName>
           <NumberArea>
             <Text>저장된 템플릿</Text>
-            <TemplateNum>18개</TemplateNum>
+            <TemplateNum>{`${myTemplates.length}개`}</TemplateNum>
           </NumberArea>
         </MyTemplateInfo>
         <Border />
         <MyTemplateContainer>
-          <Thumbnail color={COLORS.tagBlue} />
-          <Thumbnail color={COLORS.tagCyan} />
-          <Thumbnail color={COLORS.tagYellow} />
-          <Thumbnail color={COLORS.tagBlue} />
-          <Thumbnail color={COLORS.tagRed} />
-          <Thumbnail color={COLORS.tagPurple} />
-          <Thumbnail color={COLORS.tagGreen} />
-          <Thumbnail color={COLORS.tagBlue} />
-          <Thumbnail color={COLORS.tagYellow} />
-          <Thumbnail color={COLORS.tagBlue} />
-          <Thumbnail color={COLORS.tagRed} />
-          <Thumbnail color={COLORS.tagPurple} />
+          {myTemplates &&
+            myTemplates.map((t) => (
+              <Thumbnail
+                key={t.createdAt}
+                id={t.templateId}
+                title={t.title}
+                subtitle={t.subtitle}
+                isStar={t.isStar}
+                updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                handleBinIconClick={handleBinIconClick}
+              />
+            ))}
         </MyTemplateContainer>
       </MyTemplateArea>
       <BaseTemplateArea>
@@ -64,16 +91,18 @@ const HomePresenter = () => {
             높여 보세요.
           </BottomSubTitle>
           <BaseTemplateTable>
-            <tr>
-              <th>회의 일정 공지</th>
-              <th>회의 일정 조율</th>
-              <th>추가 자료 요청</th>
-              <th>요청 자료 전달</th>
-              <th>문서 제출</th>
-              <th>
-                <Dots src={dots} />
-              </th>
-            </tr>
+            <tbody>
+              <tr>
+                <th>회의 일정 공지</th>
+                <th>회의 일정 조율</th>
+                <th>추가 자료 요청</th>
+                <th>요청 자료 전달</th>
+                <th>문서 제출</th>
+                <th>
+                  <Dots src={dots} />
+                </th>
+              </tr>
+            </tbody>
           </BaseTemplateTable>
         </TextWrapper>
         <Illustration src={mainSchIllu} />
@@ -225,8 +254,6 @@ const MyTemplateContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
-  align-items: center;
-
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -310,7 +337,7 @@ const DropDown = styled.select`
   border-radius: 4px;
 
   background-image: url(${unfold});
-  background-repeat: repeat-x;
+  background-repeat: no-repeat;
 
   background-size: 16px 10px;
   background-color: ${COLORS.UIWhite};

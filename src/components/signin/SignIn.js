@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import GoogleLogin from "react-google-login";
-import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router";
 
 import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [{ name, email, password, confirmPassword }, handleInputChange, reset] =
     useInputs({
       name: "",
@@ -37,6 +38,8 @@ const SignIn = () => {
       // 헤더에 access token 값 붙이기
       const accessToken = res.data.token.access;
       API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+      navigate("/home");
     });
   };
 
@@ -69,6 +72,8 @@ const SignIn = () => {
         console.log("google: ", res);
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
+
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
