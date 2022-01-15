@@ -82,8 +82,6 @@ export const BodyContainer = styled.div`
   height: 720px;
   width: 100vw;
 
-  border: 1px solid black;
-
   background: ${COLORS.backgroundWhite};
 `;
 

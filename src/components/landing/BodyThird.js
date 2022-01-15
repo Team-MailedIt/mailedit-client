@@ -42,26 +42,31 @@ const BodyThird = () => {
             <br />
             기본템플릿을 사용해 보세요
           </BodySpan>
-          <SpanLink style={{ paddingTop: '32px' }}>
-            자세히 알아보기{'>'}
-            {'>'}
-          </SpanLink>
+          <div style={{ paddingTop: '32px' }}>
+            <SpanLink>
+              자세히 알아보기{'>'}
+              {'>'}
+            </SpanLink>
+          </div>
         </LeftContainer>
         <div
           style={{
-            width: '1184px',
-            height: '489px',
             paddingLeft: '15px',
-            border: '1px solid black',
           }}
         >
-          이미지주세요
+          <FirstGif src="./img/firstGif.gif" />
         </div>
       </div>
     </BodyContainer>
   );
 };
-
+const FirstGif = styled.img`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+  width: 1184px;
+  height: 489px;
+`;
 const PillContainer = styled.div`
   display: flex;
   flex-direction: row;
