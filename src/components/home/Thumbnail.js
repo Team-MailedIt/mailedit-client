@@ -11,6 +11,8 @@ const Thumbnail = ({
   title,
   subtitle,
   isStar,
+  groupId,
+  groupColor,
   updatedAt,
   handleBinIconClick,
 }) => {
@@ -21,32 +23,22 @@ const Thumbnail = ({
 
     API.patch(
       `/templates/${id}`,
-      JSON.stringify({ isStar: !isLiked, groupId: null })
-    );
+      JSON.stringify({ isStar: !isLiked, groupId: groupId })
+    ).then((res) => console.log(res.data));
   };
 
   return (
-    <Wrapper id={id}>
-      <IndexArea id={id}>
-        <Index color={COLORS.tagYellow} id={id} />
+    <Wrapper>
+      <IndexArea>
+        <Index color={groupColor} />
       </IndexArea>
-      <Title id={id}>{title}</Title>
-      <BodyWrapper id={id}>
-        <Subtitle id={id}>{subtitle}</Subtitle>
+      <Title>{title}</Title>
+      <BodyWrapper>
+        <Subtitle>{subtitle}</Subtitle>
         {isLiked ? (
-          <Liked
-            src={liked}
-            id={id}
-            value={isLiked}
-            onClick={handleStarClick}
-          />
+          <Liked src={liked} value={isLiked} onClick={handleStarClick} />
         ) : (
-          <Liked
-            src={notLiked}
-            id={id}
-            value={isLiked}
-            onClick={handleStarClick}
-          />
+          <Liked src={notLiked} value={isLiked} onClick={handleStarClick} />
         )}
       </BodyWrapper>
       <Bottom>

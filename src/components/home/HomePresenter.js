@@ -13,15 +13,20 @@ import { useEffect, useState } from "react";
 
 const HomePresenter = () => {
   const user = JSON.parse(localStorage.getItem("userData"));
-  const [myTemplates, setMyTemplates] = useState([]);
-  const navigate = useNavigate();
 
-  const [selectedId, setSelectedId] = useState(null);
+  const [myTemplates, setMyTemplates] = useState([]);
+  const [baseTemplates, setBaseTemplates] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
       console.log(res.data);
+    });
+
+    API.get("/templates/base").then((res) => {
+      setBaseTemplates(res.data);
+      console.log("base: ", res.data);
     });
   }, []);
 
@@ -30,11 +35,16 @@ const HomePresenter = () => {
     navigate("/");
   };
 
-  const handleBinIconClick = async (e) => {
-    setSelectedId(e.target.id);
-    await API.delete(`/templates/${selectedId}`).then((res) => {
-      console.log(res.data);
+  const handleBinIconClick = (e) => {
+    API.delete(`/templates/${e.target.id}`).then(() => {
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+      });
     });
+  };
+
+  const handleBaseClick = (e) => {
+    console.log(e.target);
   };
 
   return (
@@ -68,8 +78,8 @@ const HomePresenter = () => {
                 title={t.title}
                 subtitle={t.subtitle}
                 isStar={t.isStar}
-                group={t.group}
                 groupId={t.groupId}
+                groupColor={t.group.color}
                 updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
                 handleBinIconClick={handleBinIconClick}
               />
@@ -95,11 +105,16 @@ const HomePresenter = () => {
           <BaseTemplateTable>
             <tbody>
               <tr>
-                <th>회의 일정 공지</th>
+                {baseTemplates.slice(0, 5).map((t, i) => (
+                  <th key={"b" + i} onClick={handleBaseClick}>
+                    {t.title}
+                  </th>
+                ))}
+                {/* <th>회의 일정 공지</th>
                 <th>회의 일정 조율</th>
                 <th>추가 자료 요청</th>
                 <th>요청 자료 전달</th>
-                <th>문서 제출</th>
+                <th>문서 제출</th> */}
                 <th>
                   <Dots src={dots} />
                 </th>
