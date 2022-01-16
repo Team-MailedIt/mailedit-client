@@ -12,12 +12,8 @@ const Home = () => {
 };
 
 const Wrapper = styled.main`
-  width: 1920px;
-  height: 1080px;
-
-  display: flex;
-  flex-direction: row;
-  border: 1px solid grey;
+  display: grid;
+  grid-template-columns: 1.7fr 8.3fr;
 `;
 
 export default Home;

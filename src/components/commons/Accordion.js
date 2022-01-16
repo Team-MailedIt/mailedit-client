@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
 import styled from "styled-components";
+import { useRef, useState } from "react";
+
 import expand from "../../constants/icons/expand.svg";
 import collapse from "../../constants/icons/collapse.svg";
-import SidebarGroup from "./SidebarGroup";
 
 const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
+
   const [isCollapse, setIsCollapse] = useState(false);
 
   const handleButtonClick = () => {
@@ -30,13 +31,16 @@ const Accordion = ({ icon, title, list }) => {
     );
 
   return (
-    <Container>
-      <SidebarGroup
-        item={buttonIcon}
-        title={title}
-        onClick={handleButtonClick}
-        icon={icon}
-      />
+    <Wrapper>
+      <GroupWrapper>
+        <ItemWrapper onClick={handleButtonClick}>
+          <IndexGroup>
+            {icon}
+            <GroupTitle>{title}</GroupTitle>
+          </IndexGroup>
+          {buttonIcon}
+        </ItemWrapper>
+      </GroupWrapper>
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
           {list.map((item, i) => (
@@ -46,11 +50,18 @@ const Accordion = ({ icon, title, list }) => {
           ))}
         </ListItem>
       </ListWrapper>
-    </Container>
+    </Wrapper>
   );
 };
 
-const Container = styled.div`
+const IconWrapper = styled.img`
+  width: 16px;
+  height: 12px;
+
+  margin: 6px 8px 6px 0px;
+`;
+
+const Wrapper = styled.div`
   width: 252px;
 
   display: flex;
@@ -61,11 +72,46 @@ const Container = styled.div`
   margin-left: 40px;
 `;
 
-const IconWrapper = styled.img`
-  width: 16px;
-  height: 12px;
+const GroupWrapper = styled.section`
+  width: 252px;
+  height: 24px;
 
-  margin: 6px 8px 6px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
+`;
+
+const ItemWrapper = styled.div`
+  width: 240px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const IndexGroup = styled.div`
+  width: 172px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+`;
+
+const GroupTitle = styled.div`
+  width: 160px;
+  height: 20px;
+  margin-left: 8px;
+  line-height: 19px;
+
+  font-size: 16px;
+  color: #ffffff;
 `;
 
 const ListWrapper = styled.div`
@@ -93,6 +139,10 @@ const TemplateName = styled.div`
   width: 160px;
   height: 20px;
   margin-left: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Accordion;

@@ -52,6 +52,7 @@ const GroupTitle = styled.div`
   width: 160px;
   height: 20px;
   margin-left: 8px;
+  line-height: 19px;
 
   font-size: 16px;
   color: #ffffff;
