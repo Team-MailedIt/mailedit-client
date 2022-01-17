@@ -12,7 +12,7 @@ import unfold from "../../constants/icons/unfold.svg";
 import { useEffect, useState } from "react";
 
 const HomePresenter = () => {
-  const user = JSON.parse(localStorage.getItem("userData"));
+  const userName = localStorage.getItem("userName");
 
   const [myTemplates, setMyTemplates] = useState([]);
   const [baseTemplates, setBaseTemplates] = useState([]);
@@ -21,12 +21,11 @@ const HomePresenter = () => {
   useEffect(() => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
-      console.log(res.data);
+      console.log("my: ", res.data);
     });
 
     API.get("/templates/base").then((res) => {
       setBaseTemplates(res.data);
-      console.log("base: ", res.data);
     });
   }, []);
 
@@ -51,7 +50,7 @@ const HomePresenter = () => {
     <Wrapper>
       <Top>
         <Hello>
-          {`안녕하세요 ${user.givenName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`}
+          {`안녕하세요 ${userName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`}
         </Hello>
         <TopRight>
           <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
@@ -62,7 +61,7 @@ const HomePresenter = () => {
       </Top>
       <MyTemplateArea>
         <MyTemplateInfo>
-          <UserName>{`${user.givenName}님의 마이템플릿`}</UserName>
+          <UserName>{`${userName}님의 마이템플릿`}</UserName>
           <NumberArea>
             <Text>저장된 템플릿</Text>
             <TemplateNum>{`${myTemplates.length}개`}</TemplateNum>

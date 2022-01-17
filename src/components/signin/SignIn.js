@@ -34,10 +34,11 @@ const SignIn = () => {
     API.post("/login", JSON.stringify(signInUser)).then((res) => {
       localStorage.setItem("accessToken", res.data.token.access);
       localStorage.setItem("refreshToken", res.data.token.refresh);
-
+      localStorage.setItem("userName", res.data.user.username);
+      console.log(res.data);
       // 헤더에 access token 값 붙이기
-      const accessToken = res.data.token.access;
-      API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      // const accessToken = res.data.token.access;
+      // API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
       navigate("/home");
     });
@@ -58,7 +59,7 @@ const SignIn = () => {
 
   // 구글 로그인 성공 시
   const onGoogleSignInSuccess = async (res) => {
-    localStorage.setItem("userData", JSON.stringify(res.profileObj));
+    localStorage.setItem("userName", JSON.stringify(res.profileObj.givenName));
 
     const params = new URLSearchParams();
     params.append("idToken", res.tokenObj.id_token);

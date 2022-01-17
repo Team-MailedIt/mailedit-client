@@ -1,29 +1,29 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
-import logo from '../../constants/icons/logo.svg';
-import search from '../../constants/icons/search.svg';
-import remove from '../../constants/icons/remove.svg';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
+import logo from "../../constants/icons/logo.svg";
+import search from "../../constants/icons/search.svg";
+import remove from "../../constants/icons/remove.svg";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const SidebarPresenter = ({ myTemplateList, baseTemplateList }) => {
   const lists = [
-    { id: 1, title: '템플릿1' },
-    { id: 2, title: '템플릿2' },
-    { id: 3, title: '템플릿3' },
-    { id: 4, title: '템플릿4' },
-    { id: 5, title: '템플릿5' },
-    { id: 6, title: '템플릿6' },
-    { id: 7, title: '템플릿7' },
-    { id: 8, title: '템플릿8' },
-    { id: 9, title: '템플릿9' },
-    { id: 10, title: '템플릿10' },
-    { id: 11, title: '템플릿11' },
-    { id: 12, title: '템플릿12' },
-    { id: 13, title: '템플릿13' },
+    { id: 1, title: "템플릿1" },
+    { id: 2, title: "템플릿2" },
+    { id: 3, title: "템플릿3" },
+    { id: 4, title: "템플릿4" },
+    { id: 5, title: "템플릿5" },
+    { id: 6, title: "템플릿6" },
+    { id: 7, title: "템플릿7" },
+    { id: 8, title: "템플릿8" },
+    { id: 9, title: "템플릿9" },
+    { id: 10, title: "템플릿10" },
+    { id: 11, title: "템플릿11" },
+    { id: 12, title: "템플릿12" },
+    { id: 13, title: "템플릿13" },
   ];
 
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -33,7 +33,7 @@ const SidebarPresenter = ({ myTemplateList, baseTemplateList }) => {
   const results = lists.filter((l) => inputText && l.title.includes(inputText));
 
   const handleRemoveBtnClick = () => {
-    setInputText('');
+    setInputText("");
   };
 
   return (
@@ -55,7 +55,7 @@ const SidebarPresenter = ({ myTemplateList, baseTemplateList }) => {
         {results.length !== 0 ? (
           <SearchResultWrapper>
             {results.map((r, i) => (
-              <SearchResultTitle key={'r' + i}>{r.title}</SearchResultTitle>
+              <SearchResultTitle key={"r" + i}>{r.title}</SearchResultTitle>
             ))}
           </SearchResultWrapper>
         ) : null}
