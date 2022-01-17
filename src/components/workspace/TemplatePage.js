@@ -10,7 +10,10 @@ import {
 import { PrevIcon } from '../../constants/icons';
 
 const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
-  const [blocks, setBlocks] = useState(fetchedData);
+  // setBlock used when user select template from sidebar
+  // const [fetchedData, setFetchedData] = useState(fetchedData);
+  const [blocks, setBlocks] = useState(fetchedData.content);
+  // const [blocks, setBlocks] = useState({});
   const [parsedBlocks, setParsedBlocks] = useState([]);
 
   useEffect(() => {
@@ -43,12 +46,10 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
         <div style={{ marginLeft: '40px', marginRight: '40px' }}>
           <Container style={{ marginTop: '24px' }}>
             <RowContainer>
-              <TemplateTitle>일정 공유</TemplateTitle>
+              <TemplateTitle>{fetchedData.title}</TemplateTitle>
             </RowContainer>
             <RowContainer style={{ justifyContent: 'space-between' }}>
-              <TemplateSubTitle>
-                제목: [OO팀] OO/OO 프로젝트 회의 일정 공유
-              </TemplateSubTitle>
+              <TemplateSubTitle>{fetchedData.subtitle}</TemplateSubTitle>
               <TemplateSelectButton onClick={handleAllTemplate}>
                 템플릿 쓰기
               </TemplateSelectButton>
