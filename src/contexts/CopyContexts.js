@@ -1,12 +1,12 @@
 import { createContext, useState } from 'react';
 
 export const CopyContext = createContext({
-  action: false,
+  action: '',
   setActionHandler: (action) => {},
 });
 
 const CopyContextProvider = ({ children }) => {
-  const [isCopy, setIsCopy] = useState(false);
+  const [isCopy, setIsCopy] = useState('');
   const setIsCopyHandler = (action) => setIsCopy(action);
 
   return (

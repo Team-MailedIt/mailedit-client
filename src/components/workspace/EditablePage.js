@@ -9,7 +9,7 @@ import { DragIcon } from '../../constants/icons';
 import { CopyContext } from '../../contexts/CopyContexts';
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
-  const { action, setActionHandler } = useContext(CopyContext);
+  const { action } = useContext(CopyContext);
   const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
@@ -32,12 +32,10 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   // copy block data
   useEffect(() => {
-    if (action) {
-      // console.log('copy block data');
+    if (action !== '') {
       getBlocksHandler(blocks);
-      setActionHandler(false);
     }
-  }, [action, setActionHandler, getBlocksHandler, blocks]);
+  }, [action, getBlocksHandler, blocks]);
 
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {

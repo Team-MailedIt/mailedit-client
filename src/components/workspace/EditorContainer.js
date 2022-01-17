@@ -11,7 +11,7 @@ import ModalContainer from '../alertModal/ModalContainer';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
-  const { setActionHandler } = useContext(CopyContext);
+  const { action, setActionHandler } = useContext(CopyContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOption, setModalOption] = useState('');
 
@@ -24,23 +24,26 @@ const EditorContainer = ({ passedBlocks }) => {
   const getBlocksHandler = (data) => {
     // we need to parse data
     // <div> -> \n, delete -> </div>
-    const parsedString = parseBlocks(data);
-    copy(parsedString);
+    if (action === 'copy') {
+      const parsedString = parseBlocks(data);
+      copy(parsedString);
+    } else if (action === 'save') {
+      console.log(data);
+    }
+    setActionHandler('');
   };
 
   const copyButtonHandler = () => {
-    setActionHandler(true);
+    setActionHandler('copy');
     setModalOption('copy');
     setIsModalOpen(true);
   };
 
   // 마지막 save 버튼 눌렀을 경우
   const handleSaveTemplate = () => {
-    // save
-    // title, memo, group
-    // content
+    // check template can be saved first
     console.log(headerData);
-
+    setActionHandler('save');
     setModalOption('save');
     setIsModalOpen(true);
   };
