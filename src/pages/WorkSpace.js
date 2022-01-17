@@ -1,9 +1,9 @@
-import { useState } from "react";
-import EditorContainer from "../components/workspace/EditorContainer";
-import TemplatePage from "../components/workspace/TemplatePage";
-import uid from "../utils/uid";
-import CopyContextProvider from "../contexts/CopyContexts";
-import WorkSpaceSidebar from "../components/workspace/WorkSpaceSidebar";
+import { useState } from 'react';
+import EditorContainer from '../components/workspace/EditorContainer';
+import TemplatePage from '../components/workspace/TemplatePage';
+import uid from '../utils/uid';
+import CopyContextProvider from '../contexts/CopyContexts';
+import WorkSpaceSidebar from '../components/workspace/WorkSpaceSidebar';
 
 const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
@@ -16,22 +16,33 @@ const WorkSpace = () => {
     setBlocks(newBlock);
   };
 
+  const getAllBlockFromTemplate = (elementArray) => {
+    let NewArray = [];
+    elementArray.forEach((element) => {
+      NewArray = [...NewArray, { ...element, id: uid() }];
+    });
+    setBlocks(NewArray);
+  };
+
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "1.7fr 8.3fr",
+        display: 'grid',
+        gridTemplateColumns: '1.7fr 8.3fr',
       }}
     >
       <WorkSpaceSidebar />
       <CopyContextProvider>
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
           }}
         >
-          <TemplatePage getBlockFromTemplate={getBlockFromTemplate} />
+          <TemplatePage
+            getBlockFromTemplate={getBlockFromTemplate}
+            getAllBlockFromTemplate={getAllBlockFromTemplate}
+          />
           <EditorContainer passedBlocks={blocks} />
         </div>
       </CopyContextProvider>

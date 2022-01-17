@@ -9,7 +9,7 @@ import {
 } from './Components';
 import { PrevIcon } from '../../constants/icons';
 
-const TemplatePage = ({ getBlockFromTemplate }) => {
+const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   const [blocks, setBlocks] = useState(fetchedData);
   const [parsedBlocks, setParsedBlocks] = useState([]);
 
@@ -30,6 +30,9 @@ const TemplatePage = ({ getBlockFromTemplate }) => {
     const { id } = e.target;
     getBlockFromTemplate(blocks[id]);
   };
+  const handleAllTemplate = () => {
+    getAllBlockFromTemplate(blocks);
+  };
 
   return (
     <>
@@ -46,7 +49,9 @@ const TemplatePage = ({ getBlockFromTemplate }) => {
               <TemplateSubTitle>
                 제목: [OO팀] OO/OO 프로젝트 회의 일정 공유
               </TemplateSubTitle>
-              <TemplateSelectButton>템플릿 쓰기</TemplateSelectButton>
+              <TemplateSelectButton onClick={handleAllTemplate}>
+                템플릿 쓰기
+              </TemplateSelectButton>
             </RowContainer>
           </Container>
           <Container style={{ marginTop: '20px' }}>

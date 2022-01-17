@@ -42,7 +42,11 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
     if (passedBlocks) {
-      setBlocks((b) => [...b, passedBlocks]);
+      if (passedBlocks.length > 1) {
+        setBlocks((b) => [...b, ...passedBlocks]);
+      } else {
+        setBlocks((b) => [...b, passedBlocks]);
+      }
     }
   }, [passedBlocks]);
 
