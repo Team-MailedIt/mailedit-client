@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
+import COLORS from "../../constants/colors";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -35,10 +37,12 @@ const SignIn = () => {
       localStorage.setItem("accessToken", res.data.token.access);
       localStorage.setItem("refreshToken", res.data.token.refresh);
       localStorage.setItem("userName", res.data.user.username);
-      console.log(res.data);
-      // 헤더에 access token 값 붙이기
-      // const accessToken = res.data.token.access;
-      // API.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+      API.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${res.data.token.access}`;
+
+      console.log("accessToken: ", res.data.token.access);
 
       navigate("/home");
     });
@@ -59,7 +63,7 @@ const SignIn = () => {
 
   // 구글 로그인 성공 시
   const onGoogleSignInSuccess = async (res) => {
-    localStorage.setItem("userName", JSON.stringify(res.profileObj.givenName));
+    localStorage.setItem("userName", res.profileObj.givenName);
 
     const params = new URLSearchParams();
     params.append("idToken", res.tokenObj.id_token);
@@ -70,9 +74,10 @@ const SignIn = () => {
       },
     })
       .then((res) => {
-        console.log("google: ", res);
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
+
+        console.log("access: ", res.data.token.access);
 
         navigate("/home");
       })
@@ -88,7 +93,7 @@ const SignIn = () => {
 
   return (
     <>
-      <GoogleLogin
+      <GoogleSignIn
         clientId={process.env.REACT_APP_GOOGLE_API_KEY}
         buttonText="구글로 계속하기"
         onSuccess={onGoogleSignInSuccess}
@@ -100,6 +105,7 @@ const SignIn = () => {
         value={name}
         onChange={handleInputChange}
         placeholder="이름"
+        autoComplete="off"
       />
       <Input
         type="email"
@@ -107,6 +113,7 @@ const SignIn = () => {
         value={email}
         onChange={handleInputChange}
         placeholder="이메일"
+        autoComplete="off"
       />
       <Input
         type="password"
@@ -114,6 +121,7 @@ const SignIn = () => {
         value={password}
         onChange={handleInputChange}
         placeholder="비밀번호"
+        autoComplete="off"
       />
       <Input
         type="password"
@@ -121,6 +129,7 @@ const SignIn = () => {
         value={confirmPassword}
         onChange={handleInputChange}
         placeholder="비밀번호 확인"
+        autoComplete="off"
       />
       <SubmitBtn onClick={handleSignUpBtnClick}>회원가입</SubmitBtn>
       <SubmitBtn onClick={handleSignInBtnClick}>로그인</SubmitBtn>
@@ -130,10 +139,38 @@ const SignIn = () => {
   );
 };
 
-const Input = styled.input`
-  width: 50%;
+const GoogleSignIn = styled(GoogleLogin)`
+  width: 360px;
+  height: 60px;
 `;
 
-const SubmitBtn = styled.button``;
+const Input = styled.input`
+  width: 344px;
+  height: 44px;
+
+  border: 1.5px solid ${COLORS.gray4};
+  border-radius: 4px;
+
+  margin-top: 12px;
+  padding-left: 16px;
+`;
+
+const SubmitBtn = styled.button`
+  width: 360px;
+  height: 43px;
+
+  border: none;
+  color: ${COLORS.UIWhite};
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 12px;
+
+  background: ${COLORS.primary};
+  border-radius: 4px;
+`;
 
 export default SignIn;

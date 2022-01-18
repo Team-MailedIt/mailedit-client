@@ -7,6 +7,8 @@ import API from "../../utils/API";
 
 import mainComIllu from "../../constants/icons/mainComIllu.svg";
 import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
+import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+
 import dots from "../../constants/icons/dots.svg";
 import unfold from "../../constants/icons/unfold.svg";
 import { useEffect, useState } from "react";
@@ -21,7 +23,6 @@ const HomePresenter = () => {
   useEffect(() => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
-      console.log("my: ", res.data);
     });
 
     API.get("/templates/base").then((res) => {
@@ -68,22 +69,34 @@ const HomePresenter = () => {
           </NumberArea>
         </MyTemplateInfo>
         <Border />
-        <MyTemplateContainer>
-          {myTemplates &&
-            myTemplates.map((t) => (
-              <Thumbnail
-                key={t.createdAt}
-                id={t.templateId}
-                title={t.title}
-                subtitle={t.subtitle}
-                isStar={t.isStar}
-                groupId={t.groupId}
-                groupColor={t.group.color}
-                updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
-                handleBinIconClick={handleBinIconClick}
-              />
-            ))}
-        </MyTemplateContainer>
+        <MyTemplateGridWrapper>
+          {myTemplates.length != 0 ? (
+            <MyTemplateGrid>
+              {myTemplates.map((t) => (
+                <Thumbnail
+                  key={t.createdAt}
+                  id={t.templateId}
+                  title={t.title}
+                  subtitle={t.subtitle}
+                  isStar={t.isStar}
+                  groupId={t.groupId}
+                  groupColor={COLORS.tagYellow}
+                  updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                  handleBinIconClick={handleBinIconClick}
+                />
+              ))}
+            </MyTemplateGrid>
+          ) : (
+            <NoTemplateWrapper>
+              <NoTemplateIllust src={noTemplateIllu} />
+              <NoTemplateText>
+                앗 아직 나의 템플릿이 없어요!
+                <br />
+                <b>첫 템플릿</b>을 만들어 보세요
+              </NoTemplateText>
+            </NoTemplateWrapper>
+          )}
+        </MyTemplateGridWrapper>
       </MyTemplateArea>
       <BaseTemplateArea>
         <TextWrapper>
@@ -189,7 +202,7 @@ const GoToWorkSpace = styled.button`
 `;
 
 const MyTemplateArea = styled.section`
-  widht: 1512px;
+  width: 1512px;
   height: 568px;
 
   margin: 36px 40px 0px 40px;
@@ -216,6 +229,7 @@ const Border = styled.div`
   height: 1.5px;
 
   margin-left: 22px;
+  margin-bottom: 1px;
 
   background: ${COLORS.gray4};
 `;
@@ -231,6 +245,7 @@ const UserName = styled.span`
   align-items: center;
 
   margin-top: 36px;
+  margin-bottom: 20px;
 
   color: ${COLORS.gray8};
 `;
@@ -260,27 +275,36 @@ const TemplateNum = styled.div`
   text-decoration: underline;
 `;
 
-const MyTemplateContainer = styled.div`
-  width: 100%;
-  height: 477.25px;
+const MyTemplateGridWrapper = styled.div`
+  width: 100%; // 1512px
 
-  padding-top: 2px;
-  padding-bottom: 40px;
+  overflow: auto;
+  // margin: 0px 10px;
 
   display: flex;
-  justify-content: space-evenly;
-  flex-flow: row wrap;
+  justify-content: center;
+`;
+
+const MyTemplateGrid = styled.div`
+  width: 1440px;
+
+  padding: 0px 0px 40px 10px;
   overflow: auto;
 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+
   &::-webkit-scrollbar {
-    height: 100%;
-    width: 30px;
+    width: 24px;
   }
+
   &::-webkit-scrollbar-thumb {
     background: ${COLORS.primary};
     background-clip: padding-box;
+
     border-radius: 20px;
-    border: 13px solid transparent;
+    border: 10px solid transparent;
   }
 `;
 
@@ -352,11 +376,11 @@ const DropDown = styled.select`
   border: 1.5px solid ${COLORS.gray2};
   border-radius: 4px;
 
-  background-image: url(${unfold});
-  background-repeat: no-repeat;
+  // background-image: url(${unfold});
+  // background-repeat: no-repeat;
 
-  background-size: 16px 10px;
-  background-color: ${COLORS.UIWhite};
+  // background-size: 16px 10px;
+  // background-color: ${COLORS.UIWhite};
 
   -o-appearance: none;
   -webkit-appearance: none;
@@ -395,5 +419,33 @@ const BaseTemplateTable = styled.table`
 const Dots = styled.img`
   width: 31px;
   height: 5px;
+`;
+
+const NoTemplateWrapper = styled.div`
+  width: 360px;
+  height: 389px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 44px;
+`;
+
+const NoTemplateIllust = styled.img`
+  width: 360px;
+  height: 309px;
+`;
+
+const NoTemplateText = styled.div`
+  width: 233px;
+  height: 60px;
+
+  font-size: 20px;
+  line-height: 140%;
+
+  text-align: center;
+  margin-top: 20px;
 `;
 export default HomePresenter;
