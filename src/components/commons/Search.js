@@ -13,7 +13,9 @@ const Search = ({ all }) => {
     setInputText(e.target.value);
   };
 
-  const result = all.filter((t) => inputText && t.title.includes(inputText));
+  const result = all
+    .filter((t) => inputText && t.title.includes(inputText))
+    .sort();
 
   const handleRemoveBtnClick = () => {
     setInputText('');

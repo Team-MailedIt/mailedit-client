@@ -15,7 +15,7 @@ const AddGroupContainer = ({ handleAddNewGroup }) => {
   useEffect(() => {
     if (groupName !== '' && selectedColor !== '') {
       handleAddNewGroup({
-        title: groupName,
+        name: groupName,
         color: selectedColor,
         id: uid(),
       });

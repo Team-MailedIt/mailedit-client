@@ -11,8 +11,8 @@ class EditableBlock extends React.Component {
     this.contentEditable = React.createRef();
     this.state = {
       htmlBackup: null,
-      html: "",
-      tag: "p",
+      html: '',
+      tag: 'p',
       flag: 0,
       previousKey: null,
       actionMenuOpen: false,
@@ -40,7 +40,7 @@ class EditableBlock extends React.Component {
 
   componentWillUnmount() {
     // In case, the user deleted the block, we need to cleanup all listeners
-    document.removeEventListener("click", this.closeActionMenu, false);
+    document.removeEventListener('click', this.closeActionMenu, false);
   }
 
   // component render 최적화
@@ -74,7 +74,7 @@ class EditableBlock extends React.Component {
   }
 
   onKeyDownHandler(e) {
-    if (e.key === "/") {
+    if (e.key === '/') {
       this.setState({ htmlBackup: this.state.html });
     } else if (e.key === 'Enter') {
       if (this.state.previousKey === 'Control') {
@@ -98,7 +98,7 @@ class EditableBlock extends React.Component {
 
   calculateActionMenuPosition(parent, initiator) {
     switch (initiator) {
-      case "TEXT_SELECTION":
+      case 'TEXT_SELECTION':
         const { x: endX, y: endY } = getCaretCoordinates(false); // fromEnd
         const { x: startX, y: startY } = getCaretCoordinates(true); // fromStart
         const middleX = startX + (endX - startX) / 2;
@@ -127,7 +127,7 @@ class EditableBlock extends React.Component {
     // Add listener asynchronously to avoid conflicts with
     // the double click of the text selection
     setTimeout(() => {
-      document.addEventListener("click", this.closeActionMenu, false);
+      document.addEventListener('click', this.closeActionMenu, false);
     }, 100);
   }
   closeActionMenu() {
@@ -136,7 +136,7 @@ class EditableBlock extends React.Component {
       actionMenuPosition: { x: null, y: null },
       actionMenuOpen: false,
     });
-    document.removeEventListener("click", this.closeActionMenu, false);
+    document.removeEventListener('click', this.closeActionMenu, false);
   }
 
   handleMouseUp() {
@@ -151,7 +151,7 @@ class EditableBlock extends React.Component {
       });
       this.openActionMenu(
         block,
-        "TEXT_SELECTION",
+        'TEXT_SELECTION',
         selectionStart,
         selectionEnd
       );
@@ -187,7 +187,7 @@ class EditableBlock extends React.Component {
             paddingBottom: '4px',
             paddingLeft: '12px',
 
-            background: this.props.flag ? COLORS.blockBackground : COLORS.gray1,
+            background: this.props.flag ? COLORS.blockBackground : 'none',
             border: this.props.flag ? `1px solid ${COLORS.blockBorder}` : null,
             outlineColor: '#4C6EF5',
             borderRadius: '2px',

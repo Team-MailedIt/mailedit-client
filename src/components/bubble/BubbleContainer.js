@@ -10,36 +10,41 @@ import {
   AddGroupButton,
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // import { GearIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
 import DefaultContainer from './DefaultContainer';
+import API from '../../utils/API';
 
 const BubbleContainer = ({
   isModalOpen,
   setIsModalOpen,
-  fetchedData,
+  groupList,
   handleSelected,
 }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
   // 추가 기능이 있어서 set도 있어야 함
-  const [group, setGroup] = useState(fetchedData);
+  const [group, setGroup] = useState([]);
   const [mode, setMode] = useState(true);
   const [selected, setSelected] = useState({
     id: 0,
-    title: '',
+    name: '',
     color: '',
   });
   const [addChecker, setAddChecker] = useState(false);
   const [temp, setTemp] = useState({});
+
+  useEffect(() => {
+    setGroup(groupList);
+  }, [groupList]);
 
   // state 초기화
   const init = () => {
     setMode(true);
     setSelected({
       id: 0,
-      title: '',
+      name: '',
       color: '',
     });
     setAddChecker(false);
@@ -59,16 +64,26 @@ const BubbleContainer = ({
   };
 
   // 새 그룹 추가 확인 버튼
-  const handleConfirmAddNewGroup = () => {
+  const handleConfirmAddNewGroup = async () => {
     // add new group!
     if (addChecker) {
-      const prevState = [...group, temp];
-      setGroup(prevState);
-      init();
+      // call api first and setGroup after recieve response
+      const { name, color } = temp;
+      const { data } = await API.post(`/groups/`, { name: name, color: color });
+      if (data) {
+        const newElement = {
+          id: data.id,
+          name: data.name,
+          color: data.color,
+        };
+        setGroup((p) => [...p, newElement]);
+      } else {
+        window.alert('서버상에 문제가 있어요ㅠ');
+      }
     } else {
       setIsModalOpen(false);
-      init();
     }
+    init();
     handleSelected(selected);
   };
 
@@ -108,14 +123,14 @@ const BubbleContainer = ({
         </RowContainer>
 
         <ColContainer style={{ marginTop: '12px' }}>
-          {group.map(({ title, color, id }) => {
+          {group.map(({ name, color, id }) => {
             return (
               <div key={id} style={{ marginBottom: '2px' }}>
                 <GroupComponent
-                  title={title}
+                  name={name}
                   color={color}
                   id={id}
-                  selected={selected.title}
+                  selected={selected.name}
                   handleSelectGroup={handleSelectGroup}
                 />
               </div>

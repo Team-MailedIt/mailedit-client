@@ -45,12 +45,14 @@ const HeaderContainer = () => {
         </RightContainer>
       </Header>
       <SignInModal
-        isModalOpen={isSignInModalOpen}
-        setIsModalOpen={setIsSignInModalOpen}
+        isSignInModalOpen={isSignInModalOpen}
+        setIsSignInModalOpen={setIsSignInModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
       />
       <SignUpModal
-        isModalOpen={isSignUpModalOpen}
-        setIsModalOpen={setIsSignUpModalOpen}
+        isSignUpModalOpen={isSignUpModalOpen}
+        setIsSignInModalOpen={setIsSignInModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
       />
       <MainGif src="./img/mainGif.gif" />
     </Container>

@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
-const GroupComponent = ({ title, color, id, selected, handleSelectGroup }) => {
+const GroupComponent = ({ name, color, id, selected, handleSelectGroup }) => {
   const onClick = () => {
     handleSelectGroup({
       id: id,
-      title: title,
+      name: name,
       color: color,
     });
   };
 
   return (
-    <Wrapper selected={selected} title={title} onClick={onClick}>
+    <Wrapper selected={selected} title={name} onClick={onClick}>
       <Index color={color} />
-      <Title style={{ marginLeft: '8px' }}>{title}</Title>
+      <Title style={{ marginLeft: '8px' }}>{name}</Title>
     </Wrapper>
   );
 };
