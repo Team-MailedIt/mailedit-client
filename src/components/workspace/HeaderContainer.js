@@ -9,7 +9,6 @@ import {
   TemplateMemoInputContainer,
 } from './Components';
 import BubbleContainer from '../bubble/BubbleContainer';
-import fetchedData from '../../fetchedData.json';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
 

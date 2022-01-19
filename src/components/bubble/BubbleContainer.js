@@ -15,6 +15,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
 import DefaultContainer from './DefaultContainer';
+import API from '../../utils/API';
 
 const BubbleContainer = ({
   isModalOpen,
@@ -35,7 +36,6 @@ const BubbleContainer = ({
   const [temp, setTemp] = useState({});
 
   useEffect(() => {
-    console.log(group);
     setGroup(groupList);
   }, [groupList]);
 
@@ -64,17 +64,26 @@ const BubbleContainer = ({
   };
 
   // 새 그룹 추가 확인 버튼
-  const handleConfirmAddNewGroup = () => {
+  const handleConfirmAddNewGroup = async () => {
     // add new group!
     if (addChecker) {
-      const prevState = [...group, temp];
-      console.log(temp);
-      setGroup(prevState);
-      init();
+      // call api first and setGroup after recieve response
+      const { name, color } = temp;
+      const { data } = await API.post(`/groups/`, { name: name, color: color });
+      if (data) {
+        const newElement = {
+          id: data.id,
+          name: data.name,
+          color: data.color,
+        };
+        setGroup((p) => [...p, newElement]);
+      } else {
+        window.alert('서버상에 문제가 있어요ㅠ');
+      }
     } else {
       setIsModalOpen(false);
-      init();
     }
+    init();
     handleSelected(selected);
   };
 
