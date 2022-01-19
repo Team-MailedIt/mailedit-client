@@ -9,19 +9,30 @@ import {
   TemplateMemoInputContainer,
 } from './Components';
 import BubbleContainer from '../bubble/BubbleContainer';
-import fetchedData from '../../fetchedData.json';
 import GroupComponent from '../commons/GroupComponent';
+import API from '../../utils/API';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
   const [subtitle, setSubtitle] = useInput('');
   const [group, setGroup] = useState({
     id: 0,
-    title: '',
+    name: '',
     color: '',
   });
+  const [groupList, setGroupList] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // fetch group list data from server
+  useEffect(() => {
+    const fetchGroupList = async () => {
+      const response = await API.get(`/groups`);
+      setGroupList(response.data);
+    };
+
+    fetchGroupList();
+  }, []);
 
   // set state to EditorContainer
   useEffect(() => {
@@ -67,9 +78,9 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <RowContainer style={{ marginTop: '8px', marginBottom: '16px' }}>
         <SubTitle>그룹</SubTitle>
-        {group.title ? (
+        {group.name ? (
           <GroupComponent
-            title={group.title}
+            name={group.name}
             color={group.color}
             handleSelectGroup={handleGroupComponent}
           />
@@ -81,7 +92,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <BubbleContainer
         isModalOpen={isModalOpen}
-        fetchedData={fetchedData}
+        groupList={groupList}
         setIsModalOpen={setIsModalOpen}
         handleSelected={handleSelected}
       />
