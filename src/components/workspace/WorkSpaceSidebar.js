@@ -30,7 +30,6 @@ const WorkSpaceSidebar = () => {
       setGroupList(data);
     };
     fetchGroupList();
-    console.log(groupListContext);
   }, [groupListContext.length, setGroupList]);
 
   // fetch templates
