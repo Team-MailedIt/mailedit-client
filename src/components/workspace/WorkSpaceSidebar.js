@@ -10,6 +10,7 @@ import logo from '../../constants/icons/logo.svg';
 import API from '../../utils/API';
 import { useContext, useEffect, useState } from 'react';
 import { GroupContext } from '../../contexts/GroupContexts';
+import { useNavigate } from 'react-router';
 
 const WorkSpaceSidebar = ({ handleContents }) => {
   // 그룹 리스트
@@ -63,10 +64,16 @@ const WorkSpaceSidebar = ({ handleContents }) => {
     fetchAllTemplates();
   }, []);
 
+  // navigate to main page
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate('/home');
+  };
+
   return (
     <Wrapper>
       <FixedSection>
-        <Logo src={logo} />
+        <Logo src={logo} onClick={goToMain} />
         <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
       </FixedSection>
 

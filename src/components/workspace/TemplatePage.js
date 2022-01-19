@@ -8,6 +8,7 @@ import {
   TemplateSelectButton,
 } from './Components';
 import { PrevIcon } from '../../constants/icons';
+import { useNavigate } from 'react-router';
 
 const TemplatePage = ({
   fetchedData,
@@ -16,8 +17,13 @@ const TemplatePage = ({
 }) => {
   // setBlock used when user select template from sidebar
   const [blocks, setBlocks] = useState([]);
-
   const [parsedBlocks, setParsedBlocks] = useState([]);
+
+  // navigate to main page
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate('/home');
+  };
 
   // data fetched from sidebar
   useEffect(() => {
@@ -52,7 +58,12 @@ const TemplatePage = ({
     <>
       <div>
         <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
-          <PrevIcon src="img/prevIcon.png" width="32px" height="32px" />
+          <PrevIcon
+            onClick={goToMain}
+            src="img/prevIcon.png"
+            width="32px"
+            height="32px"
+          />
         </RowContainer>
         <div style={{ marginLeft: '40px', marginRight: '40px' }}>
           {fetchedData ? (
