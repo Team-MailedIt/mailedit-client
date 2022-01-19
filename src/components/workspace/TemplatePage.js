@@ -28,7 +28,6 @@ const TemplatePage = ({
   // data fetched from sidebar
   useEffect(() => {
     if (fetchedData) {
-      console.log(fetchedData);
       setBlocks(fetchedData.content);
     }
   }, [fetchedData]);

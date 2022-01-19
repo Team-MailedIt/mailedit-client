@@ -31,7 +31,8 @@ const WorkSpaceSidebar = ({ handleContents }) => {
       setGroupList(data);
     };
     fetchGroupList();
-  }, [groupListContext.length, setGroupList]);
+    // }, [groupListContext.length, setGroupList]);
+  }, [setGroupList]);
 
   // fetch templates
   useEffect(() => {
@@ -60,7 +61,6 @@ const WorkSpaceSidebar = ({ handleContents }) => {
         }
       });
     };
-
     fetchAllTemplates();
   }, []);
 
