@@ -15,9 +15,11 @@ import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
 
 const SignUpModal = ({ isModalOpen, setIsModalOpen }) => {
+  const [isPassedEmail, setIsPassedEmail] = useState(false);
+  const [isCorrectPsword, setIsCorrectPsword] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isPswordCorrect, setIsPswordCorrect] = useState(true);
   const [isValidUser, setIsValidUser] = useState(false);
+  const [isAllPassedUser, setIsAllPassedUser] = useState(false);
 
   const navigate = useNavigate();
   const [{ name, email, password, confirmPassword }, handleInputChange, reset] =
@@ -30,22 +32,37 @@ const SignUpModal = ({ isModalOpen, setIsModalOpen }) => {
 
   const signUpUser = { username: name, email: email, password: password };
 
+  const handleNextBtnClick = () => {
+    API.get(`/user-check?email=${email}`)
+      .then(() => {
+        setIsValidEmail(false);
+      })
+      .catch(() => {
+        setIsPassedEmail(true);
+        setIsValidEmail(true);
+      });
+  };
+
+  const handleConfirmPassword = () => {
+    if (password === confirmPassword) {
+      setIsCorrectPsword(true);
+      setIsValidUser(true);
+    } else {
+      setIsCorrectPsword(false);
+    }
+  };
+
   // 회원가입
   const handleSignUpBtnClick = () => {
-    if (password === confirmPassword) {
-      API.post("/signup", JSON.stringify(signUpUser))
-        .then((res) => {
-          alert(res.data.message);
-          setIsValidUser(true);
-        })
-        .catch(() => {
-          setIsValidEmail(false);
-          setIsPswordCorrect(true);
-        });
-    } else {
-      setIsPswordCorrect(false);
-      setIsValidEmail(true);
-    }
+    console.log("signupuser: ", signUpUser);
+    API.post("/signup", JSON.stringify(signUpUser))
+      .then(() => {
+        setIsAllPassedUser(true);
+      })
+      .catch(() => {
+        setIsValidEmail(false);
+        setIsCorrectPsword(true);
+      });
   };
 
   // 구글 로그인 성공 시
@@ -126,35 +143,50 @@ const SignUpModal = ({ isModalOpen, setIsModalOpen }) => {
               onChange={handleInputChange}
               placeholder="이메일 주소"
             />
-            <Input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleInputChange}
-              placeholder="비밀번호"
-              autoComplete="off"
-            />
-            <Input
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={handleInputChange}
-              placeholder="비밀번호 확인"
-              autoComplete="off"
-            />
-            {!isValidEmail && <ErrorText>이미 가입된 이메일입니다</ErrorText>}
-            {!isPswordCorrect && <ErrorText>비밀번호가 틀렸습니다</ErrorText>}
-            <SubmitBtn color={COLORS.primary} onClick={handleSignUpBtnClick}>
-              회원가입
-            </SubmitBtn>
+            {isPassedEmail && (
+              <>
+                <Input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호"
+                  autoComplete="off"
+                />
+                <Input
+                  type="password"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호 확인"
+                  autoComplete="off"
+                />
+              </>
+            )}
+            {!isValidEmail && (
+              <ErrorText>이 이메일 주소는 이미 사용 중입니다</ErrorText>
+            )}
+            {!isCorrectPsword && <ErrorText>비밀번호가 틀렸습니다</ErrorText>}
+            {!isPassedEmail && (
+              <SubmitBtn color={COLORS.gray8} onClick={handleNextBtnClick}>
+                계속
+              </SubmitBtn>
+            )}
+            {isPassedEmail && (
+              <SubmitBtn color={COLORS.primary} onClick={handleConfirmPassword}>
+                회원가입
+              </SubmitBtn>
+            )}
+
             <UnderText>계정이 이미 있으신가요?</UnderText>
             <Other>로그인하기</Other>
           </Wrapper>
         </Modal>
       )}
-      {isValidUser && (
+      {isValidUser && !isAllPassedUser && (
         <ValidUserModal
           isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
           ariaHideApp={false}
           style={modalStyle}
         >
@@ -163,9 +195,32 @@ const SignUpModal = ({ isModalOpen, setIsModalOpen }) => {
             <br />
             서비스에서 쓰일 이름을 입력해 주세요
           </WelcomText>
-          <NameInput placeholder="이름" />
-          <SubmitNameBtn />
+          <NameInput
+            type="name"
+            name="name"
+            value={name}
+            onChange={handleInputChange}
+            placeholder="이름"
+          />
+          <SubmitNameBtn onClick={handleSignUpBtnClick}>확인</SubmitNameBtn>
         </ValidUserModal>
+      )}
+      {isValidUser && isAllPassedUser && (
+        <VerifyEmailModal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          ariaHideApp={false}
+          style={modalStyle}
+        >
+          <WelcomText>
+            인증 메일이 발송되었습니다.
+            <br />
+            인증해 주세요.
+          </WelcomText>
+          <SubmitNameBtn onClick={() => setIsModalOpen(false)}>
+            확인
+          </SubmitNameBtn>
+        </VerifyEmailModal>
       )}
     </>
   );
@@ -364,6 +419,7 @@ const ValidUserModal = styled(ReactModal)`
   border-radius: 4px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -376,6 +432,7 @@ const WelcomText = styled.div`
 
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   letter-spacing: -0.01em;
 
@@ -385,13 +442,14 @@ const WelcomText = styled.div`
 `;
 
 const NameInput = styled.input`
-  width: 360px;
+  width: 344px;
   height: 44px;
 
   border: 1.5px solid ${COLORS.gray4};
   border-radius: 4px;
 
   margin-top: 36px;
+  padding-left: 16px;
 
   background: none;
 `;
@@ -413,6 +471,18 @@ const SubmitNameBtn = styled.button`
 
   background: ${COLORS.primary};
   border-radius: 4px;
+`;
+
+const VerifyEmailModal = styled(ReactModal)`
+  width: 400px;
+  height: 240px;
+
+  border-radius: 4px;
+  background: ${COLORS.gray1};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default SignUpModal;
