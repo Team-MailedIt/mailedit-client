@@ -23,11 +23,12 @@ const Wrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-top: 12px;
 `;
 
 const ItemWrapper = styled.div`
-  width: 242px;
+  width: 240px;
   height: 20px;
 
   display: flex;
@@ -40,6 +41,7 @@ const ItemWrapper = styled.div`
 `;
 
 const IndexGroup = styled.div`
+  width: 172px;
   height: 100%;
 
   display: flex;
@@ -50,6 +52,7 @@ const GroupTitle = styled.div`
   width: 160px;
   height: 20px;
   margin-left: 8px;
+  line-height: 19px;
 
   font-size: 16px;
   color: #ffffff;
