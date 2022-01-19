@@ -8,7 +8,7 @@ import { CopyContext } from '../../contexts/CopyContexts';
 import parseBlocks from '../../utils/parseBlocks';
 import copy from 'copy-to-clipboard';
 import ModalContainer from '../alertModal/ModalContainer';
-import validator from '../../utils/validator';
+import API from '../../utils/API';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
@@ -29,10 +29,33 @@ const EditorContainer = ({ passedBlocks }) => {
       const parsedString = parseBlocks(content);
       copy(parsedString);
     } else if (action === 'save') {
-      const result = validator({ ...headerData, content });
-      console.log(result);
+      if (headerData.title === '') {
+        window.alert('제목 입력은 필수입니다.');
+      } else {
+        const props = {
+          title: headerData.title,
+          subtitle: headerData.subtitle,
+          groupId: headerData.group.id,
+          content,
+        };
+        const res = saveTemplateToServer(props);
+        if (res) {
+          setModalOption('save');
+          setIsModalOpen(true);
+        }
+      }
     }
     setActionHandler('');
+  };
+
+  const saveTemplateToServer = async (props) => {
+    console.log(props);
+    const { status } = await API.post(`/templates/my`, props);
+    if (status === 200) return true;
+    else if (status === 403) {
+      window.alert('you need login');
+      return false;
+    } else return false;
   };
 
   const copyButtonHandler = () => {
@@ -45,8 +68,6 @@ const EditorContainer = ({ passedBlocks }) => {
   const handleSaveTemplate = () => {
     // check template can be saved first
     setActionHandler('save');
-    setModalOption('save');
-    setIsModalOpen(true);
   };
 
   return (
