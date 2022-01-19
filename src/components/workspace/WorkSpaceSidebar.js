@@ -7,30 +7,64 @@ import Accordion from '../commons/Accordion';
 import star from '../../constants/icons/star.svg';
 import logo from '../../constants/icons/logo.svg';
 
+import API from '../../utils/API';
+import { useContext, useEffect, useState } from 'react';
+import { GroupContext } from '../../contexts/GroupContexts';
+
 const WorkSpaceSidebar = () => {
-  // 전체 템플릿 조회 api
-  const all = [];
-
   // 그룹 리스트 조회 api
-  const groups = [];
-
-  // 마이 템플릿
-  const myTemplates = [];
-
-  // 기본 템플릿 - 학교
-  const baseSchool = [];
-
-  // 기본 템플릿 - 회사
-  const baseCompany = [];
+  const { groupListContext, setGroupList } = useContext(GroupContext);
 
   // 즐겨찾기 한 템플릿
-  const favTemplates = [];
+  const [favTemplates, setFavTemplates] = useState([]);
+
+  // template lists
+  const [myTemplates, setMyTemplates] = useState([]);
+  const [baseSchool, setBaseSchool] = useState([]);
+  const [baseCompany, setBaseCompany] = useState([]);
+
+  // fetch group
+  useEffect(() => {
+    const fetchGroupList = async () => {
+      const { data } = await API.get(`/groups`);
+      setGroupList(data);
+    };
+    fetchGroupList();
+    console.log(groupListContext);
+  }, [groupListContext.length, setGroupList]);
+
+  // fetch templates
+  useEffect(() => {
+    const fetchAllTemplates = async () => {
+      const { data } = await API.get(`/templates/all`);
+      data.forEach(({ templateId, category, groupId, title, isStar }) => {
+        if (category) {
+          const newElement = { templateId: templateId, title: title };
+          // this will be base template
+          if (category === '회사') {
+            setBaseCompany((el) => [...el, newElement]);
+          } else if (category === '학교') {
+            setBaseSchool((el) => [...el, newElement]);
+          }
+        } else {
+          // this will be myTemplate
+          const newElement = { templateId: groupId, title: title };
+          setMyTemplates((el) => [...el, newElement]);
+          if (isStar) {
+            setFavTemplates((el) => [...el, newElement]);
+          }
+        }
+      });
+    };
+
+    fetchAllTemplates();
+  }, []);
 
   return (
     <Wrapper>
       <FixedSection>
         <Logo src={logo} />
-        <Search all={all} />
+        <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
       </FixedSection>
 
       <VariableSection>
@@ -42,12 +76,12 @@ const WorkSpaceSidebar = () => {
         />
         <Border />
         {myTemplates.length !== 0 ? (
-          groups.map((group, i) => (
+          groupListContext.map(({ name, color, id }, i) => (
             <Accordion
-              key={'m' + i}
-              title={group.name}
-              icon={<Index color={group.color} />}
-              list={all.filter((t) => group.id === t.groupId)}
+              key={id}
+              title={name}
+              icon={<Index color={color} />}
+              list={myTemplates.filter((t) => id === t.templateId)}
             />
           ))
         ) : (
