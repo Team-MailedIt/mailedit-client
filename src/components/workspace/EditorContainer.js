@@ -8,6 +8,7 @@ import { CopyContext } from '../../contexts/CopyContexts';
 import parseBlocks from '../../utils/parseBlocks';
 import copy from 'copy-to-clipboard';
 import ModalContainer from '../alertModal/ModalContainer';
+import validator from '../../utils/validator';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
@@ -21,14 +22,15 @@ const EditorContainer = ({ passedBlocks }) => {
 
   // EditablePage에서 useContext로 복사하기를 하면 실행되는 함수.
   // block data를 가져와서 parsing하여 setState.
-  const getBlocksHandler = (data) => {
+  const getBlocksHandler = (content) => {
     // we need to parse data
     // <div> -> \n, delete -> </div>
     if (action === 'copy') {
-      const parsedString = parseBlocks(data);
+      const parsedString = parseBlocks(content);
       copy(parsedString);
     } else if (action === 'save') {
-      console.log(data);
+      const result = validator({ ...headerData, content });
+      console.log(result);
     }
     setActionHandler('');
   };
@@ -42,7 +44,6 @@ const EditorContainer = ({ passedBlocks }) => {
   // 마지막 save 버튼 눌렀을 경우
   const handleSaveTemplate = () => {
     // check template can be saved first
-    console.log(headerData);
     setActionHandler('save');
     setModalOption('save');
     setIsModalOpen(true);

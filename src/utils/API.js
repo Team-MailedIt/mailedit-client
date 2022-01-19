@@ -1,16 +1,16 @@
-import axios from "axios";
-import jwtDecode from "jwt-decode";
+import axios from 'axios';
+// import jwtDecode from "jwt-decode";
 
 const API = axios.create({
-  baseURL: "https://api.mailedit.me/api",
+  baseURL: 'https://api.mailedit.me/api',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 API.interceptors.request.use((config) => {
   // 요청을 보내기 전에 헤더에 토큰 값을 붙이기
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
   accessToken && (config.headers.Authorization = `Bearer ${accessToken}`);
 
   // 구글 로그인의 경우 id token 값을 헤더에 붙이기

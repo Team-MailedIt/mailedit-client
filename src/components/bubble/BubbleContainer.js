@@ -10,7 +10,7 @@ import {
   AddGroupButton,
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // import { GearIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
@@ -19,27 +19,32 @@ import DefaultContainer from './DefaultContainer';
 const BubbleContainer = ({
   isModalOpen,
   setIsModalOpen,
-  fetchedData,
+  groupList,
   handleSelected,
 }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
   // 추가 기능이 있어서 set도 있어야 함
-  const [group, setGroup] = useState(fetchedData);
+  const [group, setGroup] = useState([]);
   const [mode, setMode] = useState(true);
   const [selected, setSelected] = useState({
     id: 0,
-    title: '',
+    name: '',
     color: '',
   });
   const [addChecker, setAddChecker] = useState(false);
   const [temp, setTemp] = useState({});
+
+  useEffect(() => {
+    console.log(group);
+    setGroup(groupList);
+  }, [groupList]);
 
   // state 초기화
   const init = () => {
     setMode(true);
     setSelected({
       id: 0,
-      title: '',
+      name: '',
       color: '',
     });
     setAddChecker(false);
@@ -63,6 +68,7 @@ const BubbleContainer = ({
     // add new group!
     if (addChecker) {
       const prevState = [...group, temp];
+      console.log(temp);
       setGroup(prevState);
       init();
     } else {
@@ -108,14 +114,14 @@ const BubbleContainer = ({
         </RowContainer>
 
         <ColContainer style={{ marginTop: '12px' }}>
-          {group.map(({ title, color, id }) => {
+          {group.map(({ name, color, id }) => {
             return (
               <div key={id} style={{ marginBottom: '2px' }}>
                 <GroupComponent
-                  title={title}
+                  name={name}
                   color={color}
                   id={id}
-                  selected={selected.title}
+                  selected={selected.name}
                   handleSelectGroup={handleSelectGroup}
                 />
               </div>
