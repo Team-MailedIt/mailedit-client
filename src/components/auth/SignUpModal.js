@@ -157,7 +157,15 @@ const SignUpModal = ({ isModalOpen, setIsModalOpen }) => {
           isOpen={isModalOpen}
           ariaHideApp={false}
           style={modalStyle}
-        ></ValidUserModal>
+        >
+          <WelcomText>
+            환영합니다!
+            <br />
+            서비스에서 쓰일 이름을 입력해 주세요
+          </WelcomText>
+          <NameInput placeholder="이름" />
+          <SubmitNameBtn />
+        </ValidUserModal>
       )}
     </>
   );
@@ -169,6 +177,10 @@ const Modal = styled(ReactModal)`
 
   background: ${COLORS.gray1};
   border-radius: 4px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -290,7 +302,7 @@ const Other = styled.div`
   font-size: 18px;
   line-height: 22px;
 
-  color: ${COLORS.indigo4};
+  color: ${COLORS.indigo5};
 `;
 
 const ErrorText = styled.div`
@@ -350,6 +362,9 @@ const ValidUserModal = styled(ReactModal)`
 
   background: ${COLORS.gray1};
   border-radius: 4px;
+
+  display: flex;
+  align-items: center;
 `;
 
 const WelcomText = styled.div`
@@ -364,7 +379,40 @@ const WelcomText = styled.div`
   text-align: center;
   letter-spacing: -0.01em;
 
+  margin-top: 48px;
+
   color: ${COLORS.UIBlack};
+`;
+
+const NameInput = styled.input`
+  width: 360px;
+  height: 44px;
+
+  border: 1.5px solid ${COLORS.gray4};
+  border-radius: 4px;
+
+  margin-top: 36px;
+
+  background: none;
+`;
+
+const SubmitNameBtn = styled.button`
+  width: 148px;
+  height: 43px;
+
+  border: none;
+  color: ${COLORS.UIWhite};
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 53px;
+  margin-bottom: 42px;
+
+  background: ${COLORS.primary};
+  border-radius: 4px;
 `;
 
 export default SignUpModal;

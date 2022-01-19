@@ -2,20 +2,22 @@ import styled from "styled-components";
 import ReactModal from "react-modal";
 import { useState } from "react";
 
-import exit from "../../constants/icons/exit.svg";
-import google from "../../constants/icons/google.svg";
-
-import logoBlue from "../../constants/icons/logoBlue.svg";
-import COLORS from "../../constants/colors";
-
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router";
+
+import exit from "../../constants/icons/exit.svg";
+import google from "../../constants/icons/google.svg";
+import logoBlue from "../../constants/icons/logoBlue.svg";
+
+import COLORS from "../../constants/colors";
 
 import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
 
 const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isPassedEmail, setIsPassedEmail] = useState(false);
+  const [isCorrectPsword, setIsCorrectPsword] = useState(true);
 
   const navigate = useNavigate();
   const [{ email, password }, handleInputChange, reset] = useInputs({
@@ -24,6 +26,12 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
   });
 
   const signInUser = { email: email, password: password };
+
+  const handleNextBtnClick = () => {
+    API.get(`/user-check?email=${email}`)
+      .then(() => setIsPassedEmail(true))
+      .catch(() => setIsValidEmail(false));
+  };
 
   // 로그인
   const handleSignInBtnClick = () => {
@@ -40,9 +48,8 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
         console.log("Bearer ", res.data.token.access);
 
         navigate("/home");
-        setIsValidEmail(true);
       })
-      .catch(() => setIsValidEmail(false));
+      .catch(() => setIsCorrectPsword(false));
   };
 
   // 구글 로그인 성공 시
@@ -121,20 +128,33 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
           onChange={handleInputChange}
           placeholder="이메일 주소"
         />
-        <Input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-          placeholder="비밀번호"
-          autoComplete="off"
-        />
-        {!isValidEmail && (
-          <ErrorText>로그인에 실패했습니다. 다시 시도해 주세요.</ErrorText>
+        {isPassedEmail && (
+          <Input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleInputChange}
+            placeholder="비밀번호"
+            autoComplete="off"
+          />
         )}
-        <SubmitBtn color={COLORS.primary} onClick={handleSignInBtnClick}>
-          로그인
-        </SubmitBtn>
+
+        {!isValidEmail && !isPassedEmail && (
+          <ErrorText>등록된 이메일이 없습니다</ErrorText>
+        )}
+        {!isCorrectPsword && <ErrorText>비밀번호가 틀렸습니다</ErrorText>}
+
+        {!isPassedEmail && (
+          <SubmitBtn color={COLORS.gray8} onClick={handleNextBtnClick}>
+            계속
+          </SubmitBtn>
+        )}
+        {isPassedEmail && (
+          <SubmitBtn color={COLORS.primary} onClick={handleSignInBtnClick}>
+            로그인
+          </SubmitBtn>
+        )}
+
         <UnderText>계정이 없으세요?</UnderText>
         <Other>계정 만들기</Other>
       </Wrapper>
@@ -148,6 +168,10 @@ const Modal = styled(ReactModal)`
 
   background: ${COLORS.gray1};
   border-radius: 4px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -269,7 +293,7 @@ const Other = styled.div`
   font-size: 18px;
   line-height: 22px;
 
-  color: ${COLORS.indigo4};
+  color: ${COLORS.indigo5};
 `;
 
 const ErrorText = styled.div`
