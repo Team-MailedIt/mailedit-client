@@ -37,7 +37,7 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
           "Authorization"
         ] = `Bearer ${res.data.token.access}`;
 
-        console.log("accessToken: ", res.data.token.access);
+        console.log("Bearer ", res.data.token.access);
 
         navigate("/home");
         setIsValidEmail(true);
@@ -61,7 +61,7 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
 
-        console.log("access: ", res.data.token.access);
+        console.log("Bearer ", res.data.token.access);
 
         navigate("/home");
       })

@@ -1,13 +1,13 @@
-import COLORS from "../../constants/colors";
-import styled from "styled-components";
-import { useState } from "react";
+import COLORS from '../../constants/colors';
+import styled from 'styled-components';
+import { useState } from 'react';
 
-import search from "../../constants/icons/search.svg";
-import remove from "../../constants/icons/remove.svg";
+import search from '../../constants/icons/search.svg';
+import remove from '../../constants/icons/remove.svg';
 
 const Search = ({ all }) => {
   // 템플릿 검색
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -16,7 +16,7 @@ const Search = ({ all }) => {
   const result = all.filter((t) => inputText && t.title.includes(inputText));
 
   const handleRemoveBtnClick = () => {
-    setInputText("");
+    setInputText('');
   };
 
   return (
@@ -33,10 +33,10 @@ const Search = ({ all }) => {
           <RemoveIcon src={remove} onClick={handleRemoveBtnClick} />
         )}
       </SearchingField>
-      {result.length != 0 ? (
+      {result.length !== 0 ? (
         <SearchResultWrapper>
           {result.map((r, i) => (
-            <SearchResultTitle key={"r" + i}>{r.title}</SearchResultTitle>
+            <SearchResultTitle key={'r' + i}>{r.title}</SearchResultTitle>
           ))}
         </SearchResultWrapper>
       ) : null}
