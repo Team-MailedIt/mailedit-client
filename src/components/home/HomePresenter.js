@@ -80,7 +80,7 @@ const HomePresenter = () => {
                   subtitle={t.subtitle}
                   isStar={t.isStar}
                   groupId={t.groupId}
-                  groupColor={COLORS.tagYellow}
+                  groupColor={t.group.color}
                   updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
                   handleBinIconClick={handleBinIconClick}
                 />

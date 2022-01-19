@@ -2,7 +2,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 const API = axios.create({
-  baseURL: "https://mailedit.kro.kr/api",
+  baseURL: "https://api.mailedit.me/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -14,8 +14,8 @@ API.interceptors.request.use((config) => {
   accessToken && (config.headers.Authorization = `Bearer ${accessToken}`);
 
   // 구글 로그인의 경우 id token 값을 헤더에 붙이기
-  const idToken = localStorage.getItem("idToken");
-  idToken && (config.headers.Authorization = idToken);
+  // const idToken = localStorage.getItem("idToken");
+  // idToken && (config.headers.Authorization = idToken);
 
   //   if (idToken != null) {
   //     config.headers.Authorization = idToken

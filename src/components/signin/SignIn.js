@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router";
-import axios from "axios";
 
 import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
@@ -99,23 +98,27 @@ const SignIn = () => {
         onSuccess={onGoogleSignInSuccess}
         onFailure={onGoogleSignInFailure}
       />
-      <Input
+      <BorderWrapper>
+        <Border />
+        <Or>또는</Or>
+        <Border />
+      </BorderWrapper>
+      {/* <Input
         type="name"
         name="name"
         value={name}
         onChange={handleInputChange}
         placeholder="이름"
         autoComplete="off"
-      />
+      /> */}
       <Input
         type="email"
         name="email"
         value={email}
         onChange={handleInputChange}
-        placeholder="이메일"
-        autoComplete="off"
+        placeholder="이메일 주소"
       />
-      <Input
+      {/* <Input
         type="password"
         name="password"
         value={password}
@@ -130,11 +133,22 @@ const SignIn = () => {
         onChange={handleInputChange}
         placeholder="비밀번호 확인"
         autoComplete="off"
-      />
-      <SubmitBtn onClick={handleSignUpBtnClick}>회원가입</SubmitBtn>
-      <SubmitBtn onClick={handleSignInBtnClick}>로그인</SubmitBtn>
-      <SubmitBtn onClick={handleSignOutBtnClick}>로그아웃</SubmitBtn>
-      <SubmitBtn onClick={handleTestBtnClick}>Test</SubmitBtn>
+      /> */}
+      <SubmitBtn color={COLORS.gray8} onClick={handleTestBtnClick}>
+        계속
+      </SubmitBtn>
+      {/* <SubmitBtn color={COLORS.primary} onClick={handleSignUpBtnClick}>
+        회원가입
+      </SubmitBtn>
+      <SubmitBtn color={COLORS.primary} onClick={handleSignInBtnClick}>
+        로그인
+      </SubmitBtn>
+      <SubmitBtn color={COLORS.primary} onClick={handleSignOutBtnClick}>
+        로그아웃
+      </SubmitBtn>
+      <SubmitBtn color={COLORS.primary} onClick={handleTestBtnClick}>
+        Test
+      </SubmitBtn> */}
     </>
   );
 };
@@ -169,8 +183,34 @@ const SubmitBtn = styled.button`
 
   margin-top: 12px;
 
-  background: ${COLORS.primary};
+  background: ${(props) => props.color};
   border-radius: 4px;
+`;
+
+const BorderWrapper = styled.div`
+  width: 361px;
+  height: 19px;
+
+  margin-top: 28px;
+  margin-bottom: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Border = styled.div`
+  width: 150px;
+  height: 1px;
+
+  background: ${COLORS.gray4};
+`;
+
+const Or = styled.span`
+  font-size: 16px;
+  line-height: 19px;
+
+  color: ${COLORS.gray6};
 `;
 
 export default SignIn;
