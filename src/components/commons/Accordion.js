@@ -1,51 +1,73 @@
-import styled from "styled-components";
-import { useRef, useState } from "react";
+import styled from 'styled-components';
+import { useRef, useState } from 'react';
 
-import expand from "../../constants/icons/expand.svg";
-import collapse from "../../constants/icons/collapse.svg";
+import expand from '../../constants/icons/expand.svg';
+import collapse from '../../constants/icons/collapse.svg';
+import API from '../../utils/API';
 
-const Accordion = ({ icon, title, list }) => {
+const Accordion = ({ icon, title, list, handleContents }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
 
   const [isCollapse, setIsCollapse] = useState(false);
 
-  const handleButtonClick = () => {
+  const handleCollapse = () => {
     if (parentRef.current === null || childRef.current === null) {
       return;
     }
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0";
-    } else {
+      parentRef.current.style.height = '0px';
+    } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
     setIsCollapse(!isCollapse);
   };
 
-  const parentRefHeight = parentRef.current?.style.height ?? "0px";
-  const buttonIcon =
-    parentRefHeight === "0px" ? (
-      <IconWrapper src={expand} />
-    ) : (
-      <IconWrapper src={collapse} />
-    );
+  const getTemplate = async (templateId) => {
+    const { data } = await API.get(`/templates/${templateId}`);
+    if (data) return data;
+  };
+
+  const handleOnClick = async (templateId) => {
+    // call api
+    const result = await getTemplate(templateId);
+    // put result to template page
+
+    handleContents(result);
+  };
 
   return (
     <Wrapper>
       <GroupWrapper>
-        <ItemWrapper onClick={handleButtonClick}>
-          <IndexGroup>
-            {icon}
-            <GroupTitle>{title}</GroupTitle>
-          </IndexGroup>
-          {buttonIcon}
-        </ItemWrapper>
+        {list.length > 0 ? (
+          <ItemWrapper onClick={handleCollapse}>
+            <IndexGroup>
+              {icon}
+              <GroupTitle>{title}</GroupTitle>
+            </IndexGroup>
+            {isCollapse ? (
+              <IconWrapper src={collapse} />
+            ) : (
+              <IconWrapper src={expand} />
+            )}
+          </ItemWrapper>
+        ) : (
+          <ItemWrapper>
+            <IndexGroup>
+              {icon}
+              <GroupTitle>{title}</GroupTitle>
+            </IndexGroup>
+          </ItemWrapper>
+        )}
       </GroupWrapper>
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
-          {list.map((item, i) => (
-            <TemplateTitle key={"i" + i}>
-              <TemplateName>{item.title}</TemplateName>
+          {list.map(({ templateId, title }, index) => (
+            <TemplateTitle
+              key={index}
+              onClick={() => handleOnClick(templateId)}
+            >
+              <TemplateName>{title}</TemplateName>
             </TemplateTitle>
           ))}
         </ListItem>
@@ -118,6 +140,7 @@ const ListWrapper = styled.div`
   width: 252px;
   overflow: hidden;
   transition: height 0.35s ease, background 0.35s ease;
+  height: 0px;
 `;
 
 const ListItem = styled.div`
