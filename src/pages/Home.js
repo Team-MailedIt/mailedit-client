@@ -1,26 +1,19 @@
-import { Link } from "react-router-dom";
 import MainSidebar from "../components/home/MainSidebar";
 import styled from "styled-components";
+import HomePresenter from "../components/home/HomePresenter";
 
 const Home = () => {
   return (
     <Wrapper>
       <MainSidebar />
-      <h1>I'm home page</h1>
-      <Link to={"/workspace"}>
-        <span>go to workspace</span>
-      </Link>
+      <HomePresenter />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.main`
-  width: 1920px;
-  height: 1080px;
-
-  display: flex;
-  flex-direction: row;
-  border: 1px solid grey;
+  display: grid;
+  grid-template-columns: 1.7fr 8.3fr;
 `;
 
 export default Home;
