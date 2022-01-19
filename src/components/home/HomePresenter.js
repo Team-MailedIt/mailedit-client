@@ -1,43 +1,42 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import COLORS from "../../constants/colors";
-import Thumbnail from "./Thumbnail";
-import API from "../../utils/API";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import COLORS from '../../constants/colors';
+import Thumbnail from './Thumbnail';
+import API from '../../utils/API';
 
-import mainComIllu from "../../constants/icons/mainComIllu.svg";
-import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
-import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+import mainSchIllu from '../../constants/icons/mainSchIllu.svg';
+import noTemplateIllu from '../../constants/icons/noTemplateIllu.svg';
 
-import dots from "../../constants/icons/dots.svg";
-import unfold from "../../constants/icons/unfold.svg";
-import { useEffect, useState } from "react";
+import dots from '../../constants/icons/dots.svg';
+import unfold from '../../constants/icons/unfold.svg';
+import { useEffect, useState } from 'react';
 
 const HomePresenter = () => {
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
 
   const [myTemplates, setMyTemplates] = useState([]);
   const [baseTemplates, setBaseTemplates] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.get("/templates/my").then((res) => {
+    API.get('/templates/my').then((res) => {
       setMyTemplates(res.data);
     });
 
-    API.get("/templates/base").then((res) => {
+    API.get('/templates/base').then((res) => {
       setBaseTemplates(res.data);
     });
   }, []);
 
   const handleSignOutBtnClick = () => {
     localStorage.clear();
-    navigate("/");
+    navigate('/');
   };
 
   const handleBinIconClick = (e) => {
     API.delete(`/templates/${e.target.id}`).then(() => {
-      API.get("/templates/my").then((res) => {
+      API.get('/templates/my').then((res) => {
         setMyTemplates(res.data);
       });
     });
@@ -55,7 +54,7 @@ const HomePresenter = () => {
         </Hello>
         <TopRight>
           <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
-          <Link to={"/workspace"}>
+          <Link to={'/workspace'}>
             <GoToWorkSpace>템플릿 만들기</GoToWorkSpace>
           </Link>
         </TopRight>
@@ -70,7 +69,7 @@ const HomePresenter = () => {
         </MyTemplateInfo>
         <Border />
         <MyTemplateGridWrapper>
-          {myTemplates.length != 0 ? (
+          {myTemplates.length !== 0 ? (
             <MyTemplateGrid>
               {myTemplates.map((t) => (
                 <Thumbnail
@@ -81,7 +80,7 @@ const HomePresenter = () => {
                   isStar={t.isStar}
                   groupId={t.groupId}
                   groupColor={t.group.color}
-                  updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                  updatedAt={t.updatedAt.replace('T', ' ').substring(0, 19)}
                   handleBinIconClick={handleBinIconClick}
                 />
               ))}
@@ -118,7 +117,7 @@ const HomePresenter = () => {
             <tbody>
               <tr>
                 {baseTemplates.slice(0, 5).map((t, i) => (
-                  <th key={"b" + i} onClick={handleBaseClick}>
+                  <th key={'b' + i} onClick={handleBaseClick}>
                     {t.title}
                   </th>
                 ))}
