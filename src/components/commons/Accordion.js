@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { useRef, useState } from "react";
+import styled from 'styled-components';
+import { useRef, useState } from 'react';
 
-import expand from "../../constants/icons/expand.svg";
-import collapse from "../../constants/icons/collapse.svg";
+import expand from '../../constants/icons/expand.svg';
+import collapse from '../../constants/icons/collapse.svg';
 
 const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
@@ -15,36 +15,41 @@ const Accordion = ({ icon, title, list }) => {
       return;
     }
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0";
-    } else {
+      parentRef.current.style.height = '0px';
+    } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
     setIsCollapse(!isCollapse);
   };
 
-  const parentRefHeight = parentRef.current?.style.height ?? "0px";
-  const buttonIcon =
-    parentRefHeight === "0px" ? (
-      <IconWrapper src={expand} />
-    ) : (
-      <IconWrapper src={collapse} />
-    );
-
   return (
     <Wrapper>
       <GroupWrapper>
-        <ItemWrapper onClick={handleButtonClick}>
-          <IndexGroup>
-            {icon}
-            <GroupTitle>{title}</GroupTitle>
-          </IndexGroup>
-          {buttonIcon}
-        </ItemWrapper>
+        {list.length > 0 ? (
+          <ItemWrapper onClick={handleButtonClick}>
+            <IndexGroup>
+              {icon}
+              <GroupTitle>{title}</GroupTitle>
+            </IndexGroup>
+            {isCollapse ? (
+              <IconWrapper src={collapse} />
+            ) : (
+              <IconWrapper src={expand} />
+            )}
+          </ItemWrapper>
+        ) : (
+          <ItemWrapper>
+            <IndexGroup>
+              {icon}
+              <GroupTitle>{title}</GroupTitle>
+            </IndexGroup>
+          </ItemWrapper>
+        )}
       </GroupWrapper>
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
           {list.map((item, i) => (
-            <TemplateTitle key={"i" + i}>
+            <TemplateTitle key={'i' + i}>
               <TemplateName>{item.title}</TemplateName>
             </TemplateTitle>
           ))}
@@ -118,6 +123,7 @@ const ListWrapper = styled.div`
   width: 252px;
   overflow: hidden;
   transition: height 0.35s ease, background 0.35s ease;
+  height: 0px;
 `;
 
 const ListItem = styled.div`
