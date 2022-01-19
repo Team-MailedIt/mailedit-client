@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ReactModal from "react-modal";
+import { useState } from "react";
 
 import exit from "../../constants/icons/exit.svg";
 import google from "../../constants/icons/google.svg";
@@ -13,7 +14,11 @@ import { useNavigate } from "react-router";
 import API from "../../utils/API";
 import useInputs from "../../hooks/useInputs";
 
-const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
+const SignUpModal = ({ isModalOpen, setIsModalOpen }) => {
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isPswordCorrect, setIsPswordCorrect] = useState(true);
+  const [isValidUser, setIsValidUser] = useState(false);
+
   const navigate = useNavigate();
   const [{ name, email, password, confirmPassword }, handleInputChange, reset] =
     useInputs({
@@ -23,48 +28,24 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
       confirmPassword: "",
     });
 
-  const signInUser = { email: email, password: password };
   const signUpUser = { username: name, email: email, password: password };
 
   // 회원가입
   const handleSignUpBtnClick = () => {
     if (password === confirmPassword) {
-      API.post("/signup", JSON.stringify(signUpUser)).then((res) => {
-        alert(res.data.message);
-      });
+      API.post("/signup", JSON.stringify(signUpUser))
+        .then((res) => {
+          alert(res.data.message);
+          setIsValidUser(true);
+        })
+        .catch(() => {
+          setIsValidEmail(false);
+          setIsPswordCorrect(true);
+        });
     } else {
-      alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      setIsPswordCorrect(false);
+      setIsValidEmail(true);
     }
-  };
-
-  // 로그인
-  const handleSignInBtnClick = () => {
-    API.post("/login", JSON.stringify(signInUser)).then((res) => {
-      localStorage.setItem("accessToken", res.data.token.access);
-      localStorage.setItem("refreshToken", res.data.token.refresh);
-      localStorage.setItem("userName", res.data.user.username);
-
-      API.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${res.data.token.access}`;
-
-      console.log("accessToken: ", res.data.token.access);
-
-      navigate("/home");
-    });
-  };
-
-  // 로그인한 사용자만 요청 가능한 api 테스트
-  const handleTestBtnClick = () => {
-    API.get("/test").then((res) => {
-      alert(res.data);
-    });
-  };
-
-  // 로그아웃
-  const handleSignOutBtnClick = () => {
-    localStorage.clear();
-    console.log("로그아웃됨");
   };
 
   // 구글 로그인 성공 시
@@ -108,85 +89,77 @@ const SignInModal = ({ isModalOpen, setIsModalOpen }) => {
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      ariaHideApp={false}
-      style={modalStyle}
-    >
-      <Exit src={exit} />
-      <Wrapper>
-        <Logo src={logoBlue} />
-        <Text>처음 써 보는 메일, MailedIt에서 쉽게 시작해 보세요</Text>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_API_KEY}
-          onSuccess={onGoogleSignInSuccess}
-          onFailure={onGoogleSignInFailure}
-          render={(renderProps) => (
-            <GoogleButton onClick={renderProps.onClick}>
-              <GoogleWrapper>
-                <GoogleLogo src={google} />
-                <GoogleText>구글로 계속하기</GoogleText>
-              </GoogleWrapper>
-            </GoogleButton>
-          )}
-        />
-        <BorderWrapper>
-          <Border />
-          <Or>또는</Or>
-          <Border />
-        </BorderWrapper>
-        <Input
-          type="name"
-          name="name"
-          value={name}
-          onChange={handleInputChange}
-          placeholder="이름"
-          autoComplete="off"
-        />
-        <Input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleInputChange}
-          placeholder="이메일 주소"
-        />
-        <Input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-          placeholder="비밀번호"
-          autoComplete="off"
-        />
-        <Input
-          type="password"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={handleInputChange}
-          placeholder="비밀번호 확인"
-          autoComplete="off"
-        />
-        <ErrorText>등록된 이메일이 없습니다</ErrorText>
-        <SubmitBtn color={COLORS.gray8} onClick={handleTestBtnClick}>
-          계속
-        </SubmitBtn>
-        <SubmitBtn color={COLORS.primary} onClick={handleSignUpBtnClick}>
-          회원가입
-        </SubmitBtn>
-        <SubmitBtn color={COLORS.primary} onClick={handleSignInBtnClick}>
-          로그인
-        </SubmitBtn>
-        <SubmitBtn color={COLORS.primary} onClick={handleSignOutBtnClick}>
-          로그아웃
-        </SubmitBtn>
-        <SubmitBtn color={COLORS.primary} onClick={handleTestBtnClick}>
-          Test
-        </SubmitBtn>
-        <UnderText>계정이 없으세요?</UnderText>
-        <Other>계정 만들기</Other>
-      </Wrapper>
-    </Modal>
+    <>
+      {!isValidUser && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          ariaHideApp={false}
+          style={modalStyle}
+        >
+          <Exit src={exit} onClick={() => setIsModalOpen(false)} />
+          <Wrapper>
+            <Logo src={logoBlue} />
+            <Text>처음 써 보는 메일, MailedIt에서 쉽게 시작해 보세요</Text>
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_API_KEY}
+              onSuccess={onGoogleSignInSuccess}
+              onFailure={onGoogleSignInFailure}
+              render={(renderProps) => (
+                <GoogleButton onClick={renderProps.onClick}>
+                  <GoogleWrapper>
+                    <GoogleLogo src={google} />
+                    <GoogleText>구글로 계속하기</GoogleText>
+                  </GoogleWrapper>
+                </GoogleButton>
+              )}
+            />
+            <BorderWrapper>
+              <Border />
+              <Or>또는</Or>
+              <Border />
+            </BorderWrapper>
+            <Input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleInputChange}
+              placeholder="이메일 주소"
+            />
+            <Input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleInputChange}
+              placeholder="비밀번호"
+              autoComplete="off"
+            />
+            <Input
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleInputChange}
+              placeholder="비밀번호 확인"
+              autoComplete="off"
+            />
+            {!isValidEmail && <ErrorText>이미 가입된 이메일입니다</ErrorText>}
+            {!isPswordCorrect && <ErrorText>비밀번호가 틀렸습니다</ErrorText>}
+            <SubmitBtn color={COLORS.primary} onClick={handleSignUpBtnClick}>
+              회원가입
+            </SubmitBtn>
+            <UnderText>계정이 이미 있으신가요?</UnderText>
+            <Other>로그인하기</Other>
+          </Wrapper>
+        </Modal>
+      )}
+      {isValidUser && (
+        <ValidUserModal
+          isOpen={isModalOpen}
+          ariaHideApp={false}
+          style={modalStyle}
+        ></ValidUserModal>
+      )}
+    </>
   );
 };
 
@@ -215,6 +188,10 @@ const Exit = styled.img`
 
   margin-top: 36px;
   margin-left: 472px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Logo = styled.img`
@@ -367,4 +344,27 @@ const GoogleText = styled.span`
   color: ${COLORS.gray8};
 `;
 
-export default SignInModal;
+const ValidUserModal = styled(ReactModal)`
+  width: 540px;
+  height: 322px;
+
+  background: ${COLORS.gray1};
+  border-radius: 4px;
+`;
+
+const WelcomText = styled.div`
+  width: 293px;
+  height: 56px;
+
+  font-size: 20px;
+  line-height: 140%;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  color: ${COLORS.UIBlack};
+`;
+
+export default SignUpModal;

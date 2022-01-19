@@ -2,16 +2,21 @@ import styled from "styled-components";
 import { MainLogo } from "../../constants/icons";
 import { SignUp, SpanLink, VerticalLine } from "./Components";
 import { useState } from "react";
-import SignIn from "../../components/signin/SignIn";
-import SignInModal from "../../components/signin/SignInModal";
+import SignInModal from "../auth/SignInModal";
+import SignUpModal from "../auth/SignUpModal";
 import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
   const handleSignInBtnClick = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsSignInModalOpen(!isSignInModalOpen);
+  };
+
+  const handleSignUpBtnClick = () => {
+    setIsSignUpModalOpen(!isSignUpModalOpen);
   };
 
   const goToHome = () => {
@@ -36,10 +41,17 @@ const HeaderContainer = () => {
           >
             로그인
           </SpanLink>
-          <SignUp>지금 시작하기</SignUp>
+          <SignUp onClick={handleSignUpBtnClick}>지금 시작하기</SignUp>
         </RightContainer>
       </Header>
-      <SignInModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <SignInModal
+        isModalOpen={isSignInModalOpen}
+        setIsModalOpen={setIsSignInModalOpen}
+      />
+      <SignUpModal
+        isModalOpen={isSignUpModalOpen}
+        setIsModalOpen={setIsSignUpModalOpen}
+      />
       <MainGif src="./img/mainGif.gif" />
     </Container>
   );
