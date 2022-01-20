@@ -26,6 +26,7 @@ const HomePresenter = () => {
   useEffect(() => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
+      console.log("my: ", res.data);
     });
 
     API.get("/templates/base").then((res) => {

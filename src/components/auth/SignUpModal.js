@@ -64,7 +64,6 @@ const SignUpModal = ({
 
   // 회원가입
   const handleSignUpBtnClick = () => {
-    console.log("signupuser: ", signUpUser);
     API.post("/signup", JSON.stringify(signUpUser))
       .then(() => {
         setIsAllPassedUser(true);

@@ -986,6 +986,10 @@ const Modal = styled(ReactModal)`
   grid-template-columns: 0.75fr 0.25fr;
   display: flex;
   flex-direction: row;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Main = styled.main`

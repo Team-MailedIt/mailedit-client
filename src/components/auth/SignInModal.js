@@ -37,7 +37,9 @@ const SignInModal = ({
 
   const handleNextBtnClick = () => {
     API.get(`/user-check?email=${email}`)
-      .then(() => setIsPassedEmail(true))
+      .then(() => {
+        setIsPassedEmail(true);
+      })
       .catch(() => setIsValidEmail(false));
   };
 
@@ -48,10 +50,6 @@ const SignInModal = ({
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("userName", res.data.user.username);
-
-        API.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${res.data.token.access}`;
 
         console.log("Bearer ", res.data.token.access);
 
