@@ -6,22 +6,25 @@ import Thumbnail from "./Thumbnail";
 import API from "../../utils/API";
 
 import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
+import mainComIllu from "../../constants/icons/mainComIllu.svg";
+
 import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
 
 import dots from "../../constants/icons/dots.svg";
 import unfold from "../../constants/icons/unfold.svg";
+
 import { useEffect, useState } from "react";
 import BaseTemplateModal from "./BaseTemplateModal";
 
-const HomePresenter = () => {
+const HomeContainer = () => {
   const userName = localStorage.getItem("userName");
-
-  const [myTemplates, setMyTemplates] = useState([]);
-  const [baseTemplates, setBaseTemplates] = useState([]);
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const navigate = useNavigate();
+  const [myTemplates, setMyTemplates] = useState([]);
+  const [baseTemplates, setBaseTemplates] = useState([]);
+  const [option, setOption] = useState("company");
+  const [selectedBaseId, setSelectedBaseId] = useState(null);
 
   useEffect(() => {
     API.get("/templates/my").then((res) => {
@@ -32,6 +35,9 @@ const HomePresenter = () => {
       setBaseTemplates(res.data);
     });
   }, []);
+
+  const baseCompany = baseTemplates.filter((base) => base.category === "회사");
+  const baseSchool = baseTemplates.filter((base) => base.category === "학교");
 
   const handleSignOutBtnClick = () => {
     localStorage.clear();
@@ -46,11 +52,17 @@ const HomePresenter = () => {
     });
   };
 
+  const handleChangeSelect = (e) => {
+    setOption(e.target.value);
+  };
+
   const handleBaseClick = (e) => {
-    console.log(e.target);
+    setSelectedBaseId(e.target.id);
+    setIsModalOpen(!isModalOpen);
   };
 
   const handleDotBtnClick = () => {
+    setSelectedBaseId(baseCompany[0].templateId);
     setIsModalOpen(!isModalOpen);
   };
 
@@ -67,6 +79,7 @@ const HomePresenter = () => {
           </Link>
         </TopRight>
       </Top>
+
       <MyTemplateArea>
         <MyTemplateInfo>
           <UserName>{`${userName}님의 마이템플릿`}</UserName>
@@ -77,7 +90,7 @@ const HomePresenter = () => {
         </MyTemplateInfo>
         <Border />
         <MyTemplateGridWrapper>
-          {myTemplates.length !== 0 ? (
+          {myTemplates ? (
             <MyTemplateGrid>
               {myTemplates.map((t) => (
                 <Thumbnail
@@ -105,16 +118,17 @@ const HomePresenter = () => {
           )}
         </MyTemplateGridWrapper>
       </MyTemplateArea>
+
       <BaseTemplateArea>
         <TextWrapper>
           <TitleSelect>
             <BottomTitle>
               학교에서 교수님, 조교님께 어떻게 보내나요?
             </BottomTitle>
-            <DropDown>
-              학교
-              <option value="school">학교</option>
+            <DropDown onChange={handleChangeSelect} value={option}>
+              회사
               <option value="company">회사</option>
+              <option value="school">학교</option>
             </DropDown>
           </TitleSelect>
           <BottomSubTitle>
@@ -124,29 +138,45 @@ const HomePresenter = () => {
           <BaseTemplateTable>
             <tbody>
               <tr>
-                {baseTemplates.slice(0, 5).map((t, i) => (
-                  <th key={"b" + i} onClick={handleBaseClick}>
-                    {t.title}
-                  </th>
-                ))}
-                {/* <th>회의 일정 공지</th>
-                <th>회의 일정 조율</th>
-                <th>추가 자료 요청</th>
-                <th>요청 자료 전달</th>
-                <th>문서 제출</th> */}
+                {option === "company"
+                  ? baseCompany.slice(0, 5).map((t, i) => (
+                      <th
+                        id={t.templateId}
+                        key={"b" + i}
+                        onClick={handleBaseClick}
+                      >
+                        {t.title}
+                      </th>
+                    ))
+                  : baseSchool.slice(0, 5).map((t, i) => (
+                      <th
+                        id={t.templateId}
+                        key={"b" + i}
+                        onClick={handleBaseClick}
+                      >
+                        {t.title}
+                      </th>
+                    ))}
                 <th onClick={handleDotBtnClick}>
                   <Dots src={dots} />
                 </th>
               </tr>
             </tbody>
           </BaseTemplateTable>
-          <BaseTemplateModal
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            baseTemplates={baseTemplates}
-          />
+          {selectedBaseId && (
+            <BaseTemplateModal
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              baseTemplates={baseTemplates}
+              selectedBaseId={selectedBaseId}
+            />
+          )}
         </TextWrapper>
-        <Illustration src={mainSchIllu} />
+        {option === "company" ? (
+          <Illustration src={mainComIllu} />
+        ) : (
+          <Illustration src={mainSchIllu} />
+        )}
       </BaseTemplateArea>
     </Wrapper>
   );
@@ -291,7 +321,6 @@ const MyTemplateGridWrapper = styled.div`
   width: 100%; // 1512px
 
   overflow: auto;
-  // margin: 0px 10px;
 
   display: flex;
   justify-content: center;
@@ -369,7 +398,7 @@ const BottomTitle = styled.div`
 `;
 
 const BottomSubTitle = styled.div`
-  width: 520px;
+  width: 521px;
   height: 19px;
 
   margin-top: 12px;
@@ -387,12 +416,6 @@ const DropDown = styled.select`
 
   border: 1.5px solid ${COLORS.gray2};
   border-radius: 4px;
-
-  // background-image: url(${unfold});
-  // background-repeat: no-repeat;
-
-  // background-size: 16px 10px;
-  // background-color: ${COLORS.UIWhite};
 
   -o-appearance: none;
   -webkit-appearance: none;
@@ -460,4 +483,4 @@ const NoTemplateText = styled.div`
   text-align: center;
   margin-top: 20px;
 `;
-export default HomePresenter;
+export default HomeContainer;

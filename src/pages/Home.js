@@ -1,12 +1,12 @@
 import MainSidebar from "../components/home/MainSidebar";
 import styled from "styled-components";
-import HomePresenter from "../components/home/HomePresenter";
+import HomeContainer from "../components/home/HomeContainer";
 
 const Home = () => {
   return (
     <Wrapper>
       <MainSidebar />
-      <HomePresenter />
+      <HomeContainer />
     </Wrapper>
   );
 };
