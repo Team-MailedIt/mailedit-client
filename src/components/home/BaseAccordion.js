@@ -5,7 +5,7 @@ import expand from "../../constants/icons/expand.svg";
 import collapse from "../../constants/icons/collapse.svg";
 import COLORS from "../../constants/colors";
 
-const BaseAccordion = ({ title, list }) => {
+const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
 
@@ -42,7 +42,13 @@ const BaseAccordion = ({ title, list }) => {
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
           {list.map((item, i) => (
-            <TemplateName key={"ii" + i}>{item.title}</TemplateName>
+            <TemplateName
+              key={"ii" + i}
+              id={item.templateId}
+              onClick={handleSelectTemplate}
+            >
+              {item.title}
+            </TemplateName>
           ))}
         </ListItem>
       </ListWrapper>
