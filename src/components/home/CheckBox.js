@@ -2,21 +2,18 @@ import styled from "styled-components";
 import check from "../../constants/icons/check.svg";
 import { useState } from "react";
 
-const CheckBox = ({ id }) => {
+const CheckBox = ({ id, handleChange }) => {
   const [isChecked, setIsChecked] = useState(true);
 
-  const handleCheckBoxClick = (e) => {
-    setIsChecked(!isChecked);
-    console.log(`id: ${e.target.id}, value: ${e.target.value}`);
-  };
+  // const handleCheckBoxClick = (e) => {
+  //   // setIsChecked(!isChecked);
+  //   setIsChecked({ checked: e.target.checked });
+  //   console.log(e.target.checked);
+  //   console.log(e.target.id);
+  // };
 
   return (
-    <input
-      id={id}
-      type="checkbox"
-      value={isChecked}
-      onChange={handleCheckBoxClick}
-    />
+    <input id={id} type="checkbox" value={isChecked} onChange={handleChange} />
   );
 };
 
