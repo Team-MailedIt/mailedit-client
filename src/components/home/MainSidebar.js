@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Checkbox from "react-custom-checkbox";
 import check from "../../constants/icons/check.svg";
 import COLORS from "../../constants/colors";
 import star from "../../constants/icons/star.svg";
 import SidebarGroup from "../commons/SidebarGroup";
 import Search from "../commons/Search";
 import logo from "../../constants/icons/logo.svg";
-import CheckBox from "./CheckBox";
 import API from "../../utils/API";
 
 const MainSidebar = () => {
@@ -15,21 +13,7 @@ const MainSidebar = () => {
   const [myTemplates, setMyTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState([]);
   const [selectedGroupId, setSelectedGroupId] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
-
-  // const handleSelectAll = (e) => {
-  //   setSelectedGroupId(e.target.checked ? groupIdList : []);
-  // };
-
-  // const handleSelectElement = (e, id) => {
-  //   if (e.target.checked) {
-  //     setSelectedGroupId([...groupIdList, id]);
-  //   } else {
-  //     setSelectedGroupId(
-  //       selectedGroupId.filter((checkedId) => checkedId !== id)
-  //     );
-  //   }
-  // };
+  const [isChecked, setIsChecked] = useState([]);
 
   useEffect(() => {
     API.get("/groups").then((res) => {
@@ -43,6 +27,20 @@ const MainSidebar = () => {
       setMyTemplates(res.data);
     });
   }, []);
+
+  const handleSelectAll = (e) => {
+    setSelectedGroupId(e.target.checked ? groupIdList : []);
+  };
+
+  const handleSelectElement = (e, id) => {
+    if (e.target.checked) {
+      setSelectedGroupId([...groupIdList, id]);
+    } else {
+      setSelectedGroupId(
+        selectedGroupId.filter((checkedId) => checkedId !== id)
+      );
+    }
+  };
 
   return (
     <Wrapper>
@@ -58,16 +56,40 @@ const MainSidebar = () => {
             <SidebarGroup
               title="즐겨찾기"
               icon={<StarIcon src={star} />}
-              item={<CheckBox id="like" />}
+              item={
+                <input
+                  id="likeß"
+                  type="checkbox"
+                  value={isChecked}
+                  onChange={handleSelectElement}
+                />
+              }
             />
             <Border />
-            <SidebarGroup title="전체 선택" item={<CheckBox id="all" />} />
+            <SidebarGroup
+              title="전체 선택"
+              item={
+                <input
+                  id="all"
+                  type="checkbox"
+                  value={isChecked}
+                  onChange={handleSelectAll}
+                />
+              }
+            />
             {groups.map((group, i) => (
               <SidebarGroup
                 key={"g" + i}
                 title={group.name}
                 icon={<Index color={group.color} />}
-                item={<CheckBox id={group.id} />}
+                item={
+                  <input
+                    id={group.id}
+                    type="checkbox"
+                    value={isChecked}
+                    onChange={handleSelectElement}
+                  />
+                }
               />
             ))}
           </>

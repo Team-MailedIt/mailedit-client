@@ -10,7 +10,7 @@ import { CopyContext } from "../../contexts/CopyContexts";
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const { action } = useContext(CopyContext);
-  const scrollRef = useRef([]);
+  // const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
     html: "",
@@ -21,18 +21,17 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
 
-  function scrollToBottom(index) {
-    const element = scrollRef.current.children[0].children[index - 1];
-
-    element.scrollIntoView({
-      block: "end",
-      behavior: "smooth",
-    });
-  }
+  // function scrollToBottom(index) {
+  //   const element = scrollRef.current.children[0].children[index - 1];
+  //   element.scrollIntoView({
+  //     block: 'end',
+  //     behavior: 'smooth',
+  //   });
+  // }
 
   // copy block data
   useEffect(() => {
-    if (action !== '') {
+    if (action !== "") {
       getBlocksHandler(blocks);
     }
   }, [action, getBlocksHandler, blocks]);
@@ -40,7 +39,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
     if (passedBlocks) {
-      if (passedBlocks.length > 1) {
+      if (passedBlocks.length > 0) {
         setBlocks((b) => [...b, ...passedBlocks]);
       } else {
         setBlocks((b) => [...b, passedBlocks]);
@@ -48,9 +47,9 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     }
   }, [passedBlocks]);
 
-  useEffect(() => {
-    scrollToBottom(blocks.length);
-  }, [blocks.length]);
+  // useEffect(() => {
+  //   scrollToBottom(blocks.length);
+  // }, [blocks.length]);
 
   const focusNewBlock = useCallback(
     (prevBlock) => {
@@ -222,7 +221,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     <DragDropContext onDragEnd={handleDndChange}>
       <Droppable droppableId="todosDroppable">
         {(provided) => (
-          <Container ref={scrollRef}>
+          <Container>
             <Box {...provided.droppableProps} ref={provided.innerRef}>
               {blocks.map(({ id, tag, html, flag }, index) => (
                 <Draggable key={id} draggableId={id} index={index}>
@@ -237,7 +236,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
                         <DragIcon src="/img/drag.png" />
                       </DragBtn>
                       <EditableBlock
-                        ref={(elem) => (scrollRef.current[index] = elem)}
+                        // ref={(elem) => (scrollRef.current[index] = elem)}
                         id={id}
                         tag={tag}
                         html={html}

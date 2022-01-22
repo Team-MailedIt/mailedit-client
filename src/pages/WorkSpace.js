@@ -10,6 +10,7 @@ const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
   // EditPage 배열의 맨 마지막 element로 넣어줘야함
   const [blocks, setBlocks] = useState(null);
+  const [content, setContent] = useState(null);
 
   const getBlockFromTemplate = (element) => {
     const newBlock = { ...element, id: uid() };
@@ -25,6 +26,10 @@ const WorkSpace = () => {
     setBlocks(NewArray);
   };
 
+  const handleContents = (object) => {
+    setContent(object);
+  };
+
   return (
     <div
       style={{
@@ -33,7 +38,7 @@ const WorkSpace = () => {
       }}
     >
       <GroupProvider>
-        <WorkSpaceSidebar />
+        <WorkSpaceSidebar handleContents={handleContents} />
         <CopyContextProvider>
           <div
             style={{
@@ -42,6 +47,7 @@ const WorkSpace = () => {
             }}
           >
             <TemplatePage
+              fetchedData={content}
               getBlockFromTemplate={getBlockFromTemplate}
               getAllBlockFromTemplate={getAllBlockFromTemplate}
             />
