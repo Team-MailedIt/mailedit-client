@@ -32,7 +32,6 @@ const Accordion = ({ icon, title, list, handleContents }) => {
     // call api
     const result = await getTemplate(templateId);
     // put result to template page
-
     handleContents(result);
   };
 

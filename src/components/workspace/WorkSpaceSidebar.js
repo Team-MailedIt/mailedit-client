@@ -75,7 +75,10 @@ const WorkSpaceSidebar = ({ handleContents }) => {
     <Wrapper>
       <FixedSection>
         <Logo src={logo} onClick={goToMain} />
-        <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
+        <Search
+          all={[...myTemplates, ...baseSchool, ...baseCompany]}
+          handleContents={handleContents}
+        />
       </FixedSection>
 
       <VariableSection>
