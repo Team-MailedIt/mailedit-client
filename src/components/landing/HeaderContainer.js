@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import { MainLogo } from "../../constants/icons";
-import { SignUp, SpanLink, VerticalLine } from "./Components";
-import { useState } from "react";
-import SignInModal from "../auth/SignInModal";
-import SignUpModal from "../auth/SignUpModal";
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import { MainLogo } from '../../constants/icons';
+import { SignUp, SpanLink, VerticalLine } from './Components';
+import { useState } from 'react';
+import SignInModal from '../auth/SignInModal';
+import SignUpModal from '../auth/SignUpModal';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = () => {
+  const userName = localStorage.getItem('userName');
   const navigate = useNavigate();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
@@ -20,29 +21,40 @@ const HeaderContainer = () => {
   };
 
   const goToHome = () => {
-    navigate("/home");
+    navigate('/home');
   };
   const goToLanding = () => {
     window.location.reload();
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/');
   };
 
   return (
     <Container>
       <Header>
         <MainLogo onClick={goToLanding} src="./img/mainlogo.png" />
-        <RightContainer>
-          <SpanLink onClick={goToHome} style={{ marginRight: "32px" }}>
-            둘러보기
-          </SpanLink>
-          <VerticalLine style={{ marginRight: "32px" }} />
-          <SpanLink
-            style={{ marginRight: "32px" }}
-            onClick={handleSignInBtnClick}
-          >
-            로그인
-          </SpanLink>
-          <SignUp onClick={handleSignUpBtnClick}>지금 시작하기</SignUp>
-        </RightContainer>
+        {userName ? (
+          <RightContainer style={{ justifyContent: 'flex-end' }}>
+            <SpanLink onClick={handleLogout}>로그아웃</SpanLink>
+          </RightContainer>
+        ) : (
+          <RightContainer>
+            <SpanLink onClick={goToHome} style={{ marginRight: '32px' }}>
+              둘러보기
+            </SpanLink>
+            <VerticalLine style={{ marginRight: '32px' }} />
+            <SpanLink
+              style={{ marginRight: '32px' }}
+              onClick={handleSignInBtnClick}
+            >
+              로그인
+            </SpanLink>
+            <SignUp onClick={handleSignUpBtnClick}>지금 시작하기</SignUp>
+          </RightContainer>
+        )}
       </Header>
       <SignInModal
         isSignInModalOpen={isSignInModalOpen}

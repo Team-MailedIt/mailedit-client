@@ -15,13 +15,13 @@ const FooterHeader = () => {
           <FooterTitle style={{ marginRight: '20px' }}>
             메일 작성이 어려울 때는?
           </FooterTitle>
-          <FooterLogoTitle src="./img/footerTitleLogo.png" />
+          <FooterLogoTitle src="./img/footertitlelogo.png" />
         </RowContainer>
         <div style={{ marginTop: '36px' }}>
           <FooterBody1>실무 이메일 작성이 나에게 매번 어려웠다면?</FooterBody1>
           <RowContainer style={{ alignItems: 'center' }}>
             <FooterBody2 style={{ marginRight: '16px' }}>지금 바로</FooterBody2>
-            <FooterLogoBody src="./img/footerBodyLogo.png" />
+            <FooterLogoBody src="./img/footerbodylogo.png" />
             <FooterBody2 style={{ marginLeft: '4px' }}>
               을 이용해 보세요
             </FooterBody2>
