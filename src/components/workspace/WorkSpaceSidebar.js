@@ -33,6 +33,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
       setGroupList(data);
     };
     fetchGroupList();
+
     // }, [groupListContext.length, setGroupList]);
   }, [setGroupList]);
 
@@ -76,7 +77,9 @@ const WorkSpaceSidebar = ({ handleContents }) => {
     <Wrapper>
       <FixedSection>
         <Logo src={logo} onClick={goToMain} />
+
         <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
+
       </FixedSection>
 
       <VariableSection>

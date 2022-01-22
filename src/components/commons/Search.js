@@ -2,10 +2,12 @@ import COLORS from "../../constants/colors";
 import styled from "styled-components";
 import { useState } from "react";
 
+
 import search from "../../constants/icons/search.svg";
 import remove from "../../constants/icons/remove.svg";
 
-const Search = ({ all }) => {
+
+const Search = ({ all, handleContents }) => {
   // 템플릿 검색
   const [inputText, setInputText] = useState("");
 
@@ -19,6 +21,17 @@ const Search = ({ all }) => {
 
   const handleRemoveBtnClick = () => {
     setInputText("");
+  };
+
+  const handleResult = async (templateId) => {
+    console.log(templateId);
+    // call api by templateId
+    const { data } = await API.get(`/templates/${templateId}`);
+    if (data) {
+      handleContents(data);
+      handleRemoveBtnClick();
+      // close result
+    }
   };
 
   return (
@@ -39,6 +52,7 @@ const Search = ({ all }) => {
         <SearchResultWrapper>
           {result.map((r, i) => (
             <SearchResultTitle key={"r" + i}>{r.title}</SearchResultTitle>
+
           ))}
         </SearchResultWrapper>
       ) : null}
