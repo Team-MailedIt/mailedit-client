@@ -34,7 +34,7 @@ const MainSidebar = () => {
 
   const handleSelectElement = (e, id) => {
     if (e.target.checked) {
-      setSelectedGroupId([...groupIdList, id]);
+      setSelectedGroupId([...selectedGroupId, id]);
     } else {
       setSelectedGroupId(
         selectedGroupId.filter((checkedId) => checkedId !== id)
@@ -72,7 +72,7 @@ const MainSidebar = () => {
                 <input
                   id="all"
                   type="checkbox"
-                  value={isChecked}
+                  checked={selectedGroupId.length === groupIdList.length}
                   onChange={handleSelectAll}
                 />
               }
@@ -86,8 +86,8 @@ const MainSidebar = () => {
                   <input
                     id={group.id}
                     type="checkbox"
-                    value={isChecked}
-                    onChange={handleSelectElement}
+                    checked={selectedGroupId.includes(group.id)}
+                    onChange={(e) => handleSelectElement(e, group.id)}
                   />
                 }
               />

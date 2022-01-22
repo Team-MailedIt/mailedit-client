@@ -16,6 +16,7 @@ const GoogleAuth = () => {
 
     const params = new URLSearchParams();
     params.append("idToken", res.tokenObj.id_token);
+    console.log("idToken: ", res.tokenObj.id_token);
 
     API.post("/login/google", params, {
       headers: {
