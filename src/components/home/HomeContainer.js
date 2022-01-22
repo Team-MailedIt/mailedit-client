@@ -90,7 +90,7 @@ const HomeContainer = () => {
         </MyTemplateInfo>
         <Border />
         <MyTemplateGridWrapper>
-          {myTemplates ? (
+          {myTemplates.length != 0 ? (
             <MyTemplateGrid>
               {myTemplates.map((t) => (
                 <Thumbnail
