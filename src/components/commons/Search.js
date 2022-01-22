@@ -1,14 +1,15 @@
-import COLORS from '../../constants/colors';
-import styled from 'styled-components';
-import { useState } from 'react';
+import COLORS from "../../constants/colors";
+import styled from "styled-components";
+import { useState } from "react";
 
-import search from '../../constants/icons/search.svg';
-import remove from '../../constants/icons/remove.svg';
-import API from '../../utils/API';
+
+import search from "../../constants/icons/search.svg";
+import remove from "../../constants/icons/remove.svg";
+
 
 const Search = ({ all, handleContents }) => {
   // 템플릿 검색
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -19,7 +20,7 @@ const Search = ({ all, handleContents }) => {
     .sort();
 
   const handleRemoveBtnClick = () => {
-    setInputText('');
+    setInputText("");
   };
 
   const handleResult = async (templateId) => {
@@ -49,13 +50,9 @@ const Search = ({ all, handleContents }) => {
       </SearchingField>
       {result.length !== 0 ? (
         <SearchResultWrapper>
-          {result.map(({ title, templateId }) => (
-            <SearchResultTitle
-              key={templateId}
-              onClick={() => handleResult(templateId)}
-            >
-              {title}
-            </SearchResultTitle>
+          {result.map((r, i) => (
+            <SearchResultTitle key={"r" + i}>{r.title}</SearchResultTitle>
+
           ))}
         </SearchResultWrapper>
       ) : null}
@@ -85,7 +82,6 @@ const SearchResultWrapper = styled.div`
   z-index: 2;
 
   margin-left: 40px;
-
   padding-bottom: 9px;
   border-radius: 0 0 2px 2px;
   border-top: 1px solid ${COLORS.UIWhite};

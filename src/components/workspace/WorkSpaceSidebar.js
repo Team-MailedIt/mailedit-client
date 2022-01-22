@@ -1,16 +1,18 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
-import Search from '../commons/Search';
-import Accordion from '../commons/Accordion';
+import Search from "../commons/Search";
+import Accordion from "../commons/Accordion";
 
-import star from '../../constants/icons/star.svg';
-import logo from '../../constants/icons/logo.svg';
+import star from "../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
+
 
 import API from '../../utils/API';
 import { useContext, useEffect, useState } from 'react';
 import { GroupContext } from '../../contexts/GroupContexts';
 import { useNavigate } from 'react-router';
+
 
 const WorkSpaceSidebar = ({ handleContents }) => {
   // 그룹 리스트
@@ -31,7 +33,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
       setGroupList(data);
     };
     fetchGroupList();
-    console.log('call api');
+
     // }, [groupListContext.length, setGroupList]);
   }, [setGroupList]);
 
@@ -43,9 +45,9 @@ const WorkSpaceSidebar = ({ handleContents }) => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
           // this will be base template
-          if (category === '회사') {
+          if (category === "회사") {
             setBaseCompany((el) => [...el, newElement]);
-          } else if (category === '학교') {
+          } else if (category === "학교") {
             setBaseSchool((el) => [...el, newElement]);
           }
         } else {
@@ -75,10 +77,9 @@ const WorkSpaceSidebar = ({ handleContents }) => {
     <Wrapper>
       <FixedSection>
         <Logo src={logo} onClick={goToMain} />
-        <Search
-          all={[...myTemplates, ...baseSchool, ...baseCompany]}
-          handleContents={handleContents}
-        />
+
+        <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
+
       </FixedSection>
 
       <VariableSection>
@@ -133,6 +134,9 @@ const Wrapper = styled.aside`
 const FixedSection = styled.section`
   width: 100%;
   height: 208px;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 const Logo = styled.img`

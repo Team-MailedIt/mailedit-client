@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import ReactModal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
 
-const BaseTemplateModal = ({ isModalOpen, setIsModalOpen, baseTemplates }) => {
+const BaseTemplateModal = ({ isModalOpen, setIsModalOpen, selectedBaseId }) => {
   const base = [
     {
       templateId: "a52ab642-195e-4ec5-b288-f7a1b07846ba",
@@ -927,6 +927,17 @@ const BaseTemplateModal = ({ isModalOpen, setIsModalOpen, baseTemplates }) => {
     },
   ];
 
+  const [selectedId, setSelectedId] = useState(selectedBaseId);
+
+  useEffect(() => setSelectedId(selectedBaseId), [selectedBaseId]);
+
+  const handleSelectTemplate = (e) => {
+    setSelectedId(e.target.id);
+  };
+
+  const selectedTemplate =
+    selectedId && base.filter((t) => t.templateId === selectedId);
+
   const modalStyle = {
     overlay: {
       display: "flex",
@@ -946,16 +957,20 @@ const BaseTemplateModal = ({ isModalOpen, setIsModalOpen, baseTemplates }) => {
     >
       <Main>
         <MainWrapper>
-          <Title>{base[2].title}</Title>
-          <Subtitle>{base[2].subtitle}</Subtitle>
-          <Border />
-          <Content>
-            {base[2].content.map((t, i) => (
-              <BlockWrapper key={"ttt" + i}>
-                {t.html.replaceAll("<div>", "\n").replaceAll("</div>", "")}
-              </BlockWrapper>
-            ))}
-          </Content>
+          {selectedId && (
+            <>
+              <Title>{selectedTemplate[0].title}</Title>
+              <Subtitle>{selectedTemplate[0].subtitle}</Subtitle>
+              <Border />
+              <Content>
+                {selectedTemplate[0].content.map((t, i) => (
+                  <BlockWrapper key={"ttt" + i}>
+                    {t.html.replaceAll("<div>", "\n").replaceAll("</div>", "")}
+                  </BlockWrapper>
+                ))}
+              </Content>
+            </>
+          )}
           <Description>
             회의 일정은 회사 내에서 회의 내용에 대한 공지를 드릴 때에
             사용됩니다.
@@ -964,8 +979,16 @@ const BaseTemplateModal = ({ isModalOpen, setIsModalOpen, baseTemplates }) => {
       </Main>
       <Sidebar>
         <ScrollArea>
-          <BaseAccordion title="회사" list={baseCompany} />
-          <BaseAccordion title="학교" list={baseCompany} />
+          <BaseAccordion
+            title="회사"
+            list={baseCompany}
+            handleSelectTemplate={handleSelectTemplate}
+          />
+          <BaseAccordion
+            title="학교"
+            list={baseSchool}
+            handleSelectTemplate={handleSelectTemplate}
+          />
         </ScrollArea>
         <UseBtn>템플릿 사용하기</UseBtn>
       </Sidebar>
