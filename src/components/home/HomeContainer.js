@@ -123,7 +123,9 @@ const HomeContainer = () => {
         <TextWrapper>
           <TitleSelect>
             <BottomTitle>
-              학교에서 교수님, 조교님께 어떻게 보내나요?
+              {option === "company"
+                ? "회사에서 일잘러가 되려면?"
+                : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
             </BottomTitle>
             <DropDown onChange={handleChangeSelect} value={option}>
               회사

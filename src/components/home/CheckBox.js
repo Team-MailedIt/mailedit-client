@@ -6,8 +6,10 @@ const CheckBox = ({ id }) => {
   const [isChecked, setIsChecked] = useState(true);
 
   const handleCheckBoxClick = (e) => {
-    setIsChecked(!isChecked);
-    console.log(`id: ${e.target.id}, value: ${e.target.value}`);
+    // setIsChecked(!isChecked);
+    setIsChecked({ checked: e.target.checked });
+    console.log(e.target.checked);
+    console.log(e.target.id);
   };
 
   return (

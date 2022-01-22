@@ -140,6 +140,10 @@ const TemplateName = styled.div`
   height: 20px;
   margin-left: 16px;
 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   &:hover {
     cursor: pointer;
   }
