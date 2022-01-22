@@ -10,22 +10,20 @@ import {
   AddGroupButton,
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 // import { GearIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
 import DefaultContainer from './DefaultContainer';
 import API from '../../utils/API';
+import { GroupContext } from '../../contexts/GroupContexts';
 
-const BubbleContainer = ({
-  isModalOpen,
-  setIsModalOpen,
-  groupList,
-  handleSelected,
-}) => {
+const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
   // 추가 기능이 있어서 set도 있어야 함
-  const [group, setGroup] = useState([]);
+  // const [group, setGroup] = useState([]);
+  const { groupListContext, setGroupList } = useContext(GroupContext);
+
   const [mode, setMode] = useState(true);
   const [selected, setSelected] = useState({
     id: 0,
@@ -35,9 +33,10 @@ const BubbleContainer = ({
   const [addChecker, setAddChecker] = useState(false);
   const [temp, setTemp] = useState({});
 
-  useEffect(() => {
-    setGroup(groupList);
-  }, [groupList]);
+  // useEffect(() => {
+  //   setGroup(groupList);
+  //   setGroupList()
+  // }, [groupList]);
 
   // state 초기화
   const init = () => {
@@ -76,7 +75,9 @@ const BubbleContainer = ({
           name: data.name,
           color: data.color,
         };
-        setGroup((p) => [...p, newElement]);
+        const newArray = [...groupListContext, newElement];
+        setGroupList(newArray);
+        // setGroup((p) => [...p, newElement]);
       } else {
         window.alert('서버상에 문제가 있어요ㅠ');
       }
@@ -123,7 +124,7 @@ const BubbleContainer = ({
         </RowContainer>
 
         <ColContainer style={{ marginTop: '12px' }}>
-          {group.map(({ name, color, id }) => {
+          {groupListContext.map(({ name, color, id }) => {
             return (
               <div key={id} style={{ marginBottom: '2px' }}>
                 <GroupComponent

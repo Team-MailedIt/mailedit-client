@@ -31,6 +31,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
       setGroupList(data);
     };
     fetchGroupList();
+    console.log('call api');
     // }, [groupListContext.length, setGroupList]);
   }, [setGroupList]);
 
