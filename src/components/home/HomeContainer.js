@@ -147,7 +147,9 @@ const HomeContainer = () => {
                         key={"b" + i}
                         onClick={handleBaseClick}
                       >
-                        {t.title}
+                        <ThText id={t.templateId} onClick={handleBaseClick}>
+                          {t.title}
+                        </ThText>
                       </th>
                     ))
                   : baseSchool.slice(0, 5).map((t, i) => (
@@ -156,9 +158,12 @@ const HomeContainer = () => {
                         key={"b" + i}
                         onClick={handleBaseClick}
                       >
-                        {t.title}
+                        <ThText id={t.templateId} onClick={handleBaseClick}>
+                          {t.title}
+                        </ThText>
                       </th>
                     ))}
+
                 <th onClick={handleDotBtnClick}>
                   <Dots src={dots} />
                 </th>
@@ -169,8 +174,10 @@ const HomeContainer = () => {
             <BaseTemplateModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
-              baseTemplates={baseTemplates}
               selectedBaseId={selectedBaseId}
+              baseTemplates={baseTemplates}
+              baseCompany={baseCompany}
+              baseSchool={baseSchool}
             />
           )}
         </TextWrapper>
@@ -349,6 +356,19 @@ const MyTemplateGrid = styled.div`
     border-radius: 20px;
     border: 10px solid transparent;
   }
+`;
+
+const ThText = styled.div`
+  width: 140px;
+  height: 48px;
+
+  margin-left: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
 `;
 
 const BaseTemplateArea = styled.section`
