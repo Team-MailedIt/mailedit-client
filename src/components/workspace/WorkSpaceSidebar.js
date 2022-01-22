@@ -29,6 +29,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
     const fetchGroupList = async () => {
       const { data } = await API.get(`/groups`);
       setGroupList(data);
+      console.log(data);
     };
     fetchGroupList();
 
@@ -39,6 +40,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
   useEffect(() => {
     const fetchAllTemplates = async () => {
       const { data } = await API.get(`/templates/all`);
+      console.log(data);
       data.forEach(({ templateId, category, groupId, title, isStar }) => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
@@ -91,7 +93,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
           list={favTemplates}
         />
         <Border />
-        {myTemplates.length !== 0 ? (
+        {groupListContext.length !== 0 ? (
           groupListContext.map(({ name, color, id }) => (
             <Accordion
               handleContents={handleContents}

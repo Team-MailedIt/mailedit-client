@@ -7,6 +7,9 @@ export const PrevIcon = styled.img`
   /* border-radius: 50%; */
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const DragIcon = styled.img`
   background-image: ${({ src }) => `url(${src})`};
