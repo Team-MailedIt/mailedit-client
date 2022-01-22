@@ -9,6 +9,7 @@ import parseBlocks from '../../utils/parseBlocks';
 import copy from 'copy-to-clipboard';
 import ModalContainer from '../alertModal/ModalContainer';
 import API from '../../utils/API';
+import getOnlyBlocks from '../../utils/getOnlyBlocks';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
@@ -32,11 +33,13 @@ const EditorContainer = ({ passedBlocks }) => {
       if (headerData.title === '') {
         window.alert('제목 입력은 필수입니다.');
       } else {
+        // content에서 블럭인 것만 가져오기
+        const filteredContents = getOnlyBlocks(content);
         const props = {
           title: headerData.title,
           subtitle: headerData.subtitle,
           groupId: headerData.group.id,
-          content,
+          content: filteredContents,
         };
         const res = saveTemplateToServer(props);
         if (res) {
