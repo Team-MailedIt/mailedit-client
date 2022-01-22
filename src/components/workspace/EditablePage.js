@@ -1,34 +1,33 @@
-import { useCallback, useEffect, useState, useRef, useContext } from "react";
-import EditableBlock from "./EditableBlock";
-import uid from "../../utils/uid";
+import { useCallback, useEffect, useState, useRef, useContext } from 'react';
+import EditableBlock from './EditableBlock';
+import uid from '../../utils/uid';
 
-import styled from "styled-components";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import setCaretToEnd from "../../utils/setCaretToEnd";
-import { DragIcon } from "../../constants/icons";
-import { CopyContext } from "../../contexts/CopyContexts";
+import styled from 'styled-components';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import setCaretToEnd from '../../utils/setCaretToEnd';
+import { DragIcon } from '../../constants/icons';
+import { CopyContext } from '../../contexts/CopyContexts';
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const { action } = useContext(CopyContext);
-  const scrollRef = useRef([]);
+  // const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
-    html: "",
-    tag: "p",
+    html: '',
+    tag: 'p',
     flag: 0,
   };
   const [blocks, setBlocks] = useState([initialBlock]);
   const [currentBlockIndex, setCurrentBlockIndex] = useState(null);
   const [commandAction, setCommandAction] = useState(null);
 
-  function scrollToBottom(index) {
-    const element = scrollRef.current.children[0].children[index - 1];
-
-    element.scrollIntoView({
-      block: "end",
-      behavior: "smooth",
-    });
-  }
+  // function scrollToBottom(index) {
+  //   const element = scrollRef.current.children[0].children[index - 1];
+  //   element.scrollIntoView({
+  //     block: 'end',
+  //     behavior: 'smooth',
+  //   });
+  // }
 
   // copy block data
   useEffect(() => {
@@ -40,7 +39,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   // 넘겨받은 block 배열 맨 뒤에 set
   useEffect(() => {
     if (passedBlocks) {
-      if (passedBlocks.length > 1) {
+      if (passedBlocks.length > 0) {
         setBlocks((b) => [...b, ...passedBlocks]);
       } else {
         setBlocks((b) => [...b, passedBlocks]);
@@ -48,9 +47,9 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     }
   }, [passedBlocks]);
 
-  useEffect(() => {
-    scrollToBottom(blocks.length);
-  }, [blocks.length]);
+  // useEffect(() => {
+  //   scrollToBottom(blocks.length);
+  // }, [blocks.length]);
 
   const focusNewBlock = useCallback(
     (prevBlock) => {
@@ -76,10 +75,10 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
-    if (commandAction === "Enter") {
+    if (commandAction === 'Enter') {
       // focus to new block
       focusNewBlock(currentBlockIndex);
-    } else if (commandAction === "Backspace") {
+    } else if (commandAction === 'Backspace') {
       // focus to previous block, if it exists
       if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
@@ -111,11 +110,11 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       newBlock = {
         id: uid(),
         html: currentBlock.html,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
     } else {
-      newBlock = { id: uid(), html: "", tag: "p", flag: 0 };
+      newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
     }
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
@@ -155,13 +154,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: newHtml,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
       const newBlock = {
         id: uid(),
         html: nextHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
@@ -170,13 +169,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       const newBlock = {
         id: uid(),
         html: newHtml,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
       updatedBlocks.splice(index, 1, updateBlock);
@@ -185,21 +184,21 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
       const newBlock = {
         id: uid(),
         html: newHtml,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
       updatedBlocks.splice(index + 1, 0, newBlock);
       const nextBlock = {
         id: uid(),
         html: nextHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index + 2, 0, nextBlock);
@@ -222,7 +221,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     <DragDropContext onDragEnd={handleDndChange}>
       <Droppable droppableId="todosDroppable">
         {(provided) => (
-          <Container ref={scrollRef}>
+          <Container>
             <Box {...provided.droppableProps} ref={provided.innerRef}>
               {blocks.map(({ id, tag, html, flag }, index) => (
                 <Draggable key={id} draggableId={id} index={index}>
@@ -237,7 +236,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
                         <DragIcon src="/img/drag.png" />
                       </DragBtn>
                       <EditableBlock
-                        ref={(elem) => (scrollRef.current[index] = elem)}
+                        // ref={(elem) => (scrollRef.current[index] = elem)}
                         id={id}
                         tag={tag}
                         html={html}
