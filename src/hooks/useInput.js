@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useReducer } from 'react';
 
-const useInputs = (initialForm) => {
-  const [form, setForm] = useState(initialForm);
+function reducer(state, action) {
+  if (action.type === 'change') {
+    //console.log(action);
+    return action.target.value;
+  } else {
+    return '';
+  }
+}
 
-  const handleInputChange = (e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+export default function useInput(initialForm) {
+  const [state, dispatch] = useReducer(reducer, initialForm);
+  const onChange = (e) => {
+    dispatch(e);
   };
-
-  const resetInput = () => setForm(initialForm);
-
-  return [form, handleInputChange, resetInput];
-};
-
-export default useInputs;
+  return [state, onChange];
+}

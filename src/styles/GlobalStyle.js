@@ -1,22 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 import { normalize } from "styled-normalize";
+import COLORS from "../constants/colors";
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
 
 html,
 body {
-  height: 100vh;
-  width: 100vw;
-
   margin: 0;
   padding: 0;
-
-  /* Center Container */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color:'#FAFAFA';
 }
 
 a{
@@ -24,15 +16,33 @@ a{
   color: black;
 }
 
-p{
-  font-size: 12px
-  display: block;
-  
+p{  
   margin-block-start: 0px;
   margin-block-end: 6px;
-  /* margin-inline-start: 0px;
-  margin-inline-end: 0px; */
 }
+
+::placeholder {
+  color: ${COLORS.gray5};
+  opacity: 1; /* Firefox */
+}
+
+
+input:focus , select:focus, option:focus, textarea:focus, button:focus{
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer
+}
+
+img {
+  -webkit-user-select:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none
+}
+
+
 `;
 
 export default GlobalStyle;
