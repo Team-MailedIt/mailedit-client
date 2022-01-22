@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import useInput from '../../hooks/useInput';
 import {
@@ -11,6 +11,7 @@ import {
 import BubbleContainer from '../bubble/BubbleContainer';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
+import { GroupContext } from '../../contexts/GroupContexts';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -20,7 +21,9 @@ const HeaderContainer = ({ handleHeaderData }) => {
     name: '',
     color: '',
   });
-  const [groupList, setGroupList] = useState([]);
+  // const [groupList, setGroupList] = useState([]);
+  // 그룹 리스트
+  const { setGroupList } = useContext(GroupContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,9 +33,8 @@ const HeaderContainer = ({ handleHeaderData }) => {
       const response = await API.get(`/groups`);
       setGroupList(response.data);
     };
-
     fetchGroupList();
-  }, []);
+  }, [setGroupList]);
 
   // set state to EditorContainer
   useEffect(() => {
@@ -92,7 +94,6 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <BubbleContainer
         isModalOpen={isModalOpen}
-        groupList={groupList}
         setIsModalOpen={setIsModalOpen}
         handleSelected={handleSelected}
       />
