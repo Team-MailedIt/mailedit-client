@@ -175,7 +175,7 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
 
 const Modal = styled(ReactModal)`
   position: absolute;
-  top: 17vh;
+  top: 18vh;
   left: 63.4vw;
 
   width: 328px;
