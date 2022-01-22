@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import check from "../../constants/icons/check.svg";
+
 import COLORS from "../../constants/colors";
 import star from "../../constants/icons/star.svg";
 import SidebarGroup from "../commons/SidebarGroup";
@@ -11,9 +11,8 @@ import API from "../../utils/API";
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
-  const [groupIdList, setGroupIdList] = useState([]);
+  const [groupIdList, setGroupIdList] = useState(["like"]);
   const [selectedGroupId, setSelectedGroupId] = useState([]);
-  const [isChecked, setIsChecked] = useState([]);
 
   useEffect(() => {
     API.get("/groups").then((res) => {
@@ -26,6 +25,8 @@ const MainSidebar = () => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
     });
+
+    setSelectedGroupId(groupIdList);
   }, []);
 
   const handleSelectAll = (e) => {
@@ -58,10 +59,10 @@ const MainSidebar = () => {
               icon={<StarIcon src={star} />}
               item={
                 <input
-                  id="likeß"
+                  id="like"
                   type="checkbox"
-                  value={isChecked}
-                  onChange={handleSelectElement}
+                  checked={selectedGroupId.includes("like")}
+                  onChange={(e) => handleSelectElement(e, "like")}
                 />
               }
             />

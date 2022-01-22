@@ -24,7 +24,7 @@ const Thumbnail = ({
     API.patch(
       `/templates/${id}`,
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    ).then((res) => console.log(res.data));
+    );
   };
 
   return (

@@ -42,14 +42,10 @@ const SignUpModal = ({
 
   // 이메일 중복 확인
   const handleConfirmEmail = () => {
-    API.get(`/user-check?email=${email}`)
-      .then(() => {
-        setIsValidEmail(false);
-      })
-      .catch(() => {
-        setIsPassedEmail(true);
-        setIsValidEmail(true);
-      });
+    API.get(`/user-check?email=${email}`).then((res) => {
+      setIsPassedEmail(!res.data);
+      setIsValidEmail(!res.data);
+    });
   };
 
   // 비밀번호와 비밀번호 확인
