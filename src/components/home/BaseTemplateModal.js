@@ -54,12 +54,10 @@ const BaseTemplateModal = ({
                   </BlockWrapper>
                 ))}
               </Content>
+
+              <Description>{selectedTemplate[0].tip}</Description>
             </>
           )}
-          <Description>
-            회의 일정은 회사 내에서 회의 내용에 대한 공지를 드릴 때에
-            사용됩니다.
-          </Description>
         </MainWrapper>
       </Main>
       <Sidebar>

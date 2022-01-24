@@ -37,6 +37,8 @@ const SignInModal = ({
 
   const handleNextBtnClick = () => {
     API.get(`/user-check?email=${email}`).then((res) => {
+      console.log(email);
+      console.log(res.data);
       setIsValidEmail(res.data);
       res.data && setIsPassedEmail(res.data);
     });

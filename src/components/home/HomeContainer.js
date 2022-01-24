@@ -27,8 +27,6 @@ const HomeContainer = () => {
   const [option, setOption] = useState("company");
   const [selectedBaseId, setSelectedBaseId] = useState(null);
 
-  const [filteredTemplates, setFilteredTemplates] = useState([]);
-
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
 
@@ -42,10 +40,11 @@ const HomeContainer = () => {
     });
   }, []);
 
-  setFilteredTemplates(
-    myTemplates.filter((t) => selectedGroupId.includes(t.groupId))
+  const filteredTemplates = myTemplates.filter((t) =>
+    selectedGroupId.includes(t.groupId)
   );
-  console.log(filteredTemplates);
+
+  // const likes = myTemplates.filter((t) => t.isStar === true);
 
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
@@ -101,23 +100,7 @@ const HomeContainer = () => {
         </MyTemplateInfo>
         <Border />
         <MyTemplateGridWrapper>
-          {filteredTemplates.length != 0 ? (
-            <MyTemplateGrid>
-              {filteredTemplates.map((t) => (
-                <Thumbnail
-                  key={t.createdAt}
-                  id={t.templateId}
-                  title={t.title}
-                  subtitle={t.subtitle}
-                  isStar={t.isStar}
-                  groupId={t.groupId}
-                  groupColor={t.group.color}
-                  updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
-                  handleBinIconClick={handleBinIconClick}
-                />
-              ))}
-            </MyTemplateGrid>
-          ) : (
+          {myTemplates.length === 0 ? (
             <NoTemplateWrapper>
               <NoTemplateIllust src={noTemplateIllu} />
               <NoTemplateText>
@@ -126,6 +109,40 @@ const HomeContainer = () => {
                 <b>첫 템플릿</b>을 만들어 보세요
               </NoTemplateText>
             </NoTemplateWrapper>
+          ) : (
+            <>
+              {filteredTemplates.length !== 0 ? (
+                <MyTemplateGrid>
+                  {filteredTemplates.map((t) => (
+                    <Thumbnail
+                      key={t.createdAt}
+                      id={t.templateId}
+                      title={t.title}
+                      subtitle={t.subtitle}
+                      isStar={t.isStar}
+                      groupId={t.groupId}
+                      groupColor={t.group.color}
+                      updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                      handleBinIconClick={handleBinIconClick}
+                    />
+                  ))}
+                </MyTemplateGrid>
+              ) : (
+                <NoTemplateWrapper>
+                  <NoTemplateIllust src={noTemplateIllu} />
+                  {/* <NoTemplateText>
+                앗 아직 나의 템플릿이 없어요!
+                <br />
+                <b>첫 템플릿</b>을 만들어 보세요
+              </NoTemplateText> */}
+                  <SelectGroupText>
+                    왼쪽 사이드바에서
+                    <br />
+                    템플릿을 꺼내 보세요!
+                  </SelectGroupText>
+                </NoTemplateWrapper>
+              )}
+            </>
           )}
         </MyTemplateGridWrapper>
       </MyTemplateArea>
@@ -343,12 +360,12 @@ const MyTemplateGridWrapper = styled.div`
   overflow: auto;
 
   display: flex;
-  justify-content: center;
 `;
 
 const MyTemplateGrid = styled.div`
   width: 1440px;
 
+  margin-left: 26px;
   padding: 0px 0px 40px 10px;
   overflow: auto;
 
@@ -499,6 +516,7 @@ const NoTemplateWrapper = styled.div`
   justify-content: center;
 
   margin-top: 44px;
+  margin-left: 548px;
 `;
 
 const NoTemplateIllust = styled.img`
@@ -510,10 +528,28 @@ const NoTemplateText = styled.div`
   width: 233px;
   height: 60px;
 
+  margin-top: 20px;
+  margin-left: 48px;
+
   font-size: 20px;
   line-height: 140%;
-
   text-align: center;
+
   margin-top: 20px;
+  margin-left: 48px;
+`;
+
+const SelectGroupText = styled.div`
+  width: 171px;
+  height: 60px;
+
+  margin-top: 20px;
+  margin-left: 80px;
+
+  font-size: 20px;
+  line-height: 140%;
+  text-align: center;
+
+  color: ${COLORS.UIBlack};
 `;
 export default HomeContainer;

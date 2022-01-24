@@ -39,8 +39,6 @@ const MainSidebar = () => {
     setSelectGroupHandler(groupIdList);
   }, []);
 
-  console.log(selectedGroupId);
-
   const handleSelectAll = (e) => {
     setSelectGroupHandler(e.target.checked ? groupIdList : []);
   };
