@@ -137,12 +137,14 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   const updateBlockHandler = (currentBlock) => {
     setCommandAction(null);
-    const { startPoint, endPoint } = currentBlock;
-    console.log(currentBlock);
-    console.log(startPoint, endPoint);
+    let { startPoint, endPoint } = currentBlock;
 
-    // const targetHtml = parseBlocks([currentBlock]);
-    const targetHtml = currentBlock.html;
+    // sol1
+    // const calculatedIndex = parseBlocks(currentBlock, true);
+    // endPoint += calculatedIndex;
+
+    // sol 2
+    const targetHtml = parseBlocks(currentBlock, true);
 
     // 쪼개지는 범위에 따라 빈 string에 대한 핸들링 필요
     const prevHtml = targetHtml.substring(0, startPoint);

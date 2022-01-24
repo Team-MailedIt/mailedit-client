@@ -26,8 +26,8 @@ const EditorContainer = ({ passedBlocks }) => {
   const getBlocksHandler = (content) => {
     // we need to parse data
     if (action === 'copy') {
-      const parsedString = parseBlocks(content);
-      copy(parsedString, { format: 'text/html' });
+      const parsedString = parseBlocks(content, false);
+      copy(parsedString, { format: 'text/plain' });
     } else if (action === 'save') {
       if (headerData.title === '') {
         window.alert('제목 입력은 필수입니다.');
