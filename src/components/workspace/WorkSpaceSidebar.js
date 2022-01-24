@@ -1,16 +1,16 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
-import Search from '../commons/Search';
-import Accordion from '../commons/Accordion';
+import Search from "../commons/Search";
+import Accordion from "../commons/Accordion";
 
-import star from '../../constants/icons/star.svg';
-import logo from '../../constants/icons/logo.svg';
+import star from "../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
 
-import API from '../../utils/API';
-import { useContext, useEffect, useState } from 'react';
-import { GroupContext } from '../../contexts/GroupContexts';
-import { useNavigate } from 'react-router';
+import API from "../../utils/API";
+import { useContext, useEffect, useState } from "react";
+import { GroupContext } from "../../contexts/GroupContexts";
+import { useNavigate } from "react-router";
 
 const WorkSpaceSidebar = ({ handleContents }) => {
   // 그룹 리스트
@@ -45,9 +45,9 @@ const WorkSpaceSidebar = ({ handleContents }) => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
           // this will be base template
-          if (category === '회사') {
+          if (category === "회사") {
             setBaseCompany((el) => [...el, newElement]);
-          } else if (category === '학교') {
+          } else if (category === "학교") {
             setBaseSchool((el) => [...el, newElement]);
           }
         } else {
@@ -70,7 +70,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   return (
@@ -93,7 +93,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
           list={favTemplates}
         />
         <Border />
-        {groupListContext.length !== 0 ? (
+        {groupListContext.length !== 0 &&
           groupListContext.map(({ name, color, id }) => (
             <Accordion
               handleContents={handleContents}
@@ -102,13 +102,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
               icon={<Index color={color} />}
               list={myTemplates.filter((t) => id === t.groupId)}
             />
-          ))
-        ) : (
-          <NoTemplates>
-            마이템플릿이 아직 없네요!
-            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-          </NoTemplates>
-        )}
+          ))}
 
         <BaseTemplate>기본템플릿</BaseTemplate>
         <Accordion

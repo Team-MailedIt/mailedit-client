@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import COLORS from "../../constants/colors";
-import star from "../../constants/icons/star.svg";
-import SidebarGroup from "../commons/SidebarGroup";
-import Search from "../commons/Search";
-import logo from "../../constants/icons/logo.svg";
 import API from "../../utils/API";
+import Search from "../commons/Search";
+import COLORS from "../../constants/colors";
+import SidebarGroup from "../commons/SidebarGroup";
+
+import star from "../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
 
 import { useContext } from "react";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
@@ -62,54 +63,46 @@ const MainSidebar = () => {
 
       <VariableSection>
         <MyTemplate>마이템플릿</MyTemplate>
-        {groups ? (
-          <>
-            <SidebarGroup
-              title="즐겨찾기"
-              icon={<StarIcon src={star} />}
-              item={
-                <input
-                  id="like"
-                  type="checkbox"
-                  checked={selectedGroupId.includes("like")}
-                  onChange={(e) => handleSelectElement(e, "like")}
-                />
-              }
+
+        <SidebarGroup
+          title="즐겨찾기"
+          icon={<StarIcon src={star} />}
+          item={
+            <input
+              id="like"
+              type="checkbox"
+              checked={selectedGroupId.includes("like")}
+              onChange={(e) => handleSelectElement(e, "like")}
             />
-            <Border />
-            <SidebarGroup
-              title="전체 선택"
-              item={
-                <input
-                  id="all"
-                  type="checkbox"
-                  checked={selectedGroupId.length === groupIdList.length}
-                  onChange={handleSelectAll}
-                />
-              }
+          }
+        />
+        <Border />
+        <SidebarGroup
+          title="전체 선택"
+          item={
+            <input
+              id="all"
+              type="checkbox"
+              checked={selectedGroupId.length === groupIdList.length}
+              onChange={handleSelectAll}
             />
-            {groups.map((group, i) => (
-              <SidebarGroup
-                key={"g" + i}
-                title={group.name}
-                icon={<Index color={group.color} />}
-                item={
-                  <input
-                    id={group.id}
-                    type="checkbox"
-                    checked={selectedGroupId.includes(group.id)}
-                    onChange={(e) => handleSelectElement(e, group.id)}
-                  />
-                }
+          }
+        />
+        {groups.map((group, i) => (
+          <SidebarGroup
+            key={"g" + i}
+            title={group.name}
+            icon={<Index color={group.color} />}
+            item={
+              <input
+                id={group.id}
+                type="checkbox"
+                checked={selectedGroupId.includes(group.id)}
+                onChange={(e) => handleSelectElement(e, group.id)}
               />
-            ))}
-          </>
-        ) : (
-          <NoTemplates>
-            마이템플릿이 아직 없네요!
-            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-          </NoTemplates>
-        )}
+            }
+          />
+        ))}
       </VariableSection>
     </Wrapper>
   );
@@ -180,8 +173,9 @@ const NoTemplates = styled.div`
 
   color: #ffffff;
   font-size: 16px;
-  font-weight: 300;
   line-height: 22px;
+
+  font-family: "Pretendard-Light";
 `;
 
 const Index = styled.div`
