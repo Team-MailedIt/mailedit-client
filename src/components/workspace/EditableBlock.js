@@ -40,8 +40,9 @@ class EditableBlock extends React.Component {
     this.contentEditable.current.addEventListener('paste', (e) => {
       e.preventDefault();
 
+      // get plain text
       let text = (e.originalEvent || e).clipboardData.getData('text/plain');
-      document.execCommand('insertHTML', false, text);
+      this.setState({ ...this.state, html: text });
     });
   }
 
