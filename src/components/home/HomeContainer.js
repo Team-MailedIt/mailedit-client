@@ -130,11 +130,6 @@ const HomeContainer = () => {
               ) : (
                 <NoTemplateWrapper>
                   <NoTemplateIllust src={noTemplateIllu} />
-                  {/* <NoTemplateText>
-                앗 아직 나의 템플릿이 없어요!
-                <br />
-                <b>첫 템플릿</b>을 만들어 보세요
-              </NoTemplateText> */}
                   <SelectGroupText>
                     왼쪽 사이드바에서
                     <br />
