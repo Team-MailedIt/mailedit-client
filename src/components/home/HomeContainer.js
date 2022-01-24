@@ -11,9 +11,10 @@ import mainComIllu from "../../constants/icons/mainComIllu.svg";
 import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
 
 import dots from "../../constants/icons/dots.svg";
-// import unfold from "../../constants/icons/unfold.svg";
 
-import { useEffect, useState } from "react";
+import { SelectGroupContext } from "../../contexts/SelectGroupContext";
+
+import { useEffect, useState, useContext } from "react";
 import BaseTemplateModal from "./BaseTemplateModal";
 
 const HomeContainer = () => {
@@ -26,6 +27,11 @@ const HomeContainer = () => {
   const [option, setOption] = useState("company");
   const [selectedBaseId, setSelectedBaseId] = useState(null);
 
+  const [filteredTemplates, setFilteredTemplates] = useState([]);
+
+  const { selectedGroupId, setSelectGroupHandler } =
+    useContext(SelectGroupContext);
+
   useEffect(() => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
@@ -35,6 +41,11 @@ const HomeContainer = () => {
       setBaseTemplates(res.data);
     });
   }, []);
+
+  setFilteredTemplates(
+    myTemplates.filter((t) => selectedGroupId.includes(t.groupId))
+  );
+  console.log(filteredTemplates);
 
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
@@ -90,9 +101,9 @@ const HomeContainer = () => {
         </MyTemplateInfo>
         <Border />
         <MyTemplateGridWrapper>
-          {myTemplates.length != 0 ? (
+          {filteredTemplates.length != 0 ? (
             <MyTemplateGrid>
-              {myTemplates.map((t) => (
+              {filteredTemplates.map((t) => (
                 <Thumbnail
                   key={t.createdAt}
                   id={t.templateId}

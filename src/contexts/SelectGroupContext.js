@@ -1,25 +1,25 @@
 import { createContext, useState } from "react";
 
-const SelectGroupContext = createContext({
+export const SelectGroupContext = createContext({
   state: { selectedGroupId: [] },
   actions: {
     setSelectedGroupId: () => {},
   },
 });
 
-const SelecteGroupProvider = ({ children }) => {
+const SelectGroupProvider = ({ children }) => {
   const [selectedGroupId, setSelectedGroupId] = useState([]);
-  const value = {
-    state: { selectedGroupId },
-    actions: { setSelectedGroupId },
-  };
+
+  const setSelectGroupHandler = (selectedGroupId) =>
+    setSelectedGroupId(selectedGroupId);
 
   return (
-    <SelectGroupContext.Provider value={value}>
+    <SelectGroupContext.Provider
+      value={{ selectedGroupId, setSelectGroupHandler }}
+    >
       {children}
     </SelectGroupContext.Provider>
   );
 };
 
-const { Consumer: SelectGroupConsumer } = SelectGroupContext;
-export { SelecteGroupProvider, SelectGroupConsumer };
+export default SelectGroupProvider;

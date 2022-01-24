@@ -43,8 +43,9 @@ const SignUpModal = ({
   // 이메일 중복 확인
   const handleConfirmEmail = () => {
     API.get(`/user-check?email=${email}`).then((res) => {
-      setIsPassedEmail(!res.data);
-      setIsValidEmail(!res.data);
+      setIsValidEmail(res.data);
+      res.data && setIsPassedEmail(true);
+      console.log(res.data);
     });
   };
 

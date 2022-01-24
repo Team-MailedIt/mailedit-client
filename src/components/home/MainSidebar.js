@@ -8,36 +8,48 @@ import Search from "../commons/Search";
 import logo from "../../constants/icons/logo.svg";
 import API from "../../utils/API";
 
+import { useContext } from "react";
+import { SelectGroupContext } from "../../contexts/SelectGroupContext";
+
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState(["like"]);
-  const [selectedGroupId, setSelectedGroupId] = useState([]);
+
+  const { selectedGroupId, setSelectGroupHandler } =
+    useContext(SelectGroupContext);
 
   useEffect(() => {
     API.get("/groups").then((res) => {
       setGroups(res.data);
-      res.data.map((group) =>
-        setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id])
-      );
+
+      res.data.map((group) => {
+        setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
+        setSelectGroupHandler((selectedGroupId) => [
+          ...selectedGroupId,
+          group.id,
+        ]);
+      });
     });
 
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
     });
 
-    setSelectedGroupId(groupIdList);
+    setSelectGroupHandler(groupIdList);
   }, []);
 
+  console.log(selectedGroupId);
+
   const handleSelectAll = (e) => {
-    setSelectedGroupId(e.target.checked ? groupIdList : []);
+    setSelectGroupHandler(e.target.checked ? groupIdList : []);
   };
 
   const handleSelectElement = (e, id) => {
     if (e.target.checked) {
-      setSelectedGroupId([...selectedGroupId, id]);
+      setSelectGroupHandler([...selectedGroupId, id]);
     } else {
-      setSelectedGroupId(
+      setSelectGroupHandler(
         selectedGroupId.filter((checkedId) => checkedId !== id)
       );
     }

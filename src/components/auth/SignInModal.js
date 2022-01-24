@@ -36,11 +36,10 @@ const SignInModal = ({
   const signInUser = { email: email, password: password };
 
   const handleNextBtnClick = () => {
-    API.get(`/user-check?email=${email}`)
-      .then(() => {
-        setIsPassedEmail(true);
-      })
-      .catch(() => setIsValidEmail(false));
+    API.get(`/user-check?email=${email}`).then((res) => {
+      setIsValidEmail(res.data);
+      res.data && setIsPassedEmail(res.data);
+    });
   };
 
   // 로그인

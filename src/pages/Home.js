@@ -1,13 +1,16 @@
 import MainSidebar from "../components/home/MainSidebar";
 import styled from "styled-components";
 import HomeContainer from "../components/home/HomeContainer";
+import SelectGroupProvider from "../contexts/SelectGroupContext";
 
 const Home = () => {
   return (
-    <Wrapper>
-      <MainSidebar />
-      <HomeContainer />
-    </Wrapper>
+    <SelectGroupProvider>
+      <Wrapper>
+        <MainSidebar />
+        <HomeContainer />
+      </Wrapper>
+    </SelectGroupProvider>
   );
 };
 
