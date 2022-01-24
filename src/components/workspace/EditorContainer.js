@@ -25,10 +25,9 @@ const EditorContainer = ({ passedBlocks }) => {
   // block data를 가져와서 parsing하여 setState.
   const getBlocksHandler = (content) => {
     // we need to parse data
-    // <div> -> \n, delete -> </div>
     if (action === 'copy') {
       const parsedString = parseBlocks(content);
-      copy(parsedString);
+      copy(parsedString, { format: 'text/html' });
     } else if (action === 'save') {
       if (headerData.title === '') {
         window.alert('제목 입력은 필수입니다.');

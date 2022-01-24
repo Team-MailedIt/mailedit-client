@@ -7,6 +7,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 import { DragIcon } from '../../constants/icons';
 import { CopyContext } from '../../contexts/CopyContexts';
+import parseBlocks from '../../utils/parseBlocks';
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const { action } = useContext(CopyContext);
@@ -140,7 +141,9 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     console.log(currentBlock);
     console.log(startPoint, endPoint);
 
+    // const targetHtml = parseBlocks([currentBlock]);
     const targetHtml = currentBlock.html;
+
     // 쪼개지는 범위에 따라 빈 string에 대한 핸들링 필요
     const prevHtml = targetHtml.substring(0, startPoint);
     const newHtml = targetHtml.substring(startPoint, endPoint);

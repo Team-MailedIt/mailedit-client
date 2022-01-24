@@ -36,6 +36,13 @@ class EditableBlock extends React.Component {
       tag: this.props.tag,
       flag: this.props.flag,
     });
+    // set eventListener
+    this.contentEditable.current.addEventListener('paste', (e) => {
+      e.preventDefault();
+
+      let text = (e.originalEvent || e).clipboardData.getData('text/plain');
+      document.execCommand('insertHTML', false, text);
+    });
   }
 
   componentWillUnmount() {
