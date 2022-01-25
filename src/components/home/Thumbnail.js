@@ -34,7 +34,9 @@ const Thumbnail = ({
       </IndexArea>
       <Title>{title}</Title>
       <BodyWrapper>
-        <Subtitle>{subtitle}</Subtitle>
+        <Subtitle>
+          <SubTitleText>{subtitle}</SubTitleText>
+        </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
         ) : (
@@ -109,13 +111,24 @@ const Subtitle = styled.div`
   width: 264px;
   height: 42px;
 
-  display: flex;
-  justify-content: space-between;
+  display: table;
 
   font-size: 16px;
   line-height: 22px;
+  vertical-align: bottom;
 
   color: ${COLORS.gray8};
+`;
+
+const SubTitleText = styled.span`
+  width: 100%;
+  height: 100%;
+
+  display: table-cell;
+
+  font-size: 16px;
+  line-height: 22px;
+  vertical-align: bottom;
 `;
 
 const Liked = styled.img`

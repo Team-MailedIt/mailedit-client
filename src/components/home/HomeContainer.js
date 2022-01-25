@@ -27,13 +27,10 @@ const HomeContainer = () => {
   const [baseTemplates, setBaseTemplates] = useState([]);
   const [option, setOption] = useState("company");
 
-  const { selectedGroupId, setSelectGroupHandler } =
-    useContext(SelectGroupContext);
+  const { selectedGroupId } = useContext(SelectGroupContext);
 
   const { selectedBaseId, setSelectBaseHandler } =
     useContext(SelectBaseContext);
-
-  console.log("selected base: ", selectedBaseId);
 
   useEffect(() => {
     API.get("/templates/my").then((res) => {

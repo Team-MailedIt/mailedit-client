@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ReactModal from "react-modal";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
 import { SelectBaseContext } from "../../contexts/SelectBaseContext";
@@ -18,13 +18,11 @@ const BaseTemplateModal = ({
   const { selectedBaseId, setSelectBaseHandler } =
     useContext(SelectBaseContext);
 
-  useEffect(() => setSelectBaseHandler(selectedBaseId), [selectedBaseId]);
-
   const handleSelectTemplate = (e) => {
     setSelectBaseHandler(e.target.id);
   };
 
-  const selectedTemplate =
+  const selectedBase =
     selectedBaseId &&
     baseTemplates.filter((t) => t.templateId === selectedBaseId);
 
@@ -53,18 +51,18 @@ const BaseTemplateModal = ({
         <MainWrapper>
           {selectedBaseId && (
             <>
-              <Title>{selectedTemplate[0].title}</Title>
-              <Subtitle>{selectedTemplate[0].subtitle}</Subtitle>
+              <Title>{selectedBase[0].title}</Title>
+              <Subtitle>{selectedBase[0].subtitle}</Subtitle>
               <Border />
               <Content>
-                {selectedTemplate[0].content.map((t, i) => (
+                {selectedBase[0].content.map((t, i) => (
                   <BlockWrapper key={"ttt" + i}>
                     {t.html.replaceAll("<div>", "\n").replaceAll("</div>", "")}
                   </BlockWrapper>
                 ))}
               </Content>
 
-              <Description>{selectedTemplate[0].tip}</Description>
+              <Description>{selectedBase[0].tip}</Description>
             </>
           )}
         </MainWrapper>
