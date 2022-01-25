@@ -16,6 +16,7 @@ import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
 import { useEffect, useState, useContext } from "react";
 import BaseTemplateModal from "./BaseTemplateModal";
+import { SelectBaseContext } from "../../contexts/SelectBaseContext";
 
 const HomeContainer = () => {
   const userName = localStorage.getItem("userName");
@@ -25,10 +26,14 @@ const HomeContainer = () => {
   const [myTemplates, setMyTemplates] = useState([]);
   const [baseTemplates, setBaseTemplates] = useState([]);
   const [option, setOption] = useState("company");
-  const [selectedBaseId, setSelectedBaseId] = useState(null);
 
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
+
+  const { selectedBaseId, setSelectBaseHandler } =
+    useContext(SelectBaseContext);
+
+  console.log("selected base: ", selectedBaseId);
 
   useEffect(() => {
     API.get("/templates/my").then((res) => {
@@ -67,12 +72,12 @@ const HomeContainer = () => {
   };
 
   const handleBaseClick = (e) => {
-    setSelectedBaseId(e.target.id);
+    setSelectBaseHandler(e.target.id);
     setIsModalOpen(!isModalOpen);
   };
 
   const handleDotBtnClick = () => {
-    setSelectedBaseId(baseCompany[0].templateId);
+    setSelectBaseHandler(baseCompany[0].templateId);
     setIsModalOpen(!isModalOpen);
   };
 
@@ -193,11 +198,10 @@ const HomeContainer = () => {
               </tr>
             </tbody>
           </BaseTemplateTable>
-          {selectedBaseId && (
+          {selectedBaseId.length != 0 && (
             <BaseTemplateModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
-              selectedBaseId={selectedBaseId}
               baseTemplates={baseTemplates}
               baseCompany={baseCompany}
               baseSchool={baseSchool}

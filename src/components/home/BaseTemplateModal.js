@@ -1,27 +1,36 @@
 import styled from "styled-components";
 import ReactModal from "react-modal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
+import { SelectBaseContext } from "../../contexts/SelectBaseContext";
+import { useNavigate } from "react-router";
 
 const BaseTemplateModal = ({
   isModalOpen,
   setIsModalOpen,
-  selectedBaseId,
   baseTemplates,
   baseCompany,
   baseSchool,
 }) => {
-  const [selectedId, setSelectedId] = useState(selectedBaseId);
+  const navigate = useNavigate();
 
-  useEffect(() => setSelectedId(selectedBaseId), [selectedBaseId]);
+  const { selectedBaseId, setSelectBaseHandler } =
+    useContext(SelectBaseContext);
+
+  useEffect(() => setSelectBaseHandler(selectedBaseId), [selectedBaseId]);
 
   const handleSelectTemplate = (e) => {
-    setSelectedId(e.target.id);
+    setSelectBaseHandler(e.target.id);
   };
 
   const selectedTemplate =
-    selectedId && baseTemplates.filter((t) => t.templateId === selectedId);
+    selectedBaseId &&
+    baseTemplates.filter((t) => t.templateId === selectedBaseId);
+
+  const handleUseTemplateBtnClick = () => {
+    navigate("/workspace");
+  };
 
   const modalStyle = {
     overlay: {
@@ -42,7 +51,7 @@ const BaseTemplateModal = ({
     >
       <Main>
         <MainWrapper>
-          {selectedId && (
+          {selectedBaseId && (
             <>
               <Title>{selectedTemplate[0].title}</Title>
               <Subtitle>{selectedTemplate[0].subtitle}</Subtitle>
@@ -73,7 +82,7 @@ const BaseTemplateModal = ({
             handleSelectTemplate={handleSelectTemplate}
           />
         </ScrollArea>
-        <UseBtn>템플릿 사용하기</UseBtn>
+        <UseBtn onClick={handleUseTemplateBtnClick}>템플릿 사용하기</UseBtn>
       </Sidebar>
     </Modal>
   );
