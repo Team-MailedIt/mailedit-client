@@ -51,3 +51,22 @@ export const Button = styled.button`
     color: #fff;
   }
 `;
+
+export const Confirm = styled.button`
+  width: 50px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+
+  background: ${COLORS.primary};
+  border-radius: 2px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: ${COLORS.UIWhite};
+`;

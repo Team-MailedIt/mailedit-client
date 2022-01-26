@@ -1,15 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import FirstSlide from './FirstSlide';
 import SecondSlide from './SecondSlide';
 import ThirdSlide from './ThirdSlide';
 import ForthSlide from './ForthSlide';
-import { Button } from './Components';
+import { Button, Confirm } from './Components';
 import COLORS from '../../constants/colors';
 import Dots from './Dots';
 import { RowContainer } from '../bubble/Components';
 
-const CarouselTooltip = () => {
+const CarouselTooltip = ({ handleConfirm }) => {
   const TOTAL_SLIDES = 3;
   const arr = [0, 1, 2, 3];
 
@@ -30,18 +30,28 @@ const CarouselTooltip = () => {
   }, [currentSlide]);
   return (
     <Container>
-      <SliderContainer ref={slideRef}>
+      <SliderContainer ref={slideRef} $mode={currentSlide}>
         <FirstSlide />
         <SecondSlide />
         <ThirdSlide />
         <ForthSlide />
       </SliderContainer>
-      <Button
-        style={{ marginTop: '20px', alignSelf: 'flex-end' }}
-        onClick={nextSlide}
-      >
-        다음
-      </Button>
+      {currentSlide === TOTAL_SLIDES ? (
+        <Confirm
+          style={{ marginTop: '20px', alignSelf: 'flex-end' }}
+          onClick={handleConfirm}
+        >
+          완료
+        </Confirm>
+      ) : (
+        <Button
+          style={{ marginTop: '20px', alignSelf: 'flex-end' }}
+          onClick={nextSlide}
+        >
+          다음
+        </Button>
+      )}
+
       <RowContainer style={{ alignSelf: 'center' }}>
         {arr.map((e, i) => {
           return (
@@ -61,12 +71,34 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
+
   width: 272px;
   overflow: hidden; // 선을 넘어간 이미지들은 보이지 않도록 처리합니다.
 `;
 const SliderContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row; //이미지들을 가로로 나열합니다.
+  flex-direction: row;
+  /* ${(props) => {
+    switch (props.$mode) {
+      case 0:
+        return css`
+          background-color: black;
+        `;
+      case 1:
+        return css`
+          background-color: red;
+        `;
+      case 2:
+        return css`
+          background-color: red;
+        `;
+      case 3:
+        return css`
+          background-color: red;
+        `;
+      default:
+        return;
+    }
+  }} */
 `;
