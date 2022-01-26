@@ -22,7 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .prettierrc
+yarn.lock
+package-lock.json
 
 # security
 .env
-package-lock.json
