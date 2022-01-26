@@ -27,9 +27,11 @@ const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
         setIsModalOpen(false);
       }}
       ariaHideApp={false}
-      positionTop={position.y}
+      positionTop={position.y - 22}
       positionLeft={position.x}
     >
+      <div>hi</div>
+      <div>hi</div>
       <div>hi</div>
     </Modal>
   );
@@ -39,7 +41,7 @@ const Modal = styled(ReactModal)`
   position: absolute;
   top: ${(props) => props.positionTop}px;
   left: ${(props) => props.positionLeft}px;
-  transform: translate(-130%, -35%);
+  transform: translate(-130%, 0%);
 
   background: ${COLORS.gray7};
 
