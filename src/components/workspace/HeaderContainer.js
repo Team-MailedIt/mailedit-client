@@ -12,6 +12,7 @@ import BubbleContainer from '../bubble/BubbleContainer';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
+import { QuestionMark } from '../../constants/icons';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -78,19 +79,31 @@ const HeaderContainer = ({ handleHeaderData }) => {
           />
         </TemplateMemoInputContainer>
       </RowContainer>
-      <RowContainer style={{ marginTop: '8px', marginBottom: '16px' }}>
-        <SubTitle>그룹</SubTitle>
-        {group.name ? (
-          <GroupComponent
-            name={group.name}
-            color={group.color}
-            handleSelectGroup={handleGroupComponent}
-          />
-        ) : (
-          <TemplateSelectGroupButton onClick={openModal}>
-            그룹 지정하기
-          </TemplateSelectGroupButton>
-        )}
+      <RowContainer
+        style={{
+          marginTop: '8px',
+          marginBottom: '16px',
+          justifyContent: 'space-between',
+        }}
+      >
+        <RowContainer>
+          <SubTitle>그룹</SubTitle>
+          {group.name ? (
+            <GroupComponent
+              name={group.name}
+              color={group.color}
+              handleSelectGroup={handleGroupComponent}
+            />
+          ) : (
+            <TemplateSelectGroupButton onClick={openModal}>
+              그룹 지정하기
+            </TemplateSelectGroupButton>
+          )}
+        </RowContainer>
+        <QuestionMark
+          style={{ marginRight: '12px' }}
+          src="/img/questionmark.png"
+        />
       </RowContainer>
       <BubbleContainer
         isModalOpen={isModalOpen}
@@ -104,12 +117,13 @@ const HeaderContainer = ({ handleHeaderData }) => {
 export default HeaderContainer;
 
 const Container = styled.div`
-  /* display: flex; */
-  /* flex-direction: 'column'; */
+  display: flex;
+  flex-direction: column;
   /* width: 460px; */
-  diaplay: flex;
+
   margin-top: 72px;
-  margin-left: 40px;
+  /* margin-left: 40px;
+  margin-right: 40px; */
 `;
 const RowContainer = styled.div`
   display: flex;
