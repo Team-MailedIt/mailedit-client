@@ -23,7 +23,6 @@ const MainSidebar = () => {
   useEffect(() => {
     API.get("/groups").then((res) => {
       setGroups(res.data);
-
       res.data.map((group) => {
         setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
         setSelectGroupHandler((selectedGroupId) => [

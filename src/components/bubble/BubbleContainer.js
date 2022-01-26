@@ -17,6 +17,7 @@ import AddGroupContainer from './AddGroupContainer';
 import DefaultContainer from './DefaultContainer';
 import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
 const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
@@ -98,6 +99,9 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
     setSelected(groupData);
   };
 
+  // modal 위치
+  const { position } = useContext(ElementPositionContext);
+
   const handleAddNewGroup = useCallback((element) => {
     setTemp(element);
     setAddChecker(true);
@@ -111,6 +115,8 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
         init();
       }}
       ariaHideApp={false}
+      positionTop={position.y}
+      positionLeft={position.x}
     >
       <ColContainer>
         {mode ? (
@@ -175,8 +181,9 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
 
 const Modal = styled(ReactModal)`
   position: absolute;
-  top: 18vh;
-  left: 63.4vw;
+  top: ${(props) => props.positionTop}px;
+  left: ${(props) => props.positionLeft}px;
+  transform: translate(15%, 13%);
 
   width: 328px;
   background: #ffffff;

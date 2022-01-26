@@ -30,9 +30,9 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
         <ItemWrapper onClick={handleCollapse}>
           <GroupTitle>{title}</GroupTitle>
           {isCollapse ? (
-            <IconWrapper src={expand} />
-          ) : (
             <IconWrapper src={collapse} />
+          ) : (
+            <IconWrapper src={expand} />
           )}
         </ItemWrapper>
       </GroupWrapper>
@@ -115,6 +115,7 @@ const GroupTitle = styled.div`
 
 const ListWrapper = styled.div`
   width: 200px;
+  height: 0px;
   overflow: hidden;
 
   transition: height 0.35s ease, background 0.35s ease;
