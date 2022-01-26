@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef, useContext } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
 
@@ -7,6 +7,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 import { DragIcon } from '../../constants/icons';
 import { CopyContext } from '../../contexts/CopyContexts';
+import parseBlocks from '../../utils/parseBlocks';
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const { action } = useContext(CopyContext);
@@ -106,20 +107,36 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const addBlockHandler = (currentBlock) => {
     setCommandAction(currentBlock.command);
     let newBlock = {};
-    if (currentBlock.passed) {
-      newBlock = {
-        id: uid(),
-        html: currentBlock.html,
-        tag: 'p',
-        flag: 1,
-      };
-    } else {
-      newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
-    }
+    const { position } = currentBlock;
+    const res = parseBlocks(currentBlock, true);
+    const newHtml = res.substring(0, position);
+    const nextHtml = res.substring(position);
+
+    const updatedBlocks = [...blocks];
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
-    const updatedBlocks = [...blocks];
-    updatedBlocks.splice(index + 1, 0, newBlock);
+
+    if (res.length !== position) {
+      // 뒤에 내용이 있을 경우
+      const updateBlock = {
+        id: uid(),
+        html: newHtml,
+        tag: 'p',
+        flag: currentBlock.flag,
+      };
+      newBlock = {
+        id: uid(),
+        html: nextHtml,
+        tag: 'p',
+        flag: currentBlock.flag,
+      };
+      updatedBlocks.splice(index, 1, updateBlock);
+      updatedBlocks.splice(index + 1, 0, newBlock);
+    } else {
+      // 아닐 경우
+      newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
+      updatedBlocks.splice(index + 1, 0, newBlock);
+    }
     setBlocks(updatedBlocks);
   };
 
@@ -136,11 +153,15 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   const updateBlockHandler = (currentBlock) => {
     setCommandAction(null);
-    const { startPoint, endPoint } = currentBlock;
-    console.log(currentBlock);
-    console.log(startPoint, endPoint);
+    let { startPoint, endPoint } = currentBlock;
 
-    const targetHtml = currentBlock.html;
+    // sol1
+    // const calculatedIndex = parseBlocks(currentBlock, true);
+    // endPoint += calculatedIndex;
+
+    // sol 2
+    const targetHtml = parseBlocks(currentBlock, true);
+
     // 쪼개지는 범위에 따라 빈 string에 대한 핸들링 필요
     const prevHtml = targetHtml.substring(0, startPoint);
     const newHtml = targetHtml.substring(startPoint, endPoint);
