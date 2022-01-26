@@ -46,6 +46,7 @@ const Item = styled.div`
   height: 16px;
 
   overflow: hidden;
+
   border-radius: 2px;
   border: 1px solid white;
 `;

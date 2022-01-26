@@ -21,17 +21,13 @@ const CheckboxContainer = styled.div`
 
   width: 16px;
   height: 16px;
-
-  overflow: hidden;
-
-  font-size: 0;
 `;
 
 const Icon = styled.img`
   width: 12px;
   height: 12px;
 
-  margin: 2px;
+  margin: 2.5px;
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -51,10 +47,8 @@ const StyledCheckbox = styled.div`
   display: inline-block;
   vertical-align: top;
 
-  width: 100%;
-  height: 100%;
-
   background: ${(props) => (props.checked ? "white" : "none")};
+  // transition: all 150ms;
 
   ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};

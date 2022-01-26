@@ -14,18 +14,17 @@ import { useContext } from "react";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
 const MainSidebar = () => {
-  const [checked, setChecked] = useState(false);
-
-  const handleCheckboxChange = (event) => {
-    setChecked({ checked: event.target.checked });
-  };
-
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState(["like"]);
+  const [content, setContent] = useState(null);
 
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
+
+  const handleContents = (object) => {
+    setContent(object);
+  };
 
   useEffect(() => {
     API.get("/groups").then((res) => {
@@ -64,7 +63,7 @@ const MainSidebar = () => {
     <Wrapper>
       <FixedSection>
         <Logo src={logo} />
-        <Search all={myTemplates} />
+        <Search all={myTemplates} handleContents={handleContents} />
       </FixedSection>
 
       <VariableSection>

@@ -42,11 +42,20 @@ const HomeContainer = () => {
     });
   }, []);
 
-  const filteredTemplates = myTemplates.filter((t) =>
-    selectedGroupId.includes(t.groupId)
-  );
+  const [filtered, setFiltered] = useState([]);
 
-  // const likes = myTemplates.filter((t) => t.isStar === true);
+  useEffect(() => {
+    setFiltered(myTemplates.filter((t) => selectedGroupId.includes(t.groupId)));
+
+    if (selectedGroupId.includes("like")) {
+      const likes = [
+        ...filtered,
+        ...myTemplates.filter((t) => t.isStar === true),
+      ];
+
+      console.log(likes);
+    }
+  }, [selectedGroupId]);
 
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
@@ -113,9 +122,9 @@ const HomeContainer = () => {
             </NoTemplateWrapper>
           ) : (
             <>
-              {filteredTemplates.length !== 0 ? (
+              {filtered.length !== 0 ? (
                 <MyTemplateGrid>
-                  {filteredTemplates.map((t) => (
+                  {filtered.map((t) => (
                     <Thumbnail
                       key={t.createdAt}
                       id={t.templateId}
