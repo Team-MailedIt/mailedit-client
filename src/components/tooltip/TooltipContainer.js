@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
+import COLORS from '../../constants/colors';
 
 const TooltipContainer = ({
   isModalOpen,
@@ -39,31 +40,25 @@ const Modal = styled(ReactModal)`
   top: ${(props) => props.positionTop};
   left: ${(props) => props.positionLeft};
 
-  width: 328px;
-  background: #ffffff;
+  background: ${COLORS.gray7};
 
-  // looks
-  background-color: #fff;
   padding: 1.125em 1.5em;
   font-size: 1.25em;
-  border-radius: 12px;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
-    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 
   &::before {
-    // layout
     content: '';
     position: absolute;
     width: 0;
     height: 0;
-    bottom: 100%;
-    left: 1em; // offset should move with padding of parent
-    border: 0.75rem solid transparent;
-    border-top: none;
+    left: auto;
+    right: -22px;
 
-    // looks
-    border-bottom-color: #fff;
-    filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+    border: 0.75rem solid transparent;
+
+    border-left-color: ${COLORS.gray7};
   }
 `;
 export default TooltipContainer;
