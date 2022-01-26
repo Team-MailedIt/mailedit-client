@@ -70,13 +70,3 @@ export const PlusIcon = styled.img`
   width: 8px;
   height: 8px;
 `;
-export const QuestionMark = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 24px;
-  height: 24px;
-  &:hover {
-    cursor: pointer;
-  }
-`;

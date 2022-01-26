@@ -12,7 +12,8 @@ import BubbleContainer from '../bubble/BubbleContainer';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
-import { QuestionMark } from '../../constants/icons';
+import icon_help from '../../constants/icons/icon_help.svg';
+import TooltipContainer from '../tooltip/TooltipContainer';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -27,6 +28,8 @@ const HeaderContainer = ({ handleHeaderData }) => {
   const { setGroupList } = useContext(GroupContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   // fetch group list data from server
   useEffect(() => {
@@ -46,6 +49,9 @@ const HeaderContainer = ({ handleHeaderData }) => {
     });
   }, [title, subtitle, group, handleHeaderData]);
 
+  const openTooltip = () => {
+    setIsTooltipOpen(true);
+  };
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -100,15 +106,22 @@ const HeaderContainer = ({ handleHeaderData }) => {
             </TemplateSelectGroupButton>
           )}
         </RowContainer>
-        <QuestionMark
+        <HelpIcon
           style={{ marginRight: '12px' }}
-          src="/img/questionmark.png"
+          src={icon_help}
+          onClick={openTooltip}
         />
       </RowContainer>
       <BubbleContainer
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleSelected={handleSelected}
+      />
+      <TooltipContainer
+        isModalOpen={isTooltipOpen}
+        setIsModalOpen={setIsTooltipOpen}
+        positionTop="400px"
+        positionLeft="400px"
       />
     </Container>
   );
@@ -128,4 +141,11 @@ const Container = styled.div`
 const RowContainer = styled.div`
   display: flex;
   flex-direction: 'row';
+`;
+const HelpIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;

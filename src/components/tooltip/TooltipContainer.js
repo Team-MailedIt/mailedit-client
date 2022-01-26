@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
 
-const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
+const TooltipContainer = ({
+  isModalOpen,
+  setIsModalOpen,
+  positionTop,
+  positionLeft,
+}) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
 
   // 취소 버튼
@@ -19,9 +24,10 @@ const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
       isOpen={isModalOpen}
       onRequestClose={() => {
         setIsModalOpen(false);
-        init();
       }}
       ariaHideApp={false}
+      positionTop={positionTop}
+      positionLeft={positionLeft}
     >
       <div>hi</div>
     </Modal>
@@ -30,8 +36,8 @@ const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
 
 const Modal = styled(ReactModal)`
   position: absolute;
-  top: 18vh;
-  left: 63.4vw;
+  top: ${(props) => props.positionTop};
+  left: ${(props) => props.positionLeft};
 
   width: 328px;
   background: #ffffff;
