@@ -3,8 +3,9 @@ import ReactModal from 'react-modal';
 import COLORS from '../../constants/colors';
 import { useContext } from 'react';
 import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
+import CarouselTooltip from '../carousel/CarouselTooltip';
 
-const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
+const TooltipContainer = ({ isModalOpen, setIsModalOpen, ChildComponent }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
 
   // 취소 버튼
@@ -30,12 +31,18 @@ const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
       positionTop={position.y - 22}
       positionLeft={position.x}
     >
-      <div>hi</div>
-      <div>hi</div>
-      <div>hi</div>
+      <Container>
+        <CarouselTooltip />
+      </Container>
     </Modal>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 const Modal = styled(ReactModal)`
   position: absolute;

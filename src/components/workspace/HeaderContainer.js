@@ -15,6 +15,7 @@ import { GroupContext } from '../../contexts/GroupContexts';
 import icon_help from '../../constants/icons/icon_help.svg';
 import TooltipContainer from '../tooltip/TooltipContainer';
 import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
+import CarouselTooltip from '../carousel/CarouselTooltip';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -127,6 +128,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
       <TooltipContainer
         isModalOpen={isTooltipOpen}
         setIsModalOpen={setIsTooltipOpen}
+        ChildComponent={CarouselTooltip}
       />
     </Container>
   );
