@@ -107,6 +107,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const addBlockHandler = (currentBlock) => {
     setCommandAction(currentBlock.command);
     let newBlock = {};
+    console.log(currentBlock);
     if (currentBlock.passed) {
       newBlock = {
         id: uid(),

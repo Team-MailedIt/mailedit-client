@@ -4,6 +4,7 @@ import getSelection from '../../utils/getSelection';
 import getCaretCoordinates from '../../utils/getCaretCoordinates';
 import FloatingButton from './FloatingButton';
 import COLORS from '../../constants/colors';
+import parseBlocks from '../../utils/parseBlocks';
 
 class EditableBlock extends React.Component {
   constructor(props) {
@@ -93,7 +94,10 @@ class EditableBlock extends React.Component {
           ref: this.contentEditable.current,
         });
       }
-    } else if (e.key === 'Backspace' && !this.state.html) {
+    } else if (
+      e.key === 'Backspace' &&
+      (this.state.html === '' || this.state.html === '<br>')
+    ) {
       e.preventDefault();
       this.props.deleteBlock({
         command: e.key,
