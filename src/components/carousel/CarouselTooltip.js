@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import FirstSlide from './FirstSlide';
+import SecondSlide from './SecondSlide';
+import ThirdSlide from './ThirdSlide';
+import ForthSlide from './ForthSlide';
 import { Button } from './Components';
 import COLORS from '../../constants/colors';
 import Dots from './Dots';
 import { RowContainer } from '../bubble/Components';
 
 const CarouselTooltip = () => {
-  const TOTAL_SLIDES = 2;
-  const arr = [0, 1, 2];
+  const TOTAL_SLIDES = 3;
+  const arr = [0, 1, 2, 3];
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
@@ -29,9 +32,9 @@ const CarouselTooltip = () => {
     <Container>
       <SliderContainer ref={slideRef}>
         <FirstSlide />
-        <FirstSlide />
-        <FirstSlide />
-        {currentSlide}
+        <SecondSlide />
+        <ThirdSlide />
+        <ForthSlide />
       </SliderContainer>
       <Button
         style={{ marginTop: '20px', alignSelf: 'flex-end' }}

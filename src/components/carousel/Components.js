@@ -20,6 +20,14 @@ export const Body = styled.span`
   align-items: center;
   color: ${COLORS.UIWhite};
 `;
+
+export const BodyBold = styled.span`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 160%;
+  color: ${COLORS.UIWhite};
+`;
 export const Button = styled.button`
   width: 50px;
   height: 20px;
