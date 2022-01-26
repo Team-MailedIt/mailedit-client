@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import useInput from '../../hooks/useInput';
 import {
@@ -12,6 +12,9 @@ import BubbleContainer from '../bubble/BubbleContainer';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
+import icon_help from '../../constants/icons/icon_help.svg';
+import TooltipContainer from '../tooltip/TooltipContainer';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -26,6 +29,11 @@ const HeaderContainer = ({ handleHeaderData }) => {
   const { setGroupList } = useContext(GroupContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const bubbleModal = useRef();
+
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const tooltipIcon = useRef();
+  const { getPosition } = useContext(ElementPositionContext);
 
   // fetch group list data from server
   useEffect(() => {
@@ -45,8 +53,13 @@ const HeaderContainer = ({ handleHeaderData }) => {
     });
   }, [title, subtitle, group, handleHeaderData]);
 
+  const openTooltip = () => {
+    setIsTooltipOpen(true);
+    getPosition(tooltipIcon);
+  };
   const openModal = () => {
     setIsModalOpen(true);
+    getPosition(bubbleModal);
   };
   const handleSelected = (target) => {
     setGroup(target);
@@ -78,24 +91,42 @@ const HeaderContainer = ({ handleHeaderData }) => {
           />
         </TemplateMemoInputContainer>
       </RowContainer>
-      <RowContainer style={{ marginTop: '8px', marginBottom: '16px' }}>
-        <SubTitle>그룹</SubTitle>
-        {group.name ? (
-          <GroupComponent
-            name={group.name}
-            color={group.color}
-            handleSelectGroup={handleGroupComponent}
-          />
-        ) : (
-          <TemplateSelectGroupButton onClick={openModal}>
-            그룹 지정하기
-          </TemplateSelectGroupButton>
-        )}
+      <RowContainer
+        style={{
+          marginTop: '8px',
+          marginBottom: '16px',
+          justifyContent: 'space-between',
+        }}
+      >
+        <RowContainer>
+          <SubTitle ref={bubbleModal}>그룹</SubTitle>
+          {group.name ? (
+            <GroupComponent
+              name={group.name}
+              color={group.color}
+              handleSelectGroup={handleGroupComponent}
+            />
+          ) : (
+            <TemplateSelectGroupButton onClick={openModal}>
+              그룹 지정하기
+            </TemplateSelectGroupButton>
+          )}
+        </RowContainer>
+        <HelpIcon
+          ref={tooltipIcon}
+          style={{ marginRight: '12px' }}
+          src={icon_help}
+          onClick={openTooltip}
+        />
       </RowContainer>
       <BubbleContainer
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleSelected={handleSelected}
+      />
+      <TooltipContainer
+        isModalOpen={isTooltipOpen}
+        setIsModalOpen={setIsTooltipOpen}
       />
     </Container>
   );
@@ -104,14 +135,22 @@ const HeaderContainer = ({ handleHeaderData }) => {
 export default HeaderContainer;
 
 const Container = styled.div`
-  /* display: flex; */
-  /* flex-direction: 'column'; */
+  display: flex;
+  flex-direction: column;
   /* width: 460px; */
-  diaplay: flex;
+
   margin-top: 72px;
-  margin-left: 40px;
+  /* margin-left: 40px;
+  margin-right: 40px; */
 `;
 const RowContainer = styled.div`
   display: flex;
   flex-direction: 'row';
+`;
+const HelpIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
