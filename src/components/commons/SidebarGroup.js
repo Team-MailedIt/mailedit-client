@@ -8,7 +8,7 @@ const SidebarGroup = ({ title, icon, item, onClick }) => {
         {icon}
         <GroupTitle>{title}</GroupTitle>
       </IndexGroup>
-      {item}
+      <Item>{item}</Item>
     </Wrapper>
   );
 };
@@ -39,6 +39,15 @@ const GroupTitle = styled.div`
 
   font-size: 16px;
   color: ${COLORS.UIWhite};
+`;
+
+const Item = styled.div`
+  width: 16px;
+  height: 16px;
+
+  overflow: hidden;
+  border-radius: 2px;
+  border: 1px solid white;
 `;
 
 export default SidebarGroup;

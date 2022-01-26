@@ -5,6 +5,7 @@ import API from "../../utils/API";
 import Search from "../commons/Search";
 import COLORS from "../../constants/colors";
 import SidebarGroup from "../commons/SidebarGroup";
+import CheckBox from "./CheckBox";
 
 import star from "../../constants/icons/star.svg";
 import logo from "../../constants/icons/logo.svg";
@@ -13,6 +14,12 @@ import { useContext } from "react";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
 const MainSidebar = () => {
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setChecked({ checked: event.target.checked });
+  };
+
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState(["like"]);
@@ -67,9 +74,8 @@ const MainSidebar = () => {
           title="즐겨찾기"
           icon={<StarIcon src={star} />}
           item={
-            <input
+            <CheckBox
               id="like"
-              type="checkbox"
               checked={selectedGroupId.includes("like")}
               onChange={(e) => handleSelectElement(e, "like")}
             />
@@ -79,7 +85,7 @@ const MainSidebar = () => {
         <SidebarGroup
           title="전체 선택"
           item={
-            <input
+            <CheckBox
               id="all"
               type="checkbox"
               checked={selectedGroupId.length === groupIdList.length}
@@ -93,7 +99,7 @@ const MainSidebar = () => {
             title={group.name}
             icon={<Index color={group.color} />}
             item={
-              <input
+              <CheckBox
                 id={group.id}
                 type="checkbox"
                 checked={selectedGroupId.includes(group.id)}
