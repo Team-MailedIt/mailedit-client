@@ -1,20 +1,21 @@
-import { useCallback, useEffect, useState, useRef, useContext } from "react";
-import EditableBlock from "./EditableBlock";
-import uid from "../../utils/uid";
+import { useCallback, useEffect, useState, useContext } from 'react';
+import EditableBlock from './EditableBlock';
+import uid from '../../utils/uid';
 
-import styled from "styled-components";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import setCaretToEnd from "../../utils/setCaretToEnd";
-import { DragIcon } from "../../constants/icons";
-import { CopyContext } from "../../contexts/CopyContexts";
+import styled from 'styled-components';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import setCaretToEnd from '../../utils/setCaretToEnd';
+import { DragIcon } from '../../constants/icons';
+import { CopyContext } from '../../contexts/CopyContexts';
+import parseBlocks from '../../utils/parseBlocks';
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const { action } = useContext(CopyContext);
   // const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
-    html: "",
-    tag: "p",
+    html: '',
+    tag: 'p',
     flag: 0,
   };
   const [blocks, setBlocks] = useState([initialBlock]);
@@ -31,7 +32,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   // copy block data
   useEffect(() => {
-    if (action !== "") {
+    if (action !== '') {
       getBlocksHandler(blocks);
     }
   }, [action, getBlocksHandler, blocks]);
@@ -75,10 +76,10 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
-    if (commandAction === "Enter") {
+    if (commandAction === 'Enter') {
       // focus to new block
       focusNewBlock(currentBlockIndex);
-    } else if (commandAction === "Backspace") {
+    } else if (commandAction === 'Backspace') {
       // focus to previous block, if it exists
       if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
@@ -106,20 +107,36 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const addBlockHandler = (currentBlock) => {
     setCommandAction(currentBlock.command);
     let newBlock = {};
-    if (currentBlock.passed) {
-      newBlock = {
-        id: uid(),
-        html: currentBlock.html,
-        tag: "p",
-        flag: 1,
-      };
-    } else {
-      newBlock = { id: uid(), html: "", tag: "p", flag: 0 };
-    }
+    const { position } = currentBlock;
+    const res = parseBlocks(currentBlock, true);
+    const newHtml = res.substring(0, position);
+    const nextHtml = res.substring(position);
+
+    const updatedBlocks = [...blocks];
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
-    const updatedBlocks = [...blocks];
-    updatedBlocks.splice(index + 1, 0, newBlock);
+
+    if (res.length !== position) {
+      // 뒤에 내용이 있을 경우
+      const updateBlock = {
+        id: uid(),
+        html: newHtml,
+        tag: 'p',
+        flag: currentBlock.flag,
+      };
+      newBlock = {
+        id: uid(),
+        html: nextHtml,
+        tag: 'p',
+        flag: currentBlock.flag,
+      };
+      updatedBlocks.splice(index, 1, updateBlock);
+      updatedBlocks.splice(index + 1, 0, newBlock);
+    } else {
+      // 아닐 경우
+      newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
+      updatedBlocks.splice(index + 1, 0, newBlock);
+    }
     setBlocks(updatedBlocks);
   };
 
@@ -136,8 +153,15 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   const updateBlockHandler = (currentBlock) => {
     setCommandAction(null);
-    const { startPoint, endPoint } = currentBlock;
-    const targetHtml = currentBlock.html;
+    let { startPoint, endPoint } = currentBlock;
+
+    // sol1
+    // const calculatedIndex = parseBlocks(currentBlock, true);
+    // endPoint += calculatedIndex;
+
+    // sol 2
+    const targetHtml = parseBlocks(currentBlock, true);
+
     // 쪼개지는 범위에 따라 빈 string에 대한 핸들링 필요
     const prevHtml = targetHtml.substring(0, startPoint);
     const newHtml = targetHtml.substring(startPoint, endPoint);
@@ -154,13 +178,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: newHtml,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
       const newBlock = {
         id: uid(),
         html: nextHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
@@ -169,13 +193,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       const newBlock = {
         id: uid(),
         html: newHtml,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
       updatedBlocks.splice(index, 1, updateBlock);
@@ -184,21 +208,21 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
       const newBlock = {
         id: uid(),
         html: newHtml,
-        tag: "p",
+        tag: 'p',
         flag: 1,
       };
       updatedBlocks.splice(index + 1, 0, newBlock);
       const nextBlock = {
         id: uid(),
         html: nextHtml,
-        tag: "p",
+        tag: 'p',
         flag: 0,
       };
       updatedBlocks.splice(index + 2, 0, nextBlock);

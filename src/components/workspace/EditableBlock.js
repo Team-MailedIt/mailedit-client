@@ -36,6 +36,14 @@ class EditableBlock extends React.Component {
       tag: this.props.tag,
       flag: this.props.flag,
     });
+    // set eventListener
+    this.contentEditable.current.addEventListener('paste', (e) => {
+      e.preventDefault();
+
+      // get plain text
+      let text = (e.originalEvent || e).clipboardData.getData('text/plain');
+      this.setState({ ...this.state, html: text });
+    });
   }
 
   componentWillUnmount() {
@@ -79,13 +87,20 @@ class EditableBlock extends React.Component {
     } else if (e.key === 'Enter') {
       if (this.state.previousKey === 'Control') {
         e.preventDefault();
+        const { selectionStart } = getSelection(this.contentEditable.current);
+        console.log(selectionStart);
         this.props.addBlock({
           command: e.key,
           id: this.props.id,
-          ref: this.contentEditable.current,
+          html: this.state.html,
+          position: selectionStart,
+          flag: this.state.flag,
         });
       }
-    } else if (e.key === 'Backspace' && !this.state.html) {
+    } else if (
+      e.key === 'Backspace' &&
+      (this.state.html === '' || this.state.html === '<br>')
+    ) {
       e.preventDefault();
       this.props.deleteBlock({
         command: e.key,

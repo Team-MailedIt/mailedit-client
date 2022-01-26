@@ -11,7 +11,7 @@ const GoogleAuth = () => {
   const navigate = useNavigate();
 
   // 구글 로그인 성공 시
-  const onGoogleSignInSuccess = async (res) => {
+  const onGoogleSignInSuccess = (res) => {
     localStorage.setItem("userName", res.profileObj.givenName);
 
     const params = new URLSearchParams();

@@ -1,11 +1,12 @@
-import styled from "styled-components";
 import { useState } from "react";
 import ReactModal from "react-modal";
+import styled from "styled-components";
 
 import API from "../../utils/API";
 import GoogleAuth from "./GoogleAuth";
 import COLORS from "../../constants/colors";
 import useInputs from "../../hooks/useInputs";
+
 import exit from "../../constants/icons/exit.svg";
 
 import {

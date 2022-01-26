@@ -11,43 +11,40 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
 
   const [isCollapse, setIsCollapse] = useState(false);
 
-  const handleButtonClick = () => {
+  const handleCollapse = () => {
     if (parentRef.current === null || childRef.current === null) {
       return;
     }
+
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0";
-    } else {
+      parentRef.current.style.height = "0px";
+    } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
     setIsCollapse(!isCollapse);
   };
 
-  const parentRefHeight = parentRef.current?.style.height ?? "0px";
-  const buttonIcon =
-    parentRefHeight === "0px" ? (
-      <IconWrapper src={expand} />
-    ) : (
-      <IconWrapper src={collapse} />
-    );
-
   return (
     <Wrapper>
       <GroupWrapper>
-        <ItemWrapper onClick={handleButtonClick}>
+        <ItemWrapper onClick={handleCollapse}>
           <GroupTitle>{title}</GroupTitle>
-          {buttonIcon}
+          {isCollapse ? (
+            <IconWrapper src={expand} />
+          ) : (
+            <IconWrapper src={collapse} />
+          )}
         </ItemWrapper>
       </GroupWrapper>
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
-          {list.map((item, i) => (
+          {list.map(({ templateId, title }, i) => (
             <TemplateName
               key={"ii" + i}
-              id={item.templateId}
+              id={templateId}
               onClick={handleSelectTemplate}
             >
-              {item.title}
+              {title}
             </TemplateName>
           ))}
         </ListItem>

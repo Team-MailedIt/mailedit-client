@@ -1,11 +1,24 @@
-function parseBlocks(blocks) {
-  let newArr = blocks.map(({ html }) => {
-    const temp = html.replace(/<div>/gi, '\n');
-    const temp1 = temp.replace(/&nbsp;/gi, '');
-    const newString = temp1.replace(/<\/div>/gi, '');
+function parseBlocks(blocks, flag) {
+  if (flag) {
+    // make block
+    const { html } = blocks;
+
+    console.log(html);
+    const newString = html
+      // .replace(/<[div][^>]*>/g, '<div>')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/<[^>]*>/g, '');
+
     return newString;
-  });
-  const parsedString = newArr.join('\n\n');
-  return parsedString;
+  } else {
+    // copy
+    let newArr = blocks.map(({ html }) => {
+      const temp = html.replace(/<\/div>/gi, '\n').replace(/<[^>]*>/g, '');
+      return temp;
+    });
+    const parsedString = newArr.join('\n\n');
+    return parsedString;
+  }
 }
 export default parseBlocks;
