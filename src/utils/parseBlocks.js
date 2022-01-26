@@ -1,6 +1,6 @@
-function getLength(object, num) {
-  return object ? object.length * num : 0;
-}
+// function getLength(object, num) {
+//   return object ? object.length * num : 0;
+// }
 
 function parseBlocks(blocks, flag) {
   if (flag) {
@@ -16,13 +16,13 @@ function parseBlocks(blocks, flag) {
     // const res = a + b + c + d + e + f;
     // return res;
 
+    console.log(html);
     const newString = html
-      .replace(/<div>/gi, '')
-      .replace(/&nbsp;/gi, '')
-      .replace(/<\/div>/gi, '')
-      .replace(/<br>/gi, '')
+      // .replace(/<[div][^>]*>/g, '<div>')
+      .replace(/<[^>]*>/g, '')
       .replace(/&lt;/gi, '<')
       .replace(/&gt;/gi, '>');
+
     return newString;
   } else {
     console.log(flag);
