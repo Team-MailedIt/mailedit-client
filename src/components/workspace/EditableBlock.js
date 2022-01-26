@@ -4,7 +4,6 @@ import getSelection from '../../utils/getSelection';
 import getCaretCoordinates from '../../utils/getCaretCoordinates';
 import FloatingButton from './FloatingButton';
 import COLORS from '../../constants/colors';
-import parseBlocks from '../../utils/parseBlocks';
 
 class EditableBlock extends React.Component {
   constructor(props) {
@@ -88,10 +87,14 @@ class EditableBlock extends React.Component {
     } else if (e.key === 'Enter') {
       if (this.state.previousKey === 'Control') {
         e.preventDefault();
+        const { selectionStart } = getSelection(this.contentEditable.current);
+        console.log(selectionStart);
         this.props.addBlock({
           command: e.key,
           id: this.props.id,
-          ref: this.contentEditable.current,
+          html: this.state.html,
+          position: selectionStart,
+          flag: this.state.flag,
         });
       }
     } else if (

@@ -1,36 +1,20 @@
-// function getLength(object, num) {
-//   return object ? object.length * num : 0;
-// }
-
 function parseBlocks(blocks, flag) {
   if (flag) {
-    // count how many pattern match with condition
+    // make block
     const { html } = blocks;
-    // const a = getLength(html.match(/<div>/gi), 5);
-    // const b = getLength(html.match(/<\/div>/gi), 6);
-    // const c = getLength(html.match(/&nbsp;/gi), 6);
-    // const d = getLength(html.match(/<br>/gi), 4);
-    // const e = getLength(html.match(/&lt;/gi), 4);
-    // const f = getLength(html.match(/&gt;/gi), 4);
-
-    // const res = a + b + c + d + e + f;
-    // return res;
 
     console.log(html);
     const newString = html
       // .replace(/<[div][^>]*>/g, '<div>')
-      .replace(/<[^>]*>/g, '')
       .replace(/&lt;/gi, '<')
-      .replace(/&gt;/gi, '>');
+      .replace(/&gt;/gi, '>')
+      .replace(/<[^>]*>/g, '');
 
     return newString;
   } else {
-    console.log(flag);
+    // copy
     let newArr = blocks.map(({ html }) => {
-      const temp = html
-        .replace(/<div>/gi, '\n')
-        .replace(/<\/div>/gi, '')
-        .replace(/<br>/gi, '\n');
+      const temp = html.replace(/<\/div>/gi, '\n').replace(/<[^>]*>/g, '');
       return temp;
     });
     const parsedString = newArr.join('\n\n');
