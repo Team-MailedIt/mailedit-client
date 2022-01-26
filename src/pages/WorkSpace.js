@@ -5,6 +5,7 @@ import uid from '../utils/uid';
 import CopyContextProvider from '../contexts/CopyContexts';
 import WorkSpaceSidebar from '../components/workspace/WorkSpaceSidebar';
 import { GroupProvider } from '../contexts/GroupContexts';
+import { PositionProvider } from '../contexts/ElementPositionContexts';
 
 const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
@@ -37,24 +38,26 @@ const WorkSpace = () => {
         gridTemplateColumns: '1.7fr 8.3fr',
       }}
     >
-      <GroupProvider>
-        <WorkSpaceSidebar handleContents={handleContents} />
-        <CopyContextProvider>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-            }}
-          >
-            <TemplatePage
-              fetchedData={content}
-              getBlockFromTemplate={getBlockFromTemplate}
-              getAllBlockFromTemplate={getAllBlockFromTemplate}
-            />
-            <EditorContainer passedBlocks={blocks} />
-          </div>
-        </CopyContextProvider>
-      </GroupProvider>
+      <PositionProvider>
+        <GroupProvider>
+          <WorkSpaceSidebar handleContents={handleContents} />
+          <CopyContextProvider>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+              }}
+            >
+              <TemplatePage
+                fetchedData={content}
+                getBlockFromTemplate={getBlockFromTemplate}
+                getAllBlockFromTemplate={getAllBlockFromTemplate}
+              />
+              <EditorContainer passedBlocks={blocks} />
+            </div>
+          </CopyContextProvider>
+        </GroupProvider>
+      </PositionProvider>
     </div>
   );
 };

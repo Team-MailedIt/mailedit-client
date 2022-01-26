@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import useInput from '../../hooks/useInput';
 import {
@@ -14,6 +14,7 @@ import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
 import icon_help from '../../constants/icons/icon_help.svg';
 import TooltipContainer from '../tooltip/TooltipContainer';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const [title, setTitle] = useInput('');
@@ -28,8 +29,11 @@ const HeaderContainer = ({ handleHeaderData }) => {
   const { setGroupList } = useContext(GroupContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const bubbleModal = useRef();
 
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const tooltipIcon = useRef();
+  const { getPosition } = useContext(ElementPositionContext);
 
   // fetch group list data from server
   useEffect(() => {
@@ -51,9 +55,11 @@ const HeaderContainer = ({ handleHeaderData }) => {
 
   const openTooltip = () => {
     setIsTooltipOpen(true);
+    getPosition(tooltipIcon);
   };
   const openModal = () => {
     setIsModalOpen(true);
+    getPosition(bubbleModal);
   };
   const handleSelected = (target) => {
     setGroup(target);
@@ -93,7 +99,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
         }}
       >
         <RowContainer>
-          <SubTitle>그룹</SubTitle>
+          <SubTitle ref={bubbleModal}>그룹</SubTitle>
           {group.name ? (
             <GroupComponent
               name={group.name}
@@ -107,6 +113,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
           )}
         </RowContainer>
         <HelpIcon
+          ref={tooltipIcon}
           style={{ marginRight: '12px' }}
           src={icon_help}
           onClick={openTooltip}
@@ -120,8 +127,6 @@ const HeaderContainer = ({ handleHeaderData }) => {
       <TooltipContainer
         isModalOpen={isTooltipOpen}
         setIsModalOpen={setIsTooltipOpen}
-        positionTop="400px"
-        positionLeft="400px"
       />
     </Container>
   );
