@@ -3,7 +3,6 @@ import ReactModal from 'react-modal';
 import COLORS from '../../constants/colors';
 import { useContext } from 'react';
 import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
-import CarouselTooltip from '../carousel/CarouselTooltip';
 
 const TooltipContainer = ({ isModalOpen, setIsModalOpen, ChildComponent }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
@@ -31,18 +30,10 @@ const TooltipContainer = ({ isModalOpen, setIsModalOpen, ChildComponent }) => {
       positionTop={position.y - 22}
       positionLeft={position.x}
     >
-      <Container>
-        <CarouselTooltip />
-      </Container>
+      <ChildComponent />
     </Modal>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
 
 const Modal = styled(ReactModal)`
   position: absolute;
@@ -52,7 +43,7 @@ const Modal = styled(ReactModal)`
 
   background: ${COLORS.gray7};
 
-  padding: 1.125em 1.5em;
+  padding: 20px 20px;
   font-size: 1.25em;
 
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -67,7 +58,6 @@ const Modal = styled(ReactModal)`
     right: -22px;
 
     border: 0.75rem solid transparent;
-
     border-left-color: ${COLORS.gray7};
   }
 `;
