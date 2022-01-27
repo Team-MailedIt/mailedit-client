@@ -3,8 +3,8 @@ import { useRef, useState, useContext } from "react";
 
 import expand from "../../constants/icons/expand.svg";
 import collapse from "../../constants/icons/collapse.svg";
-import API from "../../utils/API";
 
+import API from "../../utils/API";
 import { ContentContext } from "../../contexts/ContentContext";
 
 const Accordion = ({ icon, title, list }) => {

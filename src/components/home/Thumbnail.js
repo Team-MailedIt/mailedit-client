@@ -31,13 +31,15 @@ const Thumbnail = ({
   };
 
   return (
-    <Wrapper id={id} onClick={handleThumbnailClick}>
-      <IndexArea id={id}>
+    <Wrapper>
+      <IndexArea id={id} onClick={handleThumbnailClick}>
         <Index color={groupColor} />
       </IndexArea>
-      <Title id={id}>{title}</Title>
+      <Title id={id} onClick={handleThumbnailClick}>
+        {title}
+      </Title>
       <BodyWrapper id={id}>
-        <Subtitle id={id}>
+        <Subtitle id={id} onClick={handleThumbnailClick}>
           <SubTitleText id={id}>{subtitle}</SubTitleText>
         </Subtitle>
         {isLiked ? (
@@ -93,13 +95,15 @@ const Title = styled.div`
   width: 300px;
   height: 28px;
 
-  display: flex;
-  align-items: center;
-
   margin: 24px 20px 0px 20px;
 
   font-family: Pretendard-SemiBold;
   font-size: 22px;
+  line-height: 26px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${COLORS.gray8};
 `;

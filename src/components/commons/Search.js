@@ -1,18 +1,18 @@
-import COLORS from "../../constants/colors";
-import styled from "styled-components";
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
+
 import search from "../../constants/icons/search.svg";
 import remove from "../../constants/icons/remove.svg";
+
 import API from "../../utils/API";
+import COLORS from "../../constants/colors";
 import { ContentContext } from "../../contexts/ContentContext";
-import { useNavigate } from "react-router";
 
 const Search = ({ all }) => {
   const navigate = useNavigate();
-
   const { setContentHandler } = useContext(ContentContext);
 
-  // 템플릿 검색
   const [inputText, setInputText] = useState("");
 
   const handleInputChange = (e) => {
@@ -131,7 +131,6 @@ const SearchIcon = styled.img`
 const RemoveIcon = styled.img`
   width: 12px;
   height: 12px;
-
   margin-left: 10px;
   &:hover {
     cursor: pointer;

@@ -1,9 +1,13 @@
-import MainSidebar from "../components/home/MainSidebar";
 import styled from "styled-components";
-import HomeContainer from "../components/home/HomeContainer";
+
+import FilterLikeProvider from "../contexts/FilterLikeContext";
 import SelectGroupProvider from "../contexts/SelectGroupContext";
 import SelectTemplateProvider from "../contexts/SelectTemplateContext";
-import FilterLikeProvider from "../contexts/FilterLikeContext";
+
+import MainSidebar from "../components/home/MainSidebar";
+import HeaderArea from "../components/home/HeaderArea";
+import BaseTemplateArea from "../components/home/BaseTemplateArea";
+import MyTemplateArea from "../components/home/MyTemplateArea";
 
 const Home = () => {
   return (
@@ -12,7 +16,11 @@ const Home = () => {
         <FilterLikeProvider>
           <Wrapper>
             <MainSidebar />
-            <HomeContainer />
+            <Main>
+              <HeaderArea />
+              <MyTemplateArea />
+              <BaseTemplateArea />
+            </Main>
           </Wrapper>
         </FilterLikeProvider>
       </SelectTemplateProvider>
@@ -20,9 +28,16 @@ const Home = () => {
   );
 };
 
-const Wrapper = styled.main`
+const Wrapper = styled.section`
   display: grid;
   grid-template-columns: 1.7fr 8.3fr;
+`;
+
+const Main = styled.main`
+  width: 1592px;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Home;

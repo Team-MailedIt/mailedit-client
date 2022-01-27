@@ -20,7 +20,7 @@ const MainSidebar = () => {
   const [groupIdList, setGroupIdList] = useState([]);
 
   const { likes, setLikesHandler } = useContext(FilterLikeContext);
-  const { content, setContentHandler } = useContext(ContentContext);
+  const { setContentHandler } = useContext(ContentContext);
 
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);

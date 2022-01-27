@@ -8,6 +8,7 @@ import BaseAccordion from "./BaseAccordion";
 
 import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
 import { ContentContext } from "../../contexts/ContentContext";
+import { ModalStyle } from "../commons/ModalStyle";
 
 const BaseTemplateModal = ({
   isModalOpen,
@@ -17,9 +18,8 @@ const BaseTemplateModal = ({
   baseSchool,
 }) => {
   const navigate = useNavigate();
-
-  const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
   const { setContentHandler } = useContext(ContentContext);
+  const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   const handleSelectTemplate = (e) => {
     setSelectIdHandler(e.target.id);
@@ -33,16 +33,6 @@ const BaseTemplateModal = ({
     navigate("/workspace");
   };
 
-  const modalStyle = {
-    overlay: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "rgba(0,0,0,0.65)",
-      zIndex: 10,
-    },
-  };
-
   return (
     <>
       {isModalOpen && (
@@ -50,7 +40,7 @@ const BaseTemplateModal = ({
           isOpen={isModalOpen}
           onRequestClose={() => setIsModalOpen(false)}
           ariaHideApp={false}
-          style={modalStyle}
+          style={ModalStyle}
         >
           <Main>
             <MainWrapper>

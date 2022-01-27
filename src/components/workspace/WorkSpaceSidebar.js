@@ -13,10 +13,10 @@ import { GroupContext } from "../../contexts/GroupContexts";
 import { useNavigate } from "react-router";
 
 const WorkSpaceSidebar = () => {
-  // 그룹 리스트
+  // group list
   const { groupListContext, setGroupList } = useContext(GroupContext);
 
-  // 즐겨찾기 한 템플릿
+  // isStar template
   const [favTemplates, setFavTemplates] = useState([]);
 
   // template lists

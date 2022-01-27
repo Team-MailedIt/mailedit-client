@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import COLORS from "../../constants/colors";
-// import fetchedData from '../../data.json';
+
 import {
   TemplateSubTitle,
   TemplateTitle,
