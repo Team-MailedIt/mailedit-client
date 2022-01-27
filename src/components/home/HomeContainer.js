@@ -1,27 +1,25 @@
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import COLORS from "../../constants/colors";
-import Thumbnail from "./Thumbnail";
+import { useNavigate } from "react-router";
+
 import API from "../../utils/API";
-
-import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
-import mainComIllu from "../../constants/icons/mainComIllu.svg";
-
-import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+import Thumbnail from "./Thumbnail";
+import COLORS from "../../constants/colors";
+import BaseTemplateModal from "./BaseTemplateModal";
 
 import dots from "../../constants/icons/dots.svg";
+import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
+import mainComIllu from "../../constants/icons/mainComIllu.svg";
+import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
 
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
-import { useEffect, useState, useContext } from "react";
-import BaseTemplateModal from "./BaseTemplateModal";
-import { SelectBaseContext } from "../../contexts/SelectBaseContext";
-import { FilterLikeContext } from "../../contexts/FilterLikeContext";
-
 const HomeContainer = () => {
-  const userName = localStorage.getItem("userName");
   const navigate = useNavigate();
+  const userName = localStorage.getItem("userName");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [myTemplates, setMyTemplates] = useState([]);
@@ -29,13 +27,9 @@ const HomeContainer = () => {
   const [filtered, setFiltered] = useState([]);
   const [option, setOption] = useState("company");
 
-  const { selectedGroupId, setSelectGroupHandler } =
-    useContext(SelectGroupContext);
-
-  const { selectedBaseId, setSelectBaseHandler } =
-    useContext(SelectBaseContext);
-
-  const { likes, setLikesHandler } = useContext(FilterLikeContext);
+  const { likes } = useContext(FilterLikeContext);
+  const { selectedGroupId } = useContext(SelectGroupContext);
+  const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   useEffect(() => {
     API.get("/templates/my").then((res) => {
@@ -48,12 +42,14 @@ const HomeContainer = () => {
     });
   }, []);
 
+  // filtering my templates
   useEffect(() => {
     setFiltered(myTemplates.filter((t) => selectedGroupId.includes(t.groupId)));
 
     likes && setFiltered(myTemplates.filter((t) => t.isStar === true));
   }, [selectedGroupId, likes, myTemplates]);
 
+  // filtering base templates
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
 
@@ -75,12 +71,12 @@ const HomeContainer = () => {
   };
 
   const handleBaseClick = (e) => {
-    setSelectBaseHandler(e.target.id);
+    setSelectIdHandler(e.target.id);
     setIsModalOpen(!isModalOpen);
   };
 
   const handleDotBtnClick = () => {
-    setSelectBaseHandler(baseCompany[0].templateId);
+    setSelectIdHandler(baseCompany[0].templateId);
     setIsModalOpen(!isModalOpen);
   };
 
@@ -201,7 +197,7 @@ const HomeContainer = () => {
               </tr>
             </tbody>
           </BaseTemplateTable>
-          {selectedBaseId.length != 0 && (
+          {selectedId.length != 0 && (
             <BaseTemplateModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}

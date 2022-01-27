@@ -1,10 +1,12 @@
-import styled from "styled-components";
-import ReactModal from "react-modal";
 import { useContext } from "react";
+import ReactModal from "react-modal";
+import styled from "styled-components";
+import { useNavigate } from "react-router";
+
 import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
-import { SelectBaseContext } from "../../contexts/SelectBaseContext";
-import { useNavigate } from "react-router";
+
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
 
 const BaseTemplateModal = ({
   isModalOpen,
@@ -15,16 +17,14 @@ const BaseTemplateModal = ({
 }) => {
   const navigate = useNavigate();
 
-  const { selectedBaseId, setSelectBaseHandler } =
-    useContext(SelectBaseContext);
+  const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   const handleSelectTemplate = (e) => {
-    setSelectBaseHandler(e.target.id);
+    setSelectIdHandler(e.target.id);
   };
 
   const selectedBase =
-    selectedBaseId &&
-    baseTemplates.filter((t) => t.templateId === selectedBaseId);
+    selectedId && baseTemplates.filter((t) => t.templateId === selectedId);
 
   const handleUseTemplateBtnClick = () => {
     navigate("/workspace");
@@ -49,7 +49,7 @@ const BaseTemplateModal = ({
     >
       <Main>
         <MainWrapper>
-          {selectedBaseId && (
+          {selectedId && (
             <>
               <Title>{selectedBase[0].title}</Title>
               <Subtitle>{selectedBase[0].subtitle}</Subtitle>

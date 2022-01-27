@@ -2,16 +2,16 @@ import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
 import API from "../../utils/API";
+import CheckBox from "./CheckBox";
 import Search from "../commons/Search";
 import COLORS from "../../constants/colors";
 import SidebarGroup from "../commons/SidebarGroup";
-import CheckBox from "./CheckBox";
 
 import star from "../../constants/icons/star.svg";
 import logo from "../../constants/icons/logo.svg";
 
-import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 import { FilterLikeContext } from "../../contexts/FilterLikeContext";
+import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
@@ -19,14 +19,9 @@ const MainSidebar = () => {
   const [groupIdList, setGroupIdList] = useState([]);
   const [content, setContent] = useState(null);
 
+  const { likes, setLikesHandler } = useContext(FilterLikeContext);
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
-
-  const { likes, setLikesHandler } = useContext(FilterLikeContext);
-
-  const handleContents = (object) => {
-    setContent(object);
-  };
 
   useEffect(() => {
     API.get("/groups").then((res) => {
@@ -49,7 +44,6 @@ const MainSidebar = () => {
 
   const handleSelectAll = (e) => {
     setLikesHandler(false);
-
     setSelectGroupHandler(e.target.checked ? groupIdList : []);
   };
 
@@ -69,6 +63,10 @@ const MainSidebar = () => {
     setLikesHandler(!likes);
 
     !likes && setSelectGroupHandler([]);
+  };
+
+  const handleContents = (object) => {
+    setContent(object);
   };
 
   return (
