@@ -8,6 +8,7 @@ const TooltipContainer = ({
   isModalOpen,
   setIsModalOpen,
   ChildComponent,
+  positionX,
   positionY,
 }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
@@ -32,8 +33,8 @@ const TooltipContainer = ({
         setIsModalOpen(false);
       }}
       ariaHideApp={false}
-      positionTop={position.y - 22}
-      positionLeft={position.x}
+      positionTop={position.y - 22 + positionX}
+      positionLeft={position.x - positionY}
     >
       <ChildComponent handleConfirm={handleConfirm} />
     </Modal>

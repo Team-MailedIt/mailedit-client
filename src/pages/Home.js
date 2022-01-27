@@ -1,12 +1,15 @@
-import MainSidebar from "../components/home/MainSidebar";
-import styled from "styled-components";
-import HomeContainer from "../components/home/HomeContainer";
+import MainSidebar from '../components/home/MainSidebar';
+import styled from 'styled-components';
+import HomeContainer from '../components/home/HomeContainer';
+import { PositionProvider } from '../contexts/ElementPositionContexts';
 
 const Home = () => {
   return (
     <Wrapper>
-      <MainSidebar />
-      <HomeContainer />
+      <PositionProvider>
+        <MainSidebar />
+        <HomeContainer />
+      </PositionProvider>
     </Wrapper>
   );
 };
