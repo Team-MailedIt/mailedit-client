@@ -1,9 +1,13 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 
+import { useState, useContext, useRef } from "react";
+import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
+import HomeTooltip from "./HomeTooltip";
+
 import COLORS from "../../constants/colors";
 import { ContentContext } from "../../contexts/ContentContext";
+import TooltipContainer from "../tooltip/TooltipContainer";
 
 const HeaderArea = () => {
   const navigate = useNavigate();
@@ -22,6 +26,17 @@ const HeaderArea = () => {
     navigate("/workspace");
   };
 
+  // tooltip
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const gotoButton = useRef();
+  const { getPosition } = useContext(ElementPositionContext);
+
+  const handleTooltip = () => {
+    console.log("hi");
+    setIsTooltipOpen(true);
+    getPosition(gotoButton);
+  };
+
   return (
     <Top>
       <Hello>
@@ -29,10 +44,21 @@ const HeaderArea = () => {
       </Hello>
       <TopRight>
         <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
-        <GoToWorkSpace onClick={handleGoToWorkspace}>
+        <GoToWorkSpace
+          onClick={handleGoToWorkspace}
+          onMouseEnter={handleTooltip}
+          ref={gotoButton}
+        >
           템플릿 만들기
         </GoToWorkSpace>
       </TopRight>
+      <TooltipContainer
+        isModalOpen={isTooltipOpen}
+        setIsModalOpen={setIsTooltipOpen}
+        ChildComponent={HomeTooltip}
+        positionX={10}
+        positionY={0}
+      />
     </Top>
   );
 };

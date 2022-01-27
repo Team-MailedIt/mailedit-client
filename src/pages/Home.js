@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FilterLikeProvider from "../contexts/FilterLikeContext";
 import SelectGroupProvider from "../contexts/SelectGroupContext";
 import SelectTemplateProvider from "../contexts/SelectTemplateContext";
+import { PositionProvider } from "../contexts/ElementPositionContexts";
 
 import MainSidebar from "../components/home/MainSidebar";
 import HeaderArea from "../components/home/HeaderArea";
@@ -14,14 +15,16 @@ const Home = () => {
     <SelectGroupProvider>
       <SelectTemplateProvider>
         <FilterLikeProvider>
-          <Wrapper>
-            <MainSidebar />
-            <Main>
-              <HeaderArea />
-              <MyTemplateArea />
-              <BaseTemplateArea />
-            </Main>
-          </Wrapper>
+          <PositionProvider>
+            <Wrapper>
+              <MainSidebar />
+              <Main>
+                <HeaderArea />
+                <MyTemplateArea />
+                <BaseTemplateArea />
+              </Main>
+            </Wrapper>
+          </PositionProvider>
         </FilterLikeProvider>
       </SelectTemplateProvider>
     </SelectGroupProvider>
