@@ -1,10 +1,12 @@
+import { useState, useContext } from "react";
 import styled from "styled-components";
+
+import API from "../../utils/API";
 import COLORS from "../../constants/colors";
+
+import bin from "../../constants/icons/bin.svg";
 import liked from "../../constants/icons/liked.svg";
 import notLiked from "../../constants/icons/notLiked.svg";
-import bin from "../../constants/icons/bin.svg";
-import { useState } from "react";
-import API from "../../utils/API";
 
 const Thumbnail = ({
   id,
@@ -15,6 +17,7 @@ const Thumbnail = ({
   groupColor,
   updatedAt,
   handleBinIconClick,
+  handleThumbnailClick,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
 
@@ -24,17 +27,21 @@ const Thumbnail = ({
     API.patch(
       `/templates/${id}`,
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    ).then((res) => console.log(res.data));
+    );
   };
 
   return (
     <Wrapper>
-      <IndexArea>
+      <IndexArea id={id} onClick={handleThumbnailClick}>
         <Index color={groupColor} />
       </IndexArea>
-      <Title>{title}</Title>
-      <BodyWrapper>
-        <Subtitle>{subtitle}</Subtitle>
+      <Title id={id} onClick={handleThumbnailClick}>
+        {title}
+      </Title>
+      <BodyWrapper id={id}>
+        <Subtitle id={id} onClick={handleThumbnailClick}>
+          <SubTitleText id={id}>{subtitle}</SubTitleText>
+        </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
         ) : (
@@ -60,6 +67,10 @@ const Wrapper = styled.div`
   background: ${COLORS.UIWhite};
 
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const IndexArea = styled.div`
@@ -84,13 +95,15 @@ const Title = styled.div`
   width: 300px;
   height: 28px;
 
-  display: flex;
-  align-items: center;
-
   margin: 24px 20px 0px 20px;
 
   font-family: Pretendard-SemiBold;
   font-size: 22px;
+  line-height: 26px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${COLORS.gray8};
 `;
@@ -109,13 +122,24 @@ const Subtitle = styled.div`
   width: 264px;
   height: 42px;
 
-  display: flex;
-  justify-content: space-between;
+  display: table;
 
   font-size: 16px;
   line-height: 22px;
+  vertical-align: bottom;
 
   color: ${COLORS.gray8};
+`;
+
+const SubTitleText = styled.span`
+  width: 100%;
+  height: 100%;
+
+  display: table-cell;
+
+  font-size: 16px;
+  line-height: 22px;
+  vertical-align: bottom;
 `;
 
 const Liked = styled.img`

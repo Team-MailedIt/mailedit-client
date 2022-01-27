@@ -1,5 +1,5 @@
-import { ColContainer } from '../bubble/Components';
-import { Body } from '../carousel/Components';
+import { ColContainer } from "../bubble/Components";
+import { Body } from "../carousel/Components";
 
 const HomeTooltip = () => {
   return (

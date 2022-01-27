@@ -3,8 +3,9 @@ import { useNavigate } from "react-router";
 
 import API from "../../utils/API";
 import GoogleAuth from "./GoogleAuth";
-import COLORS from "../../constants/colors";
 import useInputs from "../../hooks/useInputs";
+import COLORS from "../../constants/colors";
+
 import exit from "../../constants/icons/exit.svg";
 
 import {
@@ -23,11 +24,11 @@ const SignInModal = ({
   setIsSignInModalOpen,
   setIsSignUpModalOpen,
 }) => {
+  const navigate = useNavigate();
+
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
-
-  const navigate = useNavigate();
   const [{ email, password }, handleInputChange, reset] = useInputs({
     email: "",
     password: "",
@@ -35,12 +36,12 @@ const SignInModal = ({
 
   const signInUser = { email: email, password: password };
 
+  // 가입된 메일인지 확인
   const handleNextBtnClick = () => {
-    API.get(`/user-check?email=${email}`)
-      .then(() => {
-        setIsPassedEmail(true);
-      })
-      .catch(() => setIsValidEmail(false));
+    API.get(`/user-check?email=${email}`).then((res) => {
+      setIsValidEmail(res.data);
+      res.data && setIsPassedEmail(res.data);
+    });
   };
 
   // 로그인

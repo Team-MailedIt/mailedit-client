@@ -1,104 +1,120 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import check from "../../constants/icons/check.svg";
-import COLORS from "../../constants/colors";
-import star from "../../constants/icons/star.svg";
-import SidebarGroup from "../commons/SidebarGroup";
-import Search from "../commons/Search";
-import logo from "../../constants/icons/logo.svg";
+
 import API from "../../utils/API";
+import CheckBox from "./CheckBox";
+import Search from "../commons/Search";
+import COLORS from "../../constants/colors";
+import SidebarGroup from "../commons/SidebarGroup";
+
+import star from "../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
+
+import { ContentContext } from "../../contexts/ContentContext";
+import { FilterLikeContext } from "../../contexts/FilterLikeContext";
+import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState([]);
-  const [selectedGroupId, setSelectedGroupId] = useState([]);
-  const [isChecked, setIsChecked] = useState([]);
+
+  const { likes, setLikesHandler } = useContext(FilterLikeContext);
+  const { setContentHandler } = useContext(ContentContext);
+
+  const { selectedGroupId, setSelectGroupHandler } =
+    useContext(SelectGroupContext);
 
   useEffect(() => {
     API.get("/groups").then((res) => {
       setGroups(res.data);
-      res.data.map((group) =>
-        setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id])
-      );
+      res.data.map((group) => {
+        setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
+        setSelectGroupHandler((selectedGroupId) => [
+          ...selectedGroupId,
+          group.id,
+        ]);
+      });
     });
 
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
     });
+
+    setSelectGroupHandler(groupIdList);
   }, []);
 
   const handleSelectAll = (e) => {
-    setSelectedGroupId(e.target.checked ? groupIdList : []);
+    setLikesHandler(false);
+    setSelectGroupHandler(e.target.checked ? groupIdList : []);
   };
 
   const handleSelectElement = (e, id) => {
+    setLikesHandler(false);
+
     if (e.target.checked) {
-      setSelectedGroupId([...groupIdList, id]);
+      setSelectGroupHandler([...selectedGroupId, id]);
     } else {
-      setSelectedGroupId(
+      setSelectGroupHandler(
         selectedGroupId.filter((checkedId) => checkedId !== id)
       );
     }
+  };
+
+  const handleSelectLike = () => {
+    setLikesHandler(!likes);
+
+    !likes && setSelectGroupHandler([]);
+  };
+
+  const handleContents = (object) => {
+    setContentHandler(object);
   };
 
   return (
     <Wrapper>
       <FixedSection>
         <Logo src={logo} />
-        <Search all={myTemplates} />
+        <Search all={myTemplates} handleContents={handleContents} />
       </FixedSection>
 
       <VariableSection>
         <MyTemplate>마이템플릿</MyTemplate>
-        {groups ? (
-          <>
-            <SidebarGroup
-              title="즐겨찾기"
-              icon={<StarIcon src={star} />}
-              item={
-                <input
-                  id="likeß"
-                  type="checkbox"
-                  value={isChecked}
-                  onChange={handleSelectElement}
-                />
-              }
+
+        <SidebarGroup
+          title="즐겨찾기"
+          icon={<StarIcon src={star} />}
+          item={
+            <CheckBox id="like" checked={likes} onChange={handleSelectLike} />
+          }
+        />
+        <Border />
+        <SidebarGroup
+          title="전체 선택"
+          item={
+            <CheckBox
+              id="all"
+              type="checkbox"
+              checked={selectedGroupId.length === groupIdList.length}
+              onChange={handleSelectAll}
             />
-            <Border />
-            <SidebarGroup
-              title="전체 선택"
-              item={
-                <input
-                  id="all"
-                  type="checkbox"
-                  value={isChecked}
-                  onChange={handleSelectAll}
-                />
-              }
-            />
-            {groups.map((group, i) => (
-              <SidebarGroup
-                key={"g" + i}
-                title={group.name}
-                icon={<Index color={group.color} />}
-                item={
-                  <input
-                    id={group.id}
-                    type="checkbox"
-                    value={isChecked}
-                    onChange={handleSelectElement}
-                  />
-                }
+          }
+        />
+        {groups.map((group, i) => (
+          <SidebarGroup
+            key={"g" + i}
+            title={group.name}
+            icon={<Index color={group.color} />}
+            item={
+              <CheckBox
+                id={group.id}
+                type="checkbox"
+                checked={selectedGroupId.includes(group.id)}
+                onChange={(e) => handleSelectElement(e, group.id)}
               />
-            ))}
-          </>
-        ) : (
-          <NoTemplates>
-            마이템플릿이 아직 없네요!
-            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-          </NoTemplates>
-        )}
+            }
+          />
+        ))}
       </VariableSection>
     </Wrapper>
   );
@@ -169,8 +185,9 @@ const NoTemplates = styled.div`
 
   color: #ffffff;
   font-size: 16px;
-  font-weight: 300;
   line-height: 22px;
+
+  font-family: "Pretendard-Light";
 `;
 
 const Index = styled.div`

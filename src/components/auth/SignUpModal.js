@@ -1,11 +1,12 @@
-import styled from "styled-components";
 import { useState } from "react";
 import ReactModal from "react-modal";
+import styled from "styled-components";
 
 import API from "../../utils/API";
 import GoogleAuth from "./GoogleAuth";
 import COLORS from "../../constants/colors";
 import useInputs from "../../hooks/useInputs";
+
 import exit from "../../constants/icons/exit.svg";
 
 import {
@@ -42,14 +43,11 @@ const SignUpModal = ({
 
   // 이메일 중복 확인
   const handleConfirmEmail = () => {
-    API.get(`/user-check?email=${email}`)
-      .then(() => {
-        setIsValidEmail(false);
-      })
-      .catch(() => {
-        setIsPassedEmail(true);
-        setIsValidEmail(true);
-      });
+    API.get(`/user-check?email=${email}`).then((res) => {
+      setIsValidEmail(!res.data);
+
+      !res.data && setIsPassedEmail(true);
+    });
   };
 
   // 비밀번호와 비밀번호 확인

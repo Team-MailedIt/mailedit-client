@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import EditorContainer from '../components/workspace/EditorContainer';
-import TemplatePage from '../components/workspace/TemplatePage';
-import uid from '../utils/uid';
-import CopyContextProvider from '../contexts/CopyContexts';
-import WorkSpaceSidebar from '../components/workspace/WorkSpaceSidebar';
-import { GroupProvider } from '../contexts/GroupContexts';
-import { PositionProvider } from '../contexts/ElementPositionContexts';
+import { useState } from "react";
+import EditorContainer from "../components/workspace/EditorContainer";
+import TemplatePage from "../components/workspace/TemplatePage";
+import uid from "../utils/uid";
+import CopyContextProvider from "../contexts/CopyContexts";
+import WorkSpaceSidebar from "../components/workspace/WorkSpaceSidebar";
+import { GroupProvider } from "../contexts/GroupContexts";
+import { PositionProvider } from "../contexts/ElementPositionContexts";
 
 const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
   // EditPage 배열의 맨 마지막 element로 넣어줘야함
   const [blocks, setBlocks] = useState(null);
-  const [content, setContent] = useState(null);
 
   const getBlockFromTemplate = (element) => {
     const newBlock = { ...element, id: uid() };
@@ -27,29 +26,24 @@ const WorkSpace = () => {
     setBlocks(NewArray);
   };
 
-  const handleContents = (object) => {
-    setContent(object);
-  };
-
   return (
     <div
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1.7fr 8.3fr',
+        display: "grid",
+        gridTemplateColumns: "1.7fr 8.3fr",
       }}
     >
       <PositionProvider>
         <GroupProvider>
-          <WorkSpaceSidebar handleContents={handleContents} />
+          <WorkSpaceSidebar />
           <CopyContextProvider>
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
               }}
             >
               <TemplatePage
-                fetchedData={content}
                 getBlockFromTemplate={getBlockFromTemplate}
                 getAllBlockFromTemplate={getAllBlockFromTemplate}
               />

@@ -1,15 +1,18 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 
 import expand from "../../constants/icons/expand.svg";
 import collapse from "../../constants/icons/collapse.svg";
-import API from "../../utils/API";
 
-const Accordion = ({ icon, title, list, handleContents }) => {
+import API from "../../utils/API";
+import { ContentContext } from "../../contexts/ContentContext";
+
+const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
 
   const [isCollapse, setIsCollapse] = useState(false);
+  const { setContentHandler } = useContext(ContentContext);
 
   const handleCollapse = () => {
     if (parentRef.current === null || childRef.current === null) {
@@ -32,8 +35,7 @@ const Accordion = ({ icon, title, list, handleContents }) => {
     // call api
     const result = await getTemplate(templateId);
     // put result to template page
-
-    handleContents(result);
+    setContentHandler(result);
   };
 
   return (

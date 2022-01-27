@@ -1,13 +1,19 @@
-import COLORS from '../../constants/colors';
-import styled from 'styled-components';
-import { useState } from 'react';
-import search from '../../constants/icons/search.svg';
-import remove from '../../constants/icons/remove.svg';
-import API from '../../utils/API';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
 
-const Search = ({ all, handleContents }) => {
-  // 템플릿 검색
-  const [inputText, setInputText] = useState('');
+import search from "../../constants/icons/search.svg";
+import remove from "../../constants/icons/remove.svg";
+
+import API from "../../utils/API";
+import COLORS from "../../constants/colors";
+import { ContentContext } from "../../contexts/ContentContext";
+
+const Search = ({ all }) => {
+  const navigate = useNavigate();
+  const { setContentHandler } = useContext(ContentContext);
+
+  const [inputText, setInputText] = useState("");
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -18,17 +24,18 @@ const Search = ({ all, handleContents }) => {
     .sort();
 
   const handleRemoveBtnClick = () => {
-    setInputText('');
+    setInputText("");
   };
 
   const handleResult = async (templateId) => {
-    console.log(templateId);
     // call api by templateId
     const { data } = await API.get(`/templates/${templateId}`);
     if (data) {
-      handleContents(data);
+      setContentHandler(data);
       handleRemoveBtnClick();
     }
+
+    navigate("/workspace");
   };
 
   return (
@@ -64,13 +71,10 @@ const Search = ({ all, handleContents }) => {
 const SearchingField = styled.section`
   width: 252px;
   height: 38px;
-
   display: flex;
   flex-direction: row;
   align-items: center;
-
   background: #748ffc;
-
   border-radius: 2px;
   margin: 48px 36px 0px 40px;
 `;
@@ -78,15 +82,12 @@ const SearchingField = styled.section`
 const SearchResultWrapper = styled.div`
   width: 252px;
   background: ${COLORS.indigo4};
-
   position: relative;
   z-index: 2;
-
   margin-left: 40px;
   padding-bottom: 9px;
   border-radius: 0 0 2px 2px;
   border-top: 1px solid ${COLORS.UIWhite};
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,16 +96,12 @@ const SearchResultWrapper = styled.div`
 const SearchResultTitle = styled.div`
   width: 228px;
   height: 25px;
-
   display: flex;
   align-items: center;
   font-size: 14px;
-
   margin-top: 9px;
   padding-left: 8px;
-
   border-radius: 2px;
-
   &:hover {
     background: ${COLORS.indigo1};
     cursor: pointer;
@@ -113,11 +110,9 @@ const SearchResultTitle = styled.div`
 
 const Input = styled.input`
   margin-left: 12px;
-
   background: none;
   border: none;
   color: white;
-
   &::placeholder {
     color: ${COLORS.indigo1};
     font-size: 16px;
@@ -130,16 +125,13 @@ const Input = styled.input`
 const SearchIcon = styled.img`
   width: 18px;
   heigt: 18px;
-
   margin: 10px 0px 10px 12px;
 `;
 
 const RemoveIcon = styled.img`
   width: 12px;
   height: 12px;
-
-  margin-left: 14px;
-
+  margin-left: 10px;
   &:hover {
     cursor: pointer;
   }

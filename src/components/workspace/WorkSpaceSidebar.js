@@ -1,19 +1,19 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
-import Search from '../commons/Search';
-import Accordion from '../commons/Accordion';
+import Search from "../commons/Search";
+import Accordion from "../commons/Accordion";
 
-import star from '../../constants/icons/star.svg';
-import logo from '../../constants/icons/logo.svg';
+import star from "../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
 
-import API from '../../utils/API';
-import { useContext, useEffect, useState } from 'react';
-import { GroupContext } from '../../contexts/GroupContexts';
-import { useNavigate } from 'react-router';
-import HelpModal from '../helpModal/HelpModal';
+import API from "../../utils/API";
+import { useContext, useEffect, useState } from "react";
+import { GroupContext } from "../../contexts/GroupContexts";
+import { useNavigate } from "react-router";
+import HelpModal from "../helpModal/HelpModal";
 
-const WorkSpaceSidebar = ({ handleContents }) => {
+const WorkSpaceSidebar = () => {
   // 모달모달
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openHelp = () => {
@@ -23,7 +23,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
   // 그룹 리스트
   const { groupListContext, setGroupList } = useContext(GroupContext);
 
-  // 즐겨찾기 한 템플릿
+  // isStar template
   const [favTemplates, setFavTemplates] = useState([]);
 
   // template lists
@@ -50,9 +50,9 @@ const WorkSpaceSidebar = ({ handleContents }) => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
           // this will be base template
-          if (category === '회사') {
+          if (category === "회사") {
             setBaseCompany((el) => [...el, newElement]);
-          } else if (category === '학교') {
+          } else if (category === "학교") {
             setBaseSchool((el) => [...el, newElement]);
           }
         } else {
@@ -75,7 +75,7 @@ const WorkSpaceSidebar = ({ handleContents }) => {
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   return (
@@ -83,47 +83,34 @@ const WorkSpaceSidebar = ({ handleContents }) => {
       <FixedSection>
         <Logo src={logo} onClick={goToMain} />
 
-        <Search
-          all={[...myTemplates, ...baseSchool, ...baseCompany]}
-          handleContents={handleContents}
-        />
+        <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
       </FixedSection>
 
       <VariableSection>
         <MyTemplate>마이템플릿</MyTemplate>
         <Accordion
-          handleContents={handleContents}
           title="즐겨찾기"
           icon={<StarIcon src={star} />}
           list={favTemplates}
         />
         <Border />
-        {groupListContext.length !== 0 ? (
+        {groupListContext.length !== 0 &&
           groupListContext.map(({ name, color, id }) => (
             <Accordion
-              handleContents={handleContents}
               key={id}
               title={name}
               icon={<Index color={color} />}
               list={myTemplates.filter((t) => id === t.groupId)}
             />
-          ))
-        ) : (
-          <NoTemplates>
-            마이템플릿이 아직 없네요!
-            <br />첫 템플릿을 만들어 보는 것은 어떨까요?
-          </NoTemplates>
-        )}
+          ))}
 
         <BaseTemplate>기본템플릿</BaseTemplate>
         <Accordion
-          handleContents={handleContents}
           title="회사"
           icon={<Index color={COLORS.indigo2} />}
           list={baseCompany}
         />
         <Accordion
-          handleContents={handleContents}
           title="학교"
           icon={<Index color={COLORS.indigo2} />}
           list={baseSchool}

@@ -1,83 +1,87 @@
-import styled from "styled-components";
+import { useContext } from "react";
 import ReactModal from "react-modal";
-import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router";
+
 import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
+
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { ContentContext } from "../../contexts/ContentContext";
+import { ModalStyle } from "../commons/ModalStyle";
 
 const BaseTemplateModal = ({
   isModalOpen,
   setIsModalOpen,
-  selectedBaseId,
   baseTemplates,
   baseCompany,
   baseSchool,
 }) => {
-  const [selectedId, setSelectedId] = useState(selectedBaseId);
-
-  useEffect(() => setSelectedId(selectedBaseId), [selectedBaseId]);
+  const navigate = useNavigate();
+  const { setContentHandler } = useContext(ContentContext);
+  const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   const handleSelectTemplate = (e) => {
-    setSelectedId(e.target.id);
+    setSelectIdHandler(e.target.id);
   };
 
-  const selectedTemplate =
+  const selectedBase =
     selectedId && baseTemplates.filter((t) => t.templateId === selectedId);
 
-  const modalStyle = {
-    overlay: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "rgba(0,0,0,0.65)",
-      zIndex: 10,
-    },
+  const handleUseTemplateBtnClick = () => {
+    setContentHandler(selectedBase[0]);
+    navigate("/workspace");
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      ariaHideApp={false}
-      style={modalStyle}
-    >
-      <Main>
-        <MainWrapper>
-          {selectedId && (
-            <>
-              <Title>{selectedTemplate[0].title}</Title>
-              <Subtitle>{selectedTemplate[0].subtitle}</Subtitle>
-              <Border />
-              <Content>
-                {selectedTemplate[0].content.map((t, i) => (
-                  <BlockWrapper key={"ttt" + i}>
-                    {t.html.replaceAll("<div>", "\n").replaceAll("</div>", "")}
-                  </BlockWrapper>
-                ))}
-              </Content>
-            </>
-          )}
-          <Description>
-            회의 일정은 회사 내에서 회의 내용에 대한 공지를 드릴 때에
-            사용됩니다.
-          </Description>
-        </MainWrapper>
-      </Main>
-      <Sidebar>
-        <ScrollArea>
-          <BaseAccordion
-            title="회사"
-            list={baseCompany}
-            handleSelectTemplate={handleSelectTemplate}
-          />
-          <BaseAccordion
-            title="학교"
-            list={baseSchool}
-            handleSelectTemplate={handleSelectTemplate}
-          />
-        </ScrollArea>
-        <UseBtn>템플릿 사용하기</UseBtn>
-      </Sidebar>
-    </Modal>
+    <>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          ariaHideApp={false}
+          style={ModalStyle}
+        >
+          <Main>
+            <MainWrapper>
+              {selectedId && (
+                <>
+                  <Title>{selectedBase[0].title}</Title>
+                  <Subtitle>{selectedBase[0].subtitle}</Subtitle>
+                  <Border />
+                  <Content>
+                    {selectedBase[0].content.map((t, i) => (
+                      <BlockWrapper key={"ttt" + i}>
+                        {t.html
+                          .replaceAll("<div>", "\n")
+                          .replaceAll("</div>", "")}
+                      </BlockWrapper>
+                    ))}
+                  </Content>
+
+                  <Description>{selectedBase[0].tip}</Description>
+                </>
+              )}
+            </MainWrapper>
+          </Main>
+          <Sidebar>
+            <ScrollArea>
+              <BaseAccordion
+                title="회사"
+                list={baseCompany}
+                handleSelectTemplate={handleSelectTemplate}
+              />
+              <BaseAccordion
+                title="학교"
+                list={baseSchool}
+                handleSelectTemplate={handleSelectTemplate}
+              />
+            </ScrollArea>
+            <UseBtn onClick={handleUseTemplateBtnClick}>템플릿 사용하기</UseBtn>
+          </Sidebar>
+        </Modal>
+      )}
+    </>
   );
 };
 
