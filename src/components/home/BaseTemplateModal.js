@@ -197,6 +197,18 @@ const ScrollArea = styled.div`
   margin-left: 28px;
 
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 19px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${COLORS.indigo1};
+    background-clip: padding-box;
+
+    border-radius: 20px;
+    border: 8.5px solid transparent;
+  }
 `;
 
 const UseBtn = styled.button`

@@ -122,7 +122,6 @@ const Wrapper = styled.section`
 
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   background: ${COLORS.bgBlue};
 `;
@@ -130,6 +129,8 @@ const Wrapper = styled.section`
 const MyTemplateInfo = styled.div`
   width: 1444px;
   height: 89.25px;
+
+  margin-left: 40px;
 
   display: flex;
   flex-direction: row;
@@ -150,7 +151,6 @@ const UserName = styled.span`
   height: 34px;
 
   font-family: Pretendard-SemiBold;
-  font-weight: 700;
   font-size: 28px;
 
   display: flex;
@@ -176,38 +176,23 @@ const NumberArea = styled.div`
 const Text = styled.div`
   height: 20px;
 
-  font-weight: normal;
   font-size: 16px;
 `;
 
 const TemplateNum = styled.div`
   margin-left: 8px;
-  color: ${COLORS.primary};
 
+  color: ${COLORS.primary};
   text-decoration: underline;
 `;
 
 const MyTemplateGridWrapper = styled.div`
-  width: 100%; // 1512px
-
-  overflow: auto;
-
+  width: 1500px;
   display: flex;
-`;
-
-const MyTemplateGrid = styled.div`
-  width: 1440px;
-
-  margin-left: 26px;
-  padding: 0px 0px 40px 10px;
   overflow: auto;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
 
   &::-webkit-scrollbar {
-    width: 24px;
+    width: 20px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -215,8 +200,19 @@ const MyTemplateGrid = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 10px solid transparent;
+    border: 8px solid transparent;
   }
+`;
+
+const MyTemplateGrid = styled.div`
+  width: 1440px;
+
+  margin-left: 26px;
+  padding: 0px 0px 40px 10px;
+
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
 `;
 
 const NoTemplateWrapper = styled.div`
