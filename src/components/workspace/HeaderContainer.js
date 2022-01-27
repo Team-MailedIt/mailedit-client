@@ -129,7 +129,8 @@ const HeaderContainer = ({ handleHeaderData }) => {
         isModalOpen={isTooltipOpen}
         setIsModalOpen={setIsTooltipOpen}
         ChildComponent={CarouselTooltip}
-        positionY={20}
+        positionX={0}
+        positionY={0}
       />
     </Container>
   );

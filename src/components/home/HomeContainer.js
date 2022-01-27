@@ -1,52 +1,68 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import COLORS from "../../constants/colors";
-import Thumbnail from "./Thumbnail";
-import API from "../../utils/API";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import COLORS from '../../constants/colors';
+import Thumbnail from './Thumbnail';
+import API from '../../utils/API';
 
-import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
-import mainComIllu from "../../constants/icons/mainComIllu.svg";
+import mainSchIllu from '../../constants/icons/mainSchIllu.svg';
+import mainComIllu from '../../constants/icons/mainComIllu.svg';
 
-import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+import noTemplateIllu from '../../constants/icons/noTemplateIllu.svg';
 
-import dots from "../../constants/icons/dots.svg";
-import unfold from "../../constants/icons/unfold.svg";
+import dots from '../../constants/icons/dots.svg';
+import unfold from '../../constants/icons/unfold.svg';
 
-import { useEffect, useState } from "react";
-import BaseTemplateModal from "./BaseTemplateModal";
+import TooltipContainer from '../tooltip/TooltipContainer';
+import { useEffect, useState, useContext, useRef } from 'react';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
+import HomeTooltip from './HomeTooltip';
+import BaseTemplateModal from './BaseTemplateModal';
 
 const HomeContainer = () => {
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [myTemplates, setMyTemplates] = useState([]);
   const [baseTemplates, setBaseTemplates] = useState([]);
-  const [option, setOption] = useState("company");
+  const [option, setOption] = useState('company');
   const [selectedBaseId, setSelectedBaseId] = useState(null);
 
+  //tooltip start
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const gotoButton = useRef();
+  const { getPosition } = useContext(ElementPositionContext);
+
+  const handleTooltip = () => {
+    console.log('hi');
+    setIsTooltipOpen(true);
+    getPosition(gotoButton);
+  };
+
+  //tooltip fin
+
   useEffect(() => {
-    API.get("/templates/my").then((res) => {
+    API.get('/templates/my').then((res) => {
       setMyTemplates(res.data);
     });
 
-    API.get("/templates/base").then((res) => {
+    API.get('/templates/base').then((res) => {
       setBaseTemplates(res.data);
     });
   }, []);
 
-  const baseCompany = baseTemplates.filter((base) => base.category === "회사");
-  const baseSchool = baseTemplates.filter((base) => base.category === "학교");
+  const baseCompany = baseTemplates.filter((base) => base.category === '회사');
+  const baseSchool = baseTemplates.filter((base) => base.category === '학교');
 
   const handleSignOutBtnClick = () => {
     localStorage.clear();
-    navigate("/");
+    navigate('/');
   };
 
   const handleBinIconClick = (e) => {
     API.delete(`/templates/${e.target.id}`).then(() => {
-      API.get("/templates/my").then((res) => {
+      API.get('/templates/my').then((res) => {
         setMyTemplates(res.data);
       });
     });
@@ -74,10 +90,19 @@ const HomeContainer = () => {
         </Hello>
         <TopRight>
           <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
-          <Link to={"/workspace"}>
-            <GoToWorkSpace>템플릿 만들기</GoToWorkSpace>
+          <Link to={'/workspace'}>
+            <GoToWorkSpace onMouseEnter={handleTooltip} ref={gotoButton}>
+              템플릿 만들기
+            </GoToWorkSpace>
           </Link>
         </TopRight>
+        <TooltipContainer
+          isModalOpen={isTooltipOpen}
+          setIsModalOpen={setIsTooltipOpen}
+          ChildComponent={HomeTooltip}
+          positionX={10}
+          positionY={0}
+        />
       </Top>
 
       <MyTemplateArea>
@@ -101,7 +126,7 @@ const HomeContainer = () => {
                   isStar={t.isStar}
                   groupId={t.groupId}
                   groupColor={t.group.color}
-                  updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                  updatedAt={t.updatedAt.replace('T', ' ').substring(0, 19)}
                   handleBinIconClick={handleBinIconClick}
                 />
               ))}
@@ -123,9 +148,9 @@ const HomeContainer = () => {
         <TextWrapper>
           <TitleSelect>
             <BottomTitle>
-              {option === "company"
-                ? "회사에서 일잘러가 되려면?"
-                : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
+              {option === 'company'
+                ? '회사에서 일잘러가 되려면?'
+                : '학교에서 교수님, 조교님께 어떻게 보내나요?'}
             </BottomTitle>
             <DropDown onChange={handleChangeSelect} value={option}>
               회사
@@ -140,11 +165,11 @@ const HomeContainer = () => {
           <BaseTemplateTable>
             <tbody>
               <tr>
-                {option === "company"
+                {option === 'company'
                   ? baseCompany.slice(0, 5).map((t, i) => (
                       <th
                         id={t.templateId}
-                        key={"b" + i}
+                        key={'b' + i}
                         onClick={handleBaseClick}
                       >
                         <ThText id={t.templateId} onClick={handleBaseClick}>
@@ -155,7 +180,7 @@ const HomeContainer = () => {
                   : baseSchool.slice(0, 5).map((t, i) => (
                       <th
                         id={t.templateId}
-                        key={"b" + i}
+                        key={'b' + i}
                         onClick={handleBaseClick}
                       >
                         <ThText id={t.templateId} onClick={handleBaseClick}>
@@ -181,7 +206,7 @@ const HomeContainer = () => {
             />
           )}
         </TextWrapper>
-        {option === "company" ? (
+        {option === 'company' ? (
           <Illustration src={mainComIllu} />
         ) : (
           <Illustration src={mainSchIllu} />
