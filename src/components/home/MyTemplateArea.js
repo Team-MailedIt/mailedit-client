@@ -67,48 +67,47 @@ const MyTemplateArea = () => {
         </NumberArea>
       </MyTemplateInfo>
       <Border />
-      <MyTemplateGridWrapper>
-        {myTemplates.length === 0 ? (
-          <NoTemplateWrapper>
-            <NoTemplateIllust src={noTemplateIllu} />
-            <NoTemplateText>
-              앗 아직 나의 템플릿이 없어요!
-              <br />
-              <b>첫 템플릿</b>을 만들어 보세요
-            </NoTemplateText>
-          </NoTemplateWrapper>
-        ) : (
-          <>
-            {filtered.length !== 0 ? (
-              <MyTemplateGrid>
-                {filtered.map((t) => (
-                  <Thumbnail
-                    key={t.createdAt}
-                    id={t.templateId}
-                    title={t.title}
-                    subtitle={t.subtitle}
-                    isStar={t.isStar}
-                    groupId={t.groupId}
-                    groupColor={t.group.color}
-                    updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
-                    handleBinIconClick={handleBinIconClick}
-                    handleThumbnailClick={handleThumbnailClick}
-                  />
-                ))}
-              </MyTemplateGrid>
-            ) : (
-              <NoTemplateWrapper>
-                <NoTemplateIllust src={noTemplateIllu} />
-                <SelectGroupText>
-                  왼쪽 사이드바에서
-                  <br />
-                  템플릿을 꺼내 보세요!
-                </SelectGroupText>
-              </NoTemplateWrapper>
-            )}
-          </>
-        )}
-      </MyTemplateGridWrapper>
+
+      {myTemplates.length === 0 ? (
+        <NoTemplateWrapper>
+          <NoTemplateIllust src={noTemplateIllu} />
+          <NoTemplateText>
+            앗 아직 나의 템플릿이 없어요!
+            <br />
+            <b>첫 템플릿</b>을 만들어 보세요
+          </NoTemplateText>
+        </NoTemplateWrapper>
+      ) : (
+        <>
+          {filtered.length !== 0 ? (
+            <MyTemplateGrid>
+              {filtered.map((t) => (
+                <Thumbnail
+                  key={t.createdAt}
+                  id={t.templateId}
+                  title={t.title}
+                  subtitle={t.subtitle}
+                  isStar={t.isStar}
+                  groupId={t.groupId}
+                  groupColor={t.group.color}
+                  updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                  handleBinIconClick={handleBinIconClick}
+                  handleThumbnailClick={handleThumbnailClick}
+                />
+              ))}
+            </MyTemplateGrid>
+          ) : (
+            <NoTemplateWrapper>
+              <NoTemplateIllust src={noTemplateIllu} />
+              <SelectGroupText>
+                왼쪽 사이드바에서
+                <br />
+                템플릿을 꺼내 보세요!
+              </SelectGroupText>
+            </NoTemplateWrapper>
+          )}
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -175,21 +174,25 @@ const NumberArea = styled.div`
 
 const Text = styled.div`
   height: 20px;
-
   font-size: 16px;
 `;
 
 const TemplateNum = styled.div`
   margin-left: 8px;
-
   color: ${COLORS.primary};
   text-decoration: underline;
 `;
 
-const MyTemplateGridWrapper = styled.div`
-  width: 1500px;
-  display: flex;
+const MyTemplateGrid = styled.div`
+  width: 1460px;
+
+  padding: 0px 4px 40px 36px;
+
   overflow: auto;
+
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
 
   &::-webkit-scrollbar {
     width: 20px;
@@ -202,17 +205,6 @@ const MyTemplateGridWrapper = styled.div`
     border-radius: 20px;
     border: 8px solid transparent;
   }
-`;
-
-const MyTemplateGrid = styled.div`
-  width: 1440px;
-
-  margin-left: 26px;
-  padding: 0px 0px 40px 10px;
-
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(4, 1fr);
 `;
 
 const NoTemplateWrapper = styled.div`
