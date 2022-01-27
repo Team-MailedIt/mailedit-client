@@ -17,6 +17,7 @@ import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 import { useEffect, useState, useContext } from "react";
 import BaseTemplateModal from "./BaseTemplateModal";
 import { SelectBaseContext } from "../../contexts/SelectBaseContext";
+import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 
 const HomeContainer = () => {
   const userName = localStorage.getItem("userName");
@@ -25,16 +26,21 @@ const HomeContainer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [myTemplates, setMyTemplates] = useState([]);
   const [baseTemplates, setBaseTemplates] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [option, setOption] = useState("company");
 
-  const { selectedGroupId } = useContext(SelectGroupContext);
+  const { selectedGroupId, setSelectGroupHandler } =
+    useContext(SelectGroupContext);
 
   const { selectedBaseId, setSelectBaseHandler } =
     useContext(SelectBaseContext);
 
+  const { likes, setLikesHandler } = useContext(FilterLikeContext);
+
   useEffect(() => {
     API.get("/templates/my").then((res) => {
       setMyTemplates(res.data);
+      setFiltered(res.data);
     });
 
     API.get("/templates/base").then((res) => {
@@ -42,18 +48,11 @@ const HomeContainer = () => {
     });
   }, []);
 
-  const [filtered, setFiltered] = useState([]);
-
   useEffect(() => {
     setFiltered(myTemplates.filter((t) => selectedGroupId.includes(t.groupId)));
 
-    if (selectedGroupId.includes("like")) {
-      const likes = [
-        ...filtered,
-        ...myTemplates.filter((t) => t.isStar === true),
-      ];
-
-      console.log(likes);
+    if (likes) {
+      setFiltered(myTemplates.filter((t) => t.isStar === true));
     }
   }, [selectedGroupId]);
 

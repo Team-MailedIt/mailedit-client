@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
 import API from "../../utils/API";
@@ -10,17 +10,19 @@ import CheckBox from "./CheckBox";
 import star from "../../constants/icons/star.svg";
 import logo from "../../constants/icons/logo.svg";
 
-import { useContext } from "react";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
+import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
-  const [groupIdList, setGroupIdList] = useState(["like"]);
+  const [groupIdList, setGroupIdList] = useState([]);
   const [content, setContent] = useState(null);
 
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
+
+  const { likes, setLikesHandler } = useContext(FilterLikeContext);
 
   const handleContents = (object) => {
     setContent(object);
@@ -50,6 +52,8 @@ const MainSidebar = () => {
   };
 
   const handleSelectElement = (e, id) => {
+    setLikesHandler(false);
+
     if (e.target.checked) {
       setSelectGroupHandler([...selectedGroupId, id]);
     } else {
@@ -57,6 +61,12 @@ const MainSidebar = () => {
         selectedGroupId.filter((checkedId) => checkedId !== id)
       );
     }
+  };
+
+  const handleSelectLike = () => {
+    setLikesHandler(!likes);
+
+    !likes && setSelectGroupHandler([]);
   };
 
   return (
@@ -73,11 +83,7 @@ const MainSidebar = () => {
           title="즐겨찾기"
           icon={<StarIcon src={star} />}
           item={
-            <CheckBox
-              id="like"
-              checked={selectedGroupId.includes("like")}
-              onChange={(e) => handleSelectElement(e, "like")}
-            />
+            <CheckBox id="like" checked={likes} onChange={handleSelectLike} />
           }
         />
         <Border />
