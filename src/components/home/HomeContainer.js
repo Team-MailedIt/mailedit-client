@@ -51,10 +51,8 @@ const HomeContainer = () => {
   useEffect(() => {
     setFiltered(myTemplates.filter((t) => selectedGroupId.includes(t.groupId)));
 
-    if (likes) {
-      setFiltered(myTemplates.filter((t) => t.isStar === true));
-    }
-  }, [selectedGroupId]);
+    likes && setFiltered(myTemplates.filter((t) => t.isStar === true));
+  }, [selectedGroupId, likes, myTemplates]);
 
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");

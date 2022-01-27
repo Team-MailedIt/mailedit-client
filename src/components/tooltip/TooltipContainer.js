@@ -4,7 +4,12 @@ import COLORS from '../../constants/colors';
 import { useContext } from 'react';
 import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
-const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
+const TooltipContainer = ({
+  isModalOpen,
+  setIsModalOpen,
+  ChildComponent,
+  positionY,
+}) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
 
   // 취소 버튼
@@ -30,9 +35,7 @@ const TooltipContainer = ({ isModalOpen, setIsModalOpen }) => {
       positionTop={position.y - 22}
       positionLeft={position.x}
     >
-      <div>hi</div>
-      <div>hi</div>
-      <div>hi</div>
+      <ChildComponent handleConfirm={handleConfirm} />
     </Modal>
   );
 };
@@ -41,11 +44,11 @@ const Modal = styled(ReactModal)`
   position: absolute;
   top: ${(props) => props.positionTop}px;
   left: ${(props) => props.positionLeft}px;
-  transform: translate(-130%, 0%);
+  transform: translate(-108%, 0%);
 
   background: ${COLORS.gray7};
 
-  padding: 1.125em 1.5em;
+  padding: 20px 20px;
   font-size: 1.25em;
 
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,7 +63,6 @@ const Modal = styled(ReactModal)`
     right: -22px;
 
     border: 0.75rem solid transparent;
-
     border-left-color: ${COLORS.gray7};
   }
 `;

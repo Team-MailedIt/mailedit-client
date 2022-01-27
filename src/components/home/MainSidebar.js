@@ -48,6 +48,8 @@ const MainSidebar = () => {
   }, []);
 
   const handleSelectAll = (e) => {
+    setLikesHandler(false);
+
     setSelectGroupHandler(e.target.checked ? groupIdList : []);
   };
 
