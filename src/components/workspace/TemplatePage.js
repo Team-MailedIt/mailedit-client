@@ -1,42 +1,40 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import { useEffect, useState, useContext } from "react";
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 // import fetchedData from '../../data.json';
 import {
   TemplateSubTitle,
   TemplateTitle,
   TemplateSelectButton,
-} from './Components';
-import { PrevIcon } from '../../constants/icons';
-import { useNavigate } from 'react-router';
+} from "./Components";
+import { PrevIcon } from "../../constants/icons";
+import { useNavigate } from "react-router";
+import { ContentContext } from "../../contexts/ContentContext";
 
-const TemplatePage = ({
-  fetchedData,
-  getBlockFromTemplate,
-  getAllBlockFromTemplate,
-}) => {
+const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   // setBlock used when user select template from sidebar
   const [blocks, setBlocks] = useState([]);
   const [parsedBlocks, setParsedBlocks] = useState([]);
+  const { content } = useContext(ContentContext);
 
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   // data fetched from sidebar
   useEffect(() => {
-    if (fetchedData) {
-      setBlocks(fetchedData.content);
+    if (content) {
+      setBlocks(content.content);
     }
-  }, [fetchedData]);
+  }, [content]);
 
   useEffect(() => {
     const updatedBlocks = [...blocks];
     blocks.forEach((element, index) => {
-      const temp = element.html.replace(/<div>/gi, '\n');
-      const newString = temp.replace(/<\/div>/gi, '');
+      const temp = element.html.replace(/<div>/gi, "\n");
+      const newString = temp.replace(/<\/div>/gi, "");
       updatedBlocks[index] = {
         ...updatedBlocks[index],
         html: newString,
@@ -56,7 +54,7 @@ const TemplatePage = ({
   return (
     <>
       <div>
-        <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
+        <RowContainer style={{ marginTop: "42px", marginLeft: "36px" }}>
           <PrevIcon
             onClick={goToMain}
             src="img/prevIcon.png"
@@ -64,26 +62,26 @@ const TemplatePage = ({
             height="32px"
           />
         </RowContainer>
-        <div style={{ marginLeft: '40px', marginRight: '40px' }}>
-          {fetchedData ? (
-            <Container style={{ marginTop: '24px' }}>
+        <div style={{ marginLeft: "40px", marginRight: "40px" }}>
+          {content ? (
+            <Container style={{ marginTop: "24px" }}>
               <RowContainer>
-                <TemplateTitle>{fetchedData.title}</TemplateTitle>
+                <TemplateTitle>{content.title}</TemplateTitle>
               </RowContainer>
-              <RowContainer style={{ justifyContent: 'space-between' }}>
-                <TemplateSubTitle>{fetchedData.subtitle}</TemplateSubTitle>
+              <RowContainer style={{ justifyContent: "space-between" }}>
+                <TemplateSubTitle>{content.subtitle}</TemplateSubTitle>
                 <TemplateSelectButton onClick={handleAllTemplate}>
                   템플릿 쓰기
                 </TemplateSelectButton>
               </RowContainer>
             </Container>
           ) : (
-            <Container style={{ paddingTop: '237px', alignItems: 'center' }}>
+            <Container style={{ paddingTop: "237px", alignItems: "center" }}>
               <Illust src="/img/editorIllust.png" />
               <Span>템플릿을 조합해서 사용해 보세요!</Span>
             </Container>
           )}
-          <Container style={{ marginTop: '20px' }}>
+          <Container style={{ marginTop: "20px" }}>
             {parsedBlocks.map(({ id, html }, index) => (
               <Block id={index} key={id} onClick={onClickHandler}>
                 {html}
@@ -103,8 +101,8 @@ const Container = styled.div`
 `;
 const RowContainer = styled.div`
   display: flex;
-  flex-direction: 'row';
-  align-items: 'center';
+  flex-direction: "row";
+  align-items: "center";
   margin-bottom: 8px;
 `;
 const Block = styled.div`

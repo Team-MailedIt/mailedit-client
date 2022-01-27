@@ -7,6 +7,7 @@ import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
 
 import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { ContentContext } from "../../contexts/ContentContext";
 
 const BaseTemplateModal = ({
   isModalOpen,
@@ -18,6 +19,7 @@ const BaseTemplateModal = ({
   const navigate = useNavigate();
 
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
+  const { setContentHandler } = useContext(ContentContext);
 
   const handleSelectTemplate = (e) => {
     setSelectIdHandler(e.target.id);
@@ -27,6 +29,7 @@ const BaseTemplateModal = ({
     selectedId && baseTemplates.filter((t) => t.templateId === selectedId);
 
   const handleUseTemplateBtnClick = () => {
+    setContentHandler(selectedBase[0]);
     navigate("/workspace");
   };
 
@@ -41,48 +44,54 @@ const BaseTemplateModal = ({
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      ariaHideApp={false}
-      style={modalStyle}
-    >
-      <Main>
-        <MainWrapper>
-          {selectedId && (
-            <>
-              <Title>{selectedBase[0].title}</Title>
-              <Subtitle>{selectedBase[0].subtitle}</Subtitle>
-              <Border />
-              <Content>
-                {selectedBase[0].content.map((t, i) => (
-                  <BlockWrapper key={"ttt" + i}>
-                    {t.html.replaceAll("<div>", "\n").replaceAll("</div>", "")}
-                  </BlockWrapper>
-                ))}
-              </Content>
+    <>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          ariaHideApp={false}
+          style={modalStyle}
+        >
+          <Main>
+            <MainWrapper>
+              {selectedId && (
+                <>
+                  <Title>{selectedBase[0].title}</Title>
+                  <Subtitle>{selectedBase[0].subtitle}</Subtitle>
+                  <Border />
+                  <Content>
+                    {selectedBase[0].content.map((t, i) => (
+                      <BlockWrapper key={"ttt" + i}>
+                        {t.html
+                          .replaceAll("<div>", "\n")
+                          .replaceAll("</div>", "")}
+                      </BlockWrapper>
+                    ))}
+                  </Content>
 
-              <Description>{selectedBase[0].tip}</Description>
-            </>
-          )}
-        </MainWrapper>
-      </Main>
-      <Sidebar>
-        <ScrollArea>
-          <BaseAccordion
-            title="회사"
-            list={baseCompany}
-            handleSelectTemplate={handleSelectTemplate}
-          />
-          <BaseAccordion
-            title="학교"
-            list={baseSchool}
-            handleSelectTemplate={handleSelectTemplate}
-          />
-        </ScrollArea>
-        <UseBtn onClick={handleUseTemplateBtnClick}>템플릿 사용하기</UseBtn>
-      </Sidebar>
-    </Modal>
+                  <Description>{selectedBase[0].tip}</Description>
+                </>
+              )}
+            </MainWrapper>
+          </Main>
+          <Sidebar>
+            <ScrollArea>
+              <BaseAccordion
+                title="회사"
+                list={baseCompany}
+                handleSelectTemplate={handleSelectTemplate}
+              />
+              <BaseAccordion
+                title="학교"
+                list={baseSchool}
+                handleSelectTemplate={handleSelectTemplate}
+              />
+            </ScrollArea>
+            <UseBtn onClick={handleUseTemplateBtnClick}>템플릿 사용하기</UseBtn>
+          </Sidebar>
+        </Modal>
+      )}
+    </>
   );
 };
 

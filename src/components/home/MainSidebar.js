@@ -10,6 +10,7 @@ import SidebarGroup from "../commons/SidebarGroup";
 import star from "../../constants/icons/star.svg";
 import logo from "../../constants/icons/logo.svg";
 
+import { ContentContext } from "../../contexts/ContentContext";
 import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
 
@@ -17,9 +18,10 @@ const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState([]);
-  const [content, setContent] = useState(null);
 
   const { likes, setLikesHandler } = useContext(FilterLikeContext);
+  const { content, setContentHandler } = useContext(ContentContext);
+
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
 
@@ -66,7 +68,7 @@ const MainSidebar = () => {
   };
 
   const handleContents = (object) => {
-    setContent(object);
+    setContentHandler(object);
   };
 
   return (

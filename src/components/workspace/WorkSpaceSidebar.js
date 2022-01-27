@@ -12,7 +12,7 @@ import { useContext, useEffect, useState } from "react";
 import { GroupContext } from "../../contexts/GroupContexts";
 import { useNavigate } from "react-router";
 
-const WorkSpaceSidebar = ({ handleContents }) => {
+const WorkSpaceSidebar = () => {
   // 그룹 리스트
   const { groupListContext, setGroupList } = useContext(GroupContext);
 
@@ -76,16 +76,12 @@ const WorkSpaceSidebar = ({ handleContents }) => {
       <FixedSection>
         <Logo src={logo} onClick={goToMain} />
 
-        <Search
-          all={[...myTemplates, ...baseSchool, ...baseCompany]}
-          handleContents={handleContents}
-        />
+        <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
       </FixedSection>
 
       <VariableSection>
         <MyTemplate>마이템플릿</MyTemplate>
         <Accordion
-          handleContents={handleContents}
           title="즐겨찾기"
           icon={<StarIcon src={star} />}
           list={favTemplates}
@@ -94,7 +90,6 @@ const WorkSpaceSidebar = ({ handleContents }) => {
         {groupListContext.length !== 0 &&
           groupListContext.map(({ name, color, id }) => (
             <Accordion
-              handleContents={handleContents}
               key={id}
               title={name}
               icon={<Index color={color} />}
@@ -104,13 +99,11 @@ const WorkSpaceSidebar = ({ handleContents }) => {
 
         <BaseTemplate>기본템플릿</BaseTemplate>
         <Accordion
-          handleContents={handleContents}
           title="회사"
           icon={<Index color={COLORS.indigo2} />}
           list={baseCompany}
         />
         <Accordion
-          handleContents={handleContents}
           title="학교"
           icon={<Index color={COLORS.indigo2} />}
           list={baseSchool}

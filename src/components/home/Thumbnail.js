@@ -1,10 +1,12 @@
+import { useState, useContext } from "react";
 import styled from "styled-components";
+
+import API from "../../utils/API";
 import COLORS from "../../constants/colors";
+
+import bin from "../../constants/icons/bin.svg";
 import liked from "../../constants/icons/liked.svg";
 import notLiked from "../../constants/icons/notLiked.svg";
-import bin from "../../constants/icons/bin.svg";
-import { useState } from "react";
-import API from "../../utils/API";
 
 const Thumbnail = ({
   id,
@@ -15,6 +17,7 @@ const Thumbnail = ({
   groupColor,
   updatedAt,
   handleBinIconClick,
+  handleThumbnailClick,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
 
@@ -28,14 +31,14 @@ const Thumbnail = ({
   };
 
   return (
-    <Wrapper>
-      <IndexArea>
+    <Wrapper id={id} onClick={handleThumbnailClick}>
+      <IndexArea id={id}>
         <Index color={groupColor} />
       </IndexArea>
-      <Title>{title}</Title>
-      <BodyWrapper>
-        <Subtitle>
-          <SubTitleText>{subtitle}</SubTitleText>
+      <Title id={id}>{title}</Title>
+      <BodyWrapper id={id}>
+        <Subtitle id={id}>
+          <SubTitleText id={id}>{subtitle}</SubTitleText>
         </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
@@ -62,6 +65,10 @@ const Wrapper = styled.div`
   background: ${COLORS.UIWhite};
 
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const IndexArea = styled.div`

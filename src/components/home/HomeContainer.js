@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
 
 import API from "../../utils/API";
 import Thumbnail from "./Thumbnail";
@@ -13,9 +12,10 @@ import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
 import mainComIllu from "../../constants/icons/mainComIllu.svg";
 import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
 
-import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
 import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { ContentContext } from "../../contexts/ContentContext";
 
 const HomeContainer = () => {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const HomeContainer = () => {
   const [option, setOption] = useState("company");
 
   const { likes } = useContext(FilterLikeContext);
+  const { setContentHandler } = useContext(ContentContext);
   const { selectedGroupId } = useContext(SelectGroupContext);
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
@@ -53,17 +54,30 @@ const HomeContainer = () => {
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
 
+  // sign out
   const handleSignOutBtnClick = () => {
     localStorage.clear();
     navigate("/");
   };
 
+  // delete template
   const handleBinIconClick = (e) => {
     API.delete(`/templates/${e.target.id}`).then(() => {
       API.get("/templates/my").then((res) => {
         setMyTemplates(res.data);
       });
     });
+  };
+
+  const handleThumbnailClick = async (e) => {
+    setSelectIdHandler(e.target.id);
+
+    const { data } = await API.get(`/templates/${e.target.id}`);
+    if (data) {
+      setContentHandler(data);
+    }
+
+    navigate("/workspace");
   };
 
   const handleChangeSelect = (e) => {
@@ -80,6 +94,11 @@ const HomeContainer = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleGoToWorkspace = () => {
+    setContentHandler(null);
+    navigate("/workspace");
+  };
+
   return (
     <Wrapper>
       <Top>
@@ -88,9 +107,9 @@ const HomeContainer = () => {
         </Hello>
         <TopRight>
           <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
-          <Link to={"/workspace"}>
-            <GoToWorkSpace>템플릿 만들기</GoToWorkSpace>
-          </Link>
+          <GoToWorkSpace onClick={handleGoToWorkspace}>
+            템플릿 만들기
+          </GoToWorkSpace>
         </TopRight>
       </Top>
 
@@ -128,6 +147,7 @@ const HomeContainer = () => {
                       groupColor={t.group.color}
                       updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
                       handleBinIconClick={handleBinIconClick}
+                      handleThumbnailClick={handleThumbnailClick}
                     />
                   ))}
                 </MyTemplateGrid>

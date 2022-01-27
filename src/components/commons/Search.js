@@ -1,11 +1,17 @@
 import COLORS from "../../constants/colors";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import search from "../../constants/icons/search.svg";
 import remove from "../../constants/icons/remove.svg";
 import API from "../../utils/API";
+import { ContentContext } from "../../contexts/ContentContext";
+import { useNavigate } from "react-router";
 
-const Search = ({ all, handleContents }) => {
+const Search = ({ all }) => {
+  const navigate = useNavigate();
+
+  const { setContentHandler } = useContext(ContentContext);
+
   // 템플릿 검색
   const [inputText, setInputText] = useState("");
 
@@ -22,13 +28,14 @@ const Search = ({ all, handleContents }) => {
   };
 
   const handleResult = async (templateId) => {
-    console.log(templateId);
     // call api by templateId
     const { data } = await API.get(`/templates/${templateId}`);
     if (data) {
-      handleContents(data);
+      setContentHandler(data);
       handleRemoveBtnClick();
     }
+
+    navigate("/workspace");
   };
 
   return (
