@@ -243,6 +243,9 @@ export const FooterBodySpan = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const FooterBodySpanButton = styled.span`
@@ -255,5 +258,8 @@ export const FooterBodySpanButton = styled.span`
   align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
   }
 `;

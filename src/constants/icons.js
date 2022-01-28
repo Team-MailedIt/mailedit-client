@@ -66,11 +66,15 @@ export const Illust2 = styled.img`
   }
 `;
 export const FooterLogo = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 180px;
-  height: 35px;
+  width: 195px;
+  height: 56px;
+  margin-top: 72px;
+
+  @media screen and (max-width: 1440px) {
+    width: 146px;
+    height: 42px;
+    margin-top: 51px;
+  }
 `;
 export const GearIcon = styled.img`
   background-image: ${({ src }) => `url(${src})`};
