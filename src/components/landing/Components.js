@@ -13,6 +13,12 @@ export const SignUp = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 16px;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 12px;
+    width: 90px;
+    height: 30px;
+  }
 `;
 
 export const SpanLink = styled.span`
@@ -23,9 +29,11 @@ export const SpanLink = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
-
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    font-size: 12px;
   }
 `;
 

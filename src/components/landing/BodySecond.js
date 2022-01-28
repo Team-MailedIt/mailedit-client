@@ -24,8 +24,8 @@ const BodySecond = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100vw;
+  height: 1080px;
 
   justify-content: center;
   align-items: center;

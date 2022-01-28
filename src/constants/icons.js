@@ -24,6 +24,10 @@ export const MainLogo = styled.img`
   background-position: center;
   width: 220px;
   height: 44px;
+  @media screen and (max-width: 1440px) {
+    width: 163px;
+    height: auto;
+  }
 `;
 
 export const Illust1 = styled.img`
