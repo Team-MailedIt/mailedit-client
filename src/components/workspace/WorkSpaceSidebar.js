@@ -204,18 +204,6 @@ const Index = styled.div`
   background: ${(props) => props.color};
 `;
 
-const NoTemplates = styled.div`
-  width: 249px;
-  height: 44px;
-
-  margin: 15px 39px 0px 40px;
-
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 22px;
-`;
-
 const BaseTemplate = styled.span`
   width: 96px;
   height: 26px;

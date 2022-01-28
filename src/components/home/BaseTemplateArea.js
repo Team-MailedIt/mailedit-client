@@ -6,7 +6,6 @@ import COLORS from "../../constants/colors";
 import BaseTemplateModal from "./BaseTemplateModal";
 
 import dots from "../../constants/icons/dots.svg";
-import unfold from "../../constants/icons/unfold.svg";
 import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
 import mainComIllu from "../../constants/icons/mainComIllu.svg";
 
@@ -16,7 +15,6 @@ import Select from "../commons/Select";
 const BaseTemplateArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [baseTemplates, setBaseTemplates] = useState([]);
-  // const [isSelected, setIsSelected] = useState(false);
   const [option, setOption] = useState("company");
 
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
@@ -31,15 +29,6 @@ const BaseTemplateArea = () => {
   // filtering base templates
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
-
-  // const handleChangeSelect = () => {
-  //   setIsSelected(!isSelected);
-  // };
-
-  // // change option
-  // const handleChangeOption = (e) => {
-  //   setOption(e.target.value);
-  // };
 
   // when clicking base template menu
   const handleBaseClick = (e) => {
@@ -62,21 +51,6 @@ const BaseTemplateArea = () => {
               ? "회사에서 일잘러가 되려면?"
               : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
           </BottomTitle>
-          {/* <Select>
-            <DropDown onChange={handleChangeSelect} value={option}>
-              회사
-              <option value="company">회사</option>
-              <option value="school">학교</option>
-            </DropDown>
-            <span className="arrowIcon">
-              <img src={unfold} />
-            </span>
-          </Select> */}
-          {/* <Select onClick={handleChangeSelect} value={option}>
-            회사
-            <ArrowIcon src={unfold} />
-          </Select>
-          {isSelected && <Option>하하</Option>} */}
           <Select option={option} setOption={setOption} />
         </TitleSelect>
 
@@ -118,7 +92,7 @@ const BaseTemplateArea = () => {
             </tr>
           </tbody>
         </BaseTemplateTable>
-        {selectedId.length != 0 && (
+        {selectedId.length !== 0 && (
           <BaseTemplateModal
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
@@ -136,57 +110,6 @@ const BaseTemplateArea = () => {
     </Wrapper>
   );
 };
-
-// const Select = styled.div`
-//   width: 102px;
-//   height: 36px;
-//   padding: 0px 10px 0px 16px;
-
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   border: 1.5px solid ${COLORS.gray2};
-//   border-radius: 4px;
-
-//   font-size: 16px;
-//   color: ${COLORS.gray8};
-
-//   &:hover {
-//     cursor: pointer;
-//   }
-// `;
-
-// const Option = styled.div`
-//   width: 128px;
-//   height: 68px;
-
-//   display: relative;
-//   z-index: 20;
-
-//   border: 1.5px solid ${COLORS.gray2};
-//   border-radius: 4px;
-
-//   background: powderblue;
-// `;
-
-// const ArrowIcon = styled.img`
-//   width: 16px;
-//   height: 10px;
-// `;
-
-// const DropDown = styled.select`
-//   width: 102px;
-//   height: 36px;
-
-//   padding-left: 16px;
-//   border: none;
-
-//   -o-appearance: none;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   appearance: none;
-// `;
 
 const Wrapper = styled.section`
   width: 1516px;
