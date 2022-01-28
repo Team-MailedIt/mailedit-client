@@ -48,6 +48,10 @@ export const BodyLogo = styled.img`
   background-position: center;
   width: 452px;
   height: 92px;
+  @media screen and (max-width: 1440px) {
+    width: 363px;
+    height: 74px;
+  }
 `;
 
 export const Illust2 = styled.img`
@@ -55,7 +59,11 @@ export const Illust2 = styled.img`
   background-size: cover;
   background-position: center;
   width: 1400px;
-  height: 598px;
+  height: auto;
+  @media screen and (max-width: 1440px) {
+    width: 1119px;
+    height: auto;
+  }
 `;
 export const FooterLogo = styled.img`
   background-image: ${({ src }) => `url(${src})`};
