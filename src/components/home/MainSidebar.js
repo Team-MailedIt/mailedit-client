@@ -31,7 +31,7 @@ const MainSidebar = () => {
     isLogin &&
       API.get("/groups").then((res) => {
         setGroups(res.data);
-        res.data.map((group) => {
+        res.data.forEach((group) => {
           setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
           setSelectGroupHandler((selectedGroupId) => [
             ...selectedGroupId,
@@ -46,7 +46,7 @@ const MainSidebar = () => {
       });
 
     setSelectGroupHandler(groupIdList);
-  }, []);
+  }, [isLogin]);
 
   const handleSelectAll = (e) => {
     setLikesHandler(false);

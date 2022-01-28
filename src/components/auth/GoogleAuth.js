@@ -1,21 +1,14 @@
 import styled from "styled-components";
-import { useContext } from "react";
-import { useNavigate } from "react-router";
 import GoogleLogin from "react-google-login";
 
 import API from "../../utils/API";
 import COLORS from "../../constants/colors";
 import google from "../../constants/icons/google.svg";
 import logoBlue from "../../constants/icons/logoBlue.svg";
-import { AuthContext } from "../../contexts/AuthContext";
 
 const GoogleAuth = () => {
-  const navigate = useNavigate();
-  const { setIsLogin } = useContext(AuthContext);
-
   // 구글 로그인 성공 시
-  const onGoogleSignInSuccess = async (res) => {
-    await setIsLogin(true);
+  const onGoogleSignInSuccess = (res) => {
     localStorage.setItem("userName", res.profileObj.givenName);
 
     const params = new URLSearchParams();
@@ -30,7 +23,7 @@ const GoogleAuth = () => {
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
 
-        navigate("/home");
+        window.location.replace("/home");
       })
       .catch((err) => {
         console.log(err);

@@ -48,7 +48,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
       };
       fetchGroupList();
     }
-  }, [setGroupList]);
+  }, [isLogin, setGroupList]);
 
   // set state to EditorContainer
   useEffect(() => {

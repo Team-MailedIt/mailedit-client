@@ -32,14 +32,14 @@ const MyTemplateArea = () => {
         setMyTemplates(res.data);
         setFiltered(res.data);
       });
-  }, []);
+  }, [isLogin]);
 
   // filtering my templates
   useEffect(() => {
     setFiltered(myTemplates.filter((t) => selectedGroupId.includes(t.groupId)));
 
     likes && setFiltered(myTemplates.filter((t) => t.isStar === true));
-  }, [selectedGroupId, myTemplates]);
+  }, [selectedGroupId, myTemplates, likes]);
 
   // delete template
   const handleBinIconClick = (e) => {

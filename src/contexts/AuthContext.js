@@ -3,8 +3,7 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-  const [isLogin, setIsLogin] = useState(false);
-  console.log(isLogin);
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("userName"));
 
   return (
     <AuthContext.Provider value={{ isLogin, setIsLogin }}>

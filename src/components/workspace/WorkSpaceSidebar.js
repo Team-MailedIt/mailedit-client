@@ -44,7 +44,7 @@ const WorkSpaceSidebar = () => {
       fetchGroupList();
     }
     // }, [groupListContext.length, setGroupList]);
-  }, [setGroupList]);
+  }, [isLogin, setGroupList]);
 
   // fetch templates
   useEffect(() => {
