@@ -51,6 +51,9 @@ export const MainHeading = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 36px;
+  }
 `;
 
 export const MainSubHeading = styled.span`
@@ -61,6 +64,9 @@ export const MainSubHeading = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const LookAroundButton = styled.button`
@@ -77,6 +83,11 @@ export const LookAroundButton = styled.button`
   font-size: 20px;
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    width: 196px;
+    height: 43px;
+    font-size: 16px;
   }
 `;
 

@@ -36,6 +36,10 @@ export const Illust1 = styled.img`
   background-position: center;
   width: 594px;
   height: 409px;
+  @media screen and (max-width: 1440px) {
+    width: 479px;
+    height: 330px;
+  }
 `;
 
 export const BodyLogo = styled.img`
