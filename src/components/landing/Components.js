@@ -229,6 +229,11 @@ export const CreateTemplateButton = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 20px;
+  @media screen and (max-width: 1440px) {
+    width: 183px;
+    height: 39px;
+    font-size: 16px;
+  }
 `;
 export const FooterBodySpan = styled.span`
   font-style: normal;
