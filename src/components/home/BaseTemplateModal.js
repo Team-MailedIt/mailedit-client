@@ -197,24 +197,35 @@ const ScrollArea = styled.div`
   margin-left: 28px;
 
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 19px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${COLORS.indigo1};
+    background-clip: padding-box;
+
+    border-radius: 20px;
+    border: 8.5px solid transparent;
+  }
 `;
 
 const UseBtn = styled.button`
   width: 200px;
   height: 32px;
 
+  padding-top: 4px;
   margin-top: 20px;
   margin-left: 32px;
 
   background: ${COLORS.gray1};
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  border: none;
   border-radius: 4px;
 
   color: ${COLORS.primary};
-  border: none;
-
   font-size: 14px;
-  line-height: 17px;
   font-family: "Pretendard-SemiBold";
 `;
 

@@ -67,19 +67,20 @@ const MyTemplateArea = () => {
         </NumberArea>
       </MyTemplateInfo>
       <Border />
-      <MyTemplateGridWrapper>
-        {myTemplates.length === 0 ? (
-          <NoTemplateWrapper>
-            <NoTemplateIllust src={noTemplateIllu} />
-            <NoTemplateText>
-              앗 아직 나의 템플릿이 없어요!
-              <br />
-              <b>첫 템플릿</b>을 만들어 보세요
-            </NoTemplateText>
-          </NoTemplateWrapper>
-        ) : (
-          <>
-            {filtered.length !== 0 ? (
+
+      {myTemplates.length === 0 ? (
+        <NoTemplateWrapper>
+          <NoTemplateIllust src={noTemplateIllu} />
+          <NoTemplateText>
+            앗 아직 나의 템플릿이 없어요!
+            <br />
+            <b>첫 템플릿</b>을 만들어 보세요
+          </NoTemplateText>
+        </NoTemplateWrapper>
+      ) : (
+        <>
+          {filtered.length !== 0 ? (
+            <>
               <MyTemplateGrid>
                 {filtered.map((t) => (
                   <Thumbnail
@@ -96,19 +97,20 @@ const MyTemplateArea = () => {
                   />
                 ))}
               </MyTemplateGrid>
-            ) : (
-              <NoTemplateWrapper>
-                <NoTemplateIllust src={noTemplateIllu} />
-                <SelectGroupText>
-                  왼쪽 사이드바에서
-                  <br />
-                  템플릿을 꺼내 보세요!
-                </SelectGroupText>
-              </NoTemplateWrapper>
-            )}
-          </>
-        )}
-      </MyTemplateGridWrapper>
+              <VeilBottom />
+            </>
+          ) : (
+            <NoTemplateWrapper>
+              <NoTemplateIllust src={noTemplateIllu} />
+              <SelectGroupText>
+                왼쪽 사이드바에서
+                <br />
+                템플릿을 꺼내 보세요!
+              </SelectGroupText>
+            </NoTemplateWrapper>
+          )}
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -122,7 +124,6 @@ const Wrapper = styled.section`
 
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   background: ${COLORS.bgBlue};
 `;
@@ -130,6 +131,8 @@ const Wrapper = styled.section`
 const MyTemplateInfo = styled.div`
   width: 1444px;
   height: 89.25px;
+
+  margin-left: 40px;
 
   display: flex;
   flex-direction: row;
@@ -150,7 +153,6 @@ const UserName = styled.span`
   height: 34px;
 
   font-family: Pretendard-SemiBold;
-  font-weight: 700;
   font-size: 28px;
 
   display: flex;
@@ -175,39 +177,28 @@ const NumberArea = styled.div`
 
 const Text = styled.div`
   height: 20px;
-
-  font-weight: normal;
   font-size: 16px;
 `;
 
 const TemplateNum = styled.div`
   margin-left: 8px;
   color: ${COLORS.primary};
-
   text-decoration: underline;
 `;
 
-const MyTemplateGridWrapper = styled.div`
-  width: 100%; // 1512px
-
-  overflow: auto;
-
-  display: flex;
-`;
-
 const MyTemplateGrid = styled.div`
-  width: 1440px;
+  width: 1460px;
 
-  margin-left: 26px;
-  padding: 0px 0px 40px 10px;
+  padding: 0px 4px 8px 36px;
+
   overflow: auto;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
 
   &::-webkit-scrollbar {
-    width: 24px;
+    width: 20px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -215,8 +206,18 @@ const MyTemplateGrid = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 10px solid transparent;
+    border: 8px solid transparent;
   }
+`;
+
+const VeilBottom = styled.div`
+  width: 1466px;
+  height: 40px;
+
+  position: relative;
+  z-index: 2;
+
+  background: ${COLORS.bgBlue};
 `;
 
 const NoTemplateWrapper = styled.div`

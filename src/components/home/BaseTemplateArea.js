@@ -10,6 +10,7 @@ import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
 import mainComIllu from "../../constants/icons/mainComIllu.svg";
 
 import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import Select from "../commons/Select";
 
 const BaseTemplateArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,11 +30,6 @@ const BaseTemplateArea = () => {
   const baseCompany = baseTemplates.filter((base) => base.category === "회사");
   const baseSchool = baseTemplates.filter((base) => base.category === "학교");
 
-  // change option
-  const handleChangeSelect = (e) => {
-    setOption(e.target.value);
-  };
-
   // when clicking base template menu
   const handleBaseClick = (e) => {
     setSelectIdHandler(e.target.id);
@@ -48,23 +44,21 @@ const BaseTemplateArea = () => {
 
   return (
     <Wrapper>
-      <TextWrapper>
+      <Contents>
         <TitleSelect>
           <BottomTitle>
             {option === "company"
               ? "회사에서 일잘러가 되려면?"
               : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
           </BottomTitle>
-          <DropDown onChange={handleChangeSelect} value={option}>
-            회사
-            <option value="company">회사</option>
-            <option value="school">학교</option>
-          </DropDown>
+          <Select option={option} setOption={setOption} />
         </TitleSelect>
+
         <BottomSubTitle>
           MailedIt에서 제공하는 기본 템플릿을 사용해 이메일 작성 효율을 좀 더
           높여 보세요.
         </BottomSubTitle>
+
         <BaseTemplateTable>
           <tbody>
             <tr>
@@ -98,7 +92,7 @@ const BaseTemplateArea = () => {
             </tr>
           </tbody>
         </BaseTemplateTable>
-        {selectedId.length != 0 && (
+        {selectedId.length !== 0 && (
           <BaseTemplateModal
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
@@ -107,7 +101,7 @@ const BaseTemplateArea = () => {
             baseSchool={baseSchool}
           />
         )}
-      </TextWrapper>
+      </Contents>
       {option === "company" ? (
         <Illustration src={mainComIllu} />
       ) : (
@@ -125,7 +119,6 @@ const Wrapper = styled.section`
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
 const ThText = styled.div`
@@ -146,9 +139,8 @@ const Illustration = styled.img`
   height: 240px;
 `;
 
-const TextWrapper = styled.div`
+const Contents = styled.div`
   width: 1128px;
-  height: 176px;
 
   display: flex;
   flex-direction: column;
@@ -162,7 +154,6 @@ const TitleSelect = styled.div`
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
 const BottomTitle = styled.div`
@@ -187,21 +178,6 @@ const BottomSubTitle = styled.div`
   font-size: 16px;
 
   color: ${COLORS.UIBlack};
-`;
-
-const DropDown = styled.select`
-  width: 128px;
-  height: 36px;
-
-  padding-left: 16px;
-
-  border: 1.5px solid ${COLORS.gray2};
-  border-radius: 4px;
-
-  -o-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 `;
 
 const BaseTemplateTable = styled.table`
