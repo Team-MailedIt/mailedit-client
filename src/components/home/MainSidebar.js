@@ -122,7 +122,6 @@ const MainSidebar = () => {
 
 const Wrapper = styled.aside`
   width: 328px;
-
   background: ${COLORS.primary};
 `;
 
@@ -175,19 +174,6 @@ const Border = styled.div`
   margin: 18px 0px 4px 4px;
 
   background: rgba(255, 255, 255, 0.25);
-`;
-
-const NoTemplates = styled.div`
-  width: 249px;
-  height: 44px;
-
-  margin: 24px 39px 0px 40px;
-
-  color: #ffffff;
-  font-size: 16px;
-  line-height: 22px;
-
-  font-family: "Pretendard-Light";
 `;
 
 const Index = styled.div`

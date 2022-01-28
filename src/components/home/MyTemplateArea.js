@@ -97,7 +97,7 @@ const MyTemplateArea = () => {
                   />
                 ))}
               </MyTemplateGrid>
-              <Veil />
+              <VeilBottom />
             </>
           ) : (
             <NoTemplateWrapper>
@@ -210,7 +210,7 @@ const MyTemplateGrid = styled.div`
   }
 `;
 
-const Veil = styled.div`
+const VeilBottom = styled.div`
   width: 1466px;
   height: 40px;
 
