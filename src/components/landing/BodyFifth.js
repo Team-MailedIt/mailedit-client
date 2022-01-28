@@ -48,6 +48,10 @@ const BodyImg = styled.img`
   background-size: cover;
   background-position: center;
   width: 1184px;
-  height: 532px;
+  height: auto;
+  @media screen and (max-width: 1440px) {
+    width: 900px;
+    height: auto;
+  }
 `;
 export default BodyFifth;

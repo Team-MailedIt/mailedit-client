@@ -75,7 +75,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 588px;
+  height: auto;
   background: linear-gradient(126.85deg, #2d53db 41.71%, #93aaff 90.44%);
 `;
 const Header = styled.div`
@@ -88,20 +88,21 @@ const Header = styled.div`
   margin-left: 48px;
 
   height: 116px;
+  @media screen and (max-width: 1440px) {
+    height: 88px;
+  }
 `;
 const RightContainer = styled.div`
   display: flex;
-  width: 317px;
-
   align-items: center;
 `;
 
 const MainGif = styled.img`
   background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
+  background-size: contain;
   background-position: center;
-  width: 1920px;
-  height: 472px;
+  width: 100%;
+  height: auto;
 `;
 
 export default HeaderContainer;

@@ -24,8 +24,8 @@ const BodySecond = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100vw;
+  height: 1080px;
 
   justify-content: center;
   align-items: center;
@@ -35,9 +35,6 @@ const HeadingContainer = styled.div`
   flex-direction: row;
 
   align-items: center;
-
-  height: 112px;
-  width: 1240px;
 `;
 
 const Heading = styled.span`
@@ -48,6 +45,9 @@ const Heading = styled.span`
   color: ${COLORS.bodyBlue};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 52px;
+  }
 `;
 const SubHeading = styled.span`
   font-style: normal;
@@ -58,6 +58,9 @@ const SubHeading = styled.span`
   display: flex;
   align-items: center;
   padding-top: 12px;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export default BodySecond;

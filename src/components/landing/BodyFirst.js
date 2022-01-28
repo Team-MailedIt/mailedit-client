@@ -36,8 +36,10 @@ const Container = styled.div`
   flex-direction: row;
   height: 492px;
   width: 100vw;
-
   justify-content: center;
+  @media screen and (max-width: 1440px) {
+    height: 456px;
+  }
 `;
 const LeftContainer = styled.div`
   display: flex;

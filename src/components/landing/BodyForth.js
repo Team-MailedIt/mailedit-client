@@ -9,6 +9,7 @@ import {
   RightPillSpan,
   BodySpan,
   CreateTemplateButton,
+  PillContainer,
 } from './Components';
 import { useNavigate } from 'react-router';
 
@@ -20,7 +21,7 @@ const BodyForth = () => {
   };
   return (
     <BodyContainer>
-      <PillContainer style={{ marginTop: '112px' }}>
+      <PillContainer style={{ marginTop: '24px' }}>
         <LeftPill>
           <LeftPillSpan>기본템플릿</LeftPillSpan>
         </LeftPill>
@@ -28,18 +29,9 @@ const BodyForth = () => {
           <RightPillSpan>마이템플릿</RightPillSpan>
         </RightPill>
       </PillContainer>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          marginTop: '86px',
-          width: '72vw',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div style={{ width: '687px', height: '450px' }}>
-          <SecondGif src="./img/secondGif.gif" />
-        </div>
+      <Wrapper>
+        <SecondGif src="./img/secondGif.gif" />
+
         <div
           style={{
             display: 'flex',
@@ -64,20 +56,27 @@ const BodyForth = () => {
             템플릿 만들러 가기
           </CreateTemplateButton>
         </div>
-      </div>
+      </Wrapper>
     </BodyContainer>
   );
 };
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 86px;
+  width: 72vw;
+  justify-content: space-between;
+`;
 const SecondGif = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
   width: 687px;
   height: 450px;
+  @media screen and (max-width: 1440px) {
+    width: 556px;
+    height: 362px;
+  }
 `;
 
-const PillContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 export default BodyForth;
