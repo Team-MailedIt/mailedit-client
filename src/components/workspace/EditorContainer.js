@@ -34,16 +34,20 @@ const EditorContainer = ({ passedBlocks }) => {
       } else {
         // content에서 블럭인 것만 가져오기
         const filteredContents = getOnlyBlocks(content);
-        const props = {
-          title: headerData.title,
-          subtitle: headerData.subtitle,
-          groupId: headerData.group.id,
-          content: filteredContents,
-        };
-        const res = saveTemplateToServer(props);
-        if (res) {
-          setModalOption('save');
-          setIsModalOpen(true);
+        if (filteredContents.length === 0) {
+          window.alert('저장할 블럭이 없습니다.');
+        } else {
+          const props = {
+            title: headerData.title,
+            subtitle: headerData.subtitle,
+            groupId: headerData.group.id,
+            content: filteredContents,
+          };
+          const res = saveTemplateToServer(props);
+          if (res) {
+            setModalOption('save');
+            setIsModalOpen(true);
+          }
         }
       }
     }
