@@ -8,13 +8,14 @@ import {
   TitleSpan,
   TitleSpanBold,
   BodySpan,
+  PillContainer,
 } from './Components';
 import COLORS from '../../constants/colors';
 
 const BodyThird = () => {
   return (
     <BodyContainer>
-      <PillContainer style={{ marginTop: '72px' }}>
+      <PillContainer>
         <LeftPill>
           <LeftPillSpan>기본템플릿</LeftPillSpan>
         </LeftPill>
@@ -22,14 +23,7 @@ const BodyThird = () => {
           <RightPillSpan>마이템플릿</RightPillSpan>
         </RightPill>
       </PillContainer>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          marginTop: '86px',
-          paddingLeft: '260px',
-        }}
-      >
+      <Wrapper>
         <LeftContainer>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <TitleSpan>자체 제작</TitleSpan>
@@ -56,20 +50,30 @@ const BodyThird = () => {
         >
           <FirstGif src="./img/firstGif.gif" />
         </div>
-      </div>
+      </Wrapper>
     </BodyContainer>
   );
 };
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 86px;
+  margin-left: 260px;
+  @media screen and (max-width: 1440px) {
+    margin-left: 160px;
+  }
+`;
+
 const FirstGif = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
-  width: 1184px;
-  height: 489px;
-`;
-const PillContainer = styled.div`
-  display: flex;
-  flex-direction: row;
+  width: 1108px;
+  height: auto;
+  @media screen and (max-width: 1440px) {
+    width: 780px;
+    height: auto;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -88,6 +92,10 @@ const SpanLink = styled.span`
 
   &:hover {
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
   }
 `;
 export default BodyThird;

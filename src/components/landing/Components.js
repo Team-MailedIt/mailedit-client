@@ -13,6 +13,12 @@ export const SignUp = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 16px;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 12px;
+    width: 90px;
+    height: 30px;
+  }
 `;
 
 export const SpanLink = styled.span`
@@ -23,9 +29,11 @@ export const SpanLink = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
-
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    font-size: 12px;
   }
 `;
 
@@ -43,6 +51,9 @@ export const MainHeading = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 36px;
+  }
 `;
 
 export const MainSubHeading = styled.span`
@@ -53,6 +64,9 @@ export const MainSubHeading = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const LookAroundButton = styled.button`
@@ -70,6 +84,11 @@ export const LookAroundButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 1440px) {
+    width: 196px;
+    height: 43px;
+    font-size: 16px;
+  }
 `;
 
 export const BodyContainer = styled.div`
@@ -83,6 +102,14 @@ export const BodyContainer = styled.div`
   width: 100vw;
 
   background: ${COLORS.backgroundWhite};
+`;
+export const PillContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 72px;
+  @media screen and (max-width: 1440px) {
+    margin-top: 60px;
+  }
 `;
 
 export const LeftPill = styled.div`
@@ -98,6 +125,11 @@ export const LeftPill = styled.div`
   background: ${COLORS.bodyBlue};
   border: 2px solid ${COLORS.bodyBlue};
   border-radius: 20px 0px 0px 20px;
+
+  @media screen and (max-width: 1440px) {
+    width: 116px;
+    height: 33px;
+  }
 `;
 
 export const RightPill = styled.div`
@@ -112,6 +144,10 @@ export const RightPill = styled.div`
 
   border: 2px solid ${COLORS.bodyBlue};
   border-radius: 0px 20px 20px 0px;
+  @media screen and (max-width: 1440px) {
+    width: 116px;
+    height: 33px;
+  }
 `;
 
 export const LeftPillSpan = styled.span`
@@ -122,6 +158,9 @@ export const LeftPillSpan = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export const RightPillSpan = styled.span`
@@ -132,6 +171,9 @@ export const RightPillSpan = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export const TitleSpan = styled.span`
@@ -142,6 +184,10 @@ export const TitleSpan = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 42px;
+  }
 `;
 export const TitleSpanBold = styled.span`
   font-style: normal;
@@ -151,6 +197,9 @@ export const TitleSpanBold = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 42px;
+  }
 `;
 export const BodySpan = styled.span`
   font-style: normal;
@@ -163,6 +212,10 @@ export const BodySpan = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 22px;
+  }
 `;
 export const CreateTemplateButton = styled.button`
   width: 228px;
@@ -176,6 +229,11 @@ export const CreateTemplateButton = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 20px;
+  @media screen and (max-width: 1440px) {
+    width: 183px;
+    height: 39px;
+    font-size: 16px;
+  }
 `;
 export const FooterBodySpan = styled.span`
   font-style: normal;
@@ -185,6 +243,9 @@ export const FooterBodySpan = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const FooterBodySpanButton = styled.span`
@@ -197,5 +258,8 @@ export const FooterBodySpanButton = styled.span`
   align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
   }
 `;
