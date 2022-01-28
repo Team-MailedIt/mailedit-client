@@ -16,7 +16,7 @@ const HeaderArea = () => {
   const navigate = useNavigate();
   const userName = localStorage.getItem("userName");
   const { setContentHandler } = useContext(ContentContext);
-  const { isLogin, setIsLoginHandler } = useContext(AuthContext);
+  const { isLogin, setIsLogin } = useContext(AuthContext);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
@@ -32,7 +32,7 @@ const HeaderArea = () => {
 
   // sign out
   const handleSignOutBtnClick = () => {
-    setIsLoginHandler(false);
+    setIsLogin(false);
     localStorage.clear();
     navigate("/");
   };

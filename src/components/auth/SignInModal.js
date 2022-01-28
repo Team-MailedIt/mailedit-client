@@ -26,7 +26,7 @@ const SignInModal = ({
   setIsSignUpModalOpen,
 }) => {
   const navigate = useNavigate();
-  const { setIsLoginHandler } = useContext(AuthContext);
+  const { setIsLogin } = useContext(AuthContext);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
@@ -53,7 +53,7 @@ const SignInModal = ({
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("userName", res.data.user.username);
 
-        setIsLoginHandler(true);
+        setIsLogin(true);
         navigate("/home");
       })
       .catch(() => setIsCorrectPsword(false));

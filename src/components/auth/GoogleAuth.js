@@ -11,11 +11,11 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const GoogleAuth = () => {
   const navigate = useNavigate();
-  const { setIsLoginHandler } = useContext(AuthContext);
+  const { setIsLogin } = useContext(AuthContext);
 
   // 구글 로그인 성공 시
-  const onGoogleSignInSuccess = (res) => {
-    setIsLoginHandler(true);
+  const onGoogleSignInSuccess = async (res) => {
+    await setIsLogin(true);
     localStorage.setItem("userName", res.profileObj.givenName);
 
     const params = new URLSearchParams();
