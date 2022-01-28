@@ -103,6 +103,14 @@ export const BodyContainer = styled.div`
 
   background: ${COLORS.backgroundWhite};
 `;
+export const PillContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 72px;
+  @media screen and (max-width: 1440px) {
+    margin-top: 60px;
+  }
+`;
 
 export const LeftPill = styled.div`
   display: flex;
@@ -117,6 +125,11 @@ export const LeftPill = styled.div`
   background: ${COLORS.bodyBlue};
   border: 2px solid ${COLORS.bodyBlue};
   border-radius: 20px 0px 0px 20px;
+
+  @media screen and (max-width: 1440px) {
+    width: 116px;
+    height: 33px;
+  }
 `;
 
 export const RightPill = styled.div`
@@ -131,6 +144,10 @@ export const RightPill = styled.div`
 
   border: 2px solid ${COLORS.bodyBlue};
   border-radius: 0px 20px 20px 0px;
+  @media screen and (max-width: 1440px) {
+    width: 116px;
+    height: 33px;
+  }
 `;
 
 export const LeftPillSpan = styled.span`
@@ -141,6 +158,9 @@ export const LeftPillSpan = styled.span`
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export const RightPillSpan = styled.span`
@@ -151,6 +171,9 @@ export const RightPillSpan = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export const TitleSpan = styled.span`
@@ -161,6 +184,10 @@ export const TitleSpan = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 42px;
+  }
 `;
 export const TitleSpanBold = styled.span`
   font-style: normal;
@@ -170,6 +197,9 @@ export const TitleSpanBold = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 42px;
+  }
 `;
 export const BodySpan = styled.span`
   font-style: normal;
@@ -182,6 +212,10 @@ export const BodySpan = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 22px;
+  }
 `;
 export const CreateTemplateButton = styled.button`
   width: 228px;
