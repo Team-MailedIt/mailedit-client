@@ -80,22 +80,25 @@ const MyTemplateArea = () => {
       ) : (
         <>
           {filtered.length !== 0 ? (
-            <MyTemplateGrid>
-              {filtered.map((t) => (
-                <Thumbnail
-                  key={t.createdAt}
-                  id={t.templateId}
-                  title={t.title}
-                  subtitle={t.subtitle}
-                  isStar={t.isStar}
-                  groupId={t.groupId}
-                  groupColor={t.group.color}
-                  updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
-                  handleBinIconClick={handleBinIconClick}
-                  handleThumbnailClick={handleThumbnailClick}
-                />
-              ))}
-            </MyTemplateGrid>
+            <>
+              <MyTemplateGrid>
+                {filtered.map((t) => (
+                  <Thumbnail
+                    key={t.createdAt}
+                    id={t.templateId}
+                    title={t.title}
+                    subtitle={t.subtitle}
+                    isStar={t.isStar}
+                    groupId={t.groupId}
+                    groupColor={t.group.color}
+                    updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                    handleBinIconClick={handleBinIconClick}
+                    handleThumbnailClick={handleThumbnailClick}
+                  />
+                ))}
+              </MyTemplateGrid>
+              <Veil />
+            </>
           ) : (
             <NoTemplateWrapper>
               <NoTemplateIllust src={noTemplateIllu} />
@@ -186,7 +189,7 @@ const TemplateNum = styled.div`
 const MyTemplateGrid = styled.div`
   width: 1460px;
 
-  padding: 0px 4px 40px 36px;
+  padding: 0px 4px 8px 36px;
 
   overflow: auto;
 
@@ -205,6 +208,16 @@ const MyTemplateGrid = styled.div`
     border-radius: 20px;
     border: 8px solid transparent;
   }
+`;
+
+const Veil = styled.div`
+  width: 1466px;
+  height: 40px;
+
+  position: relative;
+  z-index: 2;
+
+  background: ${COLORS.bgBlue};
 `;
 
 const NoTemplateWrapper = styled.div`
