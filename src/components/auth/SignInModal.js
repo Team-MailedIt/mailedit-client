@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 import API from "../../utils/API";
@@ -18,6 +18,7 @@ import {
   Other,
   ErrorText,
 } from "./AuthPresenter";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const SignInModal = ({
   isSignInModalOpen,
@@ -25,7 +26,7 @@ const SignInModal = ({
   setIsSignUpModalOpen,
 }) => {
   const navigate = useNavigate();
-
+  const { setIsLoginHandler } = useContext(AuthContext);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
@@ -52,8 +53,7 @@ const SignInModal = ({
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("userName", res.data.user.username);
 
-        console.log("Bearer ", res.data.token.access);
-
+        setIsLoginHandler(true);
         navigate("/home");
       })
       .catch(() => setIsCorrectPsword(false));

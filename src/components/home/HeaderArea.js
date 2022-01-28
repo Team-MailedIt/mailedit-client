@@ -3,19 +3,36 @@ import { useNavigate } from "react-router";
 
 import { useState, useContext, useRef } from "react";
 import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
-import HomeTooltip from "./HomeTooltip";
 
-import COLORS from "../../constants/colors";
-import { ContentContext } from "../../contexts/ContentContext";
+import HomeTooltip from "./HomeTooltip";
 import TooltipContainer from "../tooltip/TooltipContainer";
+import SignInModal from "../auth/SignInModal";
+import SignUpModal from "../auth/SignUpModal";
+import COLORS from "../../constants/colors";
+import { AuthContext } from "../../contexts/AuthContext";
+import { ContentContext } from "../../contexts/ContentContext";
 
 const HeaderArea = () => {
   const navigate = useNavigate();
   const userName = localStorage.getItem("userName");
   const { setContentHandler } = useContext(ContentContext);
+  const { isLogin, setIsLoginHandler } = useContext(AuthContext);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  // sign in
+  const handleSignInBtnClick = () => {
+    setIsSignInModalOpen(!isSignInModalOpen);
+  };
+
+  // sign up
+  const handleSignUpBtnClick = () => {
+    setIsSignUpModalOpen(!isSignUpModalOpen);
+  };
 
   // sign out
   const handleSignOutBtnClick = () => {
+    setIsLoginHandler(false);
     localStorage.clear();
     navigate("/");
   };
@@ -32,7 +49,6 @@ const HeaderArea = () => {
   const { getPosition } = useContext(ElementPositionContext);
 
   const handleTooltip = () => {
-    console.log("hi");
     setIsTooltipOpen(true);
     getPosition(gotoButton);
   };
@@ -40,10 +56,32 @@ const HeaderArea = () => {
   return (
     <Top>
       <Hello>
-        {`안녕하세요 ${userName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`}
+        {isLogin
+          ? `안녕하세요 ${userName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`
+          : `안녕하세요, 오늘도 이메일 작성의 고수가 되어 보세요!`}
       </Hello>
       <TopRight>
-        <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
+        {isLogin ? (
+          <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
+        ) : (
+          <>
+            <Auth>
+              <AuthText onClick={handleSignInBtnClick}>로그인</AuthText>
+              <AuthBorder />
+              <AuthText onClick={handleSignUpBtnClick}>회원가입</AuthText>
+            </Auth>
+            <SignInModal
+              isSignInModalOpen={isSignInModalOpen}
+              setIsSignInModalOpen={setIsSignInModalOpen}
+              setIsSignUpModalOpen={setIsSignUpModalOpen}
+            />
+            <SignUpModal
+              isSignUpModalOpen={isSignUpModalOpen}
+              setIsSignInModalOpen={setIsSignInModalOpen}
+              setIsSignUpModalOpen={setIsSignUpModalOpen}
+            />
+          </>
+        )}
         <GoToWorkSpace
           onClick={handleGoToWorkspace}
           onMouseEnter={handleTooltip}
@@ -104,6 +142,32 @@ const LogOut = styled.span`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Auth = styled.div`
+  width: 138px;
+  height: 19px;
+
+  margin-left: 136px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const AuthText = styled.span`
+  font-size: 16px;
+  color: ${COLORS.gray7};
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const AuthBorder = styled.div`
+  width: 1px;
+  height: 18px;
+  background: ${COLORS.gray7};
 `;
 
 const GoToWorkSpace = styled.button`

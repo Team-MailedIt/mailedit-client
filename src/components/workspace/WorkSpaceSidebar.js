@@ -12,8 +12,11 @@ import { useContext, useEffect, useState } from "react";
 import { GroupContext } from "../../contexts/GroupContexts";
 import { useNavigate } from "react-router";
 import HelpModal from "../helpModal/HelpModal";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const WorkSpaceSidebar = () => {
+  const { isLogin } = useContext(AuthContext);
+
   // 모달모달
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openHelp = () => {
@@ -33,12 +36,13 @@ const WorkSpaceSidebar = () => {
 
   // fetch group
   useEffect(() => {
-    const fetchGroupList = async () => {
-      const { data } = await API.get(`/groups`);
-      setGroupList(data);
-    };
-    fetchGroupList();
-
+    if (isLogin) {
+      const fetchGroupList = async () => {
+        const { data } = await API.get(`/groups`);
+        setGroupList(data);
+      };
+      fetchGroupList();
+    }
     // }, [groupListContext.length, setGroupList]);
   }, [setGroupList]);
 
