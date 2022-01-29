@@ -61,7 +61,7 @@ export const Illust2 = styled.img`
   width: 1400px;
   height: auto;
   @media screen and (max-width: 1440px) {
-    width: 1119px;
+    width: 77vw;
     height: auto;
   }
 `;

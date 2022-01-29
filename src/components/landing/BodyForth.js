@@ -21,7 +21,7 @@ const BodyForth = () => {
   };
   return (
     <BodyContainer>
-      <PillContainer style={{ marginTop: '24px' }}>
+      <PillContainer style={{ marginTop: '96px' }}>
         <LeftPill>
           <LeftPillSpan>기본템플릿</LeftPillSpan>
         </LeftPill>
@@ -31,7 +31,6 @@ const BodyForth = () => {
       </PillContainer>
       <Wrapper>
         <SecondGif src="./img/secondGif.gif" />
-
         <div
           style={{
             display: 'flex',
@@ -64,18 +63,20 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 86px;
-  width: 72vw;
   justify-content: space-between;
+  margin-left: 160px;
+  margin-right: 160px;
 `;
 const SecondGif = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
   width: 687px;
-  height: 450px;
+  height: auto;
+  margin-right: 265px;
   @media screen and (max-width: 1440px) {
     width: 556px;
-    height: 362px;
+    height: auto;
   }
 `;
 

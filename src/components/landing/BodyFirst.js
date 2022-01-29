@@ -24,7 +24,7 @@ const BodyFirst = () => {
         </MainSubHeading>
         <LookAroundButton onClick={goToHome}>둘러보기</LookAroundButton>
       </LeftContainer>
-      <RightContainer style={{ marginLeft: '54px', marginTop: '67px' }}>
+      <RightContainer>
         <Illust1 src="./img/illust_1.png" />
       </RightContainer>
     </Container>
@@ -47,6 +47,11 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   display: flex;
+  margin-top: 67px;
+  margin-left: 104px;
+  @media screen and (max-width: 1440px) {
+    margin-left: 69px;
+  }
 `;
 
 export default BodyFirst;

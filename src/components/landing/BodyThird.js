@@ -31,12 +31,12 @@ const BodyThird = () => {
               기본템플릿
             </TitleSpanBold>
           </div>
-          <BodySpan style={{ paddingTop: '24px' }}>
+          <BodySpan style={{ marginTop: '24px' }}>
             가장 자주 쓰는 실무 이메일을 위한 가이드,
             <br />
             기본템플릿을 사용해 보세요
           </BodySpan>
-          <div style={{ paddingTop: '32px' }}>
+          <div style={{ marginTop: '32px' }}>
             <SpanLink>
               자세히 알아보기{'>'}
               {'>'}
@@ -45,7 +45,7 @@ const BodyThird = () => {
         </LeftContainer>
         <div
           style={{
-            paddingLeft: '15px',
+            marginLeft: '15px',
           }}
         >
           <FirstGif src="./img/firstGif.gif" />
@@ -58,22 +58,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 86px;
-  margin-left: 260px;
-  @media screen and (max-width: 1440px) {
-    margin-left: 160px;
-  }
+  align-self: flex-end;
 `;
 
 const FirstGif = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
-  width: 1108px;
+  width: 62vw;
   height: auto;
-  @media screen and (max-width: 1440px) {
+  /* @media screen and (max-width: 1440px) {
     width: 780px;
     height: auto;
-  }
+  } */
 `;
 
 const LeftContainer = styled.div`

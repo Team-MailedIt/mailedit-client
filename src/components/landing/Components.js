@@ -94,14 +94,16 @@ export const LookAroundButton = styled.button`
 export const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background: ${COLORS.backgroundWhite};
 
   /* justify-content: center; */
   align-items: center;
 
-  height: 720px;
   width: 100vw;
-
-  background: ${COLORS.backgroundWhite};
+  height: 720px;
+  @media screen and (max-width: 1440px) {
+    height: 580px;
+  }
 `;
 export const PillContainer = styled.div`
   display: flex;

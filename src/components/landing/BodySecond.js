@@ -29,6 +29,10 @@ const Container = styled.div`
 
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 1440px) {
+    height: 900px;
+  }
 `;
 const HeadingContainer = styled.div`
   display: flex;
