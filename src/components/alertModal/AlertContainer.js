@@ -2,8 +2,6 @@ import ReactModal from 'react-modal';
 import styled from 'styled-components';
 
 const AlertContainer = ({ isAlertOpen, setIsAlertOpen, ChildComponent }) => {
-  ReactModal.defaultStyles.overlay.backgroundColor = `rgba(0,0,0,0.5)`;
-
   return (
     <Modal
       isOpen={isAlertOpen}
@@ -11,6 +9,7 @@ const AlertContainer = ({ isAlertOpen, setIsAlertOpen, ChildComponent }) => {
         setIsAlertOpen(false);
       }}
       ariaHideApp={false}
+      overlayClassName="Overlay"
     >
       <ChildComponent setIsAlertOpen={setIsAlertOpen} />
     </Modal>

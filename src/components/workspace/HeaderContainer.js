@@ -69,11 +69,12 @@ const HeaderContainer = ({ handleHeaderData }) => {
     getPosition(tooltipIcon);
   };
   const openModal = () => {
-    if (isLogin !== null) {
+    if (isLogin) {
+      console.log(isLogin);
       setIsModalOpen(true);
       getPosition(bubbleModal);
     } else {
-      console.log('not logged in');
+      console.log(isLogin);
       setIsAlertOpen(true);
     }
   };
@@ -135,11 +136,6 @@ const HeaderContainer = ({ handleHeaderData }) => {
           onClick={openTooltip}
         />
       </RowContainer>
-      <BubbleContainer
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        handleSelected={handleSelected}
-      />
       <TooltipContainer
         isModalOpen={isTooltipOpen}
         setIsModalOpen={setIsTooltipOpen}
@@ -151,6 +147,11 @@ const HeaderContainer = ({ handleHeaderData }) => {
         isAlertOpen={isAlertOpen}
         setIsAlertOpen={setIsAlertOpen}
         ChildComponent={NotRegistered}
+      />
+      <BubbleContainer
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        handleSelected={handleSelected}
       />
     </Container>
   );
