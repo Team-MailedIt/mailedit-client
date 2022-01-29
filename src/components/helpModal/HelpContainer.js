@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { Body, Heading } from './Components';
 import icon_exit from '../../constants/icons/icon_exit.svg';
 import help_img from '../../constants/icons/help_img.svg';
-const HelpContainer = () => {
+const HelpContainer = ({ setIsModalOpen }) => {
   const closeHelp = () => {
-    console.log('close!');
+    setIsModalOpen(false);
+    // console.log('close!');
   };
 
   return (

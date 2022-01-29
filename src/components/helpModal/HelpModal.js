@@ -4,9 +4,6 @@ import HelpContainer from './HelpContainer';
 
 const HelpModal = ({ setIsModalOpen, isModalOpen }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgba(0,0,0,0.5)`;
-  const handleOnClick = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <Modal
@@ -16,7 +13,7 @@ const HelpModal = ({ setIsModalOpen, isModalOpen }) => {
       }}
       ariaHideApp={false}
     >
-      <HelpContainer />
+      <HelpContainer setIsModalOpen={setIsModalOpen} />
     </Modal>
   );
 };
