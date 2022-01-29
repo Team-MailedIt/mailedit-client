@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Body, Heading } from './Components';
 import icon_exit from '../../constants/icons/icon_exit.svg';
 import help_img from '../../constants/icons/help_img.svg';
-const HelpContainer = () => {
+const HelpContainer = ({ setIsModalOpen }) => {
   const closeHelp = () => {
-    console.log('close!');
+    setIsModalOpen(false);
   };
 
   return (
@@ -55,12 +55,12 @@ const HelpImg = styled.img`
   width: 1215px;
   height: 682px;
 `;
-const HelpImage = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 1215px;
-  height: 682px;
-`;
+// const HelpImage = styled.img`
+//   background-image: ${({ src }) => `url(${src})`};
+//   background-size: cover;
+//   background-position: center;
+//   width: 1215px;
+//   height: 682px;
+// `;
 
 export default HelpContainer;

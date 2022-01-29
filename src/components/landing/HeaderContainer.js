@@ -34,7 +34,7 @@ const HeaderContainer = () => {
 
   return (
     <Container>
-      <Header src="./img/mainGif.gif">
+      <Header src="./img/main_gif.gif">
         <Wrapper>
           <MainLogo onClick={goToLanding} src="./img/mainlogo.png" />
           {userName ? (
@@ -101,19 +101,12 @@ const Header = styled.div`
   }
 
   background-image: ${({ src }) => `url(${src})`};
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
 `;
 const RightContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const MainGif = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: contain;
-  background-position: center;
-  width: 100%;
-  height: auto;
 `;
 
 export default HeaderContainer;

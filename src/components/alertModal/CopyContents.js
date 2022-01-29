@@ -1,5 +1,5 @@
 import { ColContainer, RowContainer } from '../bubble/Components';
-import { BodySpan, BodySpanBold, ConfirmButton, Heading } from './Components';
+import { BodySpan, ConfirmButton, Heading } from './Components';
 
 const CopyContents = ({ handleOnClick }) => {
   const onClick = () => {
@@ -8,10 +8,9 @@ const CopyContents = ({ handleOnClick }) => {
   return (
     <ColContainer style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Heading>템플릿 복사 완료!</Heading>
-      <BodySpan style={{ marginTop: '24px' }}>복사된 템플릿은</BodySpan>
+      <BodySpan style={{ marginTop: '24px' }}>복사된 템플릿을</BodySpan>
       <RowContainer>
-        <BodySpanBold>Ctrl + v</BodySpanBold>
-        <BodySpan>로 붙여넣기할 수 있어요</BodySpan>
+        <BodySpan>메일에 붙여넣어 사용해보세요.</BodySpan>
       </RowContainer>
       <ConfirmButton onClick={onClick} style={{ marginTop: '24px' }}>
         확인

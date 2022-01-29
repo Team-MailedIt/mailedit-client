@@ -21,8 +21,7 @@ import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
 const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
-  // 추가 기능이 있어서 set도 있어야 함
-  // const [group, setGroup] = useState([]);
+
   const { groupListContext, setGroupList } = useContext(GroupContext);
 
   const [mode, setMode] = useState(true);
@@ -33,11 +32,6 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
   });
   const [addChecker, setAddChecker] = useState(false);
   const [temp, setTemp] = useState({});
-
-  // useEffect(() => {
-  //   setGroup(groupList);
-  //   setGroupList()
-  // }, [groupList]);
 
   // state 초기화
   const init = () => {

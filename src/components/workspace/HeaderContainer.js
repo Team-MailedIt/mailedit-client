@@ -1,34 +1,39 @@
-import { useEffect, useState, useContext, useRef } from "react";
-import styled from "styled-components";
-import useInput from "../../hooks/useInput";
+import { useEffect, useState, useContext, useRef } from 'react';
+import styled from 'styled-components';
+import useInput from '../../hooks/useInput';
 import {
   TemplateTitleInput,
   TemplateMemoInput,
   TemplateSelectGroupButton,
   SubTitle,
   TemplateMemoInputContainer,
-} from "./Components";
-import BubbleContainer from "../bubble/BubbleContainer";
-import GroupComponent from "../commons/GroupComponent";
-import API from "../../utils/API";
-import { GroupContext } from "../../contexts/GroupContexts";
-import icon_help from "../../constants/icons/icon_help.svg";
-import TooltipContainer from "../tooltip/TooltipContainer";
-import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
-import CarouselTooltip from "../carousel/CarouselTooltip";
-import { AuthContext } from "../../contexts/AuthContext";
+} from './Components';
+import BubbleContainer from '../bubble/BubbleContainer';
+import GroupComponent from '../commons/GroupComponent';
+import API from '../../utils/API';
+import { GroupContext } from '../../contexts/GroupContexts';
+import icon_help from '../../constants/icons/icon_help.svg';
+import TooltipContainer from '../tooltip/TooltipContainer';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
+import CarouselTooltip from '../carousel/CarouselTooltip';
+import { AuthContext } from '../../contexts/AuthContext';
+import AlertContainer from '../alertModal/AlertContainer';
+import NotRegistered from '../alertModal/NotRegistered';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const { isLogin } = useContext(AuthContext);
 
-  const [title, setTitle] = useInput("");
-  const [subtitle, setSubtitle] = useInput("");
+  const [title, setTitle] = useInput('');
+  const [subtitle, setSubtitle] = useInput('');
   const [group, setGroup] = useState({
     id: 0,
-    name: "",
-    color: "",
+    name: '',
+    color: '',
   });
-  // const [groupList, setGroupList] = useState([]);
+
+  // alert when not registered
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+
   // 그룹 리스트
   const { setGroupList } = useContext(GroupContext);
 
@@ -64,8 +69,14 @@ const HeaderContainer = ({ handleHeaderData }) => {
     getPosition(tooltipIcon);
   };
   const openModal = () => {
-    setIsModalOpen(true);
-    getPosition(bubbleModal);
+    if (isLogin) {
+      // console.log(isLogin);
+      setIsModalOpen(true);
+      getPosition(bubbleModal);
+    } else {
+      // console.log(isLogin);
+      setIsAlertOpen(true);
+    }
   };
   const handleSelected = (target) => {
     setGroup(target);
@@ -85,7 +96,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
           onChange={setTitle}
         />
       </RowContainer>
-      <RowContainer style={{ marginTop: "16px" }}>
+      <RowContainer style={{ marginTop: '16px' }}>
         <SubTitle>메모</SubTitle>
         <TemplateMemoInputContainer>
           <TemplateMemoInput
@@ -99,9 +110,9 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <RowContainer
         style={{
-          marginTop: "8px",
-          marginBottom: "16px",
-          justifyContent: "space-between",
+          marginTop: '8px',
+          marginBottom: '16px',
+          justifyContent: 'space-between',
         }}
       >
         <RowContainer>
@@ -120,22 +131,27 @@ const HeaderContainer = ({ handleHeaderData }) => {
         </RowContainer>
         <HelpIcon
           ref={tooltipIcon}
-          style={{ marginRight: "12px" }}
+          style={{ marginRight: '12px' }}
           src={icon_help}
           onClick={openTooltip}
         />
       </RowContainer>
-      <BubbleContainer
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        handleSelected={handleSelected}
-      />
       <TooltipContainer
         isModalOpen={isTooltipOpen}
         setIsModalOpen={setIsTooltipOpen}
         ChildComponent={CarouselTooltip}
         positionX={0}
         positionY={0}
+      />
+      <AlertContainer
+        isAlertOpen={isAlertOpen}
+        setIsAlertOpen={setIsAlertOpen}
+        ChildComponent={NotRegistered}
+      />
+      <BubbleContainer
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        handleSelected={handleSelected}
       />
     </Container>
   );
@@ -154,7 +170,7 @@ const Container = styled.div`
 `;
 const RowContainer = styled.div`
   display: flex;
-  flex-direction: "row";
+  flex-direction: 'row';
 `;
 const HelpIcon = styled.img`
   width: 24px;
