@@ -94,7 +94,6 @@ const EditorContainer = ({ passedBlocks }) => {
           템플릿 저장하기
         </TemplateSaveButton>
       </FooterContainer>
-
       <ModalContainer
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
