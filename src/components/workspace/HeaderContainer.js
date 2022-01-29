@@ -43,7 +43,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
   useEffect(() => {
     if (isLogin) {
       const fetchGroupList = async () => {
-        const response = await API.get(`/groups`);
+        const response = await API.get(`/groups/`);
         setGroupList(response.data);
       };
       fetchGroupList();
