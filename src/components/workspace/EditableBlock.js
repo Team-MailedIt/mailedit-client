@@ -88,7 +88,7 @@ class EditableBlock extends React.Component {
       if (this.state.previousKey === 'Control') {
         e.preventDefault();
         const { selectionStart } = getSelection(this.contentEditable.current);
-        console.log(selectionStart);
+        // console.log(selectionStart);
         this.props.addBlock({
           command: e.key,
           id: this.props.id,

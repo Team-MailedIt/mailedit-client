@@ -70,11 +70,11 @@ const HeaderContainer = ({ handleHeaderData }) => {
   };
   const openModal = () => {
     if (isLogin) {
-      console.log(isLogin);
+      // console.log(isLogin);
       setIsModalOpen(true);
       getPosition(bubbleModal);
     } else {
-      console.log(isLogin);
+      // console.log(isLogin);
       setIsAlertOpen(true);
     }
   };

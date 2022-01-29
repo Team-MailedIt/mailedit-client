@@ -10,12 +10,19 @@ import copy from 'copy-to-clipboard';
 import ModalContainer from '../alertModal/ModalContainer';
 import API from '../../utils/API';
 import getOnlyBlocks from '../../utils/getOnlyBlocks';
+import AlertContainer from '../alertModal/AlertContainer';
+import TitleValid from '../alertModal/TitleValid';
+import BlockValid from '../alertModal/BlockValid';
 
 const EditorContainer = ({ passedBlocks }) => {
   const [headerData, setHeaderData] = useState({});
   const { action, setActionHandler } = useContext(CopyContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOption, setModalOption] = useState('');
+
+  // alert when invalid
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isBlockAlertOpen, setIsBlockAlertOpen] = useState(false);
 
   const handleHeaderData = useCallback((newValue) => {
     setHeaderData(newValue);
@@ -30,12 +37,14 @@ const EditorContainer = ({ passedBlocks }) => {
       copy(parsedString, { format: 'text/plain' });
     } else if (action === 'save') {
       if (headerData.title === '') {
-        window.alert('제목 입력은 필수입니다.');
+        // 제목입력은 필수임
+        setIsAlertOpen(true);
       } else {
         // content에서 블럭인 것만 가져오기
         const filteredContents = getOnlyBlocks(content);
         if (filteredContents.length === 0) {
-          window.alert('저장할 블럭이 없습니다.');
+          // 저장할 블럭이 없음
+          setIsBlockAlertOpen(true);
         } else {
           const props = {
             title: headerData.title,
@@ -98,6 +107,16 @@ const EditorContainer = ({ passedBlocks }) => {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         modalOption={modalOption}
+      />
+      <AlertContainer
+        isAlertOpen={isAlertOpen}
+        setIsAlertOpen={setIsAlertOpen}
+        ChildComponent={TitleValid}
+      />
+      <AlertContainer
+        isAlertOpen={isBlockAlertOpen}
+        setIsAlertOpen={setIsBlockAlertOpen}
+        ChildComponent={BlockValid}
       />
     </Container>
   );
