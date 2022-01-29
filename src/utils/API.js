@@ -1,13 +1,18 @@
 import axios from "axios";
 
-const accessToken = localStorage.getItem("accessToken");
-
 const API = axios.create({
   baseURL: "https://api.mailedit.me/api",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
   },
+});
+
+// intercept the request
+API.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("accessToken");
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
 });
 
 // intercept the response
@@ -15,7 +20,7 @@ API.interceptors.response.use(
   (res) => {
     return res;
   },
-  (err) => {
+  async (err) => {
     // err: when access token is expired
     const originalRequest = err.config;
 
@@ -26,26 +31,15 @@ API.interceptors.response.use(
       const params = new URLSearchParams();
       params.append("refresh", refreshToken);
 
-      axios
-        .post("https://api.mailedit.me/api/token/refresh", params, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        })
-        .then((res) => {
-          API.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${res.data.access}`;
+      const { data } = await API.post("/token/refresh", params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
 
-          localStorage.setItem("accessToken", res.data.access);
-
-          originalRequest.headers = {
-            Authorization: `Bearer ${res.data.access}`,
-          };
-
-          // retry the request
-          return API(originalRequest);
-        });
+      localStorage.setItem("accessToken", data.access);
+      axios.defaults.headers.common.Authorization = `Bearer ${data.access}`;
+      return API(originalRequest);
     }
     return Promise.reject(err);
   }
