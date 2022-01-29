@@ -194,7 +194,7 @@ const TemplateNum = styled.div`
 const MyTemplateGrid = styled.div`
   width: 1460px;
 
-  padding: 0px 4px 8px 36px;
+  padding: 24px 0px 4px 36px;
 
   overflow: auto;
 
@@ -216,8 +216,8 @@ const MyTemplateGrid = styled.div`
 `;
 
 const VeilBottom = styled.div`
-  width: 1466px;
-  height: 40px;
+  width: 1484px;
+  height: 32px;
 
   position: relative;
   z-index: 2;
