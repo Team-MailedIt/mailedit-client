@@ -62,7 +62,7 @@ const Wrapper = styled.div`
   height: 196px;
   border-radius: 8px;
 
-  margin-top: 22px;
+  margin-bottom: 22px;
 
   background: ${COLORS.UIWhite};
 
