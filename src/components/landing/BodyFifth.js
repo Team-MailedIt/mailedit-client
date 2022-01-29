@@ -5,7 +5,6 @@ import {
   BodyContainer,
 } from './Components';
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
 
 const BodyFifth = () => {
   return (
@@ -39,13 +38,6 @@ const BodyFifth = () => {
     </BodyContainer>
   );
 };
-
-const RowContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100vw;
-`;
 const Wrapper = styled.div`
   margin-top: 80px;
   margin-right: 45px;
