@@ -16,6 +16,7 @@ const Select = ({ option, setOption }) => {
   // change option
   const handleChangeOption = (e) => {
     setOption(e.target.id);
+    setIsSelected(!isSelected);
   };
 
   return (

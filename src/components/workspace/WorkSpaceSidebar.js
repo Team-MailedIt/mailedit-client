@@ -38,7 +38,7 @@ const WorkSpaceSidebar = () => {
   useEffect(() => {
     if (isLogin) {
       const fetchGroupList = async () => {
-        const { data } = await API.get(`/groups`);
+        const { data } = await API.get(`/groups/`);
         setGroupList(data);
       };
       fetchGroupList();

@@ -29,7 +29,7 @@ const MainSidebar = () => {
 
   useEffect(() => {
     isLogin &&
-      API.get("/groups").then((res) => {
+      API.get("/groups/").then((res) => {
         setGroups(res.data);
         res.data.forEach((group) => {
           setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
