@@ -5,7 +5,6 @@ import help_img from '../../constants/icons/help_img.svg';
 const HelpContainer = ({ setIsModalOpen }) => {
   const closeHelp = () => {
     setIsModalOpen(false);
-    // console.log('close!');
   };
 
   return (
@@ -56,12 +55,12 @@ const HelpImg = styled.img`
   width: 1215px;
   height: 682px;
 `;
-const HelpImage = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 1215px;
-  height: 682px;
-`;
+// const HelpImage = styled.img`
+//   background-image: ${({ src }) => `url(${src})`};
+//   background-size: cover;
+//   background-position: center;
+//   width: 1215px;
+//   height: 682px;
+// `;
 
 export default HelpContainer;
