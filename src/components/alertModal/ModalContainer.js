@@ -2,12 +2,17 @@ import ReactModal from 'react-modal';
 import styled from 'styled-components';
 import CopyContents from './CopyContents';
 import SaveContents from './SaveContents';
+import { useNavigate } from 'react-router-dom';
 
 const ModalContainer = ({ isModalOpen, setIsModalOpen, modalOption }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgba(0,0,0,0.5)`;
+  const navigate = useNavigate();
 
   const handleOnClick = () => {
     setIsModalOpen(false);
+    if (modalOption === 'save') {
+      navigate('/home');
+    }
   };
 
   return (

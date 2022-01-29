@@ -6,10 +6,12 @@ function parseBlocks(blocks, flag) {
     console.log(html);
     const newString = html
       // .replace(/<[div][^>]*>/g, '<div>')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/<[^>]*>/g, '')
       .replace(/&lt;/gi, '<')
-      .replace(/&gt;/gi, '>')
-      .replace(/<[^>]*>/g, '');
+      .replace(/&gt;/gi, '>');
 
+    console.log(newString);
     return newString;
   } else {
     // copy

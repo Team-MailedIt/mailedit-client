@@ -109,12 +109,4 @@ const RightContainer = styled.div`
   align-items: center;
 `;
 
-const MainGif = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: contain;
-  background-position: center;
-  width: 100%;
-  height: auto;
-`;
-
 export default HeaderContainer;

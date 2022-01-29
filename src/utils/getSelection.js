@@ -2,6 +2,7 @@ const getSelection = (element) => {
   let selectionStart, selectionEnd;
   const isSupported = typeof window.getSelection !== 'undefined';
   if (isSupported) {
+    console.log(window.getSelection());
     const range = window.getSelection().getRangeAt(0);
     const preSelectionRange = range.cloneRange();
     preSelectionRange.selectNodeContents(element);
