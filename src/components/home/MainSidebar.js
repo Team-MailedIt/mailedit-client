@@ -13,6 +13,7 @@ import logo from "../../constants/icons/logo.svg";
 import { ContentContext } from "../../contexts/ContentContext";
 import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
@@ -21,28 +22,31 @@ const MainSidebar = () => {
 
   const { likes, setLikesHandler } = useContext(FilterLikeContext);
   const { setContentHandler } = useContext(ContentContext);
+  const { isLogin } = useContext(AuthContext);
 
   const { selectedGroupId, setSelectGroupHandler } =
     useContext(SelectGroupContext);
 
   useEffect(() => {
-    API.get("/groups").then((res) => {
-      setGroups(res.data);
-      res.data.map((group) => {
-        setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
-        setSelectGroupHandler((selectedGroupId) => [
-          ...selectedGroupId,
-          group.id,
-        ]);
+    isLogin &&
+      API.get("/groups/").then((res) => {
+        setGroups(res.data);
+        res.data.forEach((group) => {
+          setGroupIdList((selectedGroupId) => [...selectedGroupId, group.id]);
+          setSelectGroupHandler((selectedGroupId) => [
+            ...selectedGroupId,
+            group.id,
+          ]);
+        });
       });
-    });
 
-    API.get("/templates/my").then((res) => {
-      setMyTemplates(res.data);
-    });
+    isLogin &&
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+      });
 
     setSelectGroupHandler(groupIdList);
-  }, []);
+  }, [isLogin]);
 
   const handleSelectAll = (e) => {
     setLikesHandler(false);

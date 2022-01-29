@@ -1,29 +1,32 @@
-import { useEffect, useState, useContext, useRef } from 'react';
-import styled from 'styled-components';
-import useInput from '../../hooks/useInput';
+import { useEffect, useState, useContext, useRef } from "react";
+import styled from "styled-components";
+import useInput from "../../hooks/useInput";
 import {
   TemplateTitleInput,
   TemplateMemoInput,
   TemplateSelectGroupButton,
   SubTitle,
   TemplateMemoInputContainer,
-} from './Components';
-import BubbleContainer from '../bubble/BubbleContainer';
-import GroupComponent from '../commons/GroupComponent';
-import API from '../../utils/API';
-import { GroupContext } from '../../contexts/GroupContexts';
-import icon_help from '../../constants/icons/icon_help.svg';
-import TooltipContainer from '../tooltip/TooltipContainer';
-import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
-import CarouselTooltip from '../carousel/CarouselTooltip';
+} from "./Components";
+import BubbleContainer from "../bubble/BubbleContainer";
+import GroupComponent from "../commons/GroupComponent";
+import API from "../../utils/API";
+import { GroupContext } from "../../contexts/GroupContexts";
+import icon_help from "../../constants/icons/icon_help.svg";
+import TooltipContainer from "../tooltip/TooltipContainer";
+import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
+import CarouselTooltip from "../carousel/CarouselTooltip";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const HeaderContainer = ({ handleHeaderData }) => {
-  const [title, setTitle] = useInput('');
-  const [subtitle, setSubtitle] = useInput('');
+  const { isLogin } = useContext(AuthContext);
+
+  const [title, setTitle] = useInput("");
+  const [subtitle, setSubtitle] = useInput("");
   const [group, setGroup] = useState({
     id: 0,
-    name: '',
-    color: '',
+    name: "",
+    color: "",
   });
   // const [groupList, setGroupList] = useState([]);
   // 그룹 리스트
@@ -38,12 +41,14 @@ const HeaderContainer = ({ handleHeaderData }) => {
 
   // fetch group list data from server
   useEffect(() => {
-    const fetchGroupList = async () => {
-      const response = await API.get(`/groups`);
-      setGroupList(response.data);
-    };
-    fetchGroupList();
-  }, [setGroupList]);
+    if (isLogin) {
+      const fetchGroupList = async () => {
+        const response = await API.get(`/groups/`);
+        setGroupList(response.data);
+      };
+      fetchGroupList();
+    }
+  }, [isLogin, setGroupList]);
 
   // set state to EditorContainer
   useEffect(() => {
@@ -80,7 +85,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
           onChange={setTitle}
         />
       </RowContainer>
-      <RowContainer style={{ marginTop: '16px' }}>
+      <RowContainer style={{ marginTop: "16px" }}>
         <SubTitle>메모</SubTitle>
         <TemplateMemoInputContainer>
           <TemplateMemoInput
@@ -94,9 +99,9 @@ const HeaderContainer = ({ handleHeaderData }) => {
       </RowContainer>
       <RowContainer
         style={{
-          marginTop: '8px',
-          marginBottom: '16px',
-          justifyContent: 'space-between',
+          marginTop: "8px",
+          marginBottom: "16px",
+          justifyContent: "space-between",
         }}
       >
         <RowContainer>
@@ -115,7 +120,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
         </RowContainer>
         <HelpIcon
           ref={tooltipIcon}
-          style={{ marginRight: '12px' }}
+          style={{ marginRight: "12px" }}
           src={icon_help}
           onClick={openTooltip}
         />
@@ -149,7 +154,7 @@ const Container = styled.div`
 `;
 const RowContainer = styled.div`
   display: flex;
-  flex-direction: 'row';
+  flex-direction: "row";
 `;
 const HelpIcon = styled.img`
   width: 24px;

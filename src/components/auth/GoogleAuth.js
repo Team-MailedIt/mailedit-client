@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router";
 import GoogleLogin from "react-google-login";
 
 import API from "../../utils/API";
@@ -8,8 +7,6 @@ import google from "../../constants/icons/google.svg";
 import logoBlue from "../../constants/icons/logoBlue.svg";
 
 const GoogleAuth = () => {
-  const navigate = useNavigate();
-
   // 구글 로그인 성공 시
   const onGoogleSignInSuccess = (res) => {
     localStorage.setItem("userName", res.profileObj.givenName);
@@ -26,9 +23,7 @@ const GoogleAuth = () => {
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
 
-        console.log("access: ", res.data.token.access);
-
-        navigate("/home");
+        window.location.replace("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -36,8 +31,8 @@ const GoogleAuth = () => {
   };
 
   // 구글 로그인 실패 시
-  const onGoogleSignInFailure = (res) => {
-    console.log("onFailure: ", res);
+  const onGoogleSignInFailure = () => {
+    alert("다시 시도해 주세요");
   };
 
   return (

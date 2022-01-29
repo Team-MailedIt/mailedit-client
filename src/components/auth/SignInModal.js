@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
 
 import API from "../../utils/API";
 import GoogleAuth from "./GoogleAuth";
@@ -24,8 +23,6 @@ const SignInModal = ({
   setIsSignInModalOpen,
   setIsSignUpModalOpen,
 }) => {
-  const navigate = useNavigate();
-
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
@@ -52,9 +49,7 @@ const SignInModal = ({
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("userName", res.data.user.username);
 
-        console.log("Bearer ", res.data.token.access);
-
-        navigate("/home");
+        window.location.replace("/home");
       })
       .catch(() => setIsCorrectPsword(false));
   };

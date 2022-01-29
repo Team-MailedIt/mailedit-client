@@ -7,6 +7,7 @@ import Thumbnail from "./Thumbnail";
 import COLORS from "../../constants/colors";
 import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
 
+import { AuthContext } from "../../contexts/AuthContext";
 import { ContentContext } from "../../contexts/ContentContext";
 import { FilterLikeContext } from "../../contexts/FilterLikeContext";
 import { SelectGroupContext } from "../../contexts/SelectGroupContext";
@@ -19,24 +20,26 @@ const MyTemplateArea = () => {
   const [myTemplates, setMyTemplates] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
+  const { isLogin } = useContext(AuthContext);
   const { likes } = useContext(FilterLikeContext);
   const { setContentHandler } = useContext(ContentContext);
   const { selectedGroupId } = useContext(SelectGroupContext);
   const { setSelectIdHandler } = useContext(SelectTemplateContext);
 
   useEffect(() => {
-    API.get("/templates/my").then((res) => {
-      setMyTemplates(res.data);
-      setFiltered(res.data);
-    });
-  }, []);
+    isLogin &&
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+        setFiltered(res.data);
+      });
+  }, [isLogin]);
 
   // filtering my templates
   useEffect(() => {
     setFiltered(myTemplates.filter((t) => selectedGroupId.includes(t.groupId)));
 
     likes && setFiltered(myTemplates.filter((t) => t.isStar === true));
-  }, [selectedGroupId, myTemplates]);
+  }, [selectedGroupId, myTemplates, likes]);
 
   // delete template
   const handleBinIconClick = (e) => {
@@ -60,7 +63,9 @@ const MyTemplateArea = () => {
   return (
     <Wrapper>
       <MyTemplateInfo>
-        <UserName>{`${userName}님의 마이템플릿`}</UserName>
+        <UserName>
+          {isLogin ? `${userName}님의 마이템플릿` : "마이템플릿"}
+        </UserName>
         <NumberArea>
           <Text>저장된 템플릿</Text>
           <TemplateNum>{`${myTemplates.length}개`}</TemplateNum>
