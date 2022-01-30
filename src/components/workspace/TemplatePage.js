@@ -14,8 +14,13 @@ import HelpModal from '../helpModal/HelpModal';
 
 const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   // 모달모달
-  const beginner = localStorage.getItem('tooltip') === 'true';
-  const [isModalOpen, setIsModalOpen] = useState(beginner);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  useEffect(() => {
+    if (localStorage.getItem('tooltip') === 'false') {
+      setIsModalOpen(false);
+    }
+  }, []);
+
   const openHelp = () => {
     setIsModalOpen(true);
   };

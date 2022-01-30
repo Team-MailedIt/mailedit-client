@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from 'react';
 
 export const SelectTemplateContext = createContext({
   state: { selectedId: [] },
@@ -10,7 +10,9 @@ export const SelectTemplateContext = createContext({
 const SelectTemplateProvider = ({ children }) => {
   const [selectedId, setSelectedId] = useState([]);
 
-  const setSelectIdHandler = (selectedId) => setSelectedId(selectedId);
+  const setSelectIdHandler = useCallback((selectedId) => {
+    setSelectedId(selectedId);
+  }, []);
 
   return (
     <SelectTemplateContext.Provider value={{ selectedId, setSelectIdHandler }}>

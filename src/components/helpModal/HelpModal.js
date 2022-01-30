@@ -29,6 +29,9 @@ const Modal = styled(ReactModal)`
 
   display: flex;
   justify-content: center;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default HelpModal;

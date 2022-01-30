@@ -205,5 +205,8 @@ const Modal = styled(ReactModal)`
     border-bottom-color: #fff;
     filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
   }
+  &:focus {
+    outline: none;
+  }
 `;
 export default BubbleContainer;

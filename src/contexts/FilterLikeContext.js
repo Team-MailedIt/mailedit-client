@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from 'react';
 
 export const FilterLikeContext = createContext({
   state: { likes: false },
@@ -10,7 +10,9 @@ export const FilterLikeContext = createContext({
 const FilterLikeProvider = ({ children }) => {
   const [likes, setLikes] = useState(false);
 
-  const setLikesHandler = (likes) => setLikes(likes);
+  const setLikesHandler = useCallback((likes) => {
+    setLikes(likes);
+  }, []);
 
   return (
     <FilterLikeContext.Provider value={{ likes, setLikesHandler }}>
