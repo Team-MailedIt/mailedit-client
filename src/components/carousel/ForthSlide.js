@@ -22,12 +22,5 @@ const Slide = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Img = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 272px;
-  height: 74px;
-`;
 
 export default ForthSlide;

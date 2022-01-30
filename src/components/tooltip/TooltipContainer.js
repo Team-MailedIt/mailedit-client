@@ -13,11 +13,6 @@ const TooltipContainer = ({
 }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
 
-  // 취소 버튼
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
-
   // 확인 버튼
   const handleConfirm = () => {
     setIsModalOpen(false);
