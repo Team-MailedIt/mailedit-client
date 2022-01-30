@@ -11,18 +11,10 @@ import API from '../../utils/API';
 import { useContext, useEffect, useState } from 'react';
 import { GroupContext } from '../../contexts/GroupContexts';
 import { useNavigate } from 'react-router';
-import HelpModal from '../helpModal/HelpModal';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const WorkSpaceSidebar = () => {
   const { isLogin } = useContext(AuthContext);
-
-  // 모달모달
-  // localstorage.getItem('tooltip') 해서 false-> close, true-> open
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const openHelp = () => {
-    setIsModalOpen(true);
-  };
 
   // 그룹 리스트
   const { groupListContext, setGroupList } = useContext(GroupContext);
@@ -121,8 +113,6 @@ const WorkSpaceSidebar = () => {
           list={baseSchool}
         />
       </VariableSection>
-      <button onClick={openHelp}>hi</button>
-      <HelpModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </Wrapper>
   );
 };

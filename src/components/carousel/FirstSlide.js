@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
 import { Title, Body } from './Components';
 const FirstSlide = () => {
   return (
