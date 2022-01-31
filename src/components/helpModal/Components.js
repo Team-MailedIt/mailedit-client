@@ -3,7 +3,7 @@ import COLORS from '../../constants/colors';
 
 export const Heading = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 20px;
   line-height: 140%;
 
@@ -12,7 +12,7 @@ export const Heading = styled.span`
 
 export const Body = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 140%;
 

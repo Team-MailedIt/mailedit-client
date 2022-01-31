@@ -13,7 +13,6 @@ import { GroupContext } from '../../contexts/GroupContexts';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
 
-
 const WorkSpaceSidebar = () => {
   const { isLogin } = useContext(AuthContext);
 
@@ -80,7 +79,6 @@ const WorkSpaceSidebar = () => {
     <Wrapper>
       <FixedSection>
         <Logo src={logo} onClick={goToMain} />
-
         <Search all={[...myTemplates, ...baseSchool, ...baseCompany]} />
       </FixedSection>
 

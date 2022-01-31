@@ -23,7 +23,7 @@ export const SignUp = styled.button`
 
 export const SpanLink = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   color: ${COLORS.UIWhite};
@@ -46,7 +46,7 @@ export const VerticalLine = styled.div`
 export const MainHeading = styled.span`
   font-style: normal;
   /* font-family: 'Pretendard-SemiBold', serif; */
-  font-weight: 900;
+  font-weight: 700;
   font-size: 44px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
@@ -59,7 +59,7 @@ export const MainHeading = styled.span`
 
 export const MainSubHeading = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 20px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
@@ -194,7 +194,7 @@ export const TitleSpan = styled.span`
 `;
 export const TitleSpanBold = styled.span`
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 52px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
@@ -206,7 +206,7 @@ export const TitleSpanBold = styled.span`
 `;
 export const BodySpan = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 28px;
   line-height: 140%;
   color: ${COLORS.gray8};
@@ -240,7 +240,7 @@ export const CreateTemplateButton = styled.button`
 `;
 export const FooterBodySpan = styled.span`
   font-style: normal;
-  font-weight: lighter;
+  font-weight: 300;
   font-size: 20px;
   line-height: 28px;
   color: ${COLORS.UIWhite};
@@ -253,7 +253,7 @@ export const FooterBodySpan = styled.span`
 
 export const FooterBodySpanButton = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 20px;
   line-height: 24px;
   color: ${COLORS.UIWhite};

@@ -80,7 +80,7 @@ const LeftContainer = styled.div`
 
 const SpanLink = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.blockBorder};
