@@ -166,7 +166,7 @@ const MyTemplate = styled.span`
   height: 26px;
   margin: 0px 192px 24px 40px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 22px;
   line-height: 26px;
 
