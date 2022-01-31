@@ -1,30 +1,30 @@
-import styled from 'styled-components';
-import GoogleLogin from 'react-google-login';
+import styled from "styled-components";
+import GoogleLogin from "react-google-login";
 
-import API from '../../utils/API';
-import COLORS from '../../constants/colors';
-import google from '../../constants/icons/google.svg';
-import logoBlue from '../../constants/icons/logoBlue.svg';
+import API from "../../utils/API";
+import COLORS from "../../constants/colors";
+import google from "../../constants/icons/google.svg";
+import logoBlue from "../../constants/icons/logoBlue.svg";
 
 const GoogleAuth = () => {
   // 구글 로그인 성공 시
   const onGoogleSignInSuccess = (res) => {
-    localStorage.setItem('userName', res.profileObj.givenName);
+    localStorage.setItem("userName", res.profileObj.givenName);
 
     const params = new URLSearchParams();
-    params.append('idToken', res.tokenObj.id_token);
+    params.append("idToken", res.tokenObj.id_token);
 
-    API.post('/login/google', params, {
+    API.post("/login/google", params, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem('accessToken', res.data.token.access);
-        localStorage.setItem('refreshToken', res.data.tooltip);
+        localStorage.setItem("accessToken", res.data.token.access);
+        localStorage.setItem("refreshToken", res.data.tooltip);
 
-        window.location.replace('/home');
+        window.location.replace("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +33,7 @@ const GoogleAuth = () => {
 
   // 구글 로그인 실패 시
   const onGoogleSignInFailure = () => {
-    alert('다시 시도해 주세요');
+    alert("다시 시도해 주세요");
   };
 
   return (
