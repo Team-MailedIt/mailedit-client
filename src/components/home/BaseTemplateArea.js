@@ -1,34 +1,34 @@
-import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
+import styled from 'styled-components';
+import { useState, useContext, useEffect } from 'react';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
-import BaseTemplateModal from "./BaseTemplateModal";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
+import BaseTemplateModal from './BaseTemplateModal';
 
-import dots from "../../constants/icons/dots.svg";
-import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
-import mainComIllu from "../../constants/icons/mainComIllu.svg";
+import dots from '../../constants/icons/dots.svg';
+import mainSchIllu from '../../constants/icons/mainSchIllu.svg';
+import mainComIllu from '../../constants/icons/mainComIllu.svg';
 
-import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
-import Select from "../commons/Select";
+import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
+import Select from '../commons/Select';
 
 const BaseTemplateArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [baseTemplates, setBaseTemplates] = useState([]);
-  const [option, setOption] = useState("company");
+  const [option, setOption] = useState('company');
 
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   // get base templates
   useEffect(() => {
-    API.get("/templates/base").then((res) => {
+    API.get('/templates/base').then((res) => {
       setBaseTemplates(res.data);
     });
   }, []);
 
   // filtering base templates
-  const baseCompany = baseTemplates.filter((base) => base.category === "회사");
-  const baseSchool = baseTemplates.filter((base) => base.category === "학교");
+  const baseCompany = baseTemplates.filter((base) => base.category === '회사');
+  const baseSchool = baseTemplates.filter((base) => base.category === '학교');
 
   // when clicking base template menu
   const handleBaseClick = (e) => {
@@ -47,9 +47,9 @@ const BaseTemplateArea = () => {
       <Contents>
         <TitleSelect>
           <BottomTitle>
-            {option === "company"
-              ? "회사에서 일잘러가 되려면?"
-              : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
+            {option === 'company'
+              ? '회사에서 일잘러가 되려면?'
+              : '학교에서 교수님, 조교님께 어떻게 보내나요?'}
           </BottomTitle>
           <Select option={option} setOption={setOption} />
         </TitleSelect>
@@ -62,11 +62,11 @@ const BaseTemplateArea = () => {
         <BaseTemplateTable>
           <tbody>
             <tr>
-              {option === "company"
+              {option === 'company'
                 ? baseCompany.slice(0, 5).map((t, i) => (
                     <th
                       id={t.templateId}
-                      key={"b" + i}
+                      key={'b' + i}
                       onClick={handleBaseClick}
                     >
                       <ThText id={t.templateId} onClick={handleBaseClick}>
@@ -77,7 +77,7 @@ const BaseTemplateArea = () => {
                 : baseSchool.slice(0, 5).map((t, i) => (
                     <th
                       id={t.templateId}
-                      key={"b" + i}
+                      key={'b' + i}
                       onClick={handleBaseClick}
                     >
                       <ThText id={t.templateId} onClick={handleBaseClick}>
@@ -102,7 +102,7 @@ const BaseTemplateArea = () => {
           />
         )}
       </Contents>
-      {option === "company" ? (
+      {option === 'company' ? (
         <Illustration src={mainComIllu} />
       ) : (
         <Illustration src={mainSchIllu} />
@@ -163,8 +163,8 @@ const BottomTitle = styled.div`
   width: 488px;
   height: 34px;
 
-  font-family: Pretendard-SemiBold;
   font-size: 28px;
+  font-weight: 600;
 
   color: ${COLORS.UIBlack};
 
@@ -201,6 +201,7 @@ const BaseTemplateTable = styled.table`
     border: 1.5px solid ${COLORS.indigo2};
     border-collapse: collapse;
     font-size: 18px;
+    font-weight: 400;
 
     width: 188px;
     height: 80px;
