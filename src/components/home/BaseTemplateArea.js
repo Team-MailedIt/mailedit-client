@@ -153,8 +153,8 @@ const BottomTitle = styled.div`
   width: 488px;
   height: 34px;
 
-  font-family: Pretendard-SemiBold;
   font-size: 28px;
+  font-weight: 600;
 
   color: ${COLORS.UIBlack};
 

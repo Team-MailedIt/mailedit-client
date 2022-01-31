@@ -93,7 +93,7 @@ const Container = styled.div`
 `;
 export const CopyRights = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   color: ${COLORS.UIWhite};

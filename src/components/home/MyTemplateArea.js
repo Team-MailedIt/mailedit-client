@@ -1,21 +1,21 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import Thumbnail from "./Thumbnail";
-import COLORS from "../../constants/colors";
-import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+import API from '../../utils/API';
+import Thumbnail from './Thumbnail';
+import COLORS from '../../constants/colors';
+import noTemplateIllu from '../../constants/icons/noTemplateIllu.svg';
 
-import { AuthContext } from "../../contexts/AuthContext";
-import { ContentContext } from "../../contexts/ContentContext";
-import { FilterLikeContext } from "../../contexts/FilterLikeContext";
-import { SelectGroupContext } from "../../contexts/SelectGroupContext";
-import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { AuthContext } from '../../contexts/AuthContext';
+import { ContentContext } from '../../contexts/ContentContext';
+import { FilterLikeContext } from '../../contexts/FilterLikeContext';
+import { SelectGroupContext } from '../../contexts/SelectGroupContext';
+import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
 
 const MyTemplateArea = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
 
   const [myTemplates, setMyTemplates] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -28,7 +28,7 @@ const MyTemplateArea = () => {
 
   useEffect(() => {
     isLogin &&
-      API.get("/templates/my").then((res) => {
+      API.get('/templates/my').then((res) => {
         setMyTemplates(res.data);
         setFiltered(res.data);
       });
@@ -44,7 +44,7 @@ const MyTemplateArea = () => {
   // delete template
   const handleBinIconClick = (e) => {
     API.delete(`/templates/${e.target.id}`).then(() => {
-      API.get("/templates/my").then((res) => {
+      API.get('/templates/my').then((res) => {
         setMyTemplates(res.data);
       });
     });
@@ -57,14 +57,14 @@ const MyTemplateArea = () => {
       setContentHandler(res.data)
     );
 
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   return (
     <Wrapper>
       <MyTemplateInfo>
         <UserName>
-          {isLogin ? `${userName}님의 마이템플릿` : "마이템플릿"}
+          {isLogin ? `${userName}님의 마이템플릿` : '마이템플릿'}
         </UserName>
         <NumberArea>
           <Text>저장된 템플릿</Text>
@@ -96,7 +96,7 @@ const MyTemplateArea = () => {
                     isStar={t.isStar}
                     groupId={t.groupId}
                     groupColor={t.group.color}
-                    updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                    updatedAt={t.updatedAt.replace('T', ' ').substring(0, 19)}
                     handleBinIconClick={handleBinIconClick}
                     handleThumbnailClick={handleThumbnailClick}
                   />
@@ -157,8 +157,8 @@ const Border = styled.div`
 const UserName = styled.span`
   height: 34px;
 
-  font-family: Pretendard-SemiBold;
   font-size: 28px;
+  font-weight: 600;
 
   display: flex;
   align-items: center;
