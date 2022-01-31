@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 
-import { useState, useContext, useRef } from "react";
-import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
+import { useState, useContext, useRef } from 'react';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
-import HomeTooltip from "./HomeTooltip";
-import TooltipContainer from "../tooltip/TooltipContainer";
-import SignInModal from "../auth/SignInModal";
-import SignUpModal from "../auth/SignUpModal";
-import COLORS from "../../constants/colors";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ContentContext } from "../../contexts/ContentContext";
+import HomeTooltip from './HomeTooltip';
+import TooltipContainer from '../tooltip/TooltipContainer';
+import SignInModal from '../auth/SignInModal';
+import SignUpModal from '../auth/SignUpModal';
+import COLORS from '../../constants/colors';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ContentContext } from '../../contexts/ContentContext';
 
 const HeaderArea = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
   const { setContentHandler } = useContext(ContentContext);
   const { isLogin, setIsLogin } = useContext(AuthContext);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -34,13 +34,13 @@ const HeaderArea = () => {
   const handleSignOutBtnClick = () => {
     setIsLogin(false);
     localStorage.clear();
-    navigate("/");
+    navigate('/');
   };
 
   // go to workspace
   const handleGoToWorkspace = () => {
     setContentHandler(null);
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   // tooltip
@@ -135,7 +135,7 @@ const TopRight = styled.div`
 const LogOut = styled.span`
   margin-left: 218px;
 
-  font-weight: normal;
+  font-weight: 400;
   font-size: 16px;
   color: ${COLORS.gray7};
 
@@ -157,6 +157,7 @@ const Auth = styled.div`
 
 const AuthText = styled.span`
   font-size: 16px;
+  font-weight: 400;
   color: ${COLORS.gray7};
 
   &:hover {

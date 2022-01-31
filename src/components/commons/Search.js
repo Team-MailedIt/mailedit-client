@@ -1,19 +1,19 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import search from "../../constants/icons/search.svg";
-import remove from "../../constants/icons/remove.svg";
+import search from '../../constants/icons/search.svg';
+import remove from '../../constants/icons/remove.svg';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
-import { ContentContext } from "../../contexts/ContentContext";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
+import { ContentContext } from '../../contexts/ContentContext';
 
 const Search = ({ all }) => {
   const navigate = useNavigate();
   const { setContentHandler } = useContext(ContentContext);
 
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -24,7 +24,7 @@ const Search = ({ all }) => {
     .sort();
 
   const handleRemoveBtnClick = () => {
-    setInputText("");
+    setInputText('');
   };
 
   const handleResult = async (templateId) => {
@@ -35,7 +35,7 @@ const Search = ({ all }) => {
       handleRemoveBtnClick();
     }
 
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   return (
@@ -118,7 +118,7 @@ const Input = styled.input`
   background: none;
   border: none;
   color: white;
-  font-weight: 300;
+  font-weight: 400;
   &::placeholder {
     color: ${COLORS.indigo1};
     font-size: 16px;
@@ -127,7 +127,7 @@ const Input = styled.input`
 
 const SearchIcon = styled.img`
   width: 18px;
-  heigt: 18px;
+  height: 18px;
   margin: 8px 0px 10px 12px;
 `;
 
