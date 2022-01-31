@@ -27,7 +27,7 @@ const Icon = styled.img`
   width: 12px;
   height: 12px;
 
-  margin: 2.5px;
+  margin: 2px;
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`

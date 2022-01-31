@@ -133,6 +133,9 @@ const GroupTitle = styled.div`
   height: 20px;
   margin-left: 8px;
   line-height: 19px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   font-size: 16px;
   color: #ffffff;
@@ -164,6 +167,9 @@ const TemplateName = styled.div`
   width: 160px;
   height: 20px;
   margin-left: 16px;
+
+  font-size: 16px;
+  font-family: Pretendard-Light;
 
   overflow: hidden;
   white-space: nowrap;

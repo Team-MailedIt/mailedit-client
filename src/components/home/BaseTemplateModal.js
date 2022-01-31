@@ -64,6 +64,7 @@ const BaseTemplateModal = ({
               )}
             </MainWrapper>
           </Main>
+
           <Sidebar>
             <ScrollArea>
               <BaseAccordion
@@ -194,12 +195,12 @@ const ScrollArea = styled.div`
   height: 466px;
 
   margin-top: 40px;
-  margin-left: 28px;
+  margin-left: 20px;
 
   overflow: auto;
 
   &::-webkit-scrollbar {
-    width: 19px;
+    width: 12px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -207,7 +208,7 @@ const ScrollArea = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 8.5px solid transparent;
+    border: 5.5px solid transparent;
   }
 `;
 

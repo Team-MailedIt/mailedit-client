@@ -2,6 +2,13 @@ import { createGlobalStyle } from "styled-components";
 
 const FontStyle = createGlobalStyle`
 @font-face {
+  font-family: 'Pretendard-Thin';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Pretendard-Light';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
   font-weight: 300;

@@ -188,7 +188,6 @@ const Text = styled.div`
 const TemplateNum = styled.div`
   margin-left: 8px;
   color: ${COLORS.primary};
-  text-decoration: underline;
 `;
 
 const MyTemplateGrid = styled.div`

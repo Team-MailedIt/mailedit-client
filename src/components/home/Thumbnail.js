@@ -40,7 +40,9 @@ const Thumbnail = ({
       </Title>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
-          <SubTitleText id={id}>{subtitle}</SubTitleText>
+          <SubTitleText id={id}>
+            {subtitle.replaceAll("<div>", " ").replaceAll("</div>", "")}
+          </SubTitleText>
         </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
