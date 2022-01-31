@@ -21,7 +21,8 @@ const GoogleAuth = () => {
     })
       .then((res) => {
         localStorage.setItem("accessToken", res.data.token.access);
-        localStorage.setItem("refreshToken", res.data.tooltip);
+        localStorage.setItem("refreshToken", res.data.token.refresh);
+        localStorage.setItem("tooltip", res.data.tooltip);
 
         window.location.href = "/home";
       })
