@@ -1,19 +1,19 @@
-import { useEffect, useState, useContext } from 'react';
-import styled from 'styled-components';
+import { useEffect, useState, useContext } from "react";
+import styled from "styled-components";
 
-import API from '../../utils/API';
-import CheckBox from './CheckBox';
-import Search from '../commons/Search';
-import COLORS from '../../constants/colors';
-import SidebarGroup from '../commons/SidebarGroup';
+import API from "../../utils/API";
+import CheckBox from "./CheckBox";
+import Search from "../commons/Search";
+import COLORS from "../../constants/colors";
+import SidebarGroup from "../commons/SidebarGroup";
 
-import star from '../../constants/icons/star.svg';
-import logo from '../../constants/icons/logo.svg';
+import star from "../../constants/icons/star.svg";
+import logo from "../../constants/icons/logo.svg";
 
-import { ContentContext } from '../../contexts/ContentContext';
-import { FilterLikeContext } from '../../contexts/FilterLikeContext';
-import { SelectGroupContext } from '../../contexts/SelectGroupContext';
-import { AuthContext } from '../../contexts/AuthContext';
+import { ContentContext } from "../../contexts/ContentContext";
+import { FilterLikeContext } from "../../contexts/FilterLikeContext";
+import { SelectGroupContext } from "../../contexts/SelectGroupContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
@@ -28,9 +28,8 @@ const MainSidebar = () => {
     useContext(SelectGroupContext);
 
   useEffect(() => {
-    console.log('useEffect');
     isLogin &&
-      API.get('/groups/').then((res) => {
+      API.get("/groups/").then((res) => {
         setGroups(res.data);
         res.data.forEach((group) => {
           setGroupIdList((id) => [...id, group.id]);
@@ -39,7 +38,7 @@ const MainSidebar = () => {
       });
 
     isLogin &&
-      API.get('/templates/my').then((res) => {
+      API.get("/templates/my").then((res) => {
         setMyTemplates(res.data);
       });
 
@@ -104,7 +103,7 @@ const MainSidebar = () => {
         />
         {groups.map((group, i) => (
           <SidebarGroup
-            key={'g' + i}
+            key={"g" + i}
             title={group.name}
             icon={<Index color={group.color} />}
             item={

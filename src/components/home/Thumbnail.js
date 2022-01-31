@@ -126,7 +126,10 @@ const Subtitle = styled.div`
 
   font-size: 16px;
   line-height: 22px;
-  vertical-align: bottom;
+  // vertical-align: bottom;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${COLORS.gray8};
 `;

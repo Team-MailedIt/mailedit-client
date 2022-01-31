@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import API from '../../utils/API';
-import GoogleAuth from './GoogleAuth';
-import useInputs from '../../hooks/useInputs';
-import COLORS from '../../constants/colors';
+import API from "../../utils/API";
+import GoogleAuth from "./GoogleAuth";
+import useInputs from "../../hooks/useInputs";
+import COLORS from "../../constants/colors";
 
-import exit from '../../constants/icons/exit.svg';
+import exit from "../../constants/icons/exit.svg";
+import jwtDecode from "jwt-decode";
 
 import {
   Modal,
@@ -16,7 +17,7 @@ import {
   UnderText,
   Other,
   ErrorText,
-} from './AuthPresenter';
+} from "./AuthPresenter";
 
 const SignInModal = ({
   isSignInModalOpen,
@@ -26,9 +27,9 @@ const SignInModal = ({
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
-  const [{ email, password }, handleInputChange, reset] = useInputs({
-    email: '',
-    password: '',
+  const [{ email, password }, handleInputChange] = useInputs({
+    email: "",
+    password: "",
   });
 
   const signInUser = { email: email, password: password };
@@ -43,24 +44,29 @@ const SignInModal = ({
 
   // 로그인
   const handleSignInBtnClick = () => {
-    API.post('/login', JSON.stringify(signInUser))
+    API.post("/login", JSON.stringify(signInUser))
       .then((res) => {
         console.log(res);
-        localStorage.setItem('accessToken', res.data.token.access);
-        localStorage.setItem('refreshToken', res.data.token.refresh);
-        localStorage.setItem('userName', res.data.user.username);
-        localStorage.setItem('tooltip', res.data.tooltip);
-        window.location.replace('/home');
+        localStorage.setItem("accessToken", res.data.token.access);
+        localStorage.setItem("refreshToken", res.data.token.refresh);
+        localStorage.setItem("userName", res.data.user.username);
+        localStorage.setItem("tooltip", res.data.tooltip);
+        localStorage.setItem(
+          "expiredAt",
+          jwtDecode(res.data.token.access).exp * 1000
+        );
+
+        window.location.replace("/home");
       })
       .catch(() => setIsCorrectPsword(false));
   };
 
   const modalStyle = {
     overlay: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0,0,0,0.65)',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "rgba(0,0,0,0.65)",
       zIndex: 10,
     },
   };
