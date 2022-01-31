@@ -1,34 +1,34 @@
-import styled from 'styled-components';
-import { useState, useContext, useEffect } from 'react';
+import styled from "styled-components";
+import { useState, useContext, useEffect } from "react";
 
-import API from '../../utils/API';
-import COLORS from '../../constants/colors';
-import BaseTemplateModal from './BaseTemplateModal';
+import API from "../../utils/API";
+import COLORS from "../../constants/colors";
+import BaseTemplateModal from "./BaseTemplateModal";
 
-import dots from '../../constants/icons/dots.svg';
-import mainSchIllu from '../../constants/icons/mainSchIllu.svg';
-import mainComIllu from '../../constants/icons/mainComIllu.svg';
+import dots from "../../constants/icons/dots.svg";
+import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
+import mainComIllu from "../../constants/icons/mainComIllu.svg";
 
-import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
-import Select from '../commons/Select';
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import Select from "../commons/Select";
 
 const BaseTemplateArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [baseTemplates, setBaseTemplates] = useState([]);
-  const [option, setOption] = useState('company');
+  const [option, setOption] = useState("company");
 
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   // get base templates
   useEffect(() => {
-    API.get('/templates/base').then((res) => {
+    API.get("/templates/base").then((res) => {
       setBaseTemplates(res.data);
     });
   }, []);
 
   // filtering base templates
-  const baseCompany = baseTemplates.filter((base) => base.category === '회사');
-  const baseSchool = baseTemplates.filter((base) => base.category === '학교');
+  const baseCompany = baseTemplates.filter((base) => base.category === "회사");
+  const baseSchool = baseTemplates.filter((base) => base.category === "학교");
 
   // when clicking base template menu
   const handleBaseClick = (e) => {
@@ -47,9 +47,9 @@ const BaseTemplateArea = () => {
       <Contents>
         <TitleSelect>
           <BottomTitle>
-            {option === 'company'
-              ? '회사에서 일잘러가 되려면?'
-              : '학교에서 교수님, 조교님께 어떻게 보내나요?'}
+            {option === "company"
+              ? "회사에서 일잘러가 되려면?"
+              : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
           </BottomTitle>
           <Select option={option} setOption={setOption} />
         </TitleSelect>
@@ -60,37 +60,27 @@ const BaseTemplateArea = () => {
         </BottomSubTitle>
 
         <BaseTemplateTable>
-          <tbody>
-            <tr>
-              {option === 'company'
-                ? baseCompany.slice(0, 5).map((t, i) => (
-                    <th
-                      id={t.templateId}
-                      key={'b' + i}
-                      onClick={handleBaseClick}
-                    >
-                      <ThText id={t.templateId} onClick={handleBaseClick}>
-                        {t.title}
-                      </ThText>
-                    </th>
-                  ))
-                : baseSchool.slice(0, 5).map((t, i) => (
-                    <th
-                      id={t.templateId}
-                      key={'b' + i}
-                      onClick={handleBaseClick}
-                    >
-                      <ThText id={t.templateId} onClick={handleBaseClick}>
-                        {t.title}
-                      </ThText>
-                    </th>
-                  ))}
+          {option === "company"
+            ? baseCompany.slice(0, 5).map((t, i) => (
+                <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
+                  <ThText id={t.templateId} onClick={handleBaseClick}>
+                    {t.title}
+                  </ThText>
+                </Cell>
+              ))
+            : baseSchool.slice(0, 5).map((t, i) => (
+                <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
+                  <ThText id={t.templateId} onClick={handleBaseClick}>
+                    {t.title}
+                  </ThText>
+                </Cell>
+              ))}
 
-              <th onClick={handleDotBtnClick}>
-                <Dots src={dots} />
-              </th>
-            </tr>
-          </tbody>
+          <Cell onClick={handleDotBtnClick}>
+            <ThText>
+              <Dots src={dots} />
+            </ThText>
+          </Cell>
         </BaseTemplateTable>
         {selectedId.length !== 0 && (
           <BaseTemplateModal
@@ -102,7 +92,7 @@ const BaseTemplateArea = () => {
           />
         )}
       </Contents>
-      {option === 'company' ? (
+      {option === "company" ? (
         <Illustration src={mainComIllu} />
       ) : (
         <Illustration src={mainSchIllu} />
@@ -131,12 +121,15 @@ const ThText = styled.div`
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  font-size: 18px;
+  line-height: 24px;
+  word-break: keep-all;
 `;
 
 const Illustration = styled.img`
   width: 360px;
   height: 240px;
+  margin-left: 28px;
 `;
 
 const Contents = styled.div`
@@ -180,32 +173,35 @@ const BottomSubTitle = styled.div`
   color: ${COLORS.UIBlack};
 `;
 
-const BaseTemplateTable = styled.table`
-  width: 1124px;
+const BaseTemplateTable = styled.div`
+  width: 1122px;
   height: 80px;
 
-  border: 1.5px solid ${COLORS.indigo2};
-  border-collapse: collapse;
-  text-align: center;
   margin: 35px 1.5px 0px 1.5px;
 
   border-radius: 4px;
-  border-style: hidden;
-  box-shadow: 0 0 0 1px ${COLORS.indigo2};
+  border: 1px solid ${COLORS.indigo2};
 
-  tr,
-  th {
-    border: 1.5px solid ${COLORS.indigo2};
-    border-collapse: collapse;
-    font-size: 18px;
-    font-weight: 400;
+  display: flex;
+  align-items: center;
+`;
 
-    width: 188px;
-    height: 80px;
+const Cell = styled.div`
+  font-size: 18px;
 
-    &:hover {
-      cursor: pointer;
-    }
+  width: 187px;
+  height: 80px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  & + & {
+    border-left: 1px solid ${COLORS.indigo2};
   }
 `;
 

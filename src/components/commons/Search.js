@@ -85,6 +85,7 @@ const SearchResultWrapper = styled.div`
   position: relative;
   z-index: 2;
   margin-left: 40px;
+  padding-top: 1px;
   padding-bottom: 9px;
   border-radius: 0 0 2px 2px;
   border-top: 1px solid ${COLORS.UIWhite};
@@ -95,13 +96,17 @@ const SearchResultWrapper = styled.div`
 
 const SearchResultTitle = styled.div`
   width: 228px;
-  height: 25px;
-  display: flex;
-  align-items: center;
+  height: 21px;
   font-size: 14px;
   margin-top: 9px;
+  padding-top: 4px;
   padding-left: 8px;
   border-radius: 2px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   &:hover {
     background: ${COLORS.indigo1};
     cursor: pointer;
@@ -113,19 +118,17 @@ const Input = styled.input`
   background: none;
   border: none;
   color: white;
+  font-weight: 300;
   &::placeholder {
     color: ${COLORS.indigo1};
     font-size: 16px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
   }
 `;
 
 const SearchIcon = styled.img`
   width: 18px;
   heigt: 18px;
-  margin: 10px 0px 10px 12px;
+  margin: 8px 0px 10px 12px;
 `;
 
 const RemoveIcon = styled.img`
