@@ -131,12 +131,15 @@ const ThText = styled.div`
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  font-size: 18px;
+  line-height: 24px;
+  word-break: keep-all;
 `;
 
 const Illustration = styled.img`
   width: 360px;
   height: 240px;
+  margin-left: 28px;
 `;
 
 const Contents = styled.div`

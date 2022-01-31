@@ -6,6 +6,7 @@ import useInputs from "../../hooks/useInputs";
 import COLORS from "../../constants/colors";
 
 import exit from "../../constants/icons/exit.svg";
+import jwtDecode from "jwt-decode";
 
 import {
   Modal,
@@ -50,6 +51,11 @@ const SignInModal = ({
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("userName", res.data.user.username);
         localStorage.setItem("tooltip", res.data.tooltip);
+        localStorage.setItem(
+          "expiredAt",
+          jwtDecode(res.data.token.access).exp * 1000
+        );
+
         window.location.replace("/home");
       })
       .catch(() => setIsCorrectPsword(false));
