@@ -176,6 +176,20 @@ const Content = styled.div`
 
   overflow: auto;
   overflow-x: hidden;
+
+  &:hover {
+    &::-webkit-scrollbar {
+      width: 13px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: ${COLORS.primary};
+      background-clip: padding-box;
+
+      border-radius: 20px;
+      border: 5px solid transparent;
+    }
+  }
 `;
 
 const Description = styled.div`

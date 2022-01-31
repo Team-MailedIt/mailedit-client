@@ -24,7 +24,9 @@ API.interceptors.response.use(
     // err: when access token is expired
     const originalRequest = err.config;
 
+    console.log("무한루프?");
     if (err.response.status === 401 && !originalRequest._retry) {
+      console.log("무한루프!");
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem("refreshToken");
 
