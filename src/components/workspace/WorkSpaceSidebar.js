@@ -164,7 +164,7 @@ const VariableSection = styled.section`
 const MyTemplate = styled.span`
   width: 96px;
   height: 26px;
-  margin: 0px 192px 24px 40px;
+  margin: 0px 192px 12px 40px;
 
   font-weight: 500;
   font-size: 22px;
@@ -204,9 +204,8 @@ const BaseTemplate = styled.span`
   height: 26px;
   margin: 52px 192px 8px 40px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 22px;
-  line-height: 26px;
 
   display: flex;
   align-items: center;

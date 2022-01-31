@@ -128,7 +128,7 @@ const Input = styled.input`
 const SearchIcon = styled.img`
   width: 18px;
   heigt: 18px;
-  margin: 10px 0px 10px 12px;
+  margin: 8px 0px 10px 12px;
 `;
 
 const RemoveIcon = styled.img`
