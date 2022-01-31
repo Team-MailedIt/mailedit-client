@@ -69,7 +69,7 @@ const FooterButton = styled.button`
 
   color: ${COLORS.primary};
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 28px;
   line-height: 34px;
 
@@ -87,7 +87,7 @@ const RowContainer = styled.div`
 
 const FooterTitle = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 54px;
   line-height: 160%;
   color: ${COLORS.UIWhite};
@@ -103,7 +103,7 @@ const FooterTitle = styled.span`
 `;
 const FooterBody1 = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 24px;
   line-height: 160%;
   color: ${COLORS.UIWhite};

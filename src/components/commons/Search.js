@@ -118,7 +118,7 @@ const Input = styled.input`
   background: none;
   border: none;
   color: white;
-  font-weight: 300;
+  font-weight: 400;
   &::placeholder {
     color: ${COLORS.indigo1};
     font-size: 16px;

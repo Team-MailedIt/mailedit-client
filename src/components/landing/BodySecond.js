@@ -43,7 +43,7 @@ const HeadingContainer = styled.div`
 
 const Heading = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 64px;
   line-height: 160%;
   color: ${COLORS.bodyBlue};
@@ -55,7 +55,7 @@ const Heading = styled.span`
 `;
 const SubHeading = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.gray8};
