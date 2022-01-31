@@ -20,7 +20,6 @@ const GoogleAuth = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("tooltip", res.data.tooltip);
