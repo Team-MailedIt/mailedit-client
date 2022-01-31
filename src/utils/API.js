@@ -8,6 +8,44 @@ const API = axios.create({
   },
 });
 
+// intercept request
+API.interceptors.request.use(async (config) => {
+  const accessToken = localStorage.getItem("accessToken");
+  accessToken && (config.headers.Authorization = `Bearer ${accessToken}`);
+
+  const refreshToken = localStorage.getItem("refreshToken");
+  const expiredAt = localStorage.getItem("expiredAt");
+  const now = Date.now();
+
+  // if the token expires within a minute
+  if (refreshToken != null) {
+    if (expiredAt - now < 60000) {
+      console.log(expiredAt - now);
+      const params = new URLSearchParams();
+      params.append("refresh", refreshToken);
+
+      const { data } = await axios.post(
+        "https://api.mailedit.me/api/token/refresh",
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      console.log("reissuing tokens");
+
+      localStorage.setItem("accessToken", data.access);
+      localStorage.setItem("expiredAt", jwtDecode(data.access).exp * 1000);
+
+      config.headers["Authorization"] = `Bearer ${data.access}`;
+    }
+  }
+
+  return config;
+});
+
 // intercept the request
 // API.interceptors.request.use((config) => {
 //   const accessToken = localStorage.getItem("accessToken");
@@ -47,43 +85,5 @@ const API = axios.create({
 //     return Promise.reject(err);
 //   }
 // );
-
-API.interceptors.request.use(async (config) => {
-  const accessToken = localStorage.getItem("accessToken");
-  accessToken && (config.headers.Authorization = `Bearer ${accessToken}`);
-
-  const refreshToken = localStorage.getItem("refreshToken");
-  const expiredAt = localStorage.getItem("expiredAt");
-  const now = Date.now();
-  console.log("now: ", now);
-  console.log("dif: ", expiredAt - now);
-
-  // 50초 미만이라면
-  if (refreshToken != null) {
-    if (expiredAt - now < 50000) {
-      const params = new URLSearchParams();
-      params.append("refresh", refreshToken);
-
-      const { data } = await axios.post(
-        "https://api.mailedit.me/api/token/refresh",
-        params,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-
-      console.log("토큰 재발급");
-
-      localStorage.setItem("accessToken", data.access);
-      localStorage.setItem("expiredAt", jwtDecode(data.access).exp * 1000);
-
-      config.headers["Authorization"] = `Bearer ${data.access}`;
-    }
-  }
-
-  return config;
-});
 
 export default API;
