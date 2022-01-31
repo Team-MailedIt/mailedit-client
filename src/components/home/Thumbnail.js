@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 import API from "../../utils/API";
 import COLORS from "../../constants/colors";
@@ -22,7 +21,7 @@ const Thumbnail = ({
   setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
-  const [memo, setMemo] = useState('');
+  const [memo, setMemo] = useState("");
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
@@ -39,9 +38,9 @@ const Thumbnail = ({
 
   useEffect(() => {
     const parsed = subtitle
-      .replace(/<div>/gi, '\n')
-      .replace(/<\/div>/gi, '')
-      .replace(/<br>/gi, '\n');
+      .replace(/<div>/gi, "\n")
+      .replace(/<\/div>/gi, "")
+      .replace(/<br>/gi, "\n");
     setMemo(parsed);
   }, [subtitle]);
 
@@ -158,10 +157,10 @@ const SubTitleText = styled.span`
   line-height: 22px;
   vertical-align: bottom;
 
-  max-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  // max-width: 0;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
 `;
 
 const Liked = styled.img`
