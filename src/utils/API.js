@@ -19,7 +19,7 @@ API.interceptors.request.use(async (config) => {
 
   // if the token expires within a minute
   if (refreshToken != null) {
-    if (expiredAt - now < 50000) {
+    if (expiredAt - now < 60000) {
       console.log(expiredAt - now);
       const params = new URLSearchParams();
       params.append("refresh", refreshToken);
