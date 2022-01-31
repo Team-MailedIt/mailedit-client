@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
-import API from '../../utils/API';
-import COLORS from '../../constants/colors';
+import API from "../../utils/API";
+import COLORS from "../../constants/colors";
 
-import bin from '../../constants/icons/bin.svg';
-import liked from '../../constants/icons/liked.svg';
-import notLiked from '../../constants/icons/notLiked.svg';
+import bin from "../../constants/icons/bin.svg";
+import liked from "../../constants/icons/liked.svg";
+import notLiked from "../../constants/icons/notLiked.svg";
 
 const Thumbnail = ({
   id,
@@ -18,6 +18,7 @@ const Thumbnail = ({
   updatedAt,
   handleBinIconClick,
   handleThumbnailClick,
+  setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
 
@@ -27,7 +28,11 @@ const Thumbnail = ({
     API.patch(
       `/templates/${id}`,
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    );
+    ).then(() => {
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+      });
+    });
   };
 
   return (
@@ -40,7 +45,9 @@ const Thumbnail = ({
       </Title>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
-          <SubTitleText id={id}>{subtitle}</SubTitleText>
+          <SubTitleText id={id}>
+            {subtitle.replaceAll("<div>", " ").replaceAll("</div>", "")}
+          </SubTitleText>
         </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
@@ -126,7 +133,6 @@ const Subtitle = styled.div`
 
   font-size: 16px;
   line-height: 22px;
-  // vertical-align: bottom;
 
   overflow: hidden;
   text-overflow: ellipsis;

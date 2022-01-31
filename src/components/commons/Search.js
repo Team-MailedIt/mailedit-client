@@ -96,12 +96,13 @@ const SearchResultWrapper = styled.div`
 const SearchResultTitle = styled.div`
   width: 228px;
   height: 25px;
-  display: flex;
-  align-items: center;
   font-size: 14px;
   margin-top: 9px;
   padding-left: 8px;
   border-radius: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   &:hover {
     background: ${COLORS.indigo1};
     cursor: pointer;

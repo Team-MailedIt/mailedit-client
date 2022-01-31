@@ -36,6 +36,7 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
           )}
         </ItemWrapper>
       </GroupWrapper>
+
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
           {list.map(({ templateId, title }, i) => (
@@ -72,7 +73,6 @@ const GroupWrapper = styled.section`
   justify-content: center;
 
   margin-top: 8px;
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
   &:hover {
@@ -105,7 +105,6 @@ const GroupTitle = styled.div`
   height: 17px;
 
   font-size: 14px;
-  line-height: 17px;
 
   display: flex;
   align-items: center;
@@ -132,14 +131,13 @@ const ListItem = styled.div`
 
 const TemplateName = styled.div`
   width: 200px;
-  height: 12px;
+  height: 17px;
 
   margin-top: 10px;
   margin-left: 8px;
 
-  font-size: 10px;
-  line-height: 12px;
-
+  font-size: 14px;
+  font-weight: 200;
   color: ${COLORS.UIWhite};
 
   &:hover {
