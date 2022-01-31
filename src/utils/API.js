@@ -45,4 +45,31 @@ API.interceptors.response.use(
   }
 );
 
+// API.interceptors.request.use(async (config) => {
+//   const refreshToken = localStorage.getItem("refreshToken");
+//   const expiredAt = localStorage.getItem("expiredAt");
+//   const accessToken = localStorage.getItem("accessToken");
+//   const now = Date.now();
+//   console.log("sth went wrong...");
+//   accessToken && (config.headers.Authorization = `Bearer ${accessToken}`);
+
+//   if (expiredAt - now < 0 && refreshToken) {
+//     const params = new URLSearchParams();
+//     params.append("refresh", refreshToken);
+
+//     const { data } = await API.post("/token/refresh", params, {
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//     });
+
+//     console.log("토큰 재발급");
+
+//     localStorage.setItem("accessToken", data.access);
+//     config.headers["Authorization"] = `Bearer ${data.access}`;
+//   }
+
+//   return config;
+// });
+
 export default API;

@@ -78,22 +78,14 @@ const Accordion = ({ icon, title, list }) => {
   );
 };
 
-const IconWrapper = styled.img`
-  width: 16px;
-  height: 12px;
-
-  margin: 6px 8px 6px 0px;
-`;
-
 const Wrapper = styled.div`
   width: 252px;
+  margin-left: 40px;
 
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
-
-  margin-left: 40px;
 `;
 
 const GroupWrapper = styled.section`
@@ -133,9 +125,19 @@ const GroupTitle = styled.div`
   height: 20px;
   margin-left: 8px;
   line-height: 19px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   font-size: 16px;
   color: #ffffff;
+`;
+
+const IconWrapper = styled.img`
+  width: 16px;
+  height: 12px;
+
+  margin: 6px 8px 6px 0px;
 `;
 
 const ListWrapper = styled.div`
@@ -163,7 +165,10 @@ const TemplateTitle = styled.div`
 const TemplateName = styled.div`
   width: 160px;
   height: 20px;
-  margin-left: 16px;
+  margin-left: 18px;
+
+  font-size: 16px;
+  font-weight: 200;
 
   overflow: hidden;
   white-space: nowrap;

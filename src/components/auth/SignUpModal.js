@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import ReactModal from 'react-modal';
-import styled from 'styled-components';
+import { useState } from "react";
+import ReactModal from "react-modal";
+import styled from "styled-components";
 
-import API from '../../utils/API';
-import GoogleAuth from './GoogleAuth';
-import COLORS from '../../constants/colors';
-import useInputs from '../../hooks/useInputs';
+import API from "../../utils/API";
+import GoogleAuth from "./GoogleAuth";
+import COLORS from "../../constants/colors";
+import useInputs from "../../hooks/useInputs";
 
-import exit from '../../constants/icons/exit.svg';
+import exit from "../../constants/icons/exit.svg";
 
 import {
   Modal,
@@ -18,7 +18,7 @@ import {
   UnderText,
   Other,
   ErrorText,
-} from './AuthPresenter';
+} from "./AuthPresenter";
 
 const SignUpModal = ({
   isSignUpModalOpen,
@@ -31,12 +31,12 @@ const SignUpModal = ({
   const [isValidUser, setIsValidUser] = useState(false);
   const [isAllPassedUser, setIsAllPassedUser] = useState(false);
 
-  const [{ name, email, password, confirmPassword }, handleInputChange, reset] =
+  const [{ name, email, password, confirmPassword }, handleInputChange] =
     useInputs({
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     });
 
   const signUpUser = { username: name, email: email, password: password };
@@ -62,7 +62,7 @@ const SignUpModal = ({
 
   // 회원가입
   const handleSignUpBtnClick = () => {
-    API.post('/signup', JSON.stringify(signUpUser))
+    API.post("/signup", JSON.stringify(signUpUser))
       .then(() => {
         setIsAllPassedUser(true);
       })
@@ -74,10 +74,10 @@ const SignUpModal = ({
 
   const modalStyle = {
     overlay: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0,0,0,0.65)',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "rgba(0,0,0,0.65)",
       zIndex: 10,
     },
   };

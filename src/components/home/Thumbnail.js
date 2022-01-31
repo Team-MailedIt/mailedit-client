@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import API from '../../utils/API';
-import COLORS from '../../constants/colors';
 
-import bin from '../../constants/icons/bin.svg';
-import liked from '../../constants/icons/liked.svg';
-import notLiked from '../../constants/icons/notLiked.svg';
+import API from "../../utils/API";
+import COLORS from "../../constants/colors";
+
+import bin from "../../constants/icons/bin.svg";
+import liked from "../../constants/icons/liked.svg";
+import notLiked from "../../constants/icons/notLiked.svg";
 
 const Thumbnail = ({
   id,
@@ -18,6 +19,7 @@ const Thumbnail = ({
   updatedAt,
   handleBinIconClick,
   handleThumbnailClick,
+  setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
   const [memo, setMemo] = useState('');
@@ -28,7 +30,11 @@ const Thumbnail = ({
     API.patch(
       `/templates/${id}`,
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    );
+    ).then(() => {
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+      });
+    });
   };
 
   useEffect(() => {
@@ -135,7 +141,9 @@ const Subtitle = styled.div`
 
   font-size: 16px;
   line-height: 22px;
-  vertical-align: bottom;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${COLORS.gray8};
 `;

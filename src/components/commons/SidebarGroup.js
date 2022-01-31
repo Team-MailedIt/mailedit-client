@@ -37,6 +37,10 @@ const GroupTitle = styled.div`
   width: 160px;
   height: 20px;
 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   font-size: 16px;
   color: ${COLORS.UIWhite};
 `;
