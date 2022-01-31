@@ -203,7 +203,7 @@ const MyTemplateGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
 
   &::-webkit-scrollbar {
-    width: 20px;
+    width: 12px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -211,7 +211,7 @@ const MyTemplateGrid = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 8px solid transparent;
+    border: 5px solid transparent;
   }
 `;
 

@@ -166,10 +166,10 @@ const TemplateTitle = styled.div`
 const TemplateName = styled.div`
   width: 160px;
   height: 20px;
-  margin-left: 16px;
+  margin-left: 18px;
 
   font-size: 16px;
-  font-family: Pretendard-Light;
+  font-weight: 200;
 
   overflow: hidden;
   white-space: nowrap;
