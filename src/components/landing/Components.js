@@ -126,7 +126,7 @@ export const LeftPill = styled.div`
 
   background: ${COLORS.bodyBlue};
   border: 2px solid ${COLORS.bodyBlue};
-  border-radius: 20px 0px 0px 20px;
+  border-radius: 40px 0px 0px 40px;
 
   @media screen and (max-width: 1440px) {
     width: 116px;
@@ -145,7 +145,7 @@ export const RightPill = styled.div`
   height: 42px;
 
   border: 2px solid ${COLORS.bodyBlue};
-  border-radius: 0px 20px 20px 0px;
+  border-radius: 0px 40px 40px 0px;
   @media screen and (max-width: 1440px) {
     width: 116px;
     height: 33px;
@@ -241,7 +241,7 @@ export const FooterBodySpan = styled.span`
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 28px;
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;

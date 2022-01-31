@@ -85,7 +85,7 @@ class EditableBlock extends React.Component {
     if (e.key === '/') {
       this.setState({ htmlBackup: this.state.html });
     } else if (e.key === 'Enter') {
-      if (this.state.previousKey === 'Control') {
+      if (this.state.previousKey !== 'Shift') {
         e.preventDefault();
         const { selectionStart } = getSelection(this.contentEditable.current);
         // console.log(selectionStart);
@@ -196,7 +196,7 @@ class EditableBlock extends React.Component {
         <ContentEditable
           //disabled={false} // use true to disable editing
           style={{
-            width: 'calc(100% - 1rem)',
+            width: 'calc(100% - 3rem)',
 
             paddingTop: '4px',
             paddingBottom: '4px',
