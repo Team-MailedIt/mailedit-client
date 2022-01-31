@@ -20,20 +20,14 @@ const GoogleAuth = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.tooltip);
 
-        window.location.replace("/home");
+        window.location.href = "/home";
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  // 구글 로그인 실패 시
-  const onGoogleSignInFailure = () => {
-    alert("다시 시도해 주세요");
   };
 
   return (
@@ -44,7 +38,6 @@ const GoogleAuth = () => {
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_API_KEY}
         onSuccess={onGoogleSignInSuccess}
-        onFailure={onGoogleSignInFailure}
         render={(renderProps) => (
           <GoogleButton onClick={renderProps.onClick}>
             <GoogleWrapper>

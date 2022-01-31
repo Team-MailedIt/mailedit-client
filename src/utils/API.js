@@ -22,26 +22,26 @@ API.interceptors.response.use(
   },
   async (err) => {
     // err: when access token is expired
+    const refreshToken = localStorage.getItem("refreshToken");
     const originalRequest = err.config;
 
-    console.log("무한루프?");
-    if (err.response.status === 401 && !originalRequest._retry) {
-      console.log("무한루프!");
-      originalRequest._retry = true;
-      const refreshToken = localStorage.getItem("refreshToken");
+    if (refreshToken != null) {
+      if (err.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
 
-      const params = new URLSearchParams();
-      params.append("refresh", refreshToken);
+        const params = new URLSearchParams();
+        params.append("refresh", refreshToken);
 
-      const { data } = await API.post("/token/refresh", params, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      });
+        const { data } = await API.post("/token/refresh", params, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
 
-      localStorage.setItem("accessToken", data.access);
-      axios.defaults.headers.common.Authorization = `Bearer ${data.access}`;
-      return API(originalRequest);
+        localStorage.setItem("accessToken", data.access);
+        axios.defaults.headers.common.Authorization = `Bearer ${data.access}`;
+        return API(originalRequest);
+      }
     }
     return Promise.reject(err);
   }
