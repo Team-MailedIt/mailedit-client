@@ -5,6 +5,7 @@ import API from "../../utils/API";
 import COLORS from "../../constants/colors";
 import google from "../../constants/icons/google.svg";
 import logoBlue from "../../constants/icons/logoBlue.svg";
+import jwtDecode from "jwt-decode";
 
 const GoogleAuth = () => {
   // 구글 로그인 성공 시
@@ -23,6 +24,10 @@ const GoogleAuth = () => {
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("tooltip", res.data.tooltip);
+        localStorage.setItem(
+          "expiredAt",
+          jwtDecode(res.data.token.access).exp * 1000
+        );
 
         window.location.href = "/home";
       })

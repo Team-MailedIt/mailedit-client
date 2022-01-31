@@ -244,7 +244,7 @@ const NoTemplateIllust = styled.img`
 `;
 
 const NoTemplateText = styled.div`
-  width: 233px;
+  width: 234px;
   height: 60px;
 
   margin-top: 20px;
@@ -259,7 +259,7 @@ const NoTemplateText = styled.div`
 `;
 
 const SelectGroupText = styled.div`
-  width: 171px;
+  width: 173px;
   height: 60px;
 
   margin-top: 20px;
