@@ -18,6 +18,7 @@ const Thumbnail = ({
   updatedAt,
   handleBinIconClick,
   handleThumbnailClick,
+  setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
 
@@ -27,7 +28,11 @@ const Thumbnail = ({
     API.patch(
       `/templates/${id}`,
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    );
+    ).then(() => {
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+      });
+    });
   };
 
   return (
