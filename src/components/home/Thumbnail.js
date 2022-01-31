@@ -40,7 +40,8 @@ const Thumbnail = ({
     const parsed = subtitle
       .replace(/<div>/gi, "\n")
       .replace(/<\/div>/gi, "")
-      .replace(/<br>/gi, "\n");
+      .replace(/<br>/gi, "\n")
+      .slice(0, 45);
     setMemo(parsed);
   }, [subtitle]);
 
