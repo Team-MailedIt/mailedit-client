@@ -46,11 +46,13 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   useEffect(() => {
     const updatedBlocks = [...blocks];
     blocks.forEach((element, index) => {
-      const temp = element.html.replace(/<div>/gi, '\n');
-      const newString = temp.replace(/<\/div>/gi, '');
+      const temp = element.html
+        .replace(/<div>/gi, '\n')
+        .replace(/<\/div>/gi, '')
+        .replace(/<br>/gi, '\n');
       updatedBlocks[index] = {
         ...updatedBlocks[index],
-        html: newString,
+        html: temp,
       };
     });
     setParsedBlocks(updatedBlocks);

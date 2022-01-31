@@ -20,8 +20,9 @@ const GoogleAuth = () => {
       },
     })
       .then((res) => {
+        console.log(res.data);
         localStorage.setItem("accessToken", res.data.token.access);
-        localStorage.setItem("refreshToken", res.data.token.refresh);
+        localStorage.setItem("refreshToken", res.data.tooltip);
 
         window.location.replace("/home");
       })

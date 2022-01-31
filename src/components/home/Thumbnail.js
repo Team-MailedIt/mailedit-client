@@ -1,5 +1,6 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
 
 import API from "../../utils/API";
 import COLORS from "../../constants/colors";
@@ -21,6 +22,7 @@ const Thumbnail = ({
   setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
+  const [memo, setMemo] = useState('');
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
@@ -35,6 +37,14 @@ const Thumbnail = ({
     });
   };
 
+  useEffect(() => {
+    const parsed = subtitle
+      .replace(/<div>/gi, '\n')
+      .replace(/<\/div>/gi, '')
+      .replace(/<br>/gi, '\n');
+    setMemo(parsed);
+  }, [subtitle]);
+
   return (
     <Wrapper>
       <IndexArea id={id} onClick={handleThumbnailClick}>
@@ -45,9 +55,7 @@ const Thumbnail = ({
       </Title>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
-          <SubTitleText id={id}>
-            {subtitle.replaceAll("<div>", " ").replaceAll("</div>", "")}
-          </SubTitleText>
+          <SubTitleText id={id}>{memo}</SubTitleText>
         </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
