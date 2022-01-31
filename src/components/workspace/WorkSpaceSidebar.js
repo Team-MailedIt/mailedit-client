@@ -1,17 +1,18 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
-import Search from "../commons/Search";
-import Accordion from "../commons/Accordion";
+import Search from '../commons/Search';
+import Accordion from '../commons/Accordion';
 
-import star from "../../constants/icons/star.svg";
-import logo from "../../constants/icons/logo.svg";
+import star from '../../constants/icons/star.svg';
+import logo from '../../constants/icons/logo.svg';
 
-import API from "../../utils/API";
-import { useContext, useEffect, useState } from "react";
-import { GroupContext } from "../../contexts/GroupContexts";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext";
+import API from '../../utils/API';
+import { useContext, useEffect, useState } from 'react';
+import { GroupContext } from '../../contexts/GroupContexts';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../../contexts/AuthContext';
+
 
 const WorkSpaceSidebar = () => {
   const { isLogin } = useContext(AuthContext);
@@ -47,9 +48,9 @@ const WorkSpaceSidebar = () => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
           // this will be base template
-          if (category === "회사") {
+          if (category === '회사') {
             setBaseCompany((el) => [...el, newElement]);
-          } else if (category === "학교") {
+          } else if (category === '학교') {
             setBaseSchool((el) => [...el, newElement]);
           }
         } else {
@@ -72,7 +73,7 @@ const WorkSpaceSidebar = () => {
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate("/home");
+    navigate('/home');
   };
 
   return (

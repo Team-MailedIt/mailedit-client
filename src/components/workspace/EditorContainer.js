@@ -1,30 +1,33 @@
-import { useState, useContext, useCallback } from "react";
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
-import { TemplateSaveButton, HorizontalLine, CopyButton } from "./Components";
-import EditPage from "./EditablePage";
-import HeaderContainer from "./HeaderContainer";
-import { CopyContext } from "../../contexts/CopyContexts";
-import parseBlocks from "../../utils/parseBlocks";
-import copy from "copy-to-clipboard";
-import ModalContainer from "../alertModal/ModalContainer";
-import API from "../../utils/API";
-import getOnlyBlocks from "../../utils/getOnlyBlocks";
-import AlertContainer from "../alertModal/AlertContainer";
-import TitleValid from "../alertModal/TitleValid";
-import BlockValid from "../alertModal/BlockValid";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useState, useContext, useCallback } from 'react';
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
+import { TemplateSaveButton, HorizontalLine, CopyButton } from './Components';
+import EditPage from './EditablePage';
+import HeaderContainer from './HeaderContainer';
+import { CopyContext } from '../../contexts/CopyContexts';
+import parseBlocks from '../../utils/parseBlocks';
+import copy from 'copy-to-clipboard';
+import ModalContainer from '../alertModal/ModalContainer';
+import API from '../../utils/API';
+import getOnlyBlocks from '../../utils/getOnlyBlocks';
+import AlertContainer from '../alertModal/AlertContainer';
+import TitleValid from '../alertModal/TitleValid';
+import BlockValid from '../alertModal/BlockValid';
+import NotRegistered from '../alertModal/NotRegistered';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const EditorContainer = ({ passedBlocks }) => {
   const { isLogin } = useContext(AuthContext);
   const [headerData, setHeaderData] = useState({});
   const { action, setActionHandler } = useContext(CopyContext);
+  const { isLogin } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOption, setModalOption] = useState("");
 
   // alert when invalid
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isBlockAlertOpen, setIsBlockAlertOpen] = useState(false);
+  const [isRegisteredOpen, setIsRegisteredOpen] = useState(false);
 
   const handleHeaderData = useCallback((newValue) => {
     setHeaderData(newValue);
@@ -47,6 +50,8 @@ const EditorContainer = ({ passedBlocks }) => {
         if (filteredContents.length === 0) {
           // 저장할 블럭이 없음
           setIsBlockAlertOpen(true);
+        } else if (!isLogin) {
+          setIsRegisteredOpen(true);
         } else {
           const props = {
             title: headerData.title,
@@ -119,6 +124,11 @@ const EditorContainer = ({ passedBlocks }) => {
         isAlertOpen={isBlockAlertOpen}
         setIsAlertOpen={setIsBlockAlertOpen}
         ChildComponent={BlockValid}
+      />
+      <AlertContainer
+        isAlertOpen={isRegisteredOpen}
+        setIsAlertOpen={setIsRegisteredOpen}
+        ChildComponent={NotRegistered}
       />
     </Container>
   );
