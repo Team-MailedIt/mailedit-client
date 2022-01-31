@@ -140,6 +140,13 @@ const TemplateContainer = styled.div`
   padding-left: 24px;
   padding-right: 24px;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${COLORS.primary};
+    border-radius: 40px;
+  }
 `;
 const RowContainer = styled.div`
   display: flex;

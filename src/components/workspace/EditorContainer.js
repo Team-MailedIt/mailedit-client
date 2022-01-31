@@ -131,13 +131,9 @@ const Container = styled.div`
   padding-right: 40px;
 `;
 const BodyContainer = styled.div`
-  border: 1px solid black;
   height: 788px;
-  // height 0.7vh 이런걸로 주면 반응형 ㄱㄴ
   max-width: 664px;
   background: ${COLORS.backgroundWhite};
-  /* margin-left: 40px;
-  margin-right: 40px; */
   padding-left: 26px;
   padding-right: 26px;
   border-radius: 2px;
@@ -145,7 +141,6 @@ const BodyContainer = styled.div`
 const FooterContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  /* margin-right: 40px; */
   margin-top: 24px;
 `;
 export default EditorContainer;

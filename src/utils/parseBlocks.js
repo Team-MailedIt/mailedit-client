@@ -16,7 +16,10 @@ function parseBlocks(blocks, flag) {
   } else {
     // copy
     let newArr = blocks.map(({ html }) => {
-      const temp = html.replace(/<div>/gi, '\n').replace(/<[^>]*>/g, '');
+      const temp = html
+        .replace(/<div>/gi, '\n')
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/<[^>]*>/g, '');
       return temp;
     });
     const parsedString = newArr.join('\n\n');

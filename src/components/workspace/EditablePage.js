@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useContext } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
-
+import COLORS from '../../constants/colors';
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
@@ -284,13 +284,20 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 };
 
 const Container = styled.div`
-  /* padding-top: 24px; */
+  padding-top: 2px;
   height: 688px;
   /* height: 80%; */
 
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${COLORS.primary};
+    border-radius: 40px;
+  }
 `;
 
 const Box = styled.div``;

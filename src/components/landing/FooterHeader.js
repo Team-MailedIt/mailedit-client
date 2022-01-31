@@ -142,6 +142,7 @@ const FooterLogoBody = styled.img`
   background-position: center;
   width: 170px;
   height: auto;
+  margin-top: -4px;
   @media screen and (max-width: 1440px) {
     width: 130px;
     height: auto;
