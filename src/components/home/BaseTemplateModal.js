@@ -64,6 +64,7 @@ const BaseTemplateModal = ({
               )}
             </MainWrapper>
           </Main>
+
           <Sidebar>
             <ScrollArea>
               <BaseAccordion
@@ -136,7 +137,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: "Pretendard-SemiBold";
+  font-weight: 600;
 
   color: ${COLORS.UIBlack};
 `;
@@ -153,7 +154,7 @@ const Subtitle = styled.div`
 
   margin-top: 24px;
 
-  font-family: "Pretendard-Medium";
+  font-weight: 500;
 
   color: ${COLORS.UIBlack};
 `;
@@ -175,6 +176,20 @@ const Content = styled.div`
 
   overflow: auto;
   overflow-x: hidden;
+
+  &:hover {
+    &::-webkit-scrollbar {
+      width: 13px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: ${COLORS.primary};
+      background-clip: padding-box;
+
+      border-radius: 20px;
+      border: 5px solid transparent;
+    }
+  }
 `;
 
 const Description = styled.div`
@@ -191,15 +206,15 @@ const Description = styled.div`
 
 const ScrollArea = styled.div`
   width: 226px;
-  height: 466px;
+  height: 457px;
 
   margin-top: 40px;
-  margin-left: 28px;
+  margin-left: 20px;
 
   overflow: auto;
 
   &::-webkit-scrollbar {
-    width: 19px;
+    width: 13px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -207,7 +222,7 @@ const ScrollArea = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 8.5px solid transparent;
+    border: 5px solid transparent;
   }
 `;
 
@@ -216,7 +231,7 @@ const UseBtn = styled.button`
   height: 32px;
 
   padding-top: 4px;
-  margin-top: 20px;
+  margin-top: 29px;
   margin-left: 32px;
 
   background: ${COLORS.gray1};
@@ -226,7 +241,7 @@ const UseBtn = styled.button`
 
   color: ${COLORS.primary};
   font-size: 14px;
-  font-family: "Pretendard-SemiBold";
+  font-weight: 500;
 `;
 
 const BlockWrapper = styled.div`
@@ -235,6 +250,7 @@ const BlockWrapper = styled.div`
 
   font-size: 14px;
   line-height: 24px;
+  font-weight: 300;
 
   color: ${COLORS.UIBlack};
 

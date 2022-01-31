@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import API from "../../utils/API";
@@ -18,8 +18,10 @@ const Thumbnail = ({
   updatedAt,
   handleBinIconClick,
   handleThumbnailClick,
+  setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
+  const [memo, setMemo] = useState("");
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
@@ -27,8 +29,20 @@ const Thumbnail = ({
     API.patch(
       `/templates/${id}`,
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    );
+    ).then(() => {
+      API.get("/templates/my").then((res) => {
+        setMyTemplates(res.data);
+      });
+    });
   };
+
+  useEffect(() => {
+    const parsed = subtitle
+      .replace(/<div>/gi, "\n")
+      .replace(/<\/div>/gi, "")
+      .replace(/<br>/gi, "\n");
+    setMemo(parsed);
+  }, [subtitle]);
 
   return (
     <Wrapper>
@@ -40,7 +54,7 @@ const Thumbnail = ({
       </Title>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
-          <SubTitleText id={id}>{subtitle}</SubTitleText>
+          <SubTitleText id={id}>{memo}</SubTitleText>
         </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
@@ -97,7 +111,7 @@ const Title = styled.div`
 
   margin: 24px 20px 0px 20px;
 
-  font-family: Pretendard-SemiBold;
+  font-weight: 600;
   font-size: 22px;
   line-height: 26px;
 
@@ -126,7 +140,6 @@ const Subtitle = styled.div`
 
   font-size: 16px;
   line-height: 22px;
-  // vertical-align: bottom;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -135,14 +148,19 @@ const Subtitle = styled.div`
 `;
 
 const SubTitleText = styled.span`
-  width: 100%;
-  height: 100%;
+  width: 264px;
+  height: 42px;
 
   display: table-cell;
 
   font-size: 16px;
   line-height: 22px;
   vertical-align: bottom;
+
+  // max-width: 0;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
 `;
 
 const Liked = styled.img`

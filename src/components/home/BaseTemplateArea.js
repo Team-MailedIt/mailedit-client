@@ -60,37 +60,27 @@ const BaseTemplateArea = () => {
         </BottomSubTitle>
 
         <BaseTemplateTable>
-          <tbody>
-            <tr>
-              {option === "company"
-                ? baseCompany.slice(0, 5).map((t, i) => (
-                    <th
-                      id={t.templateId}
-                      key={"b" + i}
-                      onClick={handleBaseClick}
-                    >
-                      <ThText id={t.templateId} onClick={handleBaseClick}>
-                        {t.title}
-                      </ThText>
-                    </th>
-                  ))
-                : baseSchool.slice(0, 5).map((t, i) => (
-                    <th
-                      id={t.templateId}
-                      key={"b" + i}
-                      onClick={handleBaseClick}
-                    >
-                      <ThText id={t.templateId} onClick={handleBaseClick}>
-                        {t.title}
-                      </ThText>
-                    </th>
-                  ))}
+          {option === "company"
+            ? baseCompany.slice(0, 5).map((t, i) => (
+                <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
+                  <ThText id={t.templateId} onClick={handleBaseClick}>
+                    {t.title}
+                  </ThText>
+                </Cell>
+              ))
+            : baseSchool.slice(0, 5).map((t, i) => (
+                <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
+                  <ThText id={t.templateId} onClick={handleBaseClick}>
+                    {t.title}
+                  </ThText>
+                </Cell>
+              ))}
 
-              <th onClick={handleDotBtnClick}>
-                <Dots src={dots} />
-              </th>
-            </tr>
-          </tbody>
+          <Cell onClick={handleDotBtnClick}>
+            <ThText>
+              <Dots src={dots} />
+            </ThText>
+          </Cell>
         </BaseTemplateTable>
         {selectedId.length !== 0 && (
           <BaseTemplateModal
@@ -163,8 +153,8 @@ const BottomTitle = styled.div`
   width: 488px;
   height: 34px;
 
-  font-family: Pretendard-SemiBold;
   font-size: 28px;
+  font-weight: 600;
 
   color: ${COLORS.UIBlack};
 
@@ -183,31 +173,35 @@ const BottomSubTitle = styled.div`
   color: ${COLORS.UIBlack};
 `;
 
-const BaseTemplateTable = styled.table`
-  width: 1124px;
+const BaseTemplateTable = styled.div`
+  width: 1122px;
   height: 80px;
 
-  border: 1.5px solid ${COLORS.indigo2};
-  border-collapse: collapse;
-  text-align: center;
   margin: 35px 1.5px 0px 1.5px;
 
   border-radius: 4px;
-  border-style: hidden;
-  box-shadow: 0 0 0 1px ${COLORS.indigo2};
+  border: 1px solid ${COLORS.indigo2};
 
-  tr,
-  th {
-    border: 1.5px solid ${COLORS.indigo2};
-    border-collapse: collapse;
-    font-size: 18px;
+  display: flex;
+  align-items: center;
+`;
 
-    width: 188px;
-    height: 80px;
+const Cell = styled.div`
+  font-size: 18px;
 
-    &:hover {
-      cursor: pointer;
-    }
+  width: 187px;
+  height: 80px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  & + & {
+    border-left: 1px solid ${COLORS.indigo2};
   }
 `;
 

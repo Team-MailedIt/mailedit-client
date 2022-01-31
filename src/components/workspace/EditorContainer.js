@@ -13,8 +13,11 @@ import getOnlyBlocks from '../../utils/getOnlyBlocks';
 import AlertContainer from '../alertModal/AlertContainer';
 import TitleValid from '../alertModal/TitleValid';
 import BlockValid from '../alertModal/BlockValid';
+import NotRegistered from '../alertModal/NotRegistered';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const EditorContainer = ({ passedBlocks }) => {
+  const { isLogin } = useContext(AuthContext);
   const [headerData, setHeaderData] = useState({});
   const { action, setActionHandler } = useContext(CopyContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +26,7 @@ const EditorContainer = ({ passedBlocks }) => {
   // alert when invalid
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isBlockAlertOpen, setIsBlockAlertOpen] = useState(false);
+  const [isRegisteredOpen, setIsRegisteredOpen] = useState(false);
 
   const handleHeaderData = useCallback((newValue) => {
     setHeaderData(newValue);
@@ -45,6 +49,8 @@ const EditorContainer = ({ passedBlocks }) => {
         if (filteredContents.length === 0) {
           // 저장할 블럭이 없음
           setIsBlockAlertOpen(true);
+        } else if (!isLogin) {
+          setIsRegisteredOpen(true);
         } else {
           const props = {
             title: headerData.title,
@@ -118,6 +124,11 @@ const EditorContainer = ({ passedBlocks }) => {
         setIsAlertOpen={setIsBlockAlertOpen}
         ChildComponent={BlockValid}
       />
+      <AlertContainer
+        isAlertOpen={isRegisteredOpen}
+        setIsAlertOpen={setIsRegisteredOpen}
+        ChildComponent={NotRegistered}
+      />
     </Container>
   );
 };
@@ -131,13 +142,9 @@ const Container = styled.div`
   padding-right: 40px;
 `;
 const BodyContainer = styled.div`
-  border: 1px solid black;
   height: 788px;
-  // height 0.7vh 이런걸로 주면 반응형 ㄱㄴ
   max-width: 664px;
   background: ${COLORS.backgroundWhite};
-  /* margin-left: 40px;
-  margin-right: 40px; */
   padding-left: 26px;
   padding-right: 26px;
   border-radius: 2px;
@@ -145,7 +152,6 @@ const BodyContainer = styled.div`
 const FooterContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  /* margin-right: 40px; */
   margin-top: 24px;
 `;
 export default EditorContainer;

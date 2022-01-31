@@ -46,7 +46,6 @@ const SignInModal = ({
   const handleSignInBtnClick = () => {
     API.post("/login", JSON.stringify(signInUser))
       .then((res) => {
-        console.log(res);
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
         localStorage.setItem("userName", res.data.user.username);
@@ -56,7 +55,7 @@ const SignInModal = ({
           jwtDecode(res.data.token.access).exp * 1000
         );
 
-        window.location.replace("/home");
+        window.location.href = "/home";
       })
       .catch(() => setIsCorrectPsword(false));
   };

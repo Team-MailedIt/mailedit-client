@@ -115,7 +115,7 @@ const Top = styled.header`
 const Hello = styled.div`
   height: 24px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
 
   margin-top: 88px;
@@ -177,6 +177,8 @@ const GoToWorkSpace = styled.button`
   border: none;
   border-radius: 4px;
 
+  font-weight: 500;
+  font-size: 18px;
   color: ${COLORS.UIWhite};
   background: ${COLORS.primary};
 `;

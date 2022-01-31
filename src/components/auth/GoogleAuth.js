@@ -5,6 +5,7 @@ import API from "../../utils/API";
 import COLORS from "../../constants/colors";
 import google from "../../constants/icons/google.svg";
 import logoBlue from "../../constants/icons/logoBlue.svg";
+import jwtDecode from "jwt-decode";
 
 const GoogleAuth = () => {
   // 구글 로그인 성공 시
@@ -22,17 +23,17 @@ const GoogleAuth = () => {
       .then((res) => {
         localStorage.setItem("accessToken", res.data.token.access);
         localStorage.setItem("refreshToken", res.data.token.refresh);
+        localStorage.setItem("tooltip", res.data.tooltip);
+        localStorage.setItem(
+          "expiredAt",
+          jwtDecode(res.data.token.access).exp * 1000
+        );
 
-        window.location.replace("/home");
+        window.location.href = "/home";
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  // 구글 로그인 실패 시
-  const onGoogleSignInFailure = () => {
-    alert("다시 시도해 주세요");
   };
 
   return (
@@ -43,7 +44,6 @@ const GoogleAuth = () => {
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_API_KEY}
         onSuccess={onGoogleSignInSuccess}
-        onFailure={onGoogleSignInFailure}
         render={(renderProps) => (
           <GoogleButton onClick={renderProps.onClick}>
             <GoogleWrapper>

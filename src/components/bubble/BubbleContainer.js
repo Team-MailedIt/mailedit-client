@@ -11,7 +11,6 @@ import {
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
 import { useCallback, useContext, useState } from 'react';
-// import { GearIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
 import DefaultContainer from './DefaultContainer';
@@ -120,7 +119,6 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
         )}
         <RowContainer style={{ paddingTop: '20px' }}>
           <SubHeading>기존 그룹</SubHeading>
-          {/* <GearIcon src="./img/gear.png" /> */}
         </RowContainer>
 
         <ColContainer style={{ marginTop: '12px' }}>
@@ -187,12 +185,15 @@ const Modal = styled(ReactModal)`
   padding: 1.125em 1.5em;
   font-size: 1.25em;
   border-radius: 12px;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
-    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
+    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); */
+  box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
 
   &::before {
     // layout
-    content: '';
+    content: ' ';
     position: absolute;
     width: 0;
     height: 0;
@@ -203,6 +204,7 @@ const Modal = styled(ReactModal)`
 
     // looks
     border-bottom-color: #fff;
+    box-shadow: 0px 4px -12px rgba(0, 0, 0, 0.05);
     filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
   }
   &:focus {

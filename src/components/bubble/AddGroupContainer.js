@@ -35,6 +35,8 @@ const AddGroupContainer = ({ handleAddNewGroup }) => {
           type="text"
           name="groupName"
           value={groupName}
+          size="100"
+          maxLength={20}
           onChange={handleInputChange}
           placeholder="그룹 이름을 입력하세요"
         />

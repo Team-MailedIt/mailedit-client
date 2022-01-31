@@ -45,7 +45,8 @@ export const VerticalLine = styled.div`
 
 export const MainHeading = styled.span`
   font-style: normal;
-  font-weight: bold;
+  /* font-family: 'Pretendard-SemiBold', serif; */
+  font-weight: 900;
   font-size: 44px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
@@ -126,7 +127,7 @@ export const LeftPill = styled.div`
 
   background: ${COLORS.bodyBlue};
   border: 2px solid ${COLORS.bodyBlue};
-  border-radius: 20px 0px 0px 20px;
+  border-radius: 40px 0px 0px 40px;
 
   @media screen and (max-width: 1440px) {
     width: 116px;
@@ -145,7 +146,7 @@ export const RightPill = styled.div`
   height: 42px;
 
   border: 2px solid ${COLORS.bodyBlue};
-  border-radius: 0px 20px 20px 0px;
+  border-radius: 0px 40px 40px 0px;
   @media screen and (max-width: 1440px) {
     width: 116px;
     height: 33px;
@@ -154,7 +155,7 @@ export const RightPill = styled.div`
 
 export const LeftPillSpan = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.UIWhite};
@@ -167,7 +168,7 @@ export const LeftPillSpan = styled.span`
 
 export const RightPillSpan = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
@@ -239,9 +240,9 @@ export const CreateTemplateButton = styled.button`
 `;
 export const FooterBodySpan = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: lighter;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 28px;
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;

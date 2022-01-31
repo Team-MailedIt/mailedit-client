@@ -50,7 +50,7 @@ export const TemplateSaveButton = styled.button`
 `;
 export const TemplateTitleInput = styled.input`
   height: 29px;
-  width: 450px;
+  width: 470px;
 
   font-style: normal;
   font-weight: 600;
@@ -109,7 +109,6 @@ export const SubTitle = styled.span`
   display: flex;
   align-items: center;
 
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
 

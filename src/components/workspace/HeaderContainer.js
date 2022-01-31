@@ -91,7 +91,8 @@ const HeaderContainer = ({ handleHeaderData }) => {
         <TemplateTitleInput
           type="text"
           placeholder="템플릿의 제목을 입력하세요"
-          size="50"
+          size="100"
+          maxLength={50}
           value={title}
           onChange={setTitle}
         />
@@ -102,7 +103,8 @@ const HeaderContainer = ({ handleHeaderData }) => {
           <TemplateMemoInput
             type="text"
             placeholder="상황, 받는 사람, 목적 등을 입력하세요"
-            size="30"
+            size="50"
+            maxLength={50}
             value={subtitle}
             onChange={setSubtitle}
           />

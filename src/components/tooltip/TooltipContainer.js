@@ -61,5 +61,8 @@ const Modal = styled(ReactModal)`
     border: 0.75rem solid transparent;
     border-left-color: ${COLORS.gray7};
   }
+  &:focus {
+    outline: none;
+  }
 `;
 export default TooltipContainer;

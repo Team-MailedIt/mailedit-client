@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
-import Search from "../commons/Search";
-import Accordion from "../commons/Accordion";
+import Search from '../commons/Search';
+import Accordion from '../commons/Accordion';
 
-import star from "../../constants/icons/star.svg";
-import logo from "../../constants/icons/logo.svg";
-import jwtDecode from "jwt-decode";
+import star from '../../constants/icons/star.svg';
+import logo from '../../constants/icons/logo.svg';
 
-import API from "../../utils/API";
-import { useContext, useEffect, useRef, useState } from "react";
-import { GroupContext } from "../../contexts/GroupContexts";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext";
+import API from '../../utils/API';
+import { useContext, useEffect, useState } from 'react';
+import { GroupContext } from '../../contexts/GroupContexts';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../../contexts/AuthContext';
+
 
 const WorkSpaceSidebar = () => {
   const { isLogin } = useContext(AuthContext);
@@ -48,9 +48,9 @@ const WorkSpaceSidebar = () => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
           // this will be base template
-          if (category === "회사") {
+          if (category === '회사') {
             setBaseCompany((el) => [...el, newElement]);
-          } else if (category === "학교") {
+          } else if (category === '학교') {
             setBaseSchool((el) => [...el, newElement]);
           }
         } else {
@@ -73,7 +73,7 @@ const WorkSpaceSidebar = () => {
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate("/home");
+    navigate('/home');
   };
 
   return (
@@ -164,9 +164,9 @@ const VariableSection = styled.section`
 const MyTemplate = styled.span`
   width: 96px;
   height: 26px;
-  margin: 0px 192px 24px 40px;
+  margin: 0px 192px 12px 40px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 22px;
   line-height: 26px;
 
@@ -204,9 +204,8 @@ const BaseTemplate = styled.span`
   height: 26px;
   margin: 52px 192px 8px 40px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 22px;
-  line-height: 26px;
 
   display: flex;
   align-items: center;

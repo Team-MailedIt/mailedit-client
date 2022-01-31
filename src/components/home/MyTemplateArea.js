@@ -99,6 +99,7 @@ const MyTemplateArea = () => {
                     updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
                     handleBinIconClick={handleBinIconClick}
                     handleThumbnailClick={handleThumbnailClick}
+                    setMyTemplates={setMyTemplates}
                   />
                 ))}
               </MyTemplateGrid>
@@ -157,8 +158,8 @@ const Border = styled.div`
 const UserName = styled.span`
   height: 34px;
 
-  font-family: Pretendard-SemiBold;
   font-size: 28px;
+  font-weight: 600;
 
   display: flex;
   align-items: center;
@@ -188,7 +189,6 @@ const Text = styled.div`
 const TemplateNum = styled.div`
   margin-left: 8px;
   color: ${COLORS.primary};
-  text-decoration: underline;
 `;
 
 const MyTemplateGrid = styled.div`
@@ -203,7 +203,7 @@ const MyTemplateGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
 
   &::-webkit-scrollbar {
-    width: 20px;
+    width: 12px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -211,7 +211,7 @@ const MyTemplateGrid = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 8px solid transparent;
+    border: 5px solid transparent;
   }
 `;
 
