@@ -133,11 +133,11 @@ const TemplateName = styled.div`
   width: 200px;
   height: 17px;
 
-  margin-top: 8px;
+  margin-top: 10px;
   margin-left: 8px;
 
   font-size: 14px;
-  font-family: Pretendard-Thin;
+  font-weight: 200;
   color: ${COLORS.UIWhite};
 
   &:hover {

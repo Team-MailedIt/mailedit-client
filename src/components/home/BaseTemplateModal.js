@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import ReactModal from 'react-modal';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router';
+import { useContext } from "react";
+import ReactModal from "react-modal";
+import styled from "styled-components";
+import { useNavigate } from "react-router";
 
-import COLORS from '../../constants/colors';
-import BaseAccordion from './BaseAccordion';
+import COLORS from "../../constants/colors";
+import BaseAccordion from "./BaseAccordion";
 
-import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
-import { ContentContext } from '../../contexts/ContentContext';
-import { ModalStyle } from '../commons/ModalStyle';
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { ContentContext } from "../../contexts/ContentContext";
+import { ModalStyle } from "../commons/ModalStyle";
 
 const BaseTemplateModal = ({
   isModalOpen,
@@ -30,7 +30,7 @@ const BaseTemplateModal = ({
 
   const handleUseTemplateBtnClick = () => {
     setContentHandler(selectedBase[0]);
-    navigate('/workspace');
+    navigate("/workspace");
   };
 
   return (
@@ -51,10 +51,10 @@ const BaseTemplateModal = ({
                   <Border />
                   <Content>
                     {selectedBase[0].content.map((t, i) => (
-                      <BlockWrapper key={'ttt' + i}>
+                      <BlockWrapper key={"ttt" + i}>
                         {t.html
-                          .replaceAll('<div>', '\n')
-                          .replaceAll('</div>', '')}
+                          .replaceAll("<div>", "\n")
+                          .replaceAll("</div>", "")}
                       </BlockWrapper>
                     ))}
                   </Content>
@@ -192,7 +192,7 @@ const Description = styled.div`
 
 const ScrollArea = styled.div`
   width: 226px;
-  height: 466px;
+  height: 457px;
 
   margin-top: 40px;
   margin-left: 20px;
@@ -200,7 +200,7 @@ const ScrollArea = styled.div`
   overflow: auto;
 
   &::-webkit-scrollbar {
-    width: 12px;
+    width: 13px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -208,7 +208,7 @@ const ScrollArea = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 5.5px solid transparent;
+    border: 5px solid transparent;
   }
 `;
 
@@ -217,7 +217,7 @@ const UseBtn = styled.button`
   height: 32px;
 
   padding-top: 4px;
-  margin-top: 20px;
+  margin-top: 29px;
   margin-left: 32px;
 
   background: ${COLORS.gray1};
@@ -227,7 +227,7 @@ const UseBtn = styled.button`
 
   color: ${COLORS.primary};
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const BlockWrapper = styled.div`

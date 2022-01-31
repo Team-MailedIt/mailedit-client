@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
-import API from '../../utils/API';
-import COLORS from '../../constants/colors';
+import API from "../../utils/API";
+import COLORS from "../../constants/colors";
 
-import bin from '../../constants/icons/bin.svg';
-import liked from '../../constants/icons/liked.svg';
-import notLiked from '../../constants/icons/notLiked.svg';
+import bin from "../../constants/icons/bin.svg";
+import liked from "../../constants/icons/liked.svg";
+import notLiked from "../../constants/icons/notLiked.svg";
 
 const Thumbnail = ({
   id,
@@ -128,7 +128,6 @@ const Subtitle = styled.div`
 
   font-size: 16px;
   line-height: 22px;
-  // vertical-align: bottom;
 
   overflow: hidden;
   text-overflow: ellipsis;
