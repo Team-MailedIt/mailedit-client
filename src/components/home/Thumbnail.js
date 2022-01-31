@@ -149,14 +149,19 @@ const Subtitle = styled.div`
 `;
 
 const SubTitleText = styled.span`
-  width: 100%;
-  height: 100%;
+  width: 264px;
+  height: 42px;
 
   display: table-cell;
 
   font-size: 16px;
   line-height: 22px;
   vertical-align: bottom;
+
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Liked = styled.img`

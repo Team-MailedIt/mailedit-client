@@ -6,10 +6,9 @@ import Accordion from "../commons/Accordion";
 
 import star from "../../constants/icons/star.svg";
 import logo from "../../constants/icons/logo.svg";
-import jwtDecode from "jwt-decode";
 
 import API from "../../utils/API";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GroupContext } from "../../contexts/GroupContexts";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
