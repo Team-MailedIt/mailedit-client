@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import API from '../../utils/API';
@@ -20,6 +20,7 @@ const Thumbnail = ({
   handleThumbnailClick,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
+  const [memo, setMemo] = useState('');
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
@@ -29,6 +30,14 @@ const Thumbnail = ({
       JSON.stringify({ isStar: !isLiked, groupId: groupId })
     );
   };
+
+  useEffect(() => {
+    const parsed = subtitle
+      .replace(/<div>/gi, '\n')
+      .replace(/<\/div>/gi, '')
+      .replace(/<br>/gi, '\n');
+    setMemo(parsed);
+  }, [subtitle]);
 
   return (
     <Wrapper>
@@ -40,7 +49,7 @@ const Thumbnail = ({
       </Title>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
-          <SubTitleText id={id}>{subtitle}</SubTitleText>
+          <SubTitleText id={id}>{memo}</SubTitleText>
         </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
