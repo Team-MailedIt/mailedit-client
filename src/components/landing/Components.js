@@ -155,7 +155,7 @@ export const RightPill = styled.div`
 
 export const LeftPillSpan = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.UIWhite};
@@ -168,7 +168,7 @@ export const LeftPillSpan = styled.span`
 
 export const RightPillSpan = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.UIBlack};

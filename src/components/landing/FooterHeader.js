@@ -115,7 +115,7 @@ const FooterBody1 = styled.span`
 `;
 const FooterBody2 = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
   line-height: 160%;
   color: ${COLORS.UIWhite};
