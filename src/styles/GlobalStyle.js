@@ -11,7 +11,7 @@ body {
   margin: 0;
   padding: 0;
 }
-span{
+*{
   font-family: 'Pretendard', Arial;
   font-display: fallback;
 }
