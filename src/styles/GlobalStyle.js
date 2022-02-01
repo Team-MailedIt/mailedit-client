@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
-import { normalize } from 'styled-normalize';
-import COLORS from '../constants/colors';
-import './FontStyle.css';
+import { createGlobalStyle } from "styled-components";
+import { normalize } from "styled-normalize";
+import COLORS from "../constants/colors";
+import "./FontStyle.css";
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
