@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { useRef, useState, useContext } from 'react';
+import styled from "styled-components";
+import { useRef, useState, useContext } from "react";
 
-import expand from '../../constants/icons/expand.svg';
-import collapse from '../../constants/icons/collapse.svg';
+import expand from "../../constants/icons/expand.svg";
+import collapse from "../../constants/icons/collapse.svg";
 
-import API from '../../utils/API';
-import { ContentContext } from '../../contexts/ContentContext';
+import API from "../../utils/API";
+import { ContentContext } from "../../contexts/ContentContext";
 
 const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
@@ -19,7 +19,7 @@ const Accordion = ({ icon, title, list }) => {
       return;
     }
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = '0px';
+      parentRef.current.style.height = "0px";
     } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
@@ -168,7 +168,7 @@ const TemplateName = styled.div`
   margin-left: 18px;
 
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 200;
 
   overflow: hidden;
   white-space: nowrap;
