@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
 export const Title = styled.span`
   font-style: normal;
@@ -13,7 +13,7 @@ export const Title = styled.span`
 
 export const Body = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 12px;
   line-height: 160%;
   display: flex;
@@ -23,7 +23,7 @@ export const Body = styled.span`
 
 export const BodyBold = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 12px;
   line-height: 160%;
   color: ${COLORS.UIWhite};

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
 export const VerticalLine = styled.div`
   height: 100vh;
@@ -62,7 +62,7 @@ export const TemplateTitleInput = styled.input`
 
 export const TemplateMemoInputContainer = styled.div`
   display: flex;
-  align-items: 'center';
+  align-items: "center";
 
   width: 400px;
   height: 29px;
@@ -80,7 +80,7 @@ export const TemplateMemoInput = styled.input`
   background: ${COLORS.gray1};
 `;
 export const TemplateSelectGroupButton = styled.button`
-  width: 86px;
+  width: 94px;
   height: 22px;
 
   border: none;
