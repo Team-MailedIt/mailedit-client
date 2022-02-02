@@ -1,13 +1,13 @@
-import styled, { css } from 'styled-components';
-import { useState, useRef, useEffect } from 'react';
-import FirstSlide from './FirstSlide';
-import SecondSlide from './SecondSlide';
-import ThirdSlide from './ThirdSlide';
-import ForthSlide from './ForthSlide';
-import { Button, Confirm } from './Components';
-import COLORS from '../../constants/colors';
-import Dots from './Dots';
-import { RowContainer } from '../bubble/Components';
+import styled, { css } from "styled-components";
+import { useState, useRef, useEffect } from "react";
+import FirstSlide from "./FirstSlide";
+import SecondSlide from "./SecondSlide";
+import ThirdSlide from "./ThirdSlide";
+import ForthSlide from "./ForthSlide";
+import { Button, Confirm } from "./Components";
+import COLORS from "../../constants/colors";
+import Dots from "./Dots";
+import { RowContainer } from "../bubble/Components";
 
 const CarouselTooltip = ({ handleConfirm }) => {
   const TOTAL_SLIDES = 3;
@@ -25,7 +25,7 @@ const CarouselTooltip = ({ handleConfirm }) => {
   };
 
   useEffect(() => {
-    slideRef.current.style.transition = 'all 0.5s ease-in-out';
+    slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
   }, [currentSlide]);
   return (
@@ -38,21 +38,29 @@ const CarouselTooltip = ({ handleConfirm }) => {
       </SliderContainer>
       {currentSlide === TOTAL_SLIDES ? (
         <Confirm
-          style={{ marginTop: '20px', alignSelf: 'flex-end' }}
+          style={{ marginTop: "20px", alignSelf: "flex-end" }}
           onClick={handleConfirm}
         >
           완료
         </Confirm>
       ) : (
         <Button
-          style={{ marginTop: '20px', alignSelf: 'flex-end' }}
+          style={{ marginTop: "20px", alignSelf: "flex-end" }}
           onClick={nextSlide}
         >
           다음
         </Button>
       )}
 
-      <RowContainer style={{ alignSelf: 'center' }}>
+      <RowContainer
+        style={{
+          alignSelf: "center",
+          width: "48px",
+          height: "8px",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
         {arr.map((e, i) => {
           return (
             <Dots
@@ -71,7 +79,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   width: 272px;
   overflow: hidden; // 선을 넘어간 이미지들은 보이지 않도록 처리합니다.
 `;

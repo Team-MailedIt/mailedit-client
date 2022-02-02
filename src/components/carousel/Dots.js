@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 // import COLORS from '../../constants/colors';
 
 const Dots = ({ color }) => {
@@ -8,10 +8,8 @@ const Dots = ({ color }) => {
 const Circle = styled.div`
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 70%;
   background: ${(props) => props.backgroud};
-  margin-left: 4px;
-  margin-right: 4px;
 
   &:hover {
     cursor: pointer;
