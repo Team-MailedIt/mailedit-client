@@ -9,10 +9,9 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const { isLogin, setIsLogin } = useContext(AuthContext);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const { setIsLogin } = useContext(AuthContext);
 
   const handleSignInBtnClick = () => {
     setIsSignInModalOpen(!isSignInModalOpen);
@@ -25,6 +24,7 @@ const HeaderContainer = () => {
   const goToHome = () => {
     navigate("/home");
   };
+
   const goToLanding = () => {
     window.location.reload();
   };
@@ -40,7 +40,7 @@ const HeaderContainer = () => {
       <Header src="./img/main_gif.gif">
         <Wrapper>
           <MainLogo onClick={goToLanding} src="./img/mainlogo.png" />
-          {userName ? (
+          {isLogin ? (
             <RightContainer style={{ justifyContent: "flex-end" }}>
               <SpanLink onClick={handleLogout}>로그아웃</SpanLink>
             </RightContainer>
