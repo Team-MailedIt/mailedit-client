@@ -38,7 +38,6 @@ const Overlay = styled.div`
 
   top: 0;
   left: 0;
-
   position: fixed;
   z-index: 2;
 
@@ -51,7 +50,7 @@ const Overlay = styled.div`
 
 const ModalWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   z-index: 3;
 
   display: flex;
