@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
 export const SignUp = styled.button`
   width: 119px;
@@ -106,9 +106,11 @@ export const BodyContainer = styled.div`
     height: 580px;
   }
 `;
+
 export const PillContainer = styled.div`
   display: flex;
   flex-direction: row;
+
   margin-top: 72px;
   @media screen and (max-width: 1440px) {
     margin-top: 60px;
@@ -117,21 +119,18 @@ export const PillContainer = styled.div`
 
 export const LeftPill = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
 
-  width: 144px;
-  height: 42px;
+  width: 136px;
+  height: 34px;
+  padding: 4px;
 
-  background: ${COLORS.bodyBlue};
   border: 2px solid ${COLORS.bodyBlue};
   border-radius: 40px 0px 0px 40px;
 
   @media screen and (max-width: 1440px) {
-    width: 116px;
-    height: 33px;
+    width: 110px;
+    height: 27px;
   }
 `;
 
@@ -139,17 +138,16 @@ export const RightPill = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
 
-  width: 144px;
-  height: 42px;
+  width: 136px;
+  height: 34px;
+  padding: 4px;
 
   border: 2px solid ${COLORS.bodyBlue};
   border-radius: 0px 40px 40px 0px;
   @media screen and (max-width: 1440px) {
-    width: 116px;
-    height: 33px;
+    width: 110px;
+    height: 27px;
   }
 `;
 
@@ -157,10 +155,9 @@ export const LeftPillSpan = styled.span`
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
-  line-height: 140%;
-  color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+
   @media screen and (max-width: 1440px) {
     font-size: 20px;
   }
@@ -170,8 +167,6 @@ export const RightPillSpan = styled.span`
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
-  line-height: 140%;
-  color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
   @media screen and (max-width: 1440px) {
@@ -240,7 +235,7 @@ export const CreateTemplateButton = styled.button`
 `;
 export const FooterBodySpan = styled.span`
   font-style: normal;
-  font-weight: 300;
+  font-weight: 200;
   font-size: 20px;
   line-height: 28px;
   color: ${COLORS.UIWhite};

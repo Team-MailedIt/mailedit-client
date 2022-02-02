@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import ReactModal from 'react-modal';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router';
+import { useContext } from "react";
+import ReactModal from "react-modal";
+import styled from "styled-components";
+import { useNavigate } from "react-router";
 
-import COLORS from '../../constants/colors';
-import BaseAccordion from './BaseAccordion';
+import COLORS from "../../constants/colors";
+import BaseAccordion from "./BaseAccordion";
 
-import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
-import { ContentContext } from '../../contexts/ContentContext';
-import { ModalStyle } from '../commons/ModalStyle';
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { ContentContext } from "../../contexts/ContentContext";
+import { ModalStyle } from "../commons/ModalStyle";
 
 const BaseTemplateModal = ({
   isModalOpen,
@@ -30,7 +30,7 @@ const BaseTemplateModal = ({
 
   const handleUseTemplateBtnClick = () => {
     setContentHandler(selectedBase[0]);
-    navigate('/workspace');
+    navigate("/workspace");
   };
 
   return (
@@ -51,10 +51,10 @@ const BaseTemplateModal = ({
                   <Border />
                   <Content>
                     {selectedBase[0].content.map((t, i) => (
-                      <BlockWrapper key={'ttt' + i}>
+                      <BlockWrapper key={"ttt" + i}>
                         {t.html
-                          .replaceAll('<div>', '\n')
-                          .replaceAll('</div>', '')}
+                          .replaceAll("<div>", "\n")
+                          .replaceAll("</div>", "")}
                       </BlockWrapper>
                     ))}
                   </Content>
@@ -137,7 +137,7 @@ const Title = styled.span`
   display: flex;
   align-items: center;
 
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-weight: 600;
 
   color: ${COLORS.UIBlack};
@@ -177,6 +177,17 @@ const Content = styled.div`
 
   overflow: auto;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${COLORS.UIWhite};
+    background-clip: padding-box;
+    border-radius: 20px;
+    border: 5px solid transparent;
+  }
 
   &:hover {
     &::-webkit-scrollbar {
@@ -231,7 +242,7 @@ const UseBtn = styled.button`
   width: 200px;
   height: 32px;
 
-  padding-top: 4px;
+  padding-top: 2px;
   margin-top: 29px;
   margin-left: 32px;
 
@@ -251,7 +262,7 @@ const BlockWrapper = styled.div`
 
   font-size: 14px;
   line-height: 24px;
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-weight: 400;
 
   color: ${COLORS.UIBlack};
