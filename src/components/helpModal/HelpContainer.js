@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Body, Heading } from './Components';
 import icon_exit from '../../constants/icons/icon_exit.svg';
-import help_img from '../../constants/icons/help_img.svg';
+// import help_img from '../../constants/icons/help_img.svg';
 import help_icon from '../../constants/icons/help_circle.svg';
 
 const HelpContainer = ({ setIsModalOpen }) => {
@@ -30,8 +30,8 @@ const HelpContainer = ({ setIsModalOpen }) => {
         <ExitIcon src={icon_exit} onClick={closeHelp} />
       </RowContainer>
       <RowContainer style={{ justifyContent: 'center', marginTop: '20px' }}>
-        <HelpImg src={help_img} />
-        {/* <HelpImage src="/img/help_img.png" /> */}
+        {/* <HelpImg src={help_img} /> */}
+        <HelpImg src="/img/help_img.png" />
       </RowContainer>
     </ColContainer>
   );
