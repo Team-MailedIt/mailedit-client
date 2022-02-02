@@ -91,7 +91,9 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
           </RowContainer>
           <HelpCircle src={help_circle} onClick={openHelp} />
         </div>
-        <div style={{ marginRight: '40px', marginTop: '76px' }}>
+        <div
+          style={{ marginRight: '40px', marginTop: '76px', minWidth: '490px' }}
+        >
           {content ? (
             <Container style={{ marginTop: '24px' }}>
               <RowContainer>
@@ -142,12 +144,14 @@ const TemplateContainer = styled.div`
   padding-left: 24px;
   padding-right: 24px;
   overflow-y: scroll;
+  overflow-x: hidden;
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${COLORS.primary};
-    border-radius: 40px;
+    border-radius: 80px;
+    height: 20px;
   }
 `;
 const RowContainer = styled.div`
@@ -157,15 +161,18 @@ const RowContainer = styled.div`
   margin-bottom: 8px;
 `;
 const Block = styled.div`
+  width: calc(100% - 1rem);
+  padding: 4px 12px;
+  outline-color: '#4C6EF5';
+
   white-space: pre-wrap;
   border: 1px solid ${COLORS.blockBorder};
   background: ${COLORS.blockBackground};
   border-radius: 2px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 12px;
+
+  margin-top: 6px;
+  margin-bottom: 6px;
+
   line-height: 24px;
   font-size: 16px;
   -webkit-user-select: none;

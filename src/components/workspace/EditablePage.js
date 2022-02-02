@@ -77,9 +77,11 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
     if (commandAction === 'Enter') {
+      // console.log('focusNewBlock');
       // focus to new block
       focusNewBlock(currentBlockIndex);
     } else if (commandAction === 'Backspace') {
+      // console.log('focusPrevBlock');
       // focus to previous block, if it exists
       if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
@@ -92,6 +94,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   ]);
 
   const updatePageHandler = (updatedBlock) => {
+    // console.log('updatePageHandler');
     setCommandAction(null);
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
     const updatedBlocks = [...blocks];
@@ -105,6 +108,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   };
 
   const addBlockHandler = (currentBlock) => {
+    // console.log('addBlockHandler');
     setCommandAction(currentBlock.command);
     let newBlock = {};
     const { position } = currentBlock;
@@ -132,8 +136,10 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
-    } else {
-      // 아닐 경우
+    } else if (nextHtml === '') {
+      // 아닐 경우 - caret을 탈출시켜야함.
+      // console.log('condition2');
+      setCaretToEnd(currentBlock.ref);
       newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
       updatedBlocks.splice(index + 1, 0, newBlock);
     }
@@ -141,6 +147,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   };
 
   const deleteBlockHandler = (currentBlock) => {
+    // console.log('deleteBlockHandler');
     setCommandAction(currentBlock.command);
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
@@ -152,6 +159,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   };
 
   const updateBlockHandler = (currentBlock) => {
+    // console.log('updateBlockHandler');
     setCommandAction(null);
     let { startPoint, endPoint } = currentBlock;
 
@@ -284,7 +292,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 };
 
 const Container = styled.div`
-  padding-top: 2px;
+  /* padding-top: 2px; */
   height: 688px;
   /* height: 80%; */
 
@@ -292,7 +300,7 @@ const Container = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${COLORS.primary};
@@ -310,7 +318,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: ;
+  /* margin-bottom: 12px; */
 `;
 
 export default EditPage;
