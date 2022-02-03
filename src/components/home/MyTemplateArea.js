@@ -211,7 +211,7 @@ const MyTemplateGrid = styled.div`
     background-clip: padding-box;
 
     border-radius: 20px;
-    border: 5px solid transparent;
+    border: 4px solid transparent;
   }
 `;
 
