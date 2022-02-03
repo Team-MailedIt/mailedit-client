@@ -1,16 +1,16 @@
-import { Route, Routes } from 'react-router';
-import Landing from './pages/Landing';
-import SelectTemplateProvider from './contexts/SelectTemplateContext';
-import ContentProvider from './contexts/ContentContext';
-import AuthProvider from './contexts/AuthContext';
-import { lazy, Suspense } from 'react';
+import { Route, Routes } from "react-router";
+import Landing from "./pages/Landing";
+import SelectTemplateProvider from "./contexts/SelectTemplateContext";
+import ContentProvider from "./contexts/ContentContext";
+import AuthProvider from "./contexts/AuthContext";
+import { lazy, Suspense } from "react";
 
-const Home = lazy(() => import('./pages/Home'));
-const WorkSpace = lazy(() => import('./pages/WorkSpace'));
+const Home = lazy(() => import("./pages/Home"));
+const WorkSpace = lazy(() => import("./pages/WorkSpace"));
 
 const App = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div />}>
       <AuthProvider>
         <SelectTemplateProvider>
           <ContentProvider>
