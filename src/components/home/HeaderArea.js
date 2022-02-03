@@ -1,20 +1,19 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router';
+import styled from "styled-components";
+import { useNavigate } from "react-router";
 
-import { useState, useContext, useRef } from 'react';
-import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
+import { useState, useContext, useRef, useEffect } from "react";
+import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
 
-import HomeTooltip from './HomeTooltip';
-import TooltipContainer from '../tooltip/TooltipContainer';
-import SignInModal from '../auth/SignInModal';
-import SignUpModal from '../auth/SignUpModal';
-import COLORS from '../../constants/colors';
-import { AuthContext } from '../../contexts/AuthContext';
-import { ContentContext } from '../../contexts/ContentContext';
+import HomeTooltip from "./HomeTooltip";
+import SignInModal from "../auth/SignInModal";
+import SignUpModal from "../auth/SignUpModal";
+import COLORS from "../../constants/colors";
+import { AuthContext } from "../../contexts/AuthContext";
+import { ContentContext } from "../../contexts/ContentContext";
 
 const HeaderArea = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem('userName');
+  const userName = localStorage.getItem("userName");
   const { setContentHandler } = useContext(ContentContext);
   const { isLogin, setIsLogin } = useContext(AuthContext);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -34,24 +33,30 @@ const HeaderArea = () => {
   const handleSignOutBtnClick = () => {
     setIsLogin(false);
     localStorage.clear();
-    navigate('/');
+    navigate("/");
   };
 
   // go to workspace
   const handleGoToWorkspace = () => {
     setContentHandler(null);
-    navigate('/workspace');
+    navigate("/workspace");
   };
 
   // tooltip
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const gotoButton = useRef();
-  const { getPosition } = useContext(ElementPositionContext);
 
   const handleTooltip = () => {
     setIsTooltipOpen(true);
-    getPosition(gotoButton);
   };
+
+  useEffect(() => {
+    if (isTooltipOpen) {
+      const timer = setTimeout(() => {
+        setIsTooltipOpen(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isTooltipOpen]);
 
   return (
     <Top>
@@ -82,21 +87,16 @@ const HeaderArea = () => {
             />
           </>
         )}
-        <GoToWorkSpace
-          onClick={handleGoToWorkspace}
-          onMouseEnter={handleTooltip}
-          ref={gotoButton}
-        >
-          템플릿 만들기
-        </GoToWorkSpace>
+        <TooltipBtnWrapper>
+          <HomeTooltip visibility={isTooltipOpen} />
+          <GoToWorkSpace
+            onClick={handleGoToWorkspace}
+            onMouseEnter={handleTooltip}
+          >
+            템플릿 만들기
+          </GoToWorkSpace>
+        </TooltipBtnWrapper>
       </TopRight>
-      <TooltipContainer
-        isModalOpen={isTooltipOpen}
-        setIsModalOpen={setIsTooltipOpen}
-        ChildComponent={HomeTooltip}
-        positionX={10}
-        positionY={0}
-      />
     </Top>
   );
 };
@@ -124,7 +124,7 @@ const Hello = styled.div`
 `;
 
 const TopRight = styled.div`
-  width: 274px;
+  width: 554px;
   height: 120px;
 
   display: flex;
@@ -148,7 +148,7 @@ const Auth = styled.div`
   width: 138px;
   height: 19px;
 
-  margin-left: 136px;
+  margin-left: 413px;
 
   display: flex;
   align-items: center;
@@ -171,7 +171,17 @@ const AuthBorder = styled.div`
   background: ${COLORS.gray7};
 `;
 
-const GoToWorkSpace = styled.button`
+const TooltipBtnWrapper = styled.div`
+  width: 554px;
+  height: 78px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const GoToWorkSpace = styled.button`
   width: 274px;
   height: 46px;
 
