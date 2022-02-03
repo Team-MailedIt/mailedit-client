@@ -133,7 +133,7 @@ const TopRight = styled.div`
 `;
 
 const LogOut = styled.span`
-  margin-left: 218px;
+  margin-left: 498px;
 
   font-weight: 400;
   font-size: 16px;
