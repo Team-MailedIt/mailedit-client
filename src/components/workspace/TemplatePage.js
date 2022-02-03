@@ -148,6 +148,8 @@ const TemplateContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: ${COLORS.primary};
     border-radius: 40px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
   }
 `;
 const RowContainer = styled.div`

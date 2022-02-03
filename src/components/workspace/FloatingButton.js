@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const MENU_HEIGHT = 20;
 
@@ -12,10 +12,10 @@ const FloatingButton = ({ position, actions }) => {
       style={{
         top: y,
         left: x,
-        position: 'absolute',
-        width: 'auto',
-        height: '2.5rem',
-        zIndex: '11',
+        position: "absolute",
+        width: "auto",
+        height: "2.5rem",
+        zIndex: "11",
       }}
     >
       <Menu>
