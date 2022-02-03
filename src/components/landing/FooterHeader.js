@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
-import { useNavigate } from 'react-router';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
+import { useNavigate } from "react-router";
 
 const FooterHeader = () => {
   const navigate = useNavigate();
 
   const goToHome = () => {
-    navigate('/home');
+    navigate("/home");
   };
   return (
     <>
@@ -19,16 +19,16 @@ const FooterHeader = () => {
         </Wrapper>
         <Wrapper2>
           <FooterBody1>실무 이메일 작성이 나에게 매번 어려웠다면?</FooterBody1>
-          <RowContainer style={{ alignItems: 'center' }}>
-            <FooterBody2 style={{ marginRight: '16px' }}>지금 바로</FooterBody2>
+          <RowContainer style={{ alignItems: "center" }}>
+            <FooterBody2 style={{ marginRight: "16px" }}>지금 바로</FooterBody2>
             <FooterLogoBody src="./img/footerbodylogo.png" />
-            <FooterBody2 style={{ marginLeft: '4px' }}>
+            <FooterBody2 style={{ marginLeft: "4px" }}>
               을 이용해 보세요
             </FooterBody2>
           </RowContainer>
         </Wrapper2>
         <Wrapper3>
-          <FooterButton onClick={goToHome}>지금 시작하기</FooterButton>
+          <FooterButton onClick={goToHome}>둘러보기</FooterButton>
         </Wrapper3>
       </FooterImgBackgroundDiv>
     </>
