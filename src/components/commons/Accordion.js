@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { useRef, useState, useContext } from "react";
+import styled from 'styled-components';
+import { useRef, useState, useContext } from 'react';
 
-import expand from "../../constants/icons/expand.svg";
-import collapse from "../../constants/icons/collapse.svg";
+import expand from '../../constants/icons/expand.svg';
+import collapse from '../../constants/icons/collapse.svg';
 
-import API from "../../utils/API";
-import { ContentContext } from "../../contexts/ContentContext";
+import API from '../../utils/API';
+import { ContentContext } from '../../contexts/ContentContext';
 
 const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
@@ -19,7 +19,7 @@ const Accordion = ({ icon, title, list }) => {
       return;
     }
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0px";
+      parentRef.current.style.height = '0px';
     } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
@@ -35,7 +35,12 @@ const Accordion = ({ icon, title, list }) => {
     // call api
     const result = await getTemplate(templateId);
     // put result to template page
-    setContentHandler(result);
+    const temp = result.subtitle
+      .replace(/<div>/gi, '\n')
+      .replace(/<\/div>/gi, '')
+      .replace(/<br>/gi, '\n');
+    const res = { ...result, subtitle: temp };
+    setContentHandler(res);
   };
 
   return (

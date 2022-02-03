@@ -292,13 +292,11 @@ const Container = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${COLORS.primary};
     border-radius: 40px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
   }
 `;
 

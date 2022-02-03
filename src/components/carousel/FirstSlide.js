@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { Title, Body } from './Components';
+import styled from "styled-components";
+import { Title, Body } from "./Components";
 const FirstSlide = () => {
   return (
     <Slide>
       <Img src="/img/tooltip_first.png" />
-      <Title style={{ marginTop: '20px' }}>블록 만들기</Title>
-      <Body style={{ marginTop: '8px' }}>
+      <Title style={{ marginTop: "20px" }}>블록 만들기</Title>
+      <Body style={{ marginTop: "8px" }}>
         텍스트를 드래그한 후, ‘블록 만들기’ 버튼을 눌러주세요.
       </Body>
     </Slide>

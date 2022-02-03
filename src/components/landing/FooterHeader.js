@@ -43,6 +43,11 @@ const Wrapper3 = styled.div`
 
 const Wrapper2 = styled.div`
   margin-top: 36px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   @media screen and (max-width: 1440px) {
     margin-top: 28px;
   }
@@ -103,12 +108,11 @@ const FooterTitle = styled.span`
 `;
 const FooterBody1 = styled.span`
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 24px;
   line-height: 160%;
   color: ${COLORS.UIWhite};
 
-  text-align: center;
   @media screen and (max-width: 1440px) {
     font-size: 18px;
   }

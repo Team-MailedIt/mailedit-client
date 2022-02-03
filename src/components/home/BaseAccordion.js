@@ -101,7 +101,7 @@ const IconWrapper = styled.img`
 `;
 
 const GroupTitle = styled.div`
-  width: 25px;
+  width: 26px;
   height: 17px;
 
   font-size: 14px;
