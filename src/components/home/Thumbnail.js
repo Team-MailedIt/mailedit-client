@@ -51,7 +51,7 @@ const Thumbnail = ({
         <Index color={groupColor} />
       </IndexArea>
       <HoverArea id={id} onClick={handleThumbnailClick}>
-        <Title>{title}</Title>
+        <Title id={id}>{title}</Title>
       </HoverArea>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
