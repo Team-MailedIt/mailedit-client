@@ -1,21 +1,21 @@
-import { useCallback, useEffect, useState, useContext } from 'react';
-import EditableBlock from './EditableBlock';
-import uid from '../../utils/uid';
-import COLORS from '../../constants/colors';
-import styled from 'styled-components';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import setCaretToEnd from '../../utils/setCaretToEnd';
-import { DragIcon } from '../../constants/icons';
-import { CopyContext } from '../../contexts/CopyContexts';
-import parseBlocks from '../../utils/parseBlocks';
+import { useCallback, useEffect, useState, useContext } from "react";
+import EditableBlock from "./EditableBlock";
+import uid from "../../utils/uid";
+import COLORS from "../../constants/colors";
+import styled from "styled-components";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import setCaretToEnd from "../../utils/setCaretToEnd";
+import { DragIcon } from "../../constants/icons";
+import { CopyContext } from "../../contexts/CopyContexts";
+import parseBlocks from "../../utils/parseBlocks";
 
 const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   const { action } = useContext(CopyContext);
   // const scrollRef = useRef([]);
   const initialBlock = {
     id: uid(),
-    html: '',
-    tag: 'p',
+    html: "",
+    tag: "p",
     flag: 0,
   };
   const [blocks, setBlocks] = useState([initialBlock]);
@@ -32,7 +32,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   // copy block data
   useEffect(() => {
-    if (action !== '') {
+    if (action !== "") {
       getBlocksHandler(blocks);
     }
   }, [action, getBlocksHandler, blocks]);
@@ -76,12 +76,10 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
   // block의 길이가 달라진다 === 블럭의 추가나 삭제가 이루어진다 === 다음 블럭이나 이전 블럭으로 focus가 필요하다
   useEffect(() => {
-    if (commandAction === 'Enter') {
-      // console.log('focusNewBlock');
+    if (commandAction === "Enter") {
       // focus to new block
       focusNewBlock(currentBlockIndex);
-    } else if (commandAction === 'Backspace') {
-      // console.log('focusPrevBlock');
+    } else if (commandAction === "Backspace") {
       // focus to previous block, if it exists
       if (currentBlockIndex !== 0) focusPrevBlock(currentBlockIndex);
     }
@@ -94,7 +92,6 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   ]);
 
   const updatePageHandler = (updatedBlock) => {
-    // console.log('updatePageHandler');
     setCommandAction(null);
     const index = blocks.map((b) => b.id).indexOf(updatedBlock.id);
     const updatedBlocks = [...blocks];
@@ -108,7 +105,6 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   };
 
   const addBlockHandler = (currentBlock) => {
-    // console.log('addBlockHandler');
     setCommandAction(currentBlock.command);
     let newBlock = {};
     const { position } = currentBlock;
@@ -125,29 +121,26 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: newHtml,
-        tag: 'p',
+        tag: "p",
         flag: currentBlock.flag,
       };
       newBlock = {
         id: uid(),
         html: nextHtml,
-        tag: 'p',
+        tag: "p",
         flag: currentBlock.flag,
       };
       updatedBlocks.splice(index, 1, updateBlock);
       updatedBlocks.splice(index + 1, 0, newBlock);
-    } else if (nextHtml === '') {
-      // 아닐 경우 - caret을 탈출시켜야함.
-      // console.log('condition2');
-      setCaretToEnd(currentBlock.ref);
-      newBlock = { id: uid(), html: '', tag: 'p', flag: 0 };
+    } else {
+      // 아닐 경우
+      newBlock = { id: uid(), html: "", tag: "p", flag: 0 };
       updatedBlocks.splice(index + 1, 0, newBlock);
     }
     setBlocks(updatedBlocks);
   };
 
   const deleteBlockHandler = (currentBlock) => {
-    // console.log('deleteBlockHandler');
     setCommandAction(currentBlock.command);
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     setCurrentBlockIndex(index);
@@ -159,7 +152,6 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
   };
 
   const updateBlockHandler = (currentBlock) => {
-    // console.log('updateBlockHandler');
     setCommandAction(null);
     let { startPoint, endPoint } = currentBlock;
 
@@ -186,13 +178,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: newHtml,
-        tag: 'p',
+        tag: "p",
         flag: 1,
       };
       const newBlock = {
         id: uid(),
         html: nextHtml,
-        tag: 'p',
+        tag: "p",
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
@@ -201,13 +193,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: 'p',
+        tag: "p",
         flag: 0,
       };
       const newBlock = {
         id: uid(),
         html: newHtml,
-        tag: 'p',
+        tag: "p",
         flag: 1,
       };
       updatedBlocks.splice(index, 1, updateBlock);
@@ -216,21 +208,21 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
       const updateBlock = {
         id: uid(),
         html: prevHtml,
-        tag: 'p',
+        tag: "p",
         flag: 0,
       };
       updatedBlocks.splice(index, 1, updateBlock);
       const newBlock = {
         id: uid(),
         html: newHtml,
-        tag: 'p',
+        tag: "p",
         flag: 1,
       };
       updatedBlocks.splice(index + 1, 0, newBlock);
       const nextBlock = {
         id: uid(),
         html: nextHtml,
-        tag: 'p',
+        tag: "p",
         flag: 0,
       };
       updatedBlocks.splice(index + 2, 0, nextBlock);
@@ -292,7 +284,7 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 };
 
 const Container = styled.div`
-  /* padding-top: 2px; */
+  padding-top: 2px;
   height: 688px;
   /* height: 80%; */
 
@@ -318,7 +310,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* margin-bottom: 12px; */
+  width: ;
 `;
 
 export default EditPage;

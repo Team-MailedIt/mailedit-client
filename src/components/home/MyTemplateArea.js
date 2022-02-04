@@ -197,7 +197,6 @@ const MyTemplateGrid = styled.div`
   padding: 24px 0px 4px 36px;
 
   overflow: auto;
-
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(4, 1fr);
@@ -217,7 +216,7 @@ const MyTemplateGrid = styled.div`
 
 const VeilBottom = styled.div`
   width: 1484px;
-  height: 32px;
+  height: 42px;
 
   position: relative;
   z-index: 2;

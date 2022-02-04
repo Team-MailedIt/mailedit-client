@@ -28,7 +28,7 @@ const FooterHeader = () => {
           </RowContainer>
         </Wrapper2>
         <Wrapper3>
-          <FooterButton onClick={goToHome}>지금 시작하기</FooterButton>
+          <FooterButton onClick={goToHome}>둘러보기</FooterButton>
         </Wrapper3>
       </FooterImgBackgroundDiv>
     </>

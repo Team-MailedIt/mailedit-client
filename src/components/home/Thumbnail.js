@@ -47,12 +47,12 @@ const Thumbnail = ({
 
   return (
     <Wrapper>
-      <IndexArea id={id} onClick={handleThumbnailClick}>
+      <IndexArea>
         <Index color={groupColor} />
       </IndexArea>
-      <Title id={id} onClick={handleThumbnailClick}>
-        {title}
-      </Title>
+      <HoverArea id={id} onClick={handleThumbnailClick}>
+        <Title>{title}</Title>
+      </HoverArea>
       <BodyWrapper id={id}>
         <Subtitle id={id} onClick={handleThumbnailClick}>
           <SubTitleText id={id}>{memo}</SubTitleText>
@@ -82,10 +82,6 @@ const Wrapper = styled.div`
   background: ${COLORS.UIWhite};
 
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const IndexArea = styled.div`
@@ -106,11 +102,21 @@ const Index = styled.div`
   border-left: 12px solid transparent;
 `;
 
+const HoverArea = styled.div`
+  width: 100%;
+  height: 60px;
+  padding-top: 24px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const Title = styled.div`
   width: 300px;
   height: 28px;
 
-  margin: 24px 20px 0px 20px;
+  margin: 0 20px 0px 20px;
 
   font-weight: 600;
   font-size: 22px;
@@ -127,10 +133,14 @@ const BodyWrapper = styled.div`
   width: 308px;
   height: 46px;
 
-  margin: 32px 0px 18px 20px;
+  margin: 0 0 18px 20px;
 
   display: flex;
   flex-direction: row;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Subtitle = styled.div`
@@ -157,11 +167,6 @@ const SubTitleText = styled.span`
   font-size: 16px;
   line-height: 22px;
   vertical-align: bottom;
-
-  // max-width: 0;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
-  // white-space: nowrap;
 `;
 
 const Liked = styled.img`

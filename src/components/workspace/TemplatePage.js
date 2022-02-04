@@ -1,22 +1,22 @@
-import { useEffect, useState, useContext } from 'react';
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import { useEffect, useState, useContext } from "react";
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 import {
   TemplateSubTitle,
   TemplateTitle,
   TemplateSelectButton,
-} from './Components';
-import { PrevIcon } from '../../constants/icons';
-import { useNavigate } from 'react-router';
-import { ContentContext } from '../../contexts/ContentContext';
-import help_circle from '../../constants/icons/help_circle.svg';
-import HelpModal from '../helpModal/HelpModal';
+} from "./Components";
+import { PrevIcon } from "../../constants/icons";
+import { useNavigate } from "react-router";
+import { ContentContext } from "../../contexts/ContentContext";
+import help_circle from "../../constants/icons/help_circle.svg";
+import HelpModal from "../helpModal/HelpModal";
 
 const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   // 모달모달
   const [isModalOpen, setIsModalOpen] = useState(true);
   useEffect(() => {
-    if (localStorage.getItem('tooltip') === 'false') {
+    if (localStorage.getItem("tooltip") === "false") {
       setIsModalOpen(false);
     }
   }, []);
@@ -33,7 +33,7 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   // data fetched from sidebar
@@ -47,9 +47,9 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
     const updatedBlocks = [...blocks];
     blocks.forEach((element, index) => {
       const temp = element.html
-        .replace(/<div>/gi, '\n')
-        .replace(/<\/div>/gi, '')
-        .replace(/<br>/gi, '\n');
+        .replace(/<div>/gi, "\n")
+        .replace(/<\/div>/gi, "")
+        .replace(/<br>/gi, "\n");
       updatedBlocks[index] = {
         ...updatedBlocks[index],
         html: temp,
@@ -70,18 +70,18 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
     <>
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: '65px auto',
+          display: "grid",
+          gridTemplateColumns: "65px auto",
         }}
       >
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
-          <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
+          <RowContainer style={{ marginTop: "42px", marginLeft: "36px" }}>
             <PrevIcon
               onClick={goToMain}
               src="img/prevIcon.png"
@@ -92,14 +92,14 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
           <HelpCircle src={help_circle} onClick={openHelp} />
         </div>
         <div
-          style={{ marginRight: '40px', marginTop: '76px', minWidth: '490px' }}
+          style={{ marginRight: "40px", marginTop: "76px", minWidth: "490px" }}
         >
           {content ? (
-            <Container style={{ marginTop: '24px' }}>
+            <Container style={{ marginTop: "24px" }}>
               <RowContainer>
                 <TemplateTitle>{content.title}</TemplateTitle>
               </RowContainer>
-              <RowContainer style={{ justifyContent: 'space-between' }}>
+              <RowContainer style={{ justifyContent: "space-between" }}>
                 <TemplateSubTitle>{content.subtitle}</TemplateSubTitle>
                 <TemplateSelectButton onClick={handleAllTemplate}>
                   템플릿 쓰기
@@ -107,12 +107,12 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
               </RowContainer>
             </Container>
           ) : (
-            <Container style={{ paddingTop: '237px', alignItems: 'center' }}>
+            <Container style={{ paddingTop: "237px", alignItems: "center" }}>
               <Illust src="/img/editorIllust.png" />
               <Span>템플릿을 조합해서 사용해 보세요!</Span>
             </Container>
           )}
-          <TemplateContainer style={{ marginTop: '20px' }}>
+          <TemplateContainer style={{ marginTop: "20px" }}>
             {parsedBlocks.map(({ id, html }, index) => (
               <Block id={index} key={id} onClick={onClickHandler}>
                 {html}
@@ -156,14 +156,14 @@ const TemplateContainer = styled.div`
 `;
 const RowContainer = styled.div`
   display: flex;
-  flex-direction: 'row';
-  align-items: 'center';
+  flex-direction: "row";
+  align-items: "center";
   margin-bottom: 8px;
 `;
 const Block = styled.div`
   width: calc(100% - 1rem);
   padding: 4px 12px;
-  outline-color: '#4C6EF5';
+  outline-color: "#4C6EF5";
 
   white-space: pre-wrap;
   border: 1px solid ${COLORS.blockBorder};
