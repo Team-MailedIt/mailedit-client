@@ -42,7 +42,6 @@ class EditableBlock extends React.Component {
 
       // get plain text
       let text = (e.originalEvent || e).clipboardData.getData('text/plain');
-      console.log(this.state);
       this.setState({ html: this.state.html + text });
     });
   }
