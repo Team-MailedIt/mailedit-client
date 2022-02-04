@@ -216,7 +216,7 @@ const MyTemplateGrid = styled.div`
 
 const VeilBottom = styled.div`
   width: 1484px;
-  height: 42px;
+  height: 28px;
 
   position: relative;
   z-index: 2;
