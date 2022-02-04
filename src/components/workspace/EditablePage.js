@@ -170,10 +170,13 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
 
     if (prevHtml.length === 0 && nextHtml.length === 0) {
-      updatedBlocks[index] = {
-        ...updatedBlocks[index],
+      const updateBlock = {
+        id: uid(),
+        html: newHtml,
+        tag: 'p',
         flag: 1,
       };
+      updatedBlocks.splice(index, 1, updateBlock);
     } else if (prevHtml.length === 0 && nextHtml.length !== 0) {
       const updateBlock = {
         id: uid(),

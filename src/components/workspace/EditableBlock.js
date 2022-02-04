@@ -81,7 +81,6 @@ class EditableBlock extends React.Component {
     this.setState({
       ...this.state,
       html: e.target.value,
-      flag: this.props.flag,
     });
   }
 
