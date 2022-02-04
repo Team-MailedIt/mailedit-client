@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 
-import { useState, useContext, useRef, useEffect } from "react";
-import { ElementPositionContext } from "../../contexts/ElementPositionContexts";
+import { useState, useContext, useEffect } from "react";
 
 import HomeTooltip from "./HomeTooltip";
 import SignInModal from "../auth/SignInModal";
@@ -88,7 +87,7 @@ const HeaderArea = () => {
           </>
         )}
         <TooltipBtnWrapper>
-          <HomeTooltip visibility={isTooltipOpen} />
+          <HomeTooltip isVisible={isTooltipOpen} />
           <GoToWorkSpace
             onClick={handleGoToWorkspace}
             onMouseEnter={handleTooltip}
