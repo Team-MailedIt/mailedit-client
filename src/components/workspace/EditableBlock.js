@@ -78,7 +78,11 @@ class EditableBlock extends React.Component {
     }
   }
   onChangeHandler(e) {
-    this.setState({ ...this.state, html: e.target.value });
+    this.setState({
+      ...this.state,
+      html: e.target.value,
+      flag: this.props.flag,
+    });
   }
 
   onKeyDownHandler(e) {
