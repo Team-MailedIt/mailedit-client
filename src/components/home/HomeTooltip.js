@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import COLORS from "../../constants/colors";
 
-const HomeTooltip = ({ visibility }) => {
+const HomeTooltip = ({ isVisible }) => {
   return (
-    <Wrapper visibility={visibility}>
+    <Wrapper isVisible={isVisible}>
       <TooltipContainer>
         <Text>
           템플릿을 꺼내 쓰고, 만들어서 저장할 수 있는
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
 
-  visibility: ${(props) => (props.visibility ? "visible" : "hidden")};
+  visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
 `;
 
 const TooltipContainer = styled.div`
