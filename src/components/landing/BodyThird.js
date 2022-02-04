@@ -11,6 +11,7 @@ import {
   PillContainer,
 } from "./Components";
 import COLORS from "../../constants/colors";
+import { Link } from "react-router-dom";
 
 const BodyThird = () => {
   return (
@@ -44,10 +45,12 @@ const BodyThird = () => {
             기본템플릿을 사용해 보세요
           </BodySpan>
           <div style={{ marginTop: "32px" }}>
-            <SpanLink>
-              자세히 알아보기{">"}
-              {">"}
-            </SpanLink>
+            <Link to={"/home"}>
+              <SpanLink>
+                자세히 알아보기{">"}
+                {">"}
+              </SpanLink>
+            </Link>
           </div>
         </LeftContainer>
         <div
