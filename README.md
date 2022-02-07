@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# MailedIt!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+메일 작성을 완벽하게 해내다, [**_MailedIt!_**](https://mailedit.me/)
 
-## Available Scripts
+[![logo](public/img/footerImg.png)](https://mailedit.me/)
 
-In the project directory, you can run:
+<p align="center">
+	<a href="https://github.com/Team-MailedIt/mailedit-client/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Team-MailedIt/mailedit-client?color=success"></a>
+	<a href="https://github.com/Team-MailedIt/mailedit-client/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Team-MailedIt/mailedit-client"></a>
+	<a href="https://github.com/Team-MailedIt/mailedit-client/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/Team-MailedIt/mailedit-client"></a>
+	<a href="https://github.com/Team-MailedIt/mailedit-client/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/Team-MailedIt/mailedit-client"></a>
+</p>
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**_MailedIt_** 은 자체 제작 기본 템플릿과 자신만의 메일 템플릿 만들기로 보다 쉽게 실무 이메일을 작성할 수 있도록 돕는 서비스입니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 주요 기능 소개
 
-### `npm test`
+### 1. 비로그인 유저
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 기본으로 제공되는 기본템플릿을 자유롭게 사용할 수 있습니다.
+- 여러 템플릿을 불러와서 사용할 수 있으며, 기본적인 에디터 기능을 사용할 수 있습니다.
+- 복사하기 기능을 통해 클립보드에 작성한 내용을 복사할 수 있습니다.
 
-### `npm run build`
+<img src = "public/img/help_img.png"/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. 로그인 유저
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 추가로 자유롭게 템플릿을 작성하여 저장할 수 있습니다.
+- 그룹을 추가하고, 해당 그룹에 템플릿을 저장할 수 있습니다.
+- 저장되는 템플릿은 블럭으로 적용된 블럭만 저장됩니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 페이지 구성
 
-### `npm run eject`
+### /home
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### [사이드바]
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **검색창** : 검색옵션을 통해 본인이 작성한 템플릿을 검색할 수 있다.
+- **필터옵션** : 필터옵션을 통해 본인이 작성한 그룹별로 템플릿을 볼 수 있고, 추가로 즐겨찾기된 템플릿을 볼 수 있다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![사이드바](gif/sidebar.gif)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### [메인 페이지]
 
-## Learn More
+템플릿별로 **수정시간**, **즐겨찾기 버튼**, **삭제버튼**을 구현하여 직관적이고 빠른 수정과 접근이 가능하게 하였다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![메인 페이지](gif/mainpage.gif)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### [기본 템플릿 모달]
 
-### Code Splitting
+- **드롭다운 메뉴** : 드롭다운 형식으로 회사 / 학교를 나누어 접근이 가능하게 하였고, 해당 컴포넌트 클릭 시 모달이 열리게 하였다.
+- **기본 템플릿 모달** : **회사**, **학교** 탭에서 각각의 템플릿으로 접근할 수 있으며, 템플릿 사용하기 버튼 클릭 시 바로 에디터 페이지로 넘어가도록 구현하였다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![메인 페이지 모달](gif/mainmodal.gif)
 
-### Analyzing the Bundle Size
+### /workspace
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### [사이드바]
 
-### Making a Progressive Web App
+- **검색창** : 모든 템플릿을 검색하여 바로 꺼내올 수 있다.
+- **필터옵션** : 필터옵션을 통해 본인이 작성한 그룹별로 템플릿을 볼 수 있고, 해당 템플릿에 접근할 수 있다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![사이드바](gif/ws_sidebar.gif)
 
-### Advanced Configuration
+#### [에디터]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- shift + enter 시 블럭 내에서 줄바꿈, enter시 새로운 블럭을 생성한다.
+- 삭제는 기본적으로 backspace를 사용한다.
+- 원하는 영역만큼 드래그하여 블럭화를 할 수 있으며, 해당 블럭만 저장된다.
+- 블럭끼리 드래그&드랍으로 순서를 변경할 수 있다.
+- 복사하기를 통해 작성한 내용을 클립보드에 복사할 수 있다.
 
-### Deployment
+![에디터](gif/editor.gif)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### [그룹]
 
-### `npm run build` fails to minify
+정리하고 싶은 카테고리별로 그룹 이름과 색상을 지정할 수 있으며, 색과 그룹명은 1대1로 대응된다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![그룹](gif/group.gif)
+
+#### [도움말]
+
+- **기본 사용법 도움말** : 최초 진입자/템플릿 개수가 3개 이하인 사람들에게 default로 popup되며, 기본적인 사용법에 대해 알 수 있다.
+- **에디터 사용법 도움말** : 캐러셀 형태의 모달로 구현하였으며, 기본적인 에디터 사용법을 알 수 있다.
+
+![도움말](gif/help.gif)
+
+## 기술 스택 (Technique Used)
+
+<table>
+  <tbody>
+    <tr>
+      <td width="60">
+        <div align="center"><a href="https://ko.reactjs.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"  /></a><br>ReactJs</br></div>
+      </td>
+      <td width="60">
+        <div align="center"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/2048px-Unofficial_JavaScript_logo_2.svg.png" width="40" height="40" /></a><br>Javascript</br></div>
+      </td>      
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 사용한 패키지 (Library Used)
+
+- react-beautiful-dnd
+- react-contenteditable
+- react-copy-to-clipboard
+- react-dom
+- react-google-login
+- react-modal
+- react-router-dom
+- styled-components
+
+---
+
+## 관련 문서 (Development Documents)
+
+## 팀 정보 (Team Information)
+
+- [김현재](https://github.com/itsnowkim) E-mail : [peterhyunjae@naver.com](mailto:peterhyunjae@naver.com)
+
+  - 에디터 기능 구현
+  - 템플릿 불러오기, 저장하기 기능 구현
+  - 복사하기 기능 구현
+  - 그룹 추가하기 기능 구현
+  - 랜딩 페이지 개발
+
+- [김현재](https://github.com/itsnowkim) E-mail : [peterhyunjae@naver.com](mailto:peterhyunjae@naver.com)
+
+  - 에디터 기능 구현
+  - 템플릿 불러오기, 저장하기 기능 구현
+  - 에디터 복사하기 기능 구현
+  - 그룹 추가하기 기능 구현
+  - 랜딩 페이지 개발
