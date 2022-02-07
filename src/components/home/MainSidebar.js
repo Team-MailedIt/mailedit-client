@@ -18,6 +18,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
   const [myTemplates, setMyTemplates] = useState([]);
+  const [baseTemplates, setBaseTemplates] = useState([]);
   const [groupIdList, setGroupIdList] = useState([]);
 
   const { likes, setLikesHandler } = useContext(FilterLikeContext);
@@ -45,6 +46,13 @@ const MainSidebar = () => {
     };
 
     getMy();
+
+    const getBase = async () => {
+      const { data } = await API.get("/templates/base");
+      setBaseTemplates(data);
+    };
+
+    getBase();
   }, [isLogin, setSelectGroupHandler]);
 
   const handleSelectAll = (e) => {
@@ -78,7 +86,10 @@ const MainSidebar = () => {
     <Wrapper>
       <FixedSection>
         <Logo src={logo} />
-        <Search all={myTemplates} handleContents={handleContents} />
+        <Search
+          all={[...myTemplates, ...baseTemplates]}
+          handleContents={handleContents}
+        />
       </FixedSection>
 
       <VariableSection>
