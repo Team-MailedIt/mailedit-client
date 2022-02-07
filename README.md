@@ -59,13 +59,13 @@
 #### [사이드바]
 
 - **검색 기능** : 제목으로 전체 템플릿을 검색할 수 있습니다.
-- **그룹 필터링 기능** : 그룹별로 템플릿을 모아볼 수 있고, 각각의 템플릿을 불러올 수 있습니다.
+- **그룹 기능** : 그룹별로 템플릿을 모아볼 수 있고, 각각의 템플릿을 불러올 수 있습니다.
 
 ![사이드바](gif/ws_sidebar.gif)
 
 #### [에디터]
 
-- **shift + enter** 시 블럭 내에서 줄바꿈, **enter**시 새로운 블럭을 생성합니다.
+- **shift + enter** 시 블럭 내에서 줄바꿈, **enter** 시 새로운 블럭을 생성합니다.
 - 삭제는 기본적으로 **backspace**를 사용합니다.
 - 원하는 영역만큼 드래그하여 블럭화할 수 있으며, 해당 블럭만 저장됩니다.
 - 블럭 간 드래그&드랍으로 순서를 변경할 수 있습니다.
@@ -89,17 +89,9 @@
 
 ## 기술 스택 (Technique Used)
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styledcomponents&logoColor=white"/>
-<img src="https://img.shields.io/badge/Google OAuth-4285F4?style=flat-square&logo=Google&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styledcomponents&logoColor=white"/> <img src="https://img.shields.io/badge/Google OAuth-4285F4?style=flat-square&logo=Google&logoColor=white"/>
 <br/>
-<img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=Postman&logoColor=white"/>
-<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/>
-<img src="https://img.shields.io/badge/Axios-E01B22?style=flat-square"/>
-<img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
-<img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/>
-<img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white"/>
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=Postman&logoColor=white"/> <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/> <img src="https://img.shields.io/badge/Axios-E01B22?style=flat-square"/> <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white"/>
 
 ## 사용한 패키지 (Library Used)
 
