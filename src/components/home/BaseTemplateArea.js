@@ -68,14 +68,16 @@ const BaseTemplateArea = () => {
 
         <BaseTemplateTable>
           {option === "company"
-            ? baseCompany.slice(0, 5).map((t, i) => (
+            ? baseCompany &&
+              baseCompany.slice(0, 5).map((t, i) => (
                 <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
                   <ThText id={t.templateId} onClick={handleBaseClick}>
                     {t.title}
                   </ThText>
                 </Cell>
               ))
-            : baseSchool.slice(0, 5).map((t, i) => (
+            : baseSchool &&
+              baseSchool.slice(0, 5).map((t, i) => (
                 <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
                   <ThText id={t.templateId} onClick={handleBaseClick}>
                     {t.title}
