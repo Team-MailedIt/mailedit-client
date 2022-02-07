@@ -2,7 +2,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 const API = axios.create({
-  baseURL: "https://api.mailedit.me/api",
+  baseURL: process.env.REACT_APP_API_PATH,
   headers: {
     "Content-Type": "application/json",
   },
