@@ -106,21 +106,8 @@
 
 ## 팀 정보 (Team Information)
 
-- [김현재](https://github.com/itsnowkim) E-mail : [peterhyunjae@naver.com](mailto:peterhyunjae@naver.com)
-
-  - 에디터 기능 구현
-  - 템플릿 불러오기, 저장하기 기능 구현
-  - 복사하기 기능 구현
-  - 그룹 추가하기 기능 구현
-  - 랜딩 페이지 개발
-
-- [김주현](https://github.com/corinthionia) E-mail : [corinthionia@gmail.com](mailto:corinthionia@gmail.com)
-
-  - Google OAuth
-  - 로그인 유저 정보 및 토큰 관리
-  - base UI 컴포넌트 제작
-  - 메인 페이지 개발
-  - 그룹 필터링 기능 구현
-  - 템플릿 검색 기능 구현
-  - 템플릿 즐겨찾기, 삭제하기 기능 구현
-  - 블럭 드래그앤드랍 기능 구현
+|                                                                 <img src="https://avatars.githubusercontent.com/u/46472252?v=4" width=150px>                                                                 |                                                                                 <img src="https://avatars.githubusercontent.com/u/79887293?v=4" width=150px>                                                                                  |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                                    [김현재](https://github.com/itsnowkim)                                                                                    |                                                                                                   [김주현](https://github.com/corinthionia)                                                                                                   |
+|                                                                           [peterhyunjae@naver.com](mailto:peterhyunjae@naver.com)                                                                            |                                                                                            [corinthionia@gmail.com](mailto:corinthionia@gmail.com)                                                                                            |
+| 랜딩 페이지 개발<br/>에디터 페이지 개발<br/>에디터 기능 구현<br/>블럭 만들기 기능 구현<br/>템플릿 불러오기 기능 구현<br/>템플릿 저장하기 기능 구현<br/>템플릿 복사하기 기능 구현<br/>그룹 추가하기 기능 구현 | Google OAuth<br/>로그인 유저 정보 및 토큰 관리<br/>base UI 컴포넌트 제작<br/>메인 페이지 개발<br/>그룹 필터링 기능 구현<br/>템플릿 검색 기능 구현<br/>템플릿 즐겨찾기 기능 구현<br/>템플릿 삭제하기 기능 구현<br/>블럭 드래그앤드랍 기능 구현 |
