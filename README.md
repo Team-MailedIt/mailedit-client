@@ -8,7 +8,6 @@
 	<a href="https://github.com/Team-MailedIt/mailedit-client/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Team-MailedIt/mailedit-client?color=success"></a>
 	<a href="https://github.com/Team-MailedIt/mailedit-client/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Team-MailedIt/mailedit-client"></a>
 	<a href="https://github.com/Team-MailedIt/mailedit-client/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/Team-MailedIt/mailedit-client"></a>
-	<a href="https://github.com/Team-MailedIt/mailedit-client/blob/master/LICENSE">
 </p>
 
 ---
@@ -19,7 +18,7 @@
 
 ### 1. 비로그인 유저
 
-- 기본으로 제공되는 기본템플릿을 자유롭게 사용할 수 있습니다.
+- 기본으로 제공하는 기본템플릿을 자유롭게 사용할 수 있습니다.
 - 여러 템플릿을 불러와서 사용할 수 있으며, 기본적인 에디터 기능을 사용할 수 있습니다.
 - 복사하기 기능을 통해 작성한 내용을 클립보드에 복사할 수 있습니다.
 
