@@ -38,14 +38,14 @@ const MainSidebar = () => {
       });
     };
 
-    getGroups();
+    isLogin && getGroups();
 
     const getMy = async () => {
       const { data } = await API.get("/templates/my");
       setMyTemplates(data);
     };
 
-    getMy();
+    isLogin && getMy();
 
     const getBase = async () => {
       const { data } = await API.get("/templates/base");
