@@ -33,8 +33,6 @@ API.interceptors.request.use(async (config) => {
         }
       );
 
-      console.log("reissuing tokens");
-
       localStorage.setItem("accessToken", data.access);
       localStorage.setItem("expiredAt", jwtDecode(data.access).exp * 1000);
 
