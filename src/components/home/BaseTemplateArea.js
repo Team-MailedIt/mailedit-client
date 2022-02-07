@@ -14,24 +14,28 @@ import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
 
 const BaseTemplateArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [baseTemplates, setBaseTemplates] = useState([]);
+  const [baseSchool, setBaseSchool] = useState([]);
+  const [baseCompany, setBaseCompany] = useState([]);
+
   const [option, setOption] = useState("company");
 
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   // get base templates
   useEffect(() => {
-    const getBase = async () => {
-      const { data } = await API.get("/templates/base");
-      setBaseTemplates(data);
+    const getBaseSchool = async () => {
+      const { data } = await API.get("/templates/base?category=학교");
+      setBaseSchool(data);
     };
 
-    getBase();
-  }, []);
+    const getBaseCompany = async () => {
+      const { data } = await API.get("/templates/base?category=회사");
+      setBaseCompany(data);
+    };
 
-  // filtering base templates
-  const baseCompany = baseTemplates.filter((base) => base.category === "회사");
-  const baseSchool = baseTemplates.filter((base) => base.category === "학교");
+    getBaseSchool();
+    getBaseCompany();
+  }, []);
 
   // when clicking base template menu
   const handleBaseClick = (e) => {
@@ -89,7 +93,7 @@ const BaseTemplateArea = () => {
           <BaseTemplateModal
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
-            baseTemplates={baseTemplates}
+            baseTemplates={[...baseCompany, ...baseSchool]}
             baseCompany={baseCompany}
             baseSchool={baseSchool}
           />
