@@ -10,12 +10,23 @@ import copy from 'copy-to-clipboard';
 import ModalContainer from '../alertModal/ModalContainer';
 import API from '../../utils/API';
 import getOnlyBlocks from '../../utils/getOnlyBlocks';
+import AlertContainer from '../alertModal/AlertContainer';
+import TitleValid from '../alertModal/TitleValid';
+import BlockValid from '../alertModal/BlockValid';
+import NotRegistered from '../alertModal/NotRegistered';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const EditorContainer = ({ passedBlocks }) => {
+  const { isLogin } = useContext(AuthContext);
   const [headerData, setHeaderData] = useState({});
   const { action, setActionHandler } = useContext(CopyContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOption, setModalOption] = useState('');
+
+  // alert when invalid
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isBlockAlertOpen, setIsBlockAlertOpen] = useState(false);
+  const [isRegisteredOpen, setIsRegisteredOpen] = useState(false);
 
   const handleHeaderData = useCallback((newValue) => {
     setHeaderData(newValue);
@@ -25,26 +36,33 @@ const EditorContainer = ({ passedBlocks }) => {
   // block data를 가져와서 parsing하여 setState.
   const getBlocksHandler = (content) => {
     // we need to parse data
-    // <div> -> \n, delete -> </div>
     if (action === 'copy') {
-      const parsedString = parseBlocks(content);
-      copy(parsedString);
+      const parsedString = parseBlocks(content, false);
+      copy(parsedString, { format: 'text/plain' });
     } else if (action === 'save') {
       if (headerData.title === '') {
-        window.alert('제목 입력은 필수입니다.');
+        // 제목입력은 필수임
+        setIsAlertOpen(true);
       } else {
         // content에서 블럭인 것만 가져오기
         const filteredContents = getOnlyBlocks(content);
-        const props = {
-          title: headerData.title,
-          subtitle: headerData.subtitle,
-          groupId: headerData.group.id,
-          content: filteredContents,
-        };
-        const res = saveTemplateToServer(props);
-        if (res) {
-          setModalOption('save');
-          setIsModalOpen(true);
+        if (filteredContents.length === 0) {
+          // 저장할 블럭이 없음
+          setIsBlockAlertOpen(true);
+        } else if (!isLogin) {
+          setIsRegisteredOpen(true);
+        } else {
+          const props = {
+            title: headerData.title,
+            subtitle: headerData.subtitle,
+            groupId: headerData.group.id,
+            content: filteredContents,
+          };
+          const res = saveTemplateToServer(props);
+          if (res) {
+            setModalOption('save');
+            setIsModalOpen(true);
+          }
         }
       }
     }
@@ -91,11 +109,25 @@ const EditorContainer = ({ passedBlocks }) => {
           템플릿 저장하기
         </TemplateSaveButton>
       </FooterContainer>
-
       <ModalContainer
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         modalOption={modalOption}
+      />
+      <AlertContainer
+        isAlertOpen={isAlertOpen}
+        setIsAlertOpen={setIsAlertOpen}
+        ChildComponent={TitleValid}
+      />
+      <AlertContainer
+        isAlertOpen={isBlockAlertOpen}
+        setIsAlertOpen={setIsBlockAlertOpen}
+        ChildComponent={BlockValid}
+      />
+      <AlertContainer
+        isAlertOpen={isRegisteredOpen}
+        setIsAlertOpen={setIsRegisteredOpen}
+        ChildComponent={NotRegistered}
       />
     </Container>
   );
@@ -106,15 +138,13 @@ const Container = styled.div`
   /* justify-content: center; */
   background: ${COLORS.UIWhite};
   border-left: 0.5px solid ${COLORS.gray5};
+  padding-left: 40px;
+  padding-right: 40px;
 `;
 const BodyContainer = styled.div`
-  border: 1px solid black;
   height: 788px;
-  // height 0.7vh 이런걸로 주면 반응형 ㄱㄴ
   max-width: 664px;
   background: ${COLORS.backgroundWhite};
-  margin-left: 40px;
-  margin-right: 40px;
   padding-left: 26px;
   padding-right: 26px;
   border-radius: 2px;
@@ -122,7 +152,6 @@ const BodyContainer = styled.div`
 const FooterContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 40px;
   margin-top: 24px;
 `;
 export default EditorContainer;

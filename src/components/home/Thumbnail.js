@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import API from "../../utils/API";
 import COLORS from "../../constants/colors";
+
+import bin from "../../constants/icons/bin.svg";
 import liked from "../../constants/icons/liked.svg";
 import notLiked from "../../constants/icons/notLiked.svg";
-import bin from "../../constants/icons/bin.svg";
-import { useState } from "react";
-import API from "../../utils/API";
 
 const Thumbnail = ({
   id,
@@ -15,26 +17,49 @@ const Thumbnail = ({
   groupColor,
   updatedAt,
   handleBinIconClick,
+  handleThumbnailClick,
+  setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
+  const [memo, setMemo] = useState("");
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
 
-    API.patch(
-      `/templates/${id}`,
-      JSON.stringify({ isStar: !isLiked, groupId: groupId })
-    ).then((res) => console.log(res.data));
+    const setStar = async () => {
+      await API.patch(
+        `/templates/${id}`,
+        JSON.stringify({ isStar: !isLiked, groupId: groupId })
+      );
+
+      const { data } = await API.get("/templates/my");
+      setMyTemplates(data);
+    };
+
+    setStar();
   };
+
+  useEffect(() => {
+    const parsed = subtitle
+      .replace(/<div>/gi, "\n")
+      .replace(/<\/div>/gi, "")
+      .replace(/<br>/gi, "\n")
+      .slice(0, 45);
+    setMemo(parsed);
+  }, [subtitle]);
 
   return (
     <Wrapper>
       <IndexArea>
         <Index color={groupColor} />
       </IndexArea>
-      <Title>{title}</Title>
-      <BodyWrapper>
-        <Subtitle>{subtitle}</Subtitle>
+      <HoverArea id={id} onClick={handleThumbnailClick}>
+        <Title id={id}>{title}</Title>
+      </HoverArea>
+      <BodyWrapper id={id}>
+        <Subtitle id={id} onClick={handleThumbnailClick}>
+          <SubTitleText id={id}>{memo}</SubTitleText>
+        </Subtitle>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
         ) : (
@@ -55,7 +80,7 @@ const Wrapper = styled.div`
   height: 196px;
   border-radius: 8px;
 
-  margin-top: 22px;
+  margin-bottom: 22px;
 
   background: ${COLORS.UIWhite};
 
@@ -80,17 +105,29 @@ const Index = styled.div`
   border-left: 12px solid transparent;
 `;
 
+const HoverArea = styled.div`
+  width: 100%;
+  height: 60px;
+  padding-top: 24px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const Title = styled.div`
   width: 300px;
   height: 28px;
 
-  display: flex;
-  align-items: center;
+  margin: 0 20px 0px 20px;
 
-  margin: 24px 20px 0px 20px;
-
-  font-family: Pretendard-SemiBold;
+  font-weight: 600;
   font-size: 22px;
+  line-height: 26px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${COLORS.gray8};
 `;
@@ -99,23 +136,40 @@ const BodyWrapper = styled.div`
   width: 308px;
   height: 46px;
 
-  margin: 32px 0px 18px 20px;
+  margin: 0 0 18px 20px;
 
   display: flex;
   flex-direction: row;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Subtitle = styled.div`
   width: 264px;
   height: 42px;
 
-  display: flex;
-  justify-content: space-between;
+  display: table;
 
   font-size: 16px;
   line-height: 22px;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   color: ${COLORS.gray8};
+`;
+
+const SubTitleText = styled.span`
+  width: 264px;
+  height: 42px;
+
+  display: table-cell;
+
+  font-size: 16px;
+  line-height: 22px;
+  vertical-align: bottom;
 `;
 
 const Liked = styled.img`

@@ -1,11 +1,13 @@
-import styled from "styled-components";
 import { useState } from "react";
 import ReactModal from "react-modal";
+import styled from "styled-components";
 
 import API from "../../utils/API";
 import GoogleAuth from "./GoogleAuth";
 import COLORS from "../../constants/colors";
 import useInputs from "../../hooks/useInputs";
+import { ModalStyle } from "../commons/ModalStyle";
+
 import exit from "../../constants/icons/exit.svg";
 
 import {
@@ -30,7 +32,7 @@ const SignUpModal = ({
   const [isValidUser, setIsValidUser] = useState(false);
   const [isAllPassedUser, setIsAllPassedUser] = useState(false);
 
-  const [{ name, email, password, confirmPassword }, handleInputChange, reset] =
+  const [{ name, email, password, confirmPassword }, handleInputChange] =
     useInputs({
       name: "",
       email: "",
@@ -42,14 +44,14 @@ const SignUpModal = ({
 
   // 이메일 중복 확인
   const handleConfirmEmail = () => {
-    API.get(`/user-check?email=${email}`)
-      .then(() => {
-        setIsValidEmail(false);
-      })
-      .catch(() => {
-        setIsPassedEmail(true);
-        setIsValidEmail(true);
-      });
+    const checkEmail = async () => {
+      const { data } = await API.get(`/user-check?email=${email}`);
+
+      setIsValidEmail(!data);
+      !data && setIsPassedEmail(true);
+    };
+
+    checkEmail();
   };
 
   // 비밀번호와 비밀번호 확인
@@ -64,24 +66,17 @@ const SignUpModal = ({
 
   // 회원가입
   const handleSignUpBtnClick = () => {
-    API.post("/signup", JSON.stringify(signUpUser))
-      .then(() => {
+    const signUp = async () => {
+      try {
+        await API.post("/signup", JSON.stringify(signUpUser));
         setIsAllPassedUser(true);
-      })
-      .catch(() => {
+      } catch {
         setIsValidEmail(false);
         setIsCorrectPsword(true);
-      });
-  };
+      }
+    };
 
-  const modalStyle = {
-    overlay: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "rgba(0,0,0,0.65)",
-      zIndex: 10,
-    },
+    signUp();
   };
 
   return (
@@ -91,7 +86,7 @@ const SignUpModal = ({
           isOpen={isSignUpModalOpen}
           onRequestClose={() => setIsSignUpModalOpen(false)}
           ariaHideApp={false}
-          style={modalStyle}
+          style={ModalStyle}
         >
           <Exit src={exit} onClick={() => setIsSignUpModalOpen(false)} />
           <Wrapper>
@@ -156,7 +151,7 @@ const SignUpModal = ({
           isOpen={isSignUpModalOpen}
           onRequestClose={() => setIsSignUpModalOpen(false)}
           ariaHideApp={false}
-          style={modalStyle}
+          style={ModalStyle}
         >
           <WelcomText>
             환영합니다!
@@ -178,7 +173,7 @@ const SignUpModal = ({
           isOpen={isSignUpModalOpen}
           onRequestClose={() => setIsSignUpModalOpen(false)}
           ariaHideApp={false}
-          style={modalStyle}
+          style={ModalStyle}
         >
           <WelcomText>
             인증 메일이 발송되었습니다.
@@ -204,6 +199,9 @@ const ValidUserModal = styled(ReactModal)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const WelcomText = styled.div`

@@ -47,7 +47,7 @@ const Index = styled.div`
 
 const Title = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 12px;
   line-height: 14px;
   color: ${COLORS.gray8};

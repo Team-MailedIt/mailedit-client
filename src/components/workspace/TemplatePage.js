@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
-// import fetchedData from '../../data.json';
 import {
   TemplateSubTitle,
   TemplateTitle,
@@ -9,15 +8,36 @@ import {
 } from './Components';
 import { PrevIcon } from '../../constants/icons';
 import { useNavigate } from 'react-router';
+import { ContentContext } from '../../contexts/ContentContext';
+import help_circle from '../../constants/icons/help_circle.svg';
+import HelpModal from '../helpModal/HelpModal';
 
-const TemplatePage = ({
-  fetchedData,
-  getBlockFromTemplate,
-  getAllBlockFromTemplate,
-}) => {
+const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
+  // 모달모달
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  useEffect(() => {
+    if (localStorage.getItem('tooltip') === 'false') {
+      setIsModalOpen(false);
+    }
+  }, []);
+
+  const openHelp = () => {
+    setIsModalOpen(true);
+  };
+
   // setBlock used when user select template from sidebar
   const [blocks, setBlocks] = useState([]);
   const [parsedBlocks, setParsedBlocks] = useState([]);
+  const { content } = useContext(ContentContext);
+  const [parsedSubtitle, setParsedSubtitle] = useState('');
+
+  // subtitle parse
+  useEffect(() => {
+    if (content) {
+      const parsed = content.subtitle.replace(/<[^>]*>/g, '');
+      setParsedSubtitle(parsed);
+    }
+  }, [setParsedSubtitle, content]);
 
   // navigate to main page
   const navigate = useNavigate();
@@ -27,19 +47,21 @@ const TemplatePage = ({
 
   // data fetched from sidebar
   useEffect(() => {
-    if (fetchedData) {
-      setBlocks(fetchedData.content);
+    if (content) {
+      setBlocks(content.content);
     }
-  }, [fetchedData]);
+  }, [content]);
 
   useEffect(() => {
     const updatedBlocks = [...blocks];
     blocks.forEach((element, index) => {
-      const temp = element.html.replace(/<div>/gi, '\n');
-      const newString = temp.replace(/<\/div>/gi, '');
+      const temp = element.html
+        .replace(/<div>/gi, '\n')
+        .replace(/<\/div>/gi, '')
+        .replace(/<br>/gi, '\n');
       updatedBlocks[index] = {
         ...updatedBlocks[index],
-        html: newString,
+        html: temp,
       };
     });
     setParsedBlocks(updatedBlocks);
@@ -55,23 +77,39 @@ const TemplatePage = ({
 
   return (
     <>
-      <div>
-        <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
-          <PrevIcon
-            onClick={goToMain}
-            src="img/prevIcon.png"
-            width="32px"
-            height="32px"
-          />
-        </RowContainer>
-        <div style={{ marginLeft: '40px', marginRight: '40px' }}>
-          {fetchedData ? (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '65px auto',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
+          <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
+            <PrevIcon
+              onClick={goToMain}
+              src="img/prevIcon.png"
+              width="32px"
+              height="32px"
+            />
+          </RowContainer>
+          <HelpCircle src={help_circle} onClick={openHelp} />
+        </div>
+        <div
+          style={{ marginRight: '40px', marginTop: '76px', minWidth: '490px' }}
+        >
+          {content ? (
             <Container style={{ marginTop: '24px' }}>
               <RowContainer>
-                <TemplateTitle>{fetchedData.title}</TemplateTitle>
+                <TemplateTitle>{content.title}</TemplateTitle>
               </RowContainer>
               <RowContainer style={{ justifyContent: 'space-between' }}>
-                <TemplateSubTitle>{fetchedData.subtitle}</TemplateSubTitle>
+                <TemplateSubTitle>{parsedSubtitle}</TemplateSubTitle>
                 <TemplateSelectButton onClick={handleAllTemplate}>
                   템플릿 쓰기
                 </TemplateSelectButton>
@@ -83,23 +121,47 @@ const TemplatePage = ({
               <Span>템플릿을 조합해서 사용해 보세요!</Span>
             </Container>
           )}
-          <Container style={{ marginTop: '20px' }}>
+          <TemplateContainer style={{ marginTop: '20px' }}>
             {parsedBlocks.map(({ id, html }, index) => (
               <Block id={index} key={id} onClick={onClickHandler}>
                 {html}
               </Block>
             ))}
-          </Container>
+          </TemplateContainer>
         </div>
       </div>
+      <HelpModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   );
 };
+const HelpCircle = styled.img`
+  width: 44px;
+  height: 44px;
+  margin-left: 24px;
+  margin-bottom: 24px;
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 24px;
   padding-right: 24px;
+`;
+const TemplateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 790px;
+  padding-left: 24px;
+  padding-right: 24px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${COLORS.primary};
+    border-radius: 80px;
+    height: 20px;
+  }
 `;
 const RowContainer = styled.div`
   display: flex;
@@ -108,17 +170,21 @@ const RowContainer = styled.div`
   margin-bottom: 8px;
 `;
 const Block = styled.div`
+  width: calc(100% - 1rem);
+  padding: 4px 12px;
+  outline-color: '#4C6EF5';
+
   white-space: pre-wrap;
   border: 1px solid ${COLORS.blockBorder};
   background: ${COLORS.blockBackground};
   border-radius: 2px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 12px;
+
+  margin-top: 6px;
+  margin-bottom: 6px;
+
   line-height: 24px;
   font-size: 16px;
+  -webkit-user-select: none;
 `;
 export const Illust = styled.img`
   background-image: ${({ src }) => `url(${src})`};

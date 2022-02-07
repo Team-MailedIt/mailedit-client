@@ -1,43 +1,40 @@
+import jwtDecode from "jwt-decode";
 import styled from "styled-components";
-import { useNavigate } from "react-router";
 import GoogleLogin from "react-google-login";
 
 import API from "../../utils/API";
 import COLORS from "../../constants/colors";
+
 import google from "../../constants/icons/google.svg";
 import logoBlue from "../../constants/icons/logoBlue.svg";
 
 const GoogleAuth = () => {
-  const navigate = useNavigate();
-
   // 구글 로그인 성공 시
-  const onGoogleSignInSuccess = async (res) => {
+  const onGoogleSignInSuccess = (res) => {
     localStorage.setItem("userName", res.profileObj.givenName);
 
     const params = new URLSearchParams();
     params.append("idToken", res.tokenObj.id_token);
 
-    API.post("/login/google", params, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    })
-      .then((res) => {
-        localStorage.setItem("accessToken", res.data.token.access);
-        localStorage.setItem("refreshToken", res.data.token.refresh);
-
-        console.log("access: ", res.data.token.access);
-
-        navigate("/home");
-      })
-      .catch((err) => {
-        console.log(err);
+    const googleLogin = async () => {
+      const res = await API.post("/login/google", params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
-  };
 
-  // 구글 로그인 실패 시
-  const onGoogleSignInFailure = (res) => {
-    console.log("onFailure: ", res);
+      localStorage.setItem("accessToken", res.data.token.access);
+      localStorage.setItem("refreshToken", res.data.token.refresh);
+      localStorage.setItem("tooltip", res.data.tooltip);
+      localStorage.setItem(
+        "expiredAt",
+        jwtDecode(res.data.token.access).exp * 1000
+      );
+
+      window.location.href = "/home";
+    };
+
+    googleLogin();
   };
 
   return (
@@ -48,7 +45,6 @@ const GoogleAuth = () => {
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_API_KEY}
         onSuccess={onGoogleSignInSuccess}
-        onFailure={onGoogleSignInFailure}
         render={(renderProps) => (
           <GoogleButton onClick={renderProps.onClick}>
             <GoogleWrapper>

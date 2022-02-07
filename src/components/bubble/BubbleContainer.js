@@ -11,17 +11,16 @@ import {
 } from './Components';
 import GroupComponent from '../commons/GroupComponent';
 import { useCallback, useContext, useState } from 'react';
-// import { GearIcon } from '../../constants/icons';
 import { HorizontalLine } from '../workspace/Components';
 import AddGroupContainer from './AddGroupContainer';
 import DefaultContainer from './DefaultContainer';
 import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
+import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 
 const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
   ReactModal.defaultStyles.overlay.backgroundColor = `rgb(0, 0, 0, 0)`;
-  // 추가 기능이 있어서 set도 있어야 함
-  // const [group, setGroup] = useState([]);
+
   const { groupListContext, setGroupList } = useContext(GroupContext);
 
   const [mode, setMode] = useState(true);
@@ -32,11 +31,6 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
   });
   const [addChecker, setAddChecker] = useState(false);
   const [temp, setTemp] = useState({});
-
-  // useEffect(() => {
-  //   setGroup(groupList);
-  //   setGroupList()
-  // }, [groupList]);
 
   // state 초기화
   const init = () => {
@@ -98,6 +92,9 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
     setSelected(groupData);
   };
 
+  // modal 위치
+  const { position } = useContext(ElementPositionContext);
+
   const handleAddNewGroup = useCallback((element) => {
     setTemp(element);
     setAddChecker(true);
@@ -111,6 +108,8 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
         init();
       }}
       ariaHideApp={false}
+      positionTop={position.y}
+      positionLeft={position.x}
     >
       <ColContainer>
         {mode ? (
@@ -120,7 +119,6 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
         )}
         <RowContainer style={{ paddingTop: '20px' }}>
           <SubHeading>기존 그룹</SubHeading>
-          {/* <GearIcon src="./img/gear.png" /> */}
         </RowContainer>
 
         <ColContainer style={{ marginTop: '12px' }}>
@@ -175,8 +173,9 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
 
 const Modal = styled(ReactModal)`
   position: absolute;
-  top: 18vh;
-  left: 63.4vw;
+  top: ${(props) => props.positionTop}px;
+  left: ${(props) => props.positionLeft}px;
+  transform: translate(15%, 13%);
 
   width: 328px;
   background: #ffffff;
@@ -186,12 +185,15 @@ const Modal = styled(ReactModal)`
   padding: 1.125em 1.5em;
   font-size: 1.25em;
   border-radius: 12px;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
-    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
+    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); */
+  box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
 
   &::before {
     // layout
-    content: '';
+    content: ' ';
     position: absolute;
     width: 0;
     height: 0;
@@ -202,7 +204,11 @@ const Modal = styled(ReactModal)`
 
     // looks
     border-bottom-color: #fff;
+    box-shadow: 0px 4px -12px rgba(0, 0, 0, 0.05);
     filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+  }
+  &:focus {
+    outline: none;
   }
 `;
 export default BubbleContainer;

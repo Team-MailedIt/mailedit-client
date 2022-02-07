@@ -24,40 +24,47 @@ const BodySecond = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100vw;
+  height: 1080px;
 
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 1440px) {
+    height: 900px;
+  }
 `;
 const HeadingContainer = styled.div`
   display: flex;
   flex-direction: row;
 
   align-items: center;
-
-  height: 112px;
-  width: 1240px;
 `;
 
 const Heading = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 64px;
   line-height: 160%;
   color: ${COLORS.bodyBlue};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 52px;
+  }
 `;
 const SubHeading = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 24px;
   line-height: 140%;
   color: ${COLORS.gray8};
   display: flex;
   align-items: center;
   padding-top: 12px;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export default BodySecond;

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled from "styled-components";
+import COLORS from "../../constants/colors";
 
 export const SignUp = styled.button`
   width: 119px;
@@ -13,19 +13,27 @@ export const SignUp = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 16px;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 12px;
+    width: 90px;
+    height: 30px;
+  }
 `;
 
 export const SpanLink = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
-
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    font-size: 12px;
   }
 `;
 
@@ -37,22 +45,29 @@ export const VerticalLine = styled.div`
 
 export const MainHeading = styled.span`
   font-style: normal;
-  font-weight: bold;
+  /* font-family: 'Pretendard-SemiBold', serif; */
+  font-weight: 700;
   font-size: 44px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 36px;
+  }
 `;
 
 export const MainSubHeading = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 20px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const LookAroundButton = styled.button`
@@ -70,68 +85,93 @@ export const LookAroundButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 1440px) {
+    width: 196px;
+    height: 43px;
+    font-size: 16px;
+  }
 `;
 
 export const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background: ${COLORS.backgroundWhite};
 
   /* justify-content: center; */
   align-items: center;
 
-  height: 720px;
   width: 100vw;
+  height: 720px;
+  @media screen and (max-width: 1440px) {
+    height: 580px;
+  }
+`;
 
-  background: ${COLORS.backgroundWhite};
+export const PillContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 72px;
+  @media screen and (max-width: 1440px) {
+    margin-top: 60px;
+  }
 `;
 
 export const LeftPill = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
 
-  width: 144px;
-  height: 42px;
+  width: 136px;
+  height: 34px;
+  padding: 4px;
 
-  background: ${COLORS.bodyBlue};
   border: 2px solid ${COLORS.bodyBlue};
-  border-radius: 20px 0px 0px 20px;
+  border-radius: 40px 0px 0px 40px;
+
+  @media screen and (max-width: 1440px) {
+    width: 110px;
+    height: 27px;
+  }
 `;
 
 export const RightPill = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
 
-  width: 144px;
-  height: 42px;
+  width: 136px;
+  height: 34px;
+  padding: 4px;
 
   border: 2px solid ${COLORS.bodyBlue};
-  border-radius: 0px 20px 20px 0px;
+  border-radius: 0px 40px 40px 0px;
+  @media screen and (max-width: 1440px) {
+    width: 110px;
+    height: 27px;
+  }
 `;
 
 export const LeftPillSpan = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
-  line-height: 140%;
-  color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export const RightPillSpan = styled.span`
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 24px;
-  line-height: 140%;
-  color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 export const TitleSpan = styled.span`
@@ -142,19 +182,26 @@ export const TitleSpan = styled.span`
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 42px;
+  }
 `;
 export const TitleSpanBold = styled.span`
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 52px;
   line-height: 140%;
   color: ${COLORS.UIBlack};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 42px;
+  }
 `;
 export const BodySpan = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 28px;
   line-height: 140%;
   color: ${COLORS.gray8};
@@ -163,6 +210,10 @@ export const BodySpan = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 22px;
+  }
 `;
 export const CreateTemplateButton = styled.button`
   width: 228px;
@@ -176,20 +227,28 @@ export const CreateTemplateButton = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 20px;
+  @media screen and (max-width: 1440px) {
+    width: 183px;
+    height: 39px;
+    font-size: 16px;
+  }
 `;
 export const FooterBodySpan = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 200;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 28px;
   color: ${COLORS.UIWhite};
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const FooterBodySpanButton = styled.span`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 20px;
   line-height: 24px;
   color: ${COLORS.UIWhite};
@@ -197,5 +256,8 @@ export const FooterBodySpanButton = styled.span`
   align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1440px) {
+    font-size: 16px;
   }
 `;

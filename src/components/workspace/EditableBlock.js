@@ -10,7 +10,7 @@ class EditableBlock extends React.Component {
     super(props);
     this.contentEditable = React.createRef();
     this.state = {
-      htmlBackup: null,
+      // htmlBackup: null,
       html: '',
       tag: 'p',
       flag: 0,
@@ -35,6 +35,14 @@ class EditableBlock extends React.Component {
       html: this.props.html,
       tag: this.props.tag,
       flag: this.props.flag,
+    });
+    // set eventListener
+    this.contentEditable.current.addEventListener('paste', (e) => {
+      e.preventDefault();
+
+      // get plain text
+      let text = (e.originalEvent || e).clipboardData.getData('text/plain');
+      this.setState({ html: this.state.html + text });
     });
   }
 
@@ -70,22 +78,32 @@ class EditableBlock extends React.Component {
     }
   }
   onChangeHandler(e) {
-    this.setState({ ...this.state, html: e.target.value });
+    this.setState({
+      ...this.state,
+      html: e.target.value,
+    });
   }
 
   onKeyDownHandler(e) {
     if (e.key === '/') {
-      this.setState({ htmlBackup: this.state.html });
+      // this.setState({ htmlBackup: this.state.html });
     } else if (e.key === 'Enter') {
-      if (this.state.previousKey === 'Control') {
+      if (this.state.previousKey !== 'Shift') {
         e.preventDefault();
+        const { selectionStart } = getSelection(this.contentEditable.current);
         this.props.addBlock({
           command: e.key,
           id: this.props.id,
+          html: this.state.html,
+          position: selectionStart,
+          flag: this.state.flag,
           ref: this.contentEditable.current,
         });
       }
-    } else if (e.key === 'Backspace' && !this.state.html) {
+    } else if (
+      e.key === 'Backspace' &&
+      (this.state.html === '' || this.state.html === '<br>')
+    ) {
       e.preventDefault();
       this.props.deleteBlock({
         command: e.key,
@@ -181,11 +199,10 @@ class EditableBlock extends React.Component {
         <ContentEditable
           //disabled={false} // use true to disable editing
           style={{
-            width: 'calc(100% - 1rem)',
-
-            paddingTop: '4px',
-            paddingBottom: '4px',
-            paddingLeft: '12px',
+            width: 'calc(100% - 3.5rem)',
+            padding: '4px 12px',
+            marginTop: '6px',
+            marginBottom: '6px',
 
             background: this.props.flag ? COLORS.blockBackground : 'none',
             border: this.props.flag ? `1px solid ${COLORS.blockBorder}` : null,

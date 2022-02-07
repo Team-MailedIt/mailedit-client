@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import jwtDecode from "jwt-decode";
 
 import API from "../../utils/API";
 import GoogleAuth from "./GoogleAuth";
 import COLORS from "../../constants/colors";
 import useInputs from "../../hooks/useInputs";
+import { ModalStyle } from "../commons/ModalStyle";
+
 import exit from "../../constants/icons/exit.svg";
 
 import {
@@ -26,46 +28,45 @@ const SignInModal = ({
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
-
-  const navigate = useNavigate();
-  const [{ email, password }, handleInputChange, reset] = useInputs({
+  const [{ email, password }, handleInputChange] = useInputs({
     email: "",
     password: "",
   });
 
   const signInUser = { email: email, password: password };
 
+  // 가입된 메일인지 확인
   const handleNextBtnClick = () => {
-    API.get(`/user-check?email=${email}`)
-      .then(() => {
-        setIsPassedEmail(true);
-      })
-      .catch(() => setIsValidEmail(false));
+    const checkEmail = async () => {
+      const data = await API.get(`/user-check?email=${email}`);
+      setIsValidEmail(data);
+      data && setIsPassedEmail(data);
+    };
+
+    checkEmail();
   };
 
   // 로그인
   const handleSignInBtnClick = () => {
-    API.post("/login", JSON.stringify(signInUser))
-      .then((res) => {
-        localStorage.setItem("accessToken", res.data.token.access);
-        localStorage.setItem("refreshToken", res.data.token.refresh);
-        localStorage.setItem("userName", res.data.user.username);
+    const signIn = async () => {
+      try {
+        const { data } = await API.post("/login", JSON.stringify(signInUser));
+        localStorage.setItem("accessToken", data.token.access);
+        localStorage.setItem("refreshToken", data.token.refresh);
+        localStorage.setItem("userName", data.user.username);
+        localStorage.setItem("tooltip", data.tooltip);
+        localStorage.setItem(
+          "expiredAt",
+          jwtDecode(data.token.access).exp * 1000
+        );
 
-        console.log("Bearer ", res.data.token.access);
+        window.location.href = "/home";
+      } catch {
+        setIsCorrectPsword(false);
+      }
+    };
 
-        navigate("/home");
-      })
-      .catch(() => setIsCorrectPsword(false));
-  };
-
-  const modalStyle = {
-    overlay: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "rgba(0,0,0,0.65)",
-      zIndex: 10,
-    },
+    signIn();
   };
 
   return (
@@ -73,7 +74,7 @@ const SignInModal = ({
       isOpen={isSignInModalOpen}
       onRequestClose={() => setIsSignInModalOpen(false)}
       ariaHideApp={false}
-      style={modalStyle}
+      style={ModalStyle}
     >
       <Exit src={exit} onClick={() => setIsSignInModalOpen(false)} />
       <Wrapper>

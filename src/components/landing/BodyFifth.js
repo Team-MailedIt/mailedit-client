@@ -1,6 +1,10 @@
-import { TitleSpan, TitleSpanBold, BodySpan } from './Components';
+import {
+  TitleSpan,
+  TitleSpanBold,
+  BodySpan,
+  BodyContainer,
+} from './Components';
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
 
 const BodyFifth = () => {
   return (
@@ -9,11 +13,12 @@ const BodyFifth = () => {
         style={{
           display: 'flex',
           flexDirection: 'row',
+          alignSelf: 'start',
         }}
       >
-        <div style={{ marginTop: '80px' }}>
+        <Wrapper>
           <BodyImg src="./img/bodyImg.png" />
-        </div>
+        </Wrapper>
         <div
           style={{
             display: 'flex',
@@ -33,21 +38,22 @@ const BodyFifth = () => {
     </BodyContainer>
   );
 };
-const BodyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  height: 720px;
-  width: 100vw;
-
-  background: ${COLORS.backgroundWhite};
+const Wrapper = styled.div`
+  margin-top: 80px;
+  margin-right: 45px;
+  @media screen and (max-width: 1440px) {
+    margin-right: 70px;
+  }
 `;
-
 const BodyImg = styled.img`
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
-  width: 1184px;
-  height: 532px;
+  width: 62.5vw;
+  height: auto;
+  @media screen and (max-width: 1440px) {
+    width: 900px;
+    height: auto;
+  }
 `;
 export default BodyFifth;

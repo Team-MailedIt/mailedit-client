@@ -1,54 +1,58 @@
+import React from "react";
 import styled from "styled-components";
 import check from "../../constants/icons/check.svg";
-import { useState } from "react";
 
-const CheckBox = ({ id, handleChange }) => {
-  const [isChecked, setIsChecked] = useState(true);
-
-  // const handleCheckBoxClick = (e) => {
-  //   // setIsChecked(!isChecked);
-  //   setIsChecked({ checked: e.target.checked });
-  //   console.log(e.target.checked);
-  //   console.log(e.target.id);
-  // };
-
+const Checkbox = ({ id, checked, ...props }) => {
   return (
-    <input id={id} type="checkbox" value={isChecked} onChange={handleChange} />
+    <label>
+      <CheckboxContainer>
+        <HiddenCheckbox id={id} checked={checked} {...props} />
+        <StyledCheckbox id={id} checked={checked}>
+          <Icon src={check} />
+        </StyledCheckbox>
+      </CheckboxContainer>
+    </label>
   );
 };
 
-// const CheckBox = () => {
-//   const [checkedList, setCheckedList] = useState([]);
+const CheckboxContainer = styled.div`
+  display: inline-block;
+  vertical-align: top;
 
-//   const dataList = [
-//     { id: 1, data: "aaa" },
-//     { id: 2, data: "bbb" },
-//     { id: 3, data: "ccc" },
-//     { id: 4, data: "ddd" },
-//     { id: 5, data: "eee" },
-//     { id: 6, data: "fff" },
-//   ];
+  width: 16px;
+  height: 16px;
+`;
 
-//   const onCheckedAll = (checked) => {
-//     if (checked) {
-//       const checkedListArray = [];
-//       dataList.forEach((list) => checkedListArray.push(list));
+const Icon = styled.img`
+  width: 12px;
+  height: 12px;
 
-//       setCheckedList(checkedListArray);
-//     } else {
-//       setCheckedList([])
-//     }
-//   };
+  margin: 2px;
+`;
 
-//   const onCheckedElement = (checked, list) => {
-//     if (checked) {
-//       setCheckedList([...checkedList, list]);
-//     } else {
-//       setCheckedList(checkedList.filter((el) => el !== list));
-//     }
-//   }
+const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`;
 
-//   return <input type="checkbox" onChange={(e) => onCheckedAll(e.target.checked)}/>
-// };
+const StyledCheckbox = styled.div`
+  display: inline-block;
+  vertical-align: top;
 
-export default CheckBox;
+  background: ${(props) => (props.checked ? "white" : "none")};
+  // transition: all 150ms;
+
+  ${Icon} {
+    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+  }
+`;
+
+export default Checkbox;

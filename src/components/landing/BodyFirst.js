@@ -24,7 +24,7 @@ const BodyFirst = () => {
         </MainSubHeading>
         <LookAroundButton onClick={goToHome}>둘러보기</LookAroundButton>
       </LeftContainer>
-      <RightContainer style={{ marginLeft: '54px', marginTop: '67px' }}>
+      <RightContainer>
         <Illust1 src="./img/illust_1.png" />
       </RightContainer>
     </Container>
@@ -36,8 +36,10 @@ const Container = styled.div`
   flex-direction: row;
   height: 492px;
   width: 100vw;
-
   justify-content: center;
+  @media screen and (max-width: 1440px) {
+    height: 456px;
+  }
 `;
 const LeftContainer = styled.div`
   display: flex;
@@ -45,6 +47,11 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   display: flex;
+  margin-top: 67px;
+  margin-left: 104px;
+  @media screen and (max-width: 1440px) {
+    margin-left: 69px;
+  }
 `;
 
 export default BodyFirst;

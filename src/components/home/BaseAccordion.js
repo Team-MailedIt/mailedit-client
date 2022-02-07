@@ -11,43 +11,41 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
 
   const [isCollapse, setIsCollapse] = useState(false);
 
-  const handleButtonClick = () => {
+  const handleCollapse = () => {
     if (parentRef.current === null || childRef.current === null) {
       return;
     }
+
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0";
-    } else {
+      parentRef.current.style.height = "0px";
+    } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
     setIsCollapse(!isCollapse);
   };
 
-  const parentRefHeight = parentRef.current?.style.height ?? "0px";
-  const buttonIcon =
-    parentRefHeight === "0px" ? (
-      <IconWrapper src={expand} />
-    ) : (
-      <IconWrapper src={collapse} />
-    );
-
   return (
     <Wrapper>
       <GroupWrapper>
-        <ItemWrapper onClick={handleButtonClick}>
+        <ItemWrapper onClick={handleCollapse}>
           <GroupTitle>{title}</GroupTitle>
-          {buttonIcon}
+          {isCollapse ? (
+            <IconWrapper src={collapse} />
+          ) : (
+            <IconWrapper src={expand} />
+          )}
         </ItemWrapper>
       </GroupWrapper>
+
       <ListWrapper ref={parentRef}>
         <ListItem ref={childRef}>
-          {list.map((item, i) => (
+          {list.map(({ templateId, title }, i) => (
             <TemplateName
               key={"ii" + i}
-              id={item.templateId}
+              id={templateId}
               onClick={handleSelectTemplate}
             >
-              {item.title}
+              {title}
             </TemplateName>
           ))}
         </ListItem>
@@ -75,7 +73,6 @@ const GroupWrapper = styled.section`
   justify-content: center;
 
   margin-top: 8px;
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
   &:hover {
@@ -104,11 +101,10 @@ const IconWrapper = styled.img`
 `;
 
 const GroupTitle = styled.div`
-  width: 25px;
+  width: 26px;
   height: 17px;
 
   font-size: 14px;
-  line-height: 17px;
 
   display: flex;
   align-items: center;
@@ -118,6 +114,7 @@ const GroupTitle = styled.div`
 
 const ListWrapper = styled.div`
   width: 200px;
+  height: 0px;
   overflow: hidden;
 
   transition: height 0.35s ease, background 0.35s ease;
@@ -134,14 +131,13 @@ const ListItem = styled.div`
 
 const TemplateName = styled.div`
   width: 200px;
-  height: 12px;
+  height: 17px;
 
   margin-top: 10px;
   margin-left: 8px;
 
-  font-size: 10px;
-  line-height: 12px;
-
+  font-size: 14px;
+  font-weight: 200;
   color: ${COLORS.UIWhite};
 
   &:hover {

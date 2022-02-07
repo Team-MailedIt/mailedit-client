@@ -1,83 +1,88 @@
-import styled from "styled-components";
+import { useContext } from "react";
 import ReactModal from "react-modal";
-import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router";
+
 import COLORS from "../../constants/colors";
 import BaseAccordion from "./BaseAccordion";
+
+import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { ContentContext } from "../../contexts/ContentContext";
+import { ModalStyle } from "../commons/ModalStyle";
 
 const BaseTemplateModal = ({
   isModalOpen,
   setIsModalOpen,
-  selectedBaseId,
   baseTemplates,
   baseCompany,
   baseSchool,
 }) => {
-  const [selectedId, setSelectedId] = useState(selectedBaseId);
-
-  useEffect(() => setSelectedId(selectedBaseId), [selectedBaseId]);
+  const navigate = useNavigate();
+  const { setContentHandler } = useContext(ContentContext);
+  const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   const handleSelectTemplate = (e) => {
-    setSelectedId(e.target.id);
+    setSelectIdHandler(e.target.id);
   };
 
-  const selectedTemplate =
+  const selectedBase =
     selectedId && baseTemplates.filter((t) => t.templateId === selectedId);
 
-  const modalStyle = {
-    overlay: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "rgba(0,0,0,0.65)",
-      zIndex: 10,
-    },
+  const handleUseTemplateBtnClick = () => {
+    setContentHandler(selectedBase[0]);
+    navigate("/workspace");
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      ariaHideApp={false}
-      style={modalStyle}
-    >
-      <Main>
-        <MainWrapper>
-          {selectedId && (
-            <>
-              <Title>{selectedTemplate[0].title}</Title>
-              <Subtitle>{selectedTemplate[0].subtitle}</Subtitle>
-              <Border />
-              <Content>
-                {selectedTemplate[0].content.map((t, i) => (
-                  <BlockWrapper key={"ttt" + i}>
-                    {t.html.replaceAll("<div>", "\n").replaceAll("</div>", "")}
-                  </BlockWrapper>
-                ))}
-              </Content>
-            </>
-          )}
-          <Description>
-            회의 일정은 회사 내에서 회의 내용에 대한 공지를 드릴 때에
-            사용됩니다.
-          </Description>
-        </MainWrapper>
-      </Main>
-      <Sidebar>
-        <ScrollArea>
-          <BaseAccordion
-            title="회사"
-            list={baseCompany}
-            handleSelectTemplate={handleSelectTemplate}
-          />
-          <BaseAccordion
-            title="학교"
-            list={baseSchool}
-            handleSelectTemplate={handleSelectTemplate}
-          />
-        </ScrollArea>
-        <UseBtn>템플릿 사용하기</UseBtn>
-      </Sidebar>
-    </Modal>
+    <>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          ariaHideApp={false}
+          style={ModalStyle}
+        >
+          <Main>
+            <MainWrapper>
+              {selectedId && (
+                <>
+                  <Title>{selectedBase[0].title}</Title>
+                  <Subtitle>{selectedBase[0].subtitle}</Subtitle>
+                  <Border />
+                  <Content>
+                    {selectedBase[0].content.map((t, i) => (
+                      <BlockWrapper key={"ttt" + i}>
+                        {t.html
+                          .replaceAll("<div>", "\n")
+                          .replaceAll("</div>", "")}
+                      </BlockWrapper>
+                    ))}
+                  </Content>
+
+                  <Description>{selectedBase[0].tip}</Description>
+                </>
+              )}
+            </MainWrapper>
+          </Main>
+
+          <Sidebar>
+            <ScrollArea>
+              <BaseAccordion
+                title="회사"
+                list={baseCompany}
+                handleSelectTemplate={handleSelectTemplate}
+              />
+              <BaseAccordion
+                title="학교"
+                list={baseSchool}
+                handleSelectTemplate={handleSelectTemplate}
+              />
+            </ScrollArea>
+            <UseBtn onClick={handleUseTemplateBtnClick}>템플릿 사용하기</UseBtn>
+          </Sidebar>
+        </Modal>
+      )}
+    </>
   );
 };
 
@@ -122,7 +127,7 @@ const MainWrapper = styled.div`
   height: 521px;
 `;
 
-const Title = styled.div`
+const Title = styled.span`
   width: 680px;
   height: 24px;
 
@@ -132,14 +137,15 @@ const Title = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: "Pretendard-SemiBold";
+  font-family: "Pretendard";
+  font-weight: 600;
 
   color: ${COLORS.UIBlack};
 `;
 
-const Subtitle = styled.div`
+const Subtitle = styled.span`
   width: 680px;
-  hegith: 19px;
+  height: 19px;
 
   font-size: 16px;
   line-height: 19px;
@@ -149,7 +155,7 @@ const Subtitle = styled.div`
 
   margin-top: 24px;
 
-  font-family: "Pretendard-Medium";
+  font-weight: 500;
 
   color: ${COLORS.UIBlack};
 `;
@@ -171,6 +177,31 @@ const Content = styled.div`
 
   overflow: auto;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${COLORS.UIWhite};
+    background-clip: padding-box;
+    border-radius: 20px;
+    border: 5px solid transparent;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      width: 13px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: ${COLORS.primary};
+      background-clip: padding-box;
+
+      border-radius: 20px;
+      border: 5px solid transparent;
+    }
+  }
 `;
 
 const Description = styled.div`
@@ -187,31 +218,42 @@ const Description = styled.div`
 
 const ScrollArea = styled.div`
   width: 226px;
-  height: 466px;
+  height: 457px;
 
   margin-top: 40px;
-  margin-left: 28px;
+  margin-left: 20px;
 
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${COLORS.indigo1};
+    background-clip: padding-box;
+
+    border-radius: 20px;
+    border: 5px solid transparent;
+  }
 `;
 
 const UseBtn = styled.button`
   width: 200px;
   height: 32px;
 
-  margin-top: 20px;
+  padding-top: 2px;
+  margin-top: 29px;
   margin-left: 32px;
 
   background: ${COLORS.gray1};
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  border: none;
   border-radius: 4px;
 
   color: ${COLORS.primary};
-  border: none;
-
   font-size: 14px;
-  line-height: 17px;
-  font-family: "Pretendard-SemiBold";
+  font-weight: 500;
 `;
 
 const BlockWrapper = styled.div`
@@ -220,6 +262,8 @@ const BlockWrapper = styled.div`
 
   font-size: 14px;
   line-height: 24px;
+  font-family: "Pretendard";
+  font-weight: 400;
 
   color: ${COLORS.UIBlack};
 

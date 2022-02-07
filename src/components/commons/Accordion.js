@@ -1,22 +1,25 @@
-import styled from "styled-components";
-import { useRef, useState } from "react";
+import styled from 'styled-components';
+import { useRef, useState, useContext } from 'react';
 
-import expand from "../../constants/icons/expand.svg";
-import collapse from "../../constants/icons/collapse.svg";
-import API from "../../utils/API";
+import expand from '../../constants/icons/expand.svg';
+import collapse from '../../constants/icons/collapse.svg';
 
-const Accordion = ({ icon, title, list, handleContents }) => {
+import API from '../../utils/API';
+import { ContentContext } from '../../contexts/ContentContext';
+
+const Accordion = ({ icon, title, list }) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
 
   const [isCollapse, setIsCollapse] = useState(false);
+  const { setContentHandler } = useContext(ContentContext);
 
   const handleCollapse = () => {
     if (parentRef.current === null || childRef.current === null) {
       return;
     }
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0px";
+      parentRef.current.style.height = '0px';
     } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
@@ -32,8 +35,12 @@ const Accordion = ({ icon, title, list, handleContents }) => {
     // call api
     const result = await getTemplate(templateId);
     // put result to template page
-
-    handleContents(result);
+    const temp = result.subtitle
+      .replace(/<div>/gi, '\n')
+      .replace(/<\/div>/gi, '')
+      .replace(/<br>/gi, '\n');
+    const res = { ...result, subtitle: temp };
+    setContentHandler(res);
   };
 
   return (
@@ -76,22 +83,14 @@ const Accordion = ({ icon, title, list, handleContents }) => {
   );
 };
 
-const IconWrapper = styled.img`
-  width: 16px;
-  height: 12px;
-
-  margin: 6px 8px 6px 0px;
-`;
-
 const Wrapper = styled.div`
   width: 252px;
+  margin-left: 40px;
 
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
-
-  margin-left: 40px;
 `;
 
 const GroupWrapper = styled.section`
@@ -131,9 +130,19 @@ const GroupTitle = styled.div`
   height: 20px;
   margin-left: 8px;
   line-height: 19px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   font-size: 16px;
   color: #ffffff;
+`;
+
+const IconWrapper = styled.img`
+  width: 16px;
+  height: 12px;
+
+  margin: 6px 8px 6px 0px;
 `;
 
 const ListWrapper = styled.div`
@@ -161,7 +170,10 @@ const TemplateTitle = styled.div`
 const TemplateName = styled.div`
   width: 160px;
   height: 20px;
-  margin-left: 16px;
+  margin-left: 18px;
+
+  font-size: 16px;
+  font-weight: 200;
 
   overflow: hidden;
   white-space: nowrap;
