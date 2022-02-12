@@ -1,9 +1,9 @@
-import React from 'react';
-import ContentEditable from 'react-contenteditable';
-import getSelection from '../../utils/getSelection';
-import getCaretCoordinates from '../../utils/getCaretCoordinates';
-import FloatingButton from './FloatingButton';
-import COLORS from '../../constants/colors';
+import React from "react";
+import ContentEditable from "react-contenteditable";
+import getSelection from "../../utils/getSelection";
+import getCaretCoordinates from "../../utils/getCaretCoordinates";
+import FloatingButton from "./FloatingButton";
+import COLORS from "../../constants/colors";
 
 class EditableBlock extends React.Component {
   constructor(props) {
@@ -11,8 +11,8 @@ class EditableBlock extends React.Component {
     this.contentEditable = React.createRef();
     this.state = {
       // htmlBackup: null,
-      html: '',
-      tag: 'p',
+      html: "",
+      tag: "p",
       flag: 0,
       previousKey: null,
       actionMenuOpen: false,
@@ -37,18 +37,18 @@ class EditableBlock extends React.Component {
       flag: this.props.flag,
     });
     // set eventListener
-    this.contentEditable.current.addEventListener('paste', (e) => {
+    this.contentEditable.current.addEventListener("paste", (e) => {
       e.preventDefault();
 
       // get plain text
-      let text = (e.originalEvent || e).clipboardData.getData('text/plain');
+      let text = (e.originalEvent || e).clipboardData.getData("text/plain");
       this.setState({ html: this.state.html + text });
     });
   }
 
   componentWillUnmount() {
     // In case, the user deleted the block, we need to cleanup all listeners
-    document.removeEventListener('click', this.closeActionMenu, false);
+    document.removeEventListener("click", this.closeActionMenu, false);
   }
 
   // component render 최적화
@@ -85,10 +85,10 @@ class EditableBlock extends React.Component {
   }
 
   onKeyDownHandler(e) {
-    if (e.key === '/') {
+    if (e.key === "/") {
       // this.setState({ htmlBackup: this.state.html });
-    } else if (e.key === 'Enter') {
-      if (this.state.previousKey !== 'Shift') {
+    } else if (e.key === "Enter") {
+      if (this.state.previousKey !== "Shift") {
         e.preventDefault();
         const { selectionStart } = getSelection(this.contentEditable.current);
         this.props.addBlock({
@@ -101,8 +101,8 @@ class EditableBlock extends React.Component {
         });
       }
     } else if (
-      e.key === 'Backspace' &&
-      (this.state.html === '' || this.state.html === '<br>')
+      e.key === "Backspace" &&
+      (this.state.html === "" || this.state.html === "<br>")
     ) {
       e.preventDefault();
       this.props.deleteBlock({
@@ -116,7 +116,7 @@ class EditableBlock extends React.Component {
 
   calculateActionMenuPosition(parent, initiator) {
     switch (initiator) {
-      case 'TEXT_SELECTION':
+      case "TEXT_SELECTION":
         const { x: endX, y: endY } = getCaretCoordinates(false); // fromEnd
         const { x: startX, y: startY } = getCaretCoordinates(true); // fromStart
         const middleX = startX + (endX - startX) / 2;
@@ -145,7 +145,7 @@ class EditableBlock extends React.Component {
     // Add listener asynchronously to avoid conflicts with
     // the double click of the text selection
     setTimeout(() => {
-      document.addEventListener('click', this.closeActionMenu, false);
+      document.addEventListener("click", this.closeActionMenu, false);
     }, 100);
   }
   closeActionMenu() {
@@ -154,7 +154,7 @@ class EditableBlock extends React.Component {
       actionMenuPosition: { x: null, y: null },
       actionMenuOpen: false,
     });
-    document.removeEventListener('click', this.closeActionMenu, false);
+    document.removeEventListener("click", this.closeActionMenu, false);
   }
 
   handleMouseUp() {
@@ -169,7 +169,7 @@ class EditableBlock extends React.Component {
       });
       this.openActionMenu(
         block,
-        'TEXT_SELECTION',
+        "TEXT_SELECTION",
         selectionStart,
         selectionEnd
       );
@@ -199,22 +199,22 @@ class EditableBlock extends React.Component {
         <ContentEditable
           //disabled={false} // use true to disable editing
           style={{
-            width: 'calc(100% - 3.5rem)',
-            padding: '4px 12px',
-            marginTop: '6px',
-            marginBottom: '6px',
+            width: "calc(100% - 3.5rem)",
+            padding: "4px 12px",
+            marginTop: "6px",
+            marginBottom: "6px",
 
-            background: this.props.flag ? COLORS.blockBackground : 'none',
+            background: this.props.flag ? COLORS.blockBackground : "none",
             border: this.props.flag ? `1px solid ${COLORS.blockBorder}` : null,
-            outlineColor: '#4C6EF5',
-            borderRadius: '2px',
+            outlineColor: "#4C6EF5",
+            borderRadius: "2px",
           }}
           innerRef={this.contentEditable}
           html={this.state.html}
           flag={this.props.flag}
           tagName={this.state.tag}
           onChange={this.onChangeHandler}
-          onKeyDown={this.onKeyDownHandler}
+          onKeyPress={this.onKeyDownHandler}
           onMouseUp={this.handleMouseUp}
           className={this.props.id}
         />
