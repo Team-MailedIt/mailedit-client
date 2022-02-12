@@ -77,6 +77,7 @@ class EditableBlock extends React.Component {
       });
     }
   }
+
   onChangeHandler(e) {
     this.setState({
       ...this.state,
@@ -85,10 +86,11 @@ class EditableBlock extends React.Component {
   }
 
   onKeyDownHandler(e) {
-    if (e.key === '/') {
-      // this.setState({ htmlBackup: this.state.html });
-    } else if (e.key === 'Enter') {
-      if (this.state.previousKey !== 'Shift') {
+    if (e.key === 'Enter') {
+      if (
+        e.nativeEvent.isComposing === false &&
+        this.state.previousKey !== 'Shift'
+      ) {
         e.preventDefault();
         const { selectionStart } = getSelection(this.contentEditable.current);
         this.props.addBlock({
@@ -111,7 +113,10 @@ class EditableBlock extends React.Component {
         ref: this.contentEditable.current,
       });
     }
-    this.setState({ previousKey: e.key });
+
+    if (e.key !== 'Enter') {
+      this.setState({ previousKey: e.key });
+    }
   }
 
   calculateActionMenuPosition(parent, initiator) {
