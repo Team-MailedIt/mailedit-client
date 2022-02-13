@@ -31,9 +31,10 @@ API.interceptors.request.use(async (config) => {
   if (refreshToken != null) {
     // if the refresh token expires within a minute
     if (refreshExpiredAt - now < 60000) {
-      localStorage.clear();
       window.location.href = '/';
       alert('다시 로그인해 주세요.');
+
+      localStorage.clear();
     }
 
     // if the access token expires within a minute
