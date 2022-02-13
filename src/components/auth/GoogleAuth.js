@@ -1,37 +1,41 @@
-import jwtDecode from "jwt-decode";
-import styled from "styled-components";
-import GoogleLogin from "react-google-login";
+import jwtDecode from 'jwt-decode';
+import styled from 'styled-components';
+import GoogleLogin from 'react-google-login';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
 
-import google from "../../constants/icons/google.svg";
-import logoBlue from "../../constants/icons/logoBlue.svg";
+import google from '../../constants/icons/google.svg';
+import logoBlue from '../../constants/icons/logoBlue.svg';
 
 const GoogleAuth = () => {
   // 구글 로그인 성공 시
   const onGoogleSignInSuccess = (res) => {
-    localStorage.setItem("userName", res.profileObj.givenName);
+    localStorage.setItem('userName', res.profileObj.givenName);
 
     const params = new URLSearchParams();
-    params.append("idToken", res.tokenObj.id_token);
+    params.append('idToken', res.tokenObj.id_token);
 
     const googleLogin = async () => {
-      const res = await API.post("/login/google", params, {
+      const { data } = await API.post('/login/google', params, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
-      localStorage.setItem("accessToken", res.data.token.access);
-      localStorage.setItem("refreshToken", res.data.token.refresh);
-      localStorage.setItem("tooltip", res.data.tooltip);
+      localStorage.setItem('accessToken', data.token.access);
+      localStorage.setItem('refreshToken', data.token.refresh);
+      localStorage.setItem('tooltip', data.tooltip);
       localStorage.setItem(
-        "expiredAt",
-        jwtDecode(res.data.token.access).exp * 1000
+        'accessExpiredAt',
+        jwtDecode(data.token.access).exp * 1000
+      );
+      localStorage.setItem(
+        'refreshExpiredAt',
+        jwtDecode(data.token.access).exp * 1000
       );
 
-      window.location.href = "/home";
+      window.location.href = '/home';
     };
 
     googleLogin();
