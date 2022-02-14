@@ -32,7 +32,7 @@ const GoogleAuth = () => {
       );
       localStorage.setItem(
         'refreshExpiredAt',
-        jwtDecode(data.token.access).exp * 1000
+        jwtDecode(data.token.refresh).exp * 1000
       );
 
       window.location.href = '/home';

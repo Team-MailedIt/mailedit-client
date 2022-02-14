@@ -1,13 +1,13 @@
-import { useState } from "react";
-import jwtDecode from "jwt-decode";
+import { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 
-import API from "../../utils/API";
-import GoogleAuth from "./GoogleAuth";
-import COLORS from "../../constants/colors";
-import useInputs from "../../hooks/useInputs";
-import { ModalStyle } from "../commons/ModalStyle";
+import API from '../../utils/API';
+import GoogleAuth from './GoogleAuth';
+import COLORS from '../../constants/colors';
+import useInputs from '../../hooks/useInputs';
+import { ModalStyle } from '../commons/ModalStyle';
 
-import exit from "../../constants/icons/exit.svg";
+import exit from '../../constants/icons/exit.svg';
 
 import {
   Modal,
@@ -18,7 +18,7 @@ import {
   UnderText,
   Other,
   ErrorText,
-} from "./AuthPresenter";
+} from './AuthPresenter';
 
 const SignInModal = ({
   isSignInModalOpen,
@@ -29,8 +29,8 @@ const SignInModal = ({
   const [isPassedEmail, setIsPassedEmail] = useState(false);
   const [isCorrectPsword, setIsCorrectPsword] = useState(true);
   const [{ email, password }, handleInputChange] = useInputs({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const signInUser = { email: email, password: password };
@@ -50,17 +50,21 @@ const SignInModal = ({
   const handleSignInBtnClick = () => {
     const signIn = async () => {
       try {
-        const { data } = await API.post("/login", JSON.stringify(signInUser));
-        localStorage.setItem("accessToken", data.token.access);
-        localStorage.setItem("refreshToken", data.token.refresh);
-        localStorage.setItem("userName", data.user.username);
-        localStorage.setItem("tooltip", data.tooltip);
+        const { data } = await API.post('/login', JSON.stringify(signInUser));
+        localStorage.setItem('accessToken', data.token.access);
+        localStorage.setItem('refreshToken', data.token.refresh);
+        localStorage.setItem('userName', data.user.username);
+        localStorage.setItem('tooltip', data.tooltip);
         localStorage.setItem(
-          "expiredAt",
+          'accessExpiredAt',
           jwtDecode(data.token.access).exp * 1000
         );
+        localStorage.setItem(
+          'refreshExpiredAt',
+          jwtDecode(data.token.refresh).exp * 1000
+        );
 
-        window.location.href = "/home";
+        window.location.href = '/home';
       } catch {
         setIsCorrectPsword(false);
       }
