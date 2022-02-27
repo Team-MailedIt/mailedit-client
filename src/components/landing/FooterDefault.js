@@ -2,14 +2,13 @@ import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import { FooterLogo } from '../../constants/icons';
 import { FooterBodySpan, FooterBodySpanButton } from './Components';
-import footerlogo from '../../constants/icons/footerlogo.svg';
 
 const FooterDefault = () => {
   // 일단 확정인 footer만 적용
   return (
     <Container>
       <Box>
-        <FooterLogo src={footerlogo} />
+        <FooterLogo src={`${process.env.PUBLIC_URL}/img/footerLogo.svg`} />
         <Wrapper2>
           <FooterBodySpan>
             실무 이메일을 어떻게 써야 할지 막막한 분들을 위한 이메일 작성 보조

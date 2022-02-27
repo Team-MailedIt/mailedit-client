@@ -1,19 +1,16 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import search from "../../constants/icons/search.svg";
-import remove from "../../constants/icons/remove.svg";
-
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
-import { ContentContext } from "../../contexts/ContentContext";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
+import { ContentContext } from '../../contexts/ContentContext';
 
 const Search = ({ all }) => {
   const navigate = useNavigate();
   const { setContentHandler } = useContext(ContentContext);
 
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -24,7 +21,7 @@ const Search = ({ all }) => {
     .sort();
 
   const handleRemoveBtnClick = () => {
-    setInputText("");
+    setInputText('');
   };
 
   const handleResult = async (templateId) => {
@@ -35,13 +32,13 @@ const Search = ({ all }) => {
       handleRemoveBtnClick();
     }
 
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   return (
     <>
       <SearchingField>
-        <SearchIcon src={search} />
+        <SearchIcon src={`${process.env.PUBLIC_URL}/img/search.svg`} />
         <Input
           placeholder="템플릿을 검색하세요"
           spellCheck={false}
@@ -49,7 +46,10 @@ const Search = ({ all }) => {
           onChange={handleInputChange}
         />
         {inputText && (
-          <RemoveIcon src={remove} onClick={handleRemoveBtnClick} />
+          <RemoveIcon
+            src={`${process.env.PUBLIC_URL}/img/logoBlue.svg`}
+            onClick={handleRemoveBtnClick}
+          />
         )}
       </SearchingField>
       {result.length !== 0 ? (

@@ -1,9 +1,7 @@
-import styled from "styled-components";
-import { useRef, useState } from "react";
+import styled from 'styled-components';
+import { useRef, useState } from 'react';
 
-import expand from "../../constants/icons/expand.svg";
-import collapse from "../../constants/icons/collapse.svg";
-import COLORS from "../../constants/colors";
+import COLORS from '../../constants/colors';
 
 const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
   const parentRef = useRef(null);
@@ -17,7 +15,7 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
     }
 
     if (parentRef.current.clientHeight > 0) {
-      parentRef.current.style.height = "0px";
+      parentRef.current.style.height = '0px';
     } else if (parentRef.current.clientHeight === 0) {
       parentRef.current.style.height = `${childRef.current.clientHeight}px`;
     }
@@ -30,9 +28,9 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
         <ItemWrapper onClick={handleCollapse}>
           <GroupTitle>{title}</GroupTitle>
           {isCollapse ? (
-            <IconWrapper src={collapse} />
+            <IconWrapper src={`${process.env.PUBLIC_URL}/img/collapse.svg`} />
           ) : (
-            <IconWrapper src={expand} />
+            <IconWrapper src={`${process.env.PUBLIC_URL}/img/expand.svg`} />
           )}
         </ItemWrapper>
       </GroupWrapper>
@@ -41,7 +39,7 @@ const BaseAccordion = ({ title, list, handleSelectTemplate }) => {
         <ListItem ref={childRef}>
           {list.map(({ templateId, title }, i) => (
             <TemplateName
-              key={"ii" + i}
+              key={'ii' + i}
               id={templateId}
               onClick={handleSelectTemplate}
             >

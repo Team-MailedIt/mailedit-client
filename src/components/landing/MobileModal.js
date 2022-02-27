@@ -1,7 +1,6 @@
-import { useState } from "react";
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
-import minilogo from "../../constants/icons/minilogo.svg";
+import { useState } from 'react';
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
 const MobileModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -18,7 +17,7 @@ const MobileModal = () => {
             <Modal>
               <Wrapper>
                 <RowWrapper>
-                  <Logo src={minilogo} />
+                  <Logo src={`${process.env.PUBLIC_URL}/img/minilogo.svg`} />
                   <RowText>은 데스크탑에 최적화되어 있습니다.</RowText>
                 </RowWrapper>
                 <RowText>PC에서 확인해 주세요.</RowText>

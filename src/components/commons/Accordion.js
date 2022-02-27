@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { useRef, useState, useContext } from 'react';
 
-import expand from '../../constants/icons/expand.svg';
-import collapse from '../../constants/icons/collapse.svg';
-
 import API from '../../utils/API';
 import { ContentContext } from '../../contexts/ContentContext';
 
@@ -53,9 +50,9 @@ const Accordion = ({ icon, title, list }) => {
               <GroupTitle>{title}</GroupTitle>
             </IndexGroup>
             {isCollapse ? (
-              <IconWrapper src={collapse} />
+              <IconWrapper src={`${process.env.PUBLIC_URL}/img/collapse.svg`} />
             ) : (
-              <IconWrapper src={expand} />
+              <IconWrapper src={`${process.env.PUBLIC_URL}/img/expand.svg`} />
             )}
           </ItemWrapper>
         ) : (

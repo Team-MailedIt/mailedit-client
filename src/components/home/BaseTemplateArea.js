@@ -1,35 +1,31 @@
-import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
+import styled from 'styled-components';
+import { useState, useContext, useEffect } from 'react';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
-import BaseTemplateModal from "./BaseTemplateModal";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
+import BaseTemplateModal from './BaseTemplateModal';
 
-import dots from "../../constants/icons/dots.svg";
-import mainSchIllu from "../../constants/icons/mainSchIllu.svg";
-import mainComIllu from "../../constants/icons/mainComIllu.svg";
-
-import Select from "../commons/Select";
-import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import Select from '../commons/Select';
+import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
 
 const BaseTemplateArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [baseSchool, setBaseSchool] = useState([]);
   const [baseCompany, setBaseCompany] = useState([]);
 
-  const [option, setOption] = useState("company");
+  const [option, setOption] = useState('company');
 
   const { selectedId, setSelectIdHandler } = useContext(SelectTemplateContext);
 
   // get base templates
   useEffect(() => {
     const getBaseSchool = async () => {
-      const { data } = await API.get("/templates/base?category=학교");
+      const { data } = await API.get('/templates/base?category=학교');
       setBaseSchool(data);
     };
 
     const getBaseCompany = async () => {
-      const { data } = await API.get("/templates/base?category=회사");
+      const { data } = await API.get('/templates/base?category=회사');
       setBaseCompany(data);
     };
 
@@ -54,9 +50,9 @@ const BaseTemplateArea = () => {
       <Contents>
         <TitleSelect>
           <BottomTitle>
-            {option === "company"
-              ? "회사에서 일잘러가 되려면?"
-              : "학교에서 교수님, 조교님께 어떻게 보내나요?"}
+            {option === 'company'
+              ? '회사에서 일잘러가 되려면?'
+              : '학교에서 교수님, 조교님께 어떻게 보내나요?'}
           </BottomTitle>
           <Select option={option} setOption={setOption} />
         </TitleSelect>
@@ -67,16 +63,16 @@ const BaseTemplateArea = () => {
         </BottomSubTitle>
 
         <BaseTemplateTable>
-          {option === "company"
+          {option === 'company'
             ? baseCompany.slice(0, 5).map((t, i) => (
-                <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
+                <Cell id={t.templateId} key={'b' + i} onClick={handleBaseClick}>
                   <ThText id={t.templateId} onClick={handleBaseClick}>
                     {t.title}
                   </ThText>
                 </Cell>
               ))
             : baseSchool.slice(0, 5).map((t, i) => (
-                <Cell id={t.templateId} key={"b" + i} onClick={handleBaseClick}>
+                <Cell id={t.templateId} key={'b' + i} onClick={handleBaseClick}>
                   <ThText id={t.templateId} onClick={handleBaseClick}>
                     {t.title}
                   </ThText>
@@ -85,7 +81,7 @@ const BaseTemplateArea = () => {
 
           <Cell onClick={handleDotBtnClick}>
             <ThText>
-              <Dots src={dots} />
+              <Dots src={`${process.env.PUBLIC_URL}/img/dots.svg`} />
             </ThText>
           </Cell>
         </BaseTemplateTable>
@@ -99,10 +95,10 @@ const BaseTemplateArea = () => {
           />
         )}
       </Contents>
-      {option === "company" ? (
-        <Illustration src={mainComIllu} />
+      {option === 'company' ? (
+        <Illustration src={`${process.env.PUBLIC_URL}/img/mainComIllu.png`} />
       ) : (
-        <Illustration src={mainSchIllu} />
+        <Illustration src={`${process.env.PUBLIC_URL}/img/mainSchIllu.png`} />
       )}
     </Wrapper>
   );

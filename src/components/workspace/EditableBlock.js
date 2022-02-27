@@ -10,7 +10,6 @@ class EditableBlock extends React.Component {
     super(props);
     this.contentEditable = React.createRef();
     this.state = {
-      // htmlBackup: null,
       html: '',
       tag: 'p',
       flag: 0,
@@ -86,23 +85,24 @@ class EditableBlock extends React.Component {
   }
 
   onKeyDownHandler(e) {
-    if (e.key === 'Enter') {
-      if (
-        e.nativeEvent.isComposing === false &&
-        this.state.previousKey !== 'Shift'
-      ) {
-        e.preventDefault();
-        const { selectionStart } = getSelection(this.contentEditable.current);
-        this.props.addBlock({
-          command: e.key,
-          id: this.props.id,
-          html: this.state.html,
-          position: selectionStart,
-          flag: this.state.flag,
-          ref: this.contentEditable.current,
-        });
-      }
-    } else if (
+    if (
+      e.key === 'Enter' &&
+      e.nativeEvent.isComposing === false &&
+      this.state.previousKey !== 'Shift'
+    ) {
+      e.preventDefault();
+      const { selectionStart } = getSelection(this.contentEditable.current);
+      this.props.addBlock({
+        command: e.key,
+        id: this.props.id,
+        html: this.state.html,
+        position: selectionStart,
+        flag: this.state.flag,
+        ref: this.contentEditable.current,
+      });
+    }
+
+    if (
       e.key === 'Backspace' &&
       (this.state.html === '' || this.state.html === '<br>')
     ) {
@@ -127,11 +127,7 @@ class EditableBlock extends React.Component {
         const middleX = startX + (endX - startX) / 2;
 
         return { x: middleX, y: endY + startY - startY };
-      // case 'DRAG_HANDLE_CLICK':
-      //   const x =
-      //     parent.offsetLeft - parent.scrollLeft + parent.clientLeft - 90;
-      //   const y = parent.offsetTop - parent.scrollTop + parent.clientTop + 35;
-      //   return { x: x, y: y };
+
       default:
         return { x: null, y: null };
     }
@@ -202,7 +198,6 @@ class EditableBlock extends React.Component {
         )}
 
         <ContentEditable
-          //disabled={false} // use true to disable editing
           style={{
             width: 'calc(100% - 3.5rem)',
             padding: '4px 12px',

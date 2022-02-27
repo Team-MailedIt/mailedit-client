@@ -1,19 +1,16 @@
-import { useEffect, useState, useContext } from "react";
-import styled from "styled-components";
+import { useEffect, useState, useContext } from 'react';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import CheckBox from "./CheckBox";
-import Search from "../commons/Search";
-import COLORS from "../../constants/colors";
-import SidebarGroup from "../commons/SidebarGroup";
+import API from '../../utils/API';
+import CheckBox from './CheckBox';
+import Search from '../commons/Search';
+import COLORS from '../../constants/colors';
+import SidebarGroup from '../commons/SidebarGroup';
 
-import star from "../../constants/icons/star.svg";
-import logo from "../../constants/icons/logo.svg";
-
-import { ContentContext } from "../../contexts/ContentContext";
-import { FilterLikeContext } from "../../contexts/FilterLikeContext";
-import { SelectGroupContext } from "../../contexts/SelectGroupContext";
-import { AuthContext } from "../../contexts/AuthContext";
+import { ContentContext } from '../../contexts/ContentContext';
+import { FilterLikeContext } from '../../contexts/FilterLikeContext';
+import { SelectGroupContext } from '../../contexts/SelectGroupContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const MainSidebar = () => {
   const [groups, setGroups] = useState([]);
@@ -30,7 +27,7 @@ const MainSidebar = () => {
 
   useEffect(() => {
     const getGroups = async () => {
-      const { data } = await API.get("/groups/");
+      const { data } = await API.get('/groups/');
       setGroups(data);
       data.forEach((group) => {
         setGroupIdList((id) => [...id, group.id]);
@@ -41,14 +38,14 @@ const MainSidebar = () => {
     isLogin && getGroups();
 
     const getMy = async () => {
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
     };
 
     isLogin && getMy();
 
     const getBase = async () => {
-      const { data } = await API.get("/templates/base");
+      const { data } = await API.get('/templates/base');
       setBaseTemplates(data);
     };
 
@@ -85,7 +82,7 @@ const MainSidebar = () => {
   return (
     <Wrapper>
       <FixedSection>
-        <Logo src={logo} />
+        <Logo src={`${process.env.PUBLIC_URL}/img/logo.svg`} />
         <Search
           all={[...myTemplates, ...baseTemplates]}
           handleContents={handleContents}
@@ -97,7 +94,7 @@ const MainSidebar = () => {
 
         <SidebarGroup
           title="즐겨찾기"
-          icon={<StarIcon src={star} />}
+          icon={<StarIcon src={`${process.env.PUBLIC_URL}/img/star.svg`} />}
           item={
             <CheckBox id="like" checked={likes} onChange={handleSelectLike} />
           }
@@ -116,7 +113,7 @@ const MainSidebar = () => {
         />
         {groups.map((group, i) => (
           <SidebarGroup
-            key={"g" + i}
+            key={'g' + i}
             title={group.name}
             icon={<Index color={group.color} />}
             item={

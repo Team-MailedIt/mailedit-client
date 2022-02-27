@@ -1,6 +1,5 @@
-import React from "react";
-import styled from "styled-components";
-import check from "../../constants/icons/check.svg";
+import React from 'react';
+import styled from 'styled-components';
 
 const Checkbox = ({ id, checked, ...props }) => {
   return (
@@ -8,7 +7,7 @@ const Checkbox = ({ id, checked, ...props }) => {
       <CheckboxContainer>
         <HiddenCheckbox id={id} checked={checked} {...props} />
         <StyledCheckbox id={id} checked={checked}>
-          <Icon src={check} />
+          <Icon src={`${process.env.PUBLIC_URL}/img/check.svg`} />
         </StyledCheckbox>
       </CheckboxContainer>
     </label>
@@ -30,7 +29,7 @@ const Icon = styled.img`
   margin: 2px;
 `;
 
-const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   border: 0;
   clip: rect(0 0 0 0);
   clippath: inset(50%);
@@ -47,11 +46,11 @@ const StyledCheckbox = styled.div`
   display: inline-block;
   vertical-align: top;
 
-  background: ${(props) => (props.checked ? "white" : "none")};
+  background: ${(props) => (props.checked ? 'white' : 'none')};
   // transition: all 150ms;
 
   ${Icon} {
-    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
   }
 `;
 

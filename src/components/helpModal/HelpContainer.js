@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 import { Body, Heading } from './Components';
-import icon_exit from '../../constants/icons/icon_exit.svg';
-// import help_img from '../../constants/icons/help_img.svg';
-import help_icon from '../../constants/icons/help_circle.svg';
 
 const HelpContainer = ({ setIsModalOpen }) => {
   const closeHelp = () => {
@@ -24,13 +21,15 @@ const HelpContainer = ({ setIsModalOpen }) => {
             에디터 페이지 사용법
           </Heading>
           <Body>사용법을 다시 보려면 하단의</Body>
-          <HelpIcon src={help_icon} />
+          <HelpIcon src={`${process.env.PUBLIC_URL}/img/help_circle.svg`} />
           <Body>아이콘을 클릭하세요.</Body>
         </RowContainer>
-        <ExitIcon src={icon_exit} onClick={closeHelp} />
+        <ExitIcon
+          src={`${process.env.PUBLIC_URL}/img/icon_exit.svg`}
+          onClick={closeHelp}
+        />
       </RowContainer>
       <RowContainer style={{ justifyContent: 'center', marginTop: '20px' }}>
-        {/* <HelpImg src={help_img} /> */}
         <HelpImg src="/img/help_img.png" />
       </RowContainer>
     </ColContainer>

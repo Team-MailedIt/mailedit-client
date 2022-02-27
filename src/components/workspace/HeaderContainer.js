@@ -12,7 +12,6 @@ import BubbleContainer from '../bubble/BubbleContainer';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
 import { GroupContext } from '../../contexts/GroupContexts';
-import icon_help from '../../constants/icons/icon_help.svg';
 import TooltipContainer from '../tooltip/TooltipContainer';
 import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 import CarouselTooltip from '../carousel/CarouselTooltip';
@@ -134,7 +133,7 @@ const HeaderContainer = ({ handleHeaderData }) => {
         <HelpIcon
           ref={tooltipIcon}
           style={{ marginRight: '12px' }}
-          src={icon_help}
+          src={`${process.env.PUBLIC_URL}/img/icon_help.svg`}
           onClick={openTooltip}
         />
       </RowContainer>

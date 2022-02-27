@@ -1,10 +1,7 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
-import fold from "../../constants/icons/fold.svg";
-import unfold from "../../constants/icons/unfold.svg";
-
-import { useState } from "react";
+import { useState } from 'react';
 
 const Select = ({ option, setOption }) => {
   const [isSelected, setIsSelected] = useState(false);
@@ -22,9 +19,13 @@ const Select = ({ option, setOption }) => {
   return (
     <Wrapper>
       <Title onClick={handleChangeSelect} isSelected={isSelected}>
-        {option === "company" ? "회사" : "학교"}
+        {option === 'company' ? '회사' : '학교'}
 
-        {isSelected ? <ArrowIcon src={fold} /> : <ArrowIcon src={unfold} />}
+        {isSelected ? (
+          <ArrowIcon src={`${process.env.PUBLIC_URL}/img/fold.svg`} />
+        ) : (
+          <ArrowIcon src={`${process.env.PUBLIC_URL}/img/unfold.svg`} />
+        )}
       </Title>
       {isSelected && (
         <OptionWrapper onClick={handleChangeOption}>
@@ -60,7 +61,7 @@ const Title = styled.div`
   font-size: 16px;
   color: ${COLORS.gray8};
 
-  border-radius: ${(props) => (props.isSelected ? "4px 4px 0px 0px" : "4px")};
+  border-radius: ${(props) => (props.isSelected ? '4px 4px 0px 0px' : '4px')};
 
   &:hover {
     cursor: pointer;

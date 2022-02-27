@@ -1,14 +1,12 @@
-import { useState } from "react";
-import ReactModal from "react-modal";
-import styled from "styled-components";
+import { useState } from 'react';
+import ReactModal from 'react-modal';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import GoogleAuth from "./GoogleAuth";
-import COLORS from "../../constants/colors";
-import useInputs from "../../hooks/useInputs";
-import { ModalStyle } from "../commons/ModalStyle";
-
-import exit from "../../constants/icons/exit.svg";
+import API from '../../utils/API';
+import GoogleAuth from './GoogleAuth';
+import COLORS from '../../constants/colors';
+import useInputs from '../../hooks/useInputs';
+import { ModalStyle } from '../commons/ModalStyle';
 
 import {
   Modal,
@@ -19,7 +17,7 @@ import {
   UnderText,
   Other,
   ErrorText,
-} from "./AuthPresenter";
+} from './AuthPresenter';
 
 const SignUpModal = ({
   isSignUpModalOpen,
@@ -34,10 +32,10 @@ const SignUpModal = ({
 
   const [{ name, email, password, confirmPassword }, handleInputChange] =
     useInputs({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     });
 
   const signUpUser = { username: name, email: email, password: password };
@@ -68,7 +66,7 @@ const SignUpModal = ({
   const handleSignUpBtnClick = () => {
     const signUp = async () => {
       try {
-        await API.post("/signup", JSON.stringify(signUpUser));
+        await API.post('/signup', JSON.stringify(signUpUser));
         setIsAllPassedUser(true);
       } catch {
         setIsValidEmail(false);
@@ -88,7 +86,10 @@ const SignUpModal = ({
           ariaHideApp={false}
           style={ModalStyle}
         >
-          <Exit src={exit} onClick={() => setIsSignUpModalOpen(false)} />
+          <Exit
+            src={`${process.env.PUBLIC_URL}/img/exit.svg`}
+            onClick={() => setIsSignUpModalOpen(false)}
+          />
           <Wrapper>
             <GoogleAuth />
 

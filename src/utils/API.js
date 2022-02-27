@@ -28,7 +28,7 @@ API.interceptors.request.use(async (config) => {
     localStorage.clear();
   }
 
-  if (refreshToken != null) {
+  if (refreshToken) {
     // if the refresh token expires within a minute
     if (refreshExpiredAt - now < 60000) {
       window.location.href = '/';

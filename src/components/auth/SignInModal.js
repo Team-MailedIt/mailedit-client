@@ -7,8 +7,6 @@ import COLORS from '../../constants/colors';
 import useInputs from '../../hooks/useInputs';
 import { ModalStyle } from '../commons/ModalStyle';
 
-import exit from '../../constants/icons/exit.svg';
-
 import {
   Modal,
   Wrapper,
@@ -80,7 +78,10 @@ const SignInModal = ({
       ariaHideApp={false}
       style={ModalStyle}
     >
-      <Exit src={exit} onClick={() => setIsSignInModalOpen(false)} />
+      <Exit
+        src={`${process.env.PUBLIC_URL}/img/exit.svg`}
+        onClick={() => setIsSignInModalOpen(false)}
+      />
       <Wrapper>
         <GoogleAuth />
 

@@ -5,9 +5,6 @@ import GoogleLogin from 'react-google-login';
 import API from '../../utils/API';
 import COLORS from '../../constants/colors';
 
-import google from '../../constants/icons/google.svg';
-import logoBlue from '../../constants/icons/logoBlue.svg';
-
 const GoogleAuth = () => {
   // 구글 로그인 성공 시
   const onGoogleSignInSuccess = (res) => {
@@ -43,7 +40,7 @@ const GoogleAuth = () => {
 
   return (
     <>
-      <Logo src={logoBlue} />
+      <Logo src={`${process.env.PUBLIC_URL}/img/logoBlue.png`} />
       <Text>처음 써 보는 메일, MailedIt에서 쉽게 시작해 보세요</Text>
 
       <GoogleLogin
@@ -52,7 +49,7 @@ const GoogleAuth = () => {
         render={(renderProps) => (
           <GoogleButton onClick={renderProps.onClick}>
             <GoogleWrapper>
-              <GoogleLogo src={google} />
+              <GoogleLogo src={`${process.env.PUBLIC_URL}/img/google.svg`} />
               <GoogleText>구글로 계속하기</GoogleText>
             </GoogleWrapper>
           </GoogleButton>

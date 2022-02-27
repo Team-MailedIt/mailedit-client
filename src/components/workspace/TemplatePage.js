@@ -9,7 +9,6 @@ import {
 import { PrevIcon } from '../../constants/icons';
 import { useNavigate } from 'react-router';
 import { ContentContext } from '../../contexts/ContentContext';
-import help_circle from '../../constants/icons/help_circle.svg';
 import HelpModal from '../helpModal/HelpModal';
 
 const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
@@ -98,7 +97,10 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
               height="32px"
             />
           </RowContainer>
-          <HelpCircle src={help_circle} onClick={openHelp} />
+          <HelpCircle
+            src={`${process.env.PUBLIC_URL}/img/help_circle.svg`}
+            onClick={openHelp}
+          />
         </div>
         <div
           style={{ marginRight: '40px', marginTop: '76px', minWidth: '490px' }}

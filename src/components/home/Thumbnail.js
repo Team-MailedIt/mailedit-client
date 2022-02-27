@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
-
-import bin from "../../constants/icons/bin.svg";
-import liked from "../../constants/icons/liked.svg";
-import notLiked from "../../constants/icons/notLiked.svg";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
 
 const Thumbnail = ({
   id,
@@ -21,7 +17,7 @@ const Thumbnail = ({
   setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
-  const [memo, setMemo] = useState("");
+  const [memo, setMemo] = useState('');
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
@@ -32,7 +28,7 @@ const Thumbnail = ({
         JSON.stringify({ isStar: !isLiked, groupId: groupId })
       );
 
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
     };
 
@@ -41,9 +37,9 @@ const Thumbnail = ({
 
   useEffect(() => {
     const parsed = subtitle
-      .replace(/<div>/gi, "\n")
-      .replace(/<\/div>/gi, "")
-      .replace(/<br>/gi, "\n")
+      .replace(/<div>/gi, '\n')
+      .replace(/<\/div>/gi, '')
+      .replace(/<br>/gi, '\n')
       .slice(0, 45);
     setMemo(parsed);
   }, [subtitle]);
@@ -61,15 +57,27 @@ const Thumbnail = ({
           <SubTitleText id={id}>{memo}</SubTitleText>
         </Subtitle>
         {isLiked ? (
-          <Liked src={liked} value={isLiked} onClick={handleStarClick} />
+          <Liked
+            src={`${process.env.PUBLIC_URL}/img/liked.svg`}
+            value={isLiked}
+            onClick={handleStarClick}
+          />
         ) : (
-          <Liked src={notLiked} value={isLiked} onClick={handleStarClick} />
+          <Liked
+            src={`${process.env.PUBLIC_URL}/img/notLiked.svg`}
+            value={isLiked}
+            onClick={handleStarClick}
+          />
         )}
       </BodyWrapper>
       <Bottom>
         <Time>{updatedAt}에 수정됨</Time>
         <Border />
-        <Bin src={bin} id={id} onClick={handleBinIconClick} />
+        <Bin
+          src={`${process.env.PUBLIC_URL}/img/bin.svg`}
+          id={id}
+          onClick={handleBinIconClick}
+        />
       </Bottom>
     </Wrapper>
   );

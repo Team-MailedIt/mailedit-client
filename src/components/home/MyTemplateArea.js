@@ -1,21 +1,20 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import Thumbnail from "./Thumbnail";
-import COLORS from "../../constants/colors";
-import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+import API from '../../utils/API';
+import Thumbnail from './Thumbnail';
+import COLORS from '../../constants/colors';
 
-import { AuthContext } from "../../contexts/AuthContext";
-import { ContentContext } from "../../contexts/ContentContext";
-import { FilterLikeContext } from "../../contexts/FilterLikeContext";
-import { SelectGroupContext } from "../../contexts/SelectGroupContext";
-import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { AuthContext } from '../../contexts/AuthContext';
+import { ContentContext } from '../../contexts/ContentContext';
+import { FilterLikeContext } from '../../contexts/FilterLikeContext';
+import { SelectGroupContext } from '../../contexts/SelectGroupContext';
+import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
 
 const MyTemplateArea = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
 
   const [myTemplates, setMyTemplates] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -28,7 +27,7 @@ const MyTemplateArea = () => {
 
   useEffect(() => {
     const getMy = async () => {
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
       setFiltered(data);
     };
@@ -47,7 +46,7 @@ const MyTemplateArea = () => {
   const handleBinIconClick = (e) => {
     const deleteTemplate = async () => {
       await API.delete(`/templates/${e.target.id}`);
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
     };
 
@@ -64,14 +63,14 @@ const MyTemplateArea = () => {
 
     setContent();
 
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   return (
     <Wrapper>
       <MyTemplateInfo>
         <UserName>
-          {isLogin ? `${userName}님의 마이템플릿` : "마이템플릿"}
+          {isLogin ? `${userName}님의 마이템플릿` : '마이템플릿'}
         </UserName>
         <NumberArea>
           <Text>저장된 템플릿</Text>
@@ -82,7 +81,9 @@ const MyTemplateArea = () => {
 
       {myTemplates.length === 0 ? (
         <NoTemplateWrapper>
-          <NoTemplateIllust src={noTemplateIllu} />
+          <NoTemplateIllust
+            src={`${process.env.PUBLIC_URL}/img/noTemplateIllu.png`}
+          />
           <NoTemplateText>
             앗 아직 나의 템플릿이 없어요!
             <br />
@@ -103,7 +104,7 @@ const MyTemplateArea = () => {
                     isStar={t.isStar}
                     groupId={t.groupId}
                     groupColor={t.group.color}
-                    updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                    updatedAt={t.updatedAt.replace('T', ' ').substring(0, 19)}
                     handleBinIconClick={handleBinIconClick}
                     handleThumbnailClick={handleThumbnailClick}
                     setMyTemplates={setMyTemplates}
@@ -114,7 +115,9 @@ const MyTemplateArea = () => {
             </>
           ) : (
             <NoTemplateWrapper>
-              <NoTemplateIllust src={noTemplateIllu} />
+              <NoTemplateIllust
+                src={`${process.env.PUBLIC_URL}/img/noTemplateIllu.png`}
+              />
               <SelectGroupText>
                 왼쪽 사이드바에서
                 <br />
