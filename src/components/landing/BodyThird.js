@@ -90,9 +90,7 @@ const SpanLink = styled.span`
   display: flex;
   align-items: center;
 
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   @media screen and (max-width: 1440px) {
     font-size: 20px;
@@ -101,6 +99,7 @@ const SpanLink = styled.span`
 
 const Video = styled.video`
   margin-left: 91px;
+
   @media screen and (max-width: 768px) {
     width: 88vw;
     margin: 0;
