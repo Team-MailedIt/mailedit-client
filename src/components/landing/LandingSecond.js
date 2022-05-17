@@ -10,7 +10,7 @@ const LandingSecond = () => {
       </TitleWrapper>
       <SubTitle>
         개인의 이메일 작성을 개선하는 것에서 나아가 올바른 메일 작성 문화를
-        선두합니다.
+        선두합니다
       </SubTitle>
       <Image src={`${process.env.PUBLIC_URL}/img/landing_illust_2.png`} />
     </Wrapper>

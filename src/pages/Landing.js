@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Header from '../components/landing/Header';
 import LandingFirst from '../components/landing/LandingFirst';
+import LandingFourth from '../components/landing/LandingFourth';
 import LandingSecond from '../components/landing/LandingSecond';
 import LandingThird from '../components/landing/LandingThird';
 import MobileModal from '../components/landing/MobileModal';
@@ -14,6 +15,7 @@ const Landing = () => {
         <LandingFirst />
         <LandingSecond />
         <LandingThird />
+        <LandingFourth />
       </Wrapper>
     </>
   );

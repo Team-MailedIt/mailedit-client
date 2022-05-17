@@ -15,7 +15,7 @@ const LandingThird = () => {
           </TitleWrapper>
           <SubTitle>
             가장 자주 쓰는 실무 이메일을 위한 가이드, 기본 템플릿을 사용해
-            보세요.
+            보세요
           </SubTitle>
           <Link>자세히 알아보기{'>>'}</Link>
         </TextWrapper>
@@ -99,7 +99,6 @@ const SubTitle = styled.div`
   font-weight: 300;
   font-size: 22px;
   line-height: 140%;
-  opacity: 0.6;
 `;
 
 const Link = styled.div`
