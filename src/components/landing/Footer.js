@@ -96,6 +96,8 @@ const Span = styled.span`
   font-weight: 300;
   font-size: 16px;
   line-height: 19px;
+
+  cursor: pointer;
 `;
 
 export default Footer;

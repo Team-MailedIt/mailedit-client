@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
 const LandingFirst = () => {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/home');
+  };
+
   return (
     <Wrapper>
       <TextWrapper>
@@ -13,7 +20,7 @@ const LandingFirst = () => {
           MailedIt은 자체 제작 기본 템플릿과 자신만의 메일 템플릿 만들기로 보다
           쉽게 실무 이메일을 작성할 수 있도록 돕는 서비스입니다
         </SubTitle>
-        <Button>둘러보기</Button>
+        <Button onClick={goToHome}>둘러보기</Button>
       </TextWrapper>
       <Image src={`${process.env.PUBLIC_URL}/img/landing_illust_1.png`} />
     </Wrapper>
@@ -71,6 +78,8 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 `;
 
 const Image = styled.img`

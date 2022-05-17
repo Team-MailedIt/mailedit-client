@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import { AuthContext } from '../../contexts/AuthContext';
+import SignInModal from '../auth/SignInModal';
+import SignUpModal from '../auth/SignUpModal';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -52,6 +54,16 @@ const Header = () => {
           type="video/mp4"
         />
       </Video>
+      <SignInModal
+        isSignInModalOpen={isSignInModalOpen}
+        setIsSignInModalOpen={setIsSignInModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+      />
+      <SignUpModal
+        isSignUpModalOpen={isSignUpModalOpen}
+        setIsSignInModalOpen={setIsSignInModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+      />
     </>
   );
 };
@@ -62,6 +74,7 @@ const Top = styled.header`
   padding: 0 40px;
 
   position: absolute;
+  z-index: 1;
 
   display: flex;
   align-items: center;

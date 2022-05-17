@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import Pill from './Pill';
 
 const LandingFourth = () => {
+  const navigate = useNavigate();
+
+  const goToWorkSpace = () => {
+    navigate('/workspace');
+  };
+
   return (
     <Wrapper>
       <Pill isLeftSelected={false} isRightSelected={true} />
@@ -28,7 +35,7 @@ const LandingFourth = () => {
             <br />
             보다 쉽게 나만의 템플릿을 만들어 보세요
           </SubTitle>
-          <Button>템플릿 만들러 가기</Button>
+          <Button onClick={goToWorkSpace}>템플릿 만들러 가기</Button>
         </TextWrapper>
       </Content>
     </Wrapper>
@@ -138,6 +145,8 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 `;
 
 export default LandingFourth;

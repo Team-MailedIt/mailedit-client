@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
 const LandingSixth = () => {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/home');
+  };
+
   return (
     <Wrapper>
       <Content>
@@ -19,7 +26,7 @@ const LandingSixth = () => {
           />
           <Bold>을 이용해 보세요</Bold>
         </SubtitleWrapper>
-        <Button>지금 시작하기</Button>
+        <Button onClick={goToHome}>지금 시작하기</Button>
       </Content>
       <Image src={`${process.env.PUBLIC_URL}/img/landing_footer.png`} />
     </Wrapper>
@@ -120,6 +127,8 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 `;
 
 const Image = styled.img`
