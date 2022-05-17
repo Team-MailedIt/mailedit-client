@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Header from '../components/landing/Header';
+import LandingFifth from '../components/landing/LandingFifth';
 import LandingFirst from '../components/landing/LandingFirst';
 import LandingFourth from '../components/landing/LandingFourth';
 import LandingSecond from '../components/landing/LandingSecond';
@@ -16,6 +17,7 @@ const Landing = () => {
         <LandingSecond />
         <LandingThird />
         <LandingFourth />
+        <LandingFifth />
       </Wrapper>
     </>
   );
