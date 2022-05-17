@@ -1,11 +1,12 @@
-import styled from "styled-components";
-import { MainLogo } from "../../constants/icons";
-import { SignUp, SpanLink, VerticalLine } from "./Components";
-import { useContext, useState } from "react";
-import SignInModal from "../auth/SignInModal";
-import SignUpModal from "../auth/SignUpModal";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import styled from 'styled-components';
+import { MainLogo } from '../../constants/icons';
+import { SignUp, SpanLink, VerticalLine } from './Components';
+import { useContext, useState } from 'react';
+import SignInModal from '../auth/SignInModal';
+import SignUpModal from '../auth/SignUpModal';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import COLORS from '../../constants/colors';
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const HeaderContainer = () => {
   };
 
   const goToHome = () => {
-    navigate("/home");
+    navigate('/home');
   };
 
   const goToLanding = () => {
@@ -32,30 +33,29 @@ const HeaderContainer = () => {
   const handleLogout = () => {
     setIsLogin(false);
     localStorage.clear();
-    navigate("/");
+    navigate('/');
   };
 
   return (
     <Container>
-      <Header src="./img/main_gif.gif">
+      <Header>
+        <Video autoPlay loop muted playsInline>
+          <source
+            src={`${process.env.PUBLIC_URL}/img/landingMain.mp4`}
+            type="video/mp4"
+          />
+        </Video>
         <Wrapper>
           <MainLogo onClick={goToLanding} src="./img/mainlogo.png" />
           {isLogin ? (
-            <RightContainer style={{ justifyContent: "flex-end" }}>
+            <RightContainer style={{ justifyContent: 'flex-end' }}>
               <SpanLink onClick={handleLogout}>로그아웃</SpanLink>
             </RightContainer>
           ) : (
             <RightContainer>
-              <SpanLink onClick={goToHome} style={{ marginRight: "32px" }}>
-                둘러보기
-              </SpanLink>
-              <VerticalLine style={{ marginRight: "32px" }} />
-              <SpanLink
-                style={{ marginRight: "32px" }}
-                onClick={handleSignInBtnClick}
-              >
-                로그인
-              </SpanLink>
+              <SpanLink onClick={goToHome}>둘러보기</SpanLink>
+              <VerticalLine />
+              <SpanLink onClick={handleSignInBtnClick}>로그인</SpanLink>
               <SignUp onClick={handleSignUpBtnClick}>지금 시작하기</SignUp>
             </RightContainer>
           )}
@@ -71,11 +71,35 @@ const HeaderContainer = () => {
         setIsSignInModalOpen={setIsSignInModalOpen}
         setIsSignUpModalOpen={setIsSignUpModalOpen}
       />
-      {/* <MainGif src="./img/mainGif.gif" /> */}
     </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const Header = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* height: 588px; */
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+`;
+
+const Video = styled.video`
+  @media screen and (max-width: 768px) {
+    margin-top: 12%;
+  }
+`;
+
 const Wrapper = styled.div`
+  position: absolute;
+  width: 94vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -84,32 +108,29 @@ const Wrapper = styled.div`
   margin-left: 48px;
   margin-top: 36px;
   @media screen and (max-width: 1440px) {
-    margin-top: 28px;
+    /* margin-top: 28px; */
+  }
+  @media screen and (max-width: 768px) {
+    /* margin-top: 28px; */
+    background: ${COLORS.primary};
+    /* position: relative; */
+    position: fixed;
+    top: 0;
+    width: 92%;
+    margin: 0;
+    padding: 4%;
+    /* visibility: hidden; */
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: auto;
-`;
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  height: 588px;
-  @media screen and (max-width: 1440px) {
-    height: 444px;
-  }
-
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-`;
 const RightContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 304px;
+  justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    width: 54vw;
+  }
 `;
 
 export default HeaderContainer;

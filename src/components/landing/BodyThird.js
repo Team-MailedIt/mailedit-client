@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import {
   BodyContainer,
   LeftPill,
@@ -9,9 +9,9 @@ import {
   TitleSpanBold,
   BodySpan,
   PillContainer,
-} from "./Components";
-import COLORS from "../../constants/colors";
-import { Link } from "react-router-dom";
+} from './Components';
+import COLORS from '../../constants/colors';
+import { Link } from 'react-router-dom';
 
 const BodyThird = () => {
   return (
@@ -33,32 +33,37 @@ const BodyThird = () => {
       </PillContainer>
       <Wrapper>
         <LeftContainer>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
             <TitleSpan>자체 제작</TitleSpan>
-            <TitleSpanBold style={{ marginLeft: "12px" }}>
+            <TitleSpanBold style={{ marginLeft: '12px' }}>
               기본템플릿
             </TitleSpanBold>
           </div>
-          <BodySpan style={{ marginTop: "24px" }}>
+          <BodySpan style={{ marginTop: '24px' }}>
             가장 자주 쓰는 실무 이메일을 위한 가이드,
             <br />
             기본템플릿을 사용해 보세요
           </BodySpan>
-          <div style={{ marginTop: "32px" }}>
-            <Link to={"/home"}>
+          <div style={{ marginTop: '32px' }}>
+            <Link to={'/home'}>
               <SpanLink>
-                자세히 알아보기{">"}
-                {">"}
+                자세히 알아보기{'>'}
+                {'>'}
               </SpanLink>
             </Link>
           </div>
         </LeftContainer>
         <div
           style={{
-            marginLeft: "15px",
+            marginLeft: '15px',
           }}
         >
-          <FirstGif src="./img/firstGif.gif" />
+          <Video autoPlay loop muted playsInline>
+            <source
+              src={`${process.env.PUBLIC_URL}/img/landingFirst.webm`}
+              type="video/webm"
+            />
+          </Video>
         </div>
       </Wrapper>
     </BodyContainer>
@@ -69,18 +74,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   margin-top: 86px;
   align-self: flex-end;
-`;
-
-const FirstGif = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 62vw;
-  height: auto;
-  /* @media screen and (max-width: 1440px) {
-    width: 780px;
-    height: auto;
-  } */
 `;
 
 const LeftContainer = styled.div`
@@ -103,6 +96,14 @@ const SpanLink = styled.span`
 
   @media screen and (max-width: 1440px) {
     font-size: 20px;
+  }
+`;
+
+const Video = styled.video`
+  margin-left: 91px;
+  @media screen and (max-width: 768px) {
+    width: 88vw;
+    margin: 0;
   }
 `;
 export default BodyThird;
