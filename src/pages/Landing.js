@@ -29,7 +29,6 @@ const Landing = () => {
 
 const Wrapper = styled.div`
   width: 1440px;
-  border-right: 3px solid red;
 `;
 
 export default Landing;
