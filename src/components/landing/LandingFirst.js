@@ -22,9 +22,9 @@ const LandingFirst = () => {
 
 const Wrapper = styled.div`
   height: 456px;
+  margin-top: 92px;
 
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
 `;
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Header from '../components/landing/Header';
 import LandingFirst from '../components/landing/LandingFirst';
+import LandingSecond from '../components/landing/LandingSecond';
 import MobileModal from '../components/landing/MobileModal';
 
 const Landing = () => {
@@ -10,6 +11,7 @@ const Landing = () => {
       <Wrapper>
         <Header />
         <LandingFirst />
+        <LandingSecond />
       </Wrapper>
     </>
   );
