@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       <Top>
         <Logo src={`${process.env.PUBLIC_URL}/img/landing_header_logo.png`} />
         {isLogin ? (
@@ -64,12 +64,26 @@ const Header = () => {
         setIsSignInModalOpen={setIsSignInModalOpen}
         setIsSignUpModalOpen={setIsSignUpModalOpen}
       />
-    </>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  width: 100vw;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 const Top = styled.header`
-  width: 1360px;
+  /* width: 1360px;
+  height: 12vh;
+  padding: 0 3vw; */
+
+  width: 94vw;
   height: 88px;
   padding: 0 40px;
 
@@ -79,6 +93,12 @@ const Top = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    height: 68px;
+    background: ${COLORS.primary};
+  }
 `;
 
 const Logo = styled.img`
@@ -131,11 +151,12 @@ const Button = styled.div`
 `;
 
 const Video = styled.video`
-  width: 1440px;
+  /* width: 1440px; */
+  width: 100vw;
   display: block;
 
   @media screen and (max-width: 768px) {
-    margin-top: 12%;
+    margin-top: 68px;
   }
 `;
 

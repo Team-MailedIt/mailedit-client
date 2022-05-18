@@ -10,7 +10,7 @@ const LandingSecond = () => {
       </TitleWrapper>
       <SubTitle>
         개인의 이메일 작성을 개선하는 것에서 나아가 올바른 메일 작성 문화를
-        선두합니다
+        선두합니다.
       </SubTitle>
       <Image src={`${process.env.PUBLIC_URL}/img/landing_illust_2.png`} />
     </Wrapper>
@@ -18,7 +18,8 @@ const LandingSecond = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
+  /* width: 1440px; */
+  width: 100vw;
   height: 900px;
 
   display: flex;
@@ -64,8 +65,10 @@ const SubTitle = styled.div`
 `;
 
 const Image = styled.img`
-  width: 1119px;
-  height: 478px;
+  /* width: 1119px; */
+  /* height: 478px; */
+
+  width: 78vw;
   margin-top: 61px;
 `;
 export default LandingSecond;

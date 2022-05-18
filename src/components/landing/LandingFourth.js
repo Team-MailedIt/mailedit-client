@@ -43,7 +43,8 @@ const LandingFourth = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
+  /* width: 1440px; */
+  width: 100vw;
   height: 484px;
   padding-top: 96px;
 
@@ -56,12 +57,12 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-  width: 1120px;
+  /* width: 1120px; */
+  width: 72vw;
   height: 362px;
   margin-top: 65px;
 
   display: flex;
-  align-items: center;
   justify-content: space-between;
 `;
 

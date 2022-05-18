@@ -21,7 +21,8 @@ const LandingFifth = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
+  /* width: 1440px; */
+  width: 100vw;
   height: 512px;
   padding-top: 68px;
 
@@ -48,7 +49,8 @@ const Image = styled.img`
 const TextWrapper = styled.div`
   width: 335px;
   height: 200px;
-  margin-left: 45px;
+  /* margin-left: 45px; */
+  margin-left: 4vw;
 `;
 
 const Normal = styled.div`
@@ -56,7 +58,7 @@ const Normal = styled.div`
   height: 59px;
 
   color: ${COLORS.UIBlack};
-  font-weight: 300;
+  font-weight: 400;
   font-size: 42px;
   line-height: 140%;
   text-align: right;
