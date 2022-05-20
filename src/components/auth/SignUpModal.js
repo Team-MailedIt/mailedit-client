@@ -1,14 +1,14 @@
-import { useState } from "react";
-import ReactModal from "react-modal";
-import styled from "styled-components";
+import { useState } from 'react';
+import ReactModal from 'react-modal';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import GoogleAuth from "./GoogleAuth";
-import COLORS from "../../constants/colors";
-import useInputs from "../../hooks/useInputs";
-import { ModalStyle } from "../commons/ModalStyle";
+import API from '../../utils/API';
+import GoogleAuth from './GoogleAuth';
+import COLORS from '../../constants/colors';
+import useInputs from '../../hooks/useInputs';
+import { ModalStyle } from '../commons/ModalStyle';
 
-import exit from "../../constants/icons/exit.svg";
+import exit from '../../constants/icons/exit.svg';
 
 import {
   Modal,
@@ -19,7 +19,7 @@ import {
   UnderText,
   Other,
   ErrorText,
-} from "./AuthPresenter";
+} from './AuthPresenter';
 
 const SignUpModal = ({
   isSignUpModalOpen,
@@ -34,10 +34,10 @@ const SignUpModal = ({
 
   const [{ name, email, password, confirmPassword }, handleInputChange] =
     useInputs({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     });
 
   const signUpUser = { username: name, email: email, password: password };
@@ -68,7 +68,7 @@ const SignUpModal = ({
   const handleSignUpBtnClick = () => {
     const signUp = async () => {
       try {
-        await API.post("/signup", JSON.stringify(signUpUser));
+        await API.post('/signup', JSON.stringify(signUpUser));
         setIsAllPassedUser(true);
       } catch {
         setIsValidEmail(false);

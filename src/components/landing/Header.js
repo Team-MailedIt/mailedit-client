@@ -117,12 +117,16 @@ const Option = styled.div`
   font-size: 12px;
 `;
 
-const Text = styled.div`
+const Text = styled.span`
   height: 14px;
   color: ${COLORS.UIWhite};
   margin-right: 23px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 4px;
+  }
 `;
 
 const Border = styled.div`
@@ -131,6 +135,10 @@ const Border = styled.div`
   margin-right: 23px;
 
   background: ${COLORS.bgWhite};
+
+  @media screen and (max-width: 768px) {
+    margin-right: 4px;
+  }
 `;
 
 const Button = styled.div`
