@@ -2,7 +2,8 @@
 
 메일 작성을 완벽하게 해내다, [**_MailedIt!_**](https://mailedit.me/)
 
-[![logo](public/img/footerImg.png)](https://mailedit.me/)
+<img width="1000" alt="스크린샷_2022-05-03_오후_3 38 50" src="https://user-images.githubusercontent.com/79887293/169654891-18be63bf-d001-4b8f-82f5-00f4adc1682e.png">
+
 
 <p align="center">
 	<a href="https://github.com/Team-MailedIt/mailedit-client/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Team-MailedIt/mailedit-client?color=success"></a>
