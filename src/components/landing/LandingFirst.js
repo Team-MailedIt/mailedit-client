@@ -48,6 +48,7 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     margin: 8%;
+    margin-top: 10%;
   }
 `;
 
@@ -124,7 +125,7 @@ const Responsive = styled.div`
 const Title2 = styled.div`
   /* width: 574px; */
   /* height: 80px; */
-  margin: 16px 0;
+  margin: 20px 0;
 
   font-weight: 600;
   font-size: 20px;

@@ -70,7 +70,6 @@ const Header = () => {
 
 const Wrapper = styled.div`
   width: 100vw;
-  border-bottom: 1px solid red;
 
   @media screen and (max-width: 768px) {
     display: flex;
