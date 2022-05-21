@@ -28,7 +28,8 @@ const Footer = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
+  /* width: 1440px; */
+  width: 100vw;
   height: 300px;
 
   background: ${COLORS.gray8};

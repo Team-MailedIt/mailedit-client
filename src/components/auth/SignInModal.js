@@ -38,7 +38,8 @@ const SignInModal = ({
   // 가입된 메일인지 확인
   const handleNextBtnClick = () => {
     const checkEmail = async () => {
-      const data = await API.get(`/user-check?email=${email}`);
+      const { data } = await API.get(`/user-check?email=${email}`);
+      console.log(data);
       setIsValidEmail(data);
       data && setIsPassedEmail(data);
     };

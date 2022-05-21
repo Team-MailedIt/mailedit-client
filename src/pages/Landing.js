@@ -28,7 +28,7 @@ const Landing = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
+  width: 100vw;
 `;
 
 export default Landing;

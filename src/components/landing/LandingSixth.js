@@ -26,7 +26,7 @@ const LandingSixth = () => {
           />
           <Bold>을 이용해 보세요</Bold>
         </SubtitleWrapper>
-        <Button onClick={goToHome}>지금 시작하기</Button>
+        <Button onClick={goToHome}>둘러보기</Button>
       </Content>
       <Image src={`${process.env.PUBLIC_URL}/img/landing_footer.png`} />
     </Wrapper>
@@ -34,8 +34,9 @@ const LandingSixth = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
-  height: 510px;
+  /* width: 1440px; */
+  /* height: 510px; */
+  width: 100vw;
 
   display: flex;
   justify-content: center;
@@ -132,7 +133,7 @@ const Button = styled.div`
 `;
 
 const Image = styled.img`
-  width: 100%;
+  width: 100vw;
   height: 100%;
 `;
 

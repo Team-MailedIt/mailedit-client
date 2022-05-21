@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 import Pill from './Pill';
 
 const LandingThird = () => {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/home');
+  };
+
   return (
     <Wrapper>
       <Pill isLeftSelected={true} isRightSelected={false} />
@@ -17,7 +24,7 @@ const LandingThird = () => {
             가장 자주 쓰는 실무 이메일을 위한 가이드, 기본 템플릿을 사용해
             보세요
           </SubTitle>
-          <Link>자세히 알아보기{'>>'}</Link>
+          <Link onClick={goToHome}>자세히 알아보기{'>>'}</Link>
         </TextWrapper>
 
         <Video autoPlay loop muted playsInline>
@@ -32,7 +39,8 @@ const LandingThird = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1440px;
+  /* width: 1440px; */
+  width: 100vw;
   height: 520px;
   padding-top: 60px;
 
@@ -55,7 +63,8 @@ const Content = styled.div`
 const TextWrapper = styled.div`
   width: 371px;
   height: 197px;
-  margin-right: 15px;
+  /* margin-right: 15px; */
+  margin-right: 3vw;
 
   display: flex;
   flex-direction: column;
@@ -110,6 +119,8 @@ const Link = styled.div`
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
+
+  cursor: pointer;
 `;
 
 const Video = styled.video`
