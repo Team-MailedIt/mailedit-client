@@ -1,35 +1,34 @@
-import HeaderContainer from '../components/landing/HeaderContainer';
-import FooterContainer from '../components/landing/FooterContainer';
 import styled from 'styled-components';
+import Footer from '../components/landing/Footer';
+import Header from '../components/landing/Header';
+import LandingFifth from '../components/landing/LandingFifth';
+import LandingFirst from '../components/landing/LandingFirst';
+import LandingFourth from '../components/landing/LandingFourth';
+import LandingSecond from '../components/landing/LandingSecond';
+import LandingSixth from '../components/landing/LandingSixth';
+import LandingThird from '../components/landing/LandingThird';
 import MobileModal from '../components/landing/MobileModal';
-import BodyFirst from '../components/landing/BodyFirst';
-import BodySecond from '../components/landing/BodySecond';
-import BodyThird from '../components/landing/BodyThird';
-import BodyForth from '../components/landing/BodyForth';
-import BodyFifth from '../components/landing/BodyFifth';
 
 const Landing = () => {
   return (
     <>
       <MobileModal />
-      <Container>
-        <HeaderContainer />
-        <BodyFirst />
-        <BodySecond />
-        <BodyThird />
-        <BodyForth />
-        <BodyFifth />
-        <FooterContainer />
-      </Container>
+      <Wrapper>
+        <Header />
+        <LandingFirst />
+        <LandingSecond />
+        <LandingThird />
+        <LandingFourth />
+        <LandingFifth />
+        <LandingSixth />
+        <Footer />
+      </Wrapper>
     </>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const Wrapper = styled.div`
+  width: 1440px;
 `;
 
 export default Landing;
