@@ -14,7 +14,6 @@ const Landing = () => {
     <>
       <MobileModal />
       <Wrapper>
-        <Header />
         <LandingFirst />
         <LandingSecond />
         <LandingThird />
@@ -29,6 +28,8 @@ const Landing = () => {
 
 const Wrapper = styled.div`
   width: 100vw;
+  min-width: 1024px;
+  max-width: 100%;
 `;
 
 export default Landing;

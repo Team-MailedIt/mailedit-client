@@ -84,8 +84,8 @@ const Accordion = ({ icon, title, list }) => {
 };
 
 const Wrapper = styled.div`
-  width: 252px;
-  margin-left: 40px;
+  width: 190px;
+  margin-top: 12px;
 
   display: flex;
   position: relative;
@@ -94,19 +94,17 @@ const Wrapper = styled.div`
 `;
 
 const GroupWrapper = styled.section`
-  width: 252px;
-  height: 24px;
+  width: 190px;
+  height: 18px; // 24
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-top: 12px;
 `;
 
 const ItemWrapper = styled.div`
-  width: 240px;
-  height: 20px;
+  width: 190px;
+  height: 18px;
 
   display: flex;
   align-items: center;
@@ -118,7 +116,7 @@ const ItemWrapper = styled.div`
 `;
 
 const IndexGroup = styled.div`
-  width: 172px;
+  width: 129px;
   height: 100%;
 
   display: flex;
@@ -126,27 +124,27 @@ const IndexGroup = styled.div`
 `;
 
 const GroupTitle = styled.div`
-  width: 160px;
-  height: 20px;
-  margin-left: 8px;
-  line-height: 19px;
+  width: 120px;
+  height: 15px;
+
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 12px;
   color: #ffffff;
 `;
 
 const IconWrapper = styled.img`
-  width: 16px;
-  height: 12px;
+  width: 12px;
+  height: 9px;
 
-  margin: 6px 8px 6px 0px;
+  margin: 6px 6px 6px 0px;
 `;
 
 const ListWrapper = styled.div`
-  width: 252px;
+  width: 190px;
   overflow: hidden;
   transition: height 0.35s ease, background 0.35s ease;
   height: 0px;
@@ -158,13 +156,11 @@ const ListItem = styled.div`
 `;
 
 const TemplateTitle = styled.div`
-  width: 252px;
-  height: 24px;
+  width: 190px;
+  height: 18px;
 
   display: flex;
   align-items: center;
-
-  margin: 8px 40px 0px 0px;
 `;
 
 const TemplateName = styled.div`

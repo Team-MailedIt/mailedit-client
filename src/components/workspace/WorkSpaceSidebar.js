@@ -1,20 +1,33 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS, { colors } from '../../constants/colors';
 
-import Search from "../commons/Search";
-import Accordion from "../commons/Accordion";
+import Search from '../commons/Search';
+import Accordion from '../commons/Accordion';
+import HelpModal from '../helpModal/HelpModal';
 
-import star from "../../constants/icons/star.svg";
-import logo from "../../constants/icons/logo.svg";
+import star from '../../constants/icons/star.svg';
+import logo from '../../constants/icons/logo.svg';
 
-import API from "../../utils/API";
-import { useContext, useEffect, useState } from "react";
-import { GroupContext } from "../../contexts/GroupContexts";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext";
+import API from '../../utils/API';
+import { useContext, useEffect, useState } from 'react';
+import { GroupContext } from '../../contexts/GroupContexts';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const WorkSpaceSidebar = () => {
   const { isLogin } = useContext(AuthContext);
+
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('tooltip') === 'false') {
+      setIsModalOpen(false);
+    }
+  }, []);
+
+  const openHelp = () => {
+    setIsModalOpen(true);
+  };
 
   // 그룹 리스트
   const { groupListContext, setGroupList } = useContext(GroupContext);
@@ -47,9 +60,9 @@ const WorkSpaceSidebar = () => {
         if (category) {
           const newElement = { templateId: templateId, title: title };
           // this will be base template
-          if (category === "회사") {
+          if (category === '회사') {
             setBaseCompany((el) => [...el, newElement]);
-          } else if (category === "학교") {
+          } else if (category === '학교') {
             setBaseSchool((el) => [...el, newElement]);
           }
         } else {
@@ -72,7 +85,7 @@ const WorkSpaceSidebar = () => {
   // navigate to main page
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate("/home");
+    navigate('/home');
   };
 
   return (
@@ -110,36 +123,48 @@ const WorkSpaceSidebar = () => {
           icon={<Index color={COLORS.indigo2} />}
           list={baseSchool}
         />
+        <Help
+          src="/img/sidebar_help.png"
+          alt="sidebar help"
+          onClick={openHelp}
+        />
       </VariableSection>
+      <HelpModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.aside`
-  width: 328px;
-  background: ${COLORS.primary};
+  grid-area: sidebar;
+
+  width: 100%;
+  min-width: 246px;
+  max-width: 246px;
+
+  background: ${colors.main.main};
 `;
 
 const FixedSection = styled.section`
   width: 100%;
-  height: 208px;
+  padding: 27px 27px 0px 30px;
 
   display: flex;
   flex-direction: column;
 `;
 
 const Logo = styled.img`
-  width: 220px;
-  height: 44px;
-
-  margin: 36px 68px 0 40px;
+  width: 165px;
+  height: 33px;
 `;
 
 const VariableSection = styled.section`
   width: 100%;
-  height: 820px;
-  overflow: auto;
+  height: 76vh;
+  margin-top: 32px;
+  padding-left: 30px;
   padding-bottom: 52px;
+
+  overflow: auto;
 
   &::-webkit-scrollbar {
     height: 100%;
@@ -151,6 +176,7 @@ const VariableSection = styled.section`
       height: 100%;
       width: 29px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: ${COLORS.indigo1};
       background-clip: padding-box;
@@ -160,51 +186,58 @@ const VariableSection = styled.section`
   }
 `;
 
-const MyTemplate = styled.span`
-  width: 96px;
-  height: 26px;
-  margin: 0px 192px 12px 40px;
-
+const MyTemplate = styled.div`
+  margin-bottom: 20px;
   font-weight: 500;
-  font-size: 22px;
-  line-height: 26px;
-
-  display: flex;
-  align-items: center;
-
+  font-size: 16px;
   color: ${COLORS.UIWhite};
 `;
 
 const StarIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  margin: 3px 0px 3px 4px;
+  width: 14px;
+  height: 14px;
+
+  margin: 3px 8px 3px 1px;
 `;
 
-const Border = styled.hr`
-  width: 246px;
-  height: 0.5px;
-  margin: 16px 46px 16px 36px;
+const Help = styled.img`
+  width: 28px;
+  height: 28px;
 
-  border: none;
-  background-color: rgba(255, 255, 255, 0.25);
+  position: fixed;
+  bottom: 0;
+  margin-left: 160px;
+  margin-bottom: 20px;
+  z-index: 12;
+
+  cursor: pointer;
+`;
+
+const Border = styled.div`
+  width: 186px;
+  height: 0.5px;
+
+  margin: 10px 0px 4px 4px;
+
+  background: rgba(255, 255, 255, 0.25);
 `;
 
 const Index = styled.div`
-  width: 4px;
-  height: 16px;
+  width: 3px;
+  height: 12px;
+
+  margin-right: 6px;
 
   border-radius: 1px;
   background: ${(props) => props.color};
 `;
 
 const BaseTemplate = styled.span`
-  width: 96px;
-  height: 26px;
-  margin: 52px 192px 8px 40px;
-
   font-weight: 500;
-  font-size: 22px;
+  font-size: 16px;
+  color: ${COLORS.UIWhite};
+  margin-top: 40px;
+  margin-bottom: 14px;
 
   display: flex;
   align-items: center;

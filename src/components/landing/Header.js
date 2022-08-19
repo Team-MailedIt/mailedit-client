@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
-import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import styled, { css } from 'styled-components';
 import { AuthContext } from '../../contexts/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import SignUpModal from '../auth/SignUpModal';
+import { colors } from '../../constants/colors';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -32,9 +32,9 @@ const Header = () => {
   };
 
   return (
-    <Wrapper>
+    <>
       <Top>
-        <Logo src={`${process.env.PUBLIC_URL}/img/landing_header_logo.png`} />
+        <Logo src="/img/landing_header_logo.png" />
         {isLogin ? (
           <Option isLogin={isLogin}>
             <Text onClick={handleSignOutBtnClick}>로그아웃</Text>
@@ -48,12 +48,11 @@ const Header = () => {
           </Option>
         )}
       </Top>
+
       <Video autoPlay loop muted playsInline>
-        <source
-          src={`${process.env.PUBLIC_URL}/img/landingMain.mp4`}
-          type="video/mp4"
-        />
+        <source src="/img/landingMain.mp4" type="video/mp4" />
       </Video>
+
       <SignInModal
         isSignInModalOpen={isSignInModalOpen}
         setIsSignInModalOpen={setIsSignInModalOpen}
@@ -64,26 +63,18 @@ const Header = () => {
         setIsSignInModalOpen={setIsSignInModalOpen}
         setIsSignUpModalOpen={setIsSignUpModalOpen}
       />
-    </Wrapper>
+    </>
   );
 };
 
-const Wrapper = styled.div`
-  width: 100vw;
-
-  @media screen and (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+const Video = styled.video`
+  width: 100%;
+  display: block;
 `;
 
 const Top = styled.header`
-  /* width: 1360px;
-  height: 12vh;
-  padding: 0 3vw; */
-
-  width: 94vw;
+  width: 100%;
+  min-width: 1024px;
   height: 88px;
   padding: 0 40px;
 
@@ -93,12 +84,6 @@ const Top = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  @media screen and (max-width: 768px) {
-    position: fixed;
-    height: 68px;
-    background: ${COLORS.primary};
-  }
 `;
 
 const Logo = styled.img`
@@ -112,17 +97,17 @@ const Option = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: ${({ isLogin }) => (isLogin ? 'flex-end' : 'space-between')};
+  justify-content: ${(isLogin) => (isLogin ? 'flex-end' : 'space-between')};
 
   font-size: 12px;
 `;
 
 const Text = styled.span`
   height: 14px;
-  color: ${COLORS.UIWhite};
   margin-right: 23px;
 
   cursor: pointer;
+  color: ${colors.default.white};
 
   @media screen and (max-width: 768px) {
     margin-right: 4px;
@@ -134,7 +119,7 @@ const Border = styled.div`
   height: 13px;
   margin-right: 23px;
 
-  background: ${COLORS.bgWhite};
+  background: ${colors.default.white};
 
   @media screen and (max-width: 768px) {
     margin-right: 4px;
@@ -144,28 +129,17 @@ const Border = styled.div`
 const Button = styled.div`
   width: 90px;
   height: 30px;
+  border-radius: 4px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 4px;
-  background: ${COLORS.bgWhite};
-
+  color: ${colors.main.main};
   font-size: 12px;
-  color: ${COLORS.primary};
+  background: ${colors.default.white};
 
   cursor: pointer;
-`;
-
-const Video = styled.video`
-  /* width: 1440px; */
-  width: 100vw;
-  display: block;
-
-  @media screen and (max-width: 768px) {
-    margin-top: 68px;
-  }
 `;
 
 export default Header;

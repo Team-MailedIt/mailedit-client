@@ -1,44 +1,51 @@
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import { colors } from '../../constants/colors';
 
 const LandingFifth = () => {
   return (
     <Wrapper>
-      <Content>
-        <Image src={`${process.env.PUBLIC_URL}/img/landing_img_5.png`} />
-        <TextWrapper>
-          <Normal>빠르게 꺼내 쓰는</Normal>
-          <Bold>마이템플릿</Bold>
+      <Section>
+        <Content>
+          <Image src="/img/landing_img_5.png" alt="landing fifth image" />
+          <Title>
+            빠르게 꺼내 쓰는
+            <br />
+            <b>마이템플릿</b>
+          </Title>
           <Subtitle>
             효율적인 그룹 기능과 정렬 방식으로
             <br />
             저장된 템플릿을 빠르게 사용해 보세요
           </Subtitle>
-        </TextWrapper>
-      </Content>
+        </Content>
+      </Section>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  /* width: 1440px; */
-  width: 100vw;
-  height: 512px;
-  padding-top: 68px;
+  width: 100%;
+  height: 580px;
+  padding-top: 83px;
 
-  background: ${COLORS.bgBlue};
+  background: ${colors.bg.bg};
 `;
 
-const Content = styled.div`
+const Section = styled.main`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+`;
+
+const Content = styled.section`
   width: 1280px;
   height: 430px;
 
-  display: flex;
-
-  color: ${COLORS.UIBlack};
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 140%;
+  display: grid;
+  grid-template-columns: 945px 335px;
+  grid-template-rows: 138px 292px;
+  grid-template-areas: 'image title' 'image subtitle';
 `;
 
 const Image = styled.img`
@@ -46,40 +53,31 @@ const Image = styled.img`
   height: 430px;
 `;
 
-const TextWrapper = styled.div`
-  width: 335px;
-  height: 200px;
-  /* margin-left: 45px; */
-  margin-left: 4vw;
-`;
+const Title = styled.div`
+  grid-area: title;
 
-const Normal = styled.div`
-  width: 335px;
-  height: 59px;
+  width: 360px;
+  height: 118px;
 
-  color: ${COLORS.UIBlack};
   font-weight: 400;
   font-size: 42px;
   line-height: 140%;
-  text-align: right;
-`;
+  text-align: end;
 
-const Bold = styled.div`
-  width: 335px;
-  height: 59px;
-
-  text-align: right;
+  color: ${colors.default.black};
 `;
 
 const Subtitle = styled.div`
-  width: 335px;
-  height: 62px;
-  margin-top: 20px;
+  grid-area: subtitle;
 
-  font-weight: 300;
+  width: 360px;
+  height: 62px;
+
+  font-weight: 400;
   font-size: 22px;
   line-height: 140%;
-  text-align: right;
-`;
+  text-align: end;
 
+  color: ${colors.gray.gray8};
+`;
 export default LandingFifth;

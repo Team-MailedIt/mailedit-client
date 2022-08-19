@@ -6,6 +6,7 @@ import CopyContextProvider from '../contexts/CopyContexts';
 import WorkSpaceSidebar from '../components/workspace/WorkSpaceSidebar';
 import { GroupProvider } from '../contexts/GroupContexts';
 import { PositionProvider } from '../contexts/ElementPositionContexts';
+import styled from 'styled-components';
 
 const WorkSpace = () => {
   // Template Page에서 가져온 block의 html을
@@ -35,25 +36,30 @@ const WorkSpace = () => {
     >
       <PositionProvider>
         <GroupProvider>
-          <WorkSpaceSidebar />
-          <CopyContextProvider>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-              }}
-            >
+          <Wrapper>
+            <WorkSpaceSidebar />
+            <CopyContextProvider>
               <TemplatePage
                 getBlockFromTemplate={getBlockFromTemplate}
                 getAllBlockFromTemplate={getAllBlockFromTemplate}
               />
               <EditorContainer passedBlocks={blocks} />
-            </div>
-          </CopyContextProvider>
+            </CopyContextProvider>
+          </Wrapper>
         </GroupProvider>
       </PositionProvider>
     </div>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  min-width: 1024px;
+
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+  grid-template-areas: 'sidebar preview editor';
+`;
 
 export default WorkSpace;

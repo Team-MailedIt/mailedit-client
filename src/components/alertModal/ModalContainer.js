@@ -1,52 +1,27 @@
-import ReactModal from 'react-modal';
-import styled from 'styled-components';
-import CopyContents from './CopyContents';
-import SaveContents from './SaveContents';
-import { useNavigate } from 'react-router-dom';
+import AlertContainer from './AlertContainer';
 
 const ModalContainer = ({ isModalOpen, setIsModalOpen, modalOption }) => {
-  ReactModal.defaultStyles.overlay.backgroundColor = `rgba(0,0,0,0.5)`;
-  const navigate = useNavigate();
-
-  const handleOnClick = () => {
-    setIsModalOpen(false);
-    if (modalOption === 'save') {
-      navigate('/home');
-    }
-  };
-
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={() => {
-        setIsModalOpen(false);
-      }}
-      ariaHideApp={false}
-    >
+    <>
       {modalOption === 'copy' ? (
-        <CopyContents handleOnClick={handleOnClick} />
+        <AlertContainer
+          isAlertOpen={isModalOpen}
+          setIsAlertOpen={setIsModalOpen}
+          title="템플릿 복사 완료!"
+          text1="복사된 템플릿을"
+          text2="메일에 붙여 넣어 사용해 보세요."
+        />
       ) : (
-        <SaveContents handleOnClick={handleOnClick} />
+        <AlertContainer
+          isAlertOpen={isModalOpen}
+          setIsAlertOpen={setIsModalOpen}
+          title="템플릿 저장 완료!"
+          text1="저장된 템플릿은"
+          text2="마이템플릿에서 확인할 수 있어요."
+        />
       )}
-    </Modal>
+    </>
   );
 };
 
-const Modal = styled(ReactModal)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 394px;
-  height: 246px;
-  background: #ffffff;
-  border-radius: 4px;
-
-  display: flex;
-  justify-content: center;
-  &:focus {
-    outline: none;
-  }
-`;
 export default ModalContainer;

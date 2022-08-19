@@ -1,19 +1,19 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import search from "../../constants/icons/search.svg";
-import remove from "../../constants/icons/remove.svg";
+import search from '../../constants/icons/search.svg';
+import remove from '../../constants/icons/remove.svg';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
-import { ContentContext } from "../../contexts/ContentContext";
+import API from '../../utils/API';
+import COLORS from '../../constants/colors';
+import { ContentContext } from '../../contexts/ContentContext';
 
 const Search = ({ all }) => {
   const navigate = useNavigate();
   const { setContentHandler } = useContext(ContentContext);
 
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -24,7 +24,7 @@ const Search = ({ all }) => {
     .sort();
 
   const handleRemoveBtnClick = () => {
-    setInputText("");
+    setInputText('');
   };
 
   const handleResult = async (templateId) => {
@@ -35,7 +35,7 @@ const Search = ({ all }) => {
       handleRemoveBtnClick();
     }
 
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   return (
@@ -69,22 +69,22 @@ const Search = ({ all }) => {
 };
 
 const SearchingField = styled.section`
-  width: 252px;
-  height: 38px;
+  width: 189px;
+  height: 28px;
   display: flex;
   flex-direction: row;
   align-items: center;
   background: #748ffc;
   border-radius: 2px;
-  margin: 48px 36px 0px 40px;
+  margin-top: 36px;
 `;
 
 const SearchResultWrapper = styled.div`
-  width: 252px;
+  width: 189px;
   background: ${COLORS.indigo4};
   position: relative;
   z-index: 2;
-  margin-left: 40px;
+  margin-left: 30px;
   padding-top: 1px;
   padding-bottom: 9px;
   border-radius: 0 0 2px 2px;
@@ -114,27 +114,28 @@ const SearchResultTitle = styled.div`
 `;
 
 const Input = styled.input`
-  margin-left: 12px;
+  width: 129px;
+  margin-left: 10px;
   background: none;
   border: none;
   color: white;
-  font-weight: 300;
+  font-weight: 500;
+  font-size: 12px;
   &::placeholder {
     color: ${COLORS.indigo1};
-    font-size: 16px;
   }
 `;
 
 const SearchIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  margin: 8px 0px 10px 12px;
+  width: 14px;
+  height: 14px;
+  margin: 7px 0px 7px 8px;
 `;
 
 const RemoveIcon = styled.img`
   width: 12px;
   height: 12px;
-  margin-left: 10px;
+  margin-left: 8px;
   &:hover {
     cursor: pointer;
   }

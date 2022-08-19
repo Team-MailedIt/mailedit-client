@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import Pill from './Pill';
 
 const LandingThird = () => {
@@ -13,114 +13,90 @@ const LandingThird = () => {
   return (
     <Wrapper>
       <Pill isLeftSelected={true} isRightSelected={false} />
-
-      <Content>
-        <TextWrapper>
-          <TitleWrapper>
-            <TitleLeft>자체 제작</TitleLeft>
-            <TitleRight>기본템플릿</TitleRight>
-          </TitleWrapper>
-          <SubTitle>
-            가장 자주 쓰는 실무 이메일을 위한 가이드, 기본 템플릿을 사용해
-            보세요
-          </SubTitle>
-          <Link onClick={goToHome}>자세히 알아보기{'>>'}</Link>
-        </TextWrapper>
-
-        <Video autoPlay loop muted playsInline>
-          <source
-            src={`${process.env.PUBLIC_URL}/img/landingFirst.webm`}
-            type="video/webm"
-          />
-        </Video>
-      </Content>
+      <Section>
+        <Content>
+          <Title>
+            자체 제작 <b>기본템플릿</b>
+          </Title>
+          <Subtitle>
+            가장 자주 쓰는 실무 이메일을 위한 가이드, 기본템플릿을 사용해
+            보세요.
+          </Subtitle>
+          <Button onClick={goToHome}>자세히 알아보기{' >>'}</Button>
+          <Video autoPlay loop muted playsInline>
+            <source src="/img/landingFirst.webm" type="video/webm" />
+          </Video>
+        </Content>
+      </Section>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  /* width: 1440px; */
-  width: 100vw;
-  height: 520px;
+  width: 100%;
+  height: 580px;
   padding-top: 60px;
-
-  background: ${COLORS.bgBlue};
+  margin-top: 134px;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+
+  background: ${colors.bg.bg};
 `;
 
-const Content = styled.div`
+const Section = styled.main`
   width: 100%;
-  height: 404px;
-  margin-top: 68px;
+  height: 100%;
+  margin-top: 69px;
 
   display: flex;
   justify-content: flex-end;
 `;
 
-const TextWrapper = styled.div`
-  width: 371px;
-  height: 197px;
-  /* margin-right: 15px; */
-  margin-right: 3vw;
+const Content = styled.section`
+  width: 1280px;
 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 386px 894px;
+  grid-template-rows: 79px 90px 207px;
+  grid-template-areas: 'title image' 'subtitle image' 'button image';
 `;
 
-const TitleWrapper = styled.div`
-  width: 346px;
+const Title = styled.div`
+  grid-area: title;
+
+  width: 350px;
   height: 59px;
-
-  color: ${COLORS.UIBlack};
-
-  display: flex;
-  align-items: center;
-`;
-
-const TitleLeft = styled.div`
-  width: 156px;
-  height: 59px;
-  margin-right: 8px;
 
   font-weight: 400;
   font-size: 42px;
   line-height: 140%;
+  color: ${colors.default.black};
 `;
 
-const TitleRight = styled.div`
-  width: 182px;
-  height: 59px;
+const Subtitle = styled.div`
+  grid-area: subtitle;
 
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 140%;
-`;
-
-const SubTitle = styled.div`
-  width: 372px;
+  width: 371px;
   height: 62px;
-  margin-top: 20px;
 
-  color: ${COLORS.gray8};
-  font-weight: 300;
+  font-weight: 400;
   font-size: 22px;
   line-height: 140%;
+  color: ${colors.gray.gray8};
 `;
 
-const Link = styled.div`
-  width: 152px;
-  height: 28px;
-  margin-top: 28px;
+const Button = styled.button`
+  grid-area: button;
 
-  color: ${COLORS.primary};
-  font-weight: 400;
+  width: 169px;
+  height: 28px;
+
   font-size: 20px;
   line-height: 140%;
 
-  cursor: pointer;
+  color: ${colors.main.main};
 `;
 
 const Video = styled.video`

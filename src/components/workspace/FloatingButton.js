@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const MENU_HEIGHT = 20;
 
@@ -12,10 +12,10 @@ const FloatingButton = ({ position, actions }) => {
       style={{
         top: y,
         left: x,
-        position: "absolute",
-        width: "auto",
-        height: "2.5rem",
-        zIndex: "11",
+        position: 'absolute',
+        width: 'auto',
+        height: '26px',
+        zIndex: '11',
       }}
     >
       <Menu>
@@ -36,11 +36,11 @@ const FloatingButton = ({ position, actions }) => {
 const Menu = styled.div`
   width: 100%;
   height: 100%;
-  background: white;
-  box-shadow: $box-shadow;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   display: flex;
   align-items: center;
+
+  background: #f5f8ff;
   box-shadow: 0px 0px 10px #5c7cfa;
 `;
 
@@ -51,8 +51,9 @@ const MenuItem = styled.span`
   align-items: center;
   justify-content: center;
   padding: 0.25rem 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 700;
+
+  font-weight: 500;
+  font-size: 11px;
 `;
 
 export default FloatingButton;

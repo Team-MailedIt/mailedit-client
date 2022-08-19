@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState, useContext } from 'react';
 import EditableBlock from './EditableBlock';
 import uid from '../../utils/uid';
-import COLORS from '../../constants/colors';
+import COLORS, { colors } from '../../constants/colors';
 import styled from 'styled-components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import setCaretToEnd from '../../utils/setCaretToEnd';
-import { DragIcon } from '../../constants/icons';
 import { CopyContext } from '../../contexts/CopyContexts';
 import parseBlocks from '../../utils/parseBlocks';
 
@@ -263,7 +262,6 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
                         <DragIcon src="/img/drag.png" />
                       </DragBtn>
                       <EditableBlock
-                        // ref={(elem) => (scrollRef.current[index] = elem)}
                         id={id}
                         tag={tag}
                         html={html}
@@ -288,12 +286,12 @@ const EditPage = ({ passedBlocks, getBlocksHandler }) => {
 
 const Container = styled.div`
   padding-top: 2px;
-  height: 688px;
-  /* height: 80%; */
+  height: 573px;
 
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+
   ::-webkit-scrollbar {
     width: 4px;
   }
@@ -306,14 +304,29 @@ const Container = styled.div`
 const Box = styled.div``;
 
 const DragBtn = styled.div`
-  margin-right: 14px;
+  width: 14px;
+  height: 18px;
+  border-radius: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+
+  &:hover {
+    background: ${colors.gray.gray2};
+  }
+`;
+
+const DragIcon = styled.img`
+  width: 6px;
+  height: 10px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: ;
 `;
 
 export default EditPage;

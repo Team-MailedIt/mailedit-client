@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import COLORS from '../../constants/colors';
+import { colors } from '../../constants/colors';
 
 const Pill = ({ isLeftSelected, isRightSelected }) => {
   return (
@@ -23,7 +23,7 @@ const Left = styled.div`
   width: 114px;
   height: 31px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   line-height: 140%;
 
@@ -31,19 +31,19 @@ const Left = styled.div`
   align-items: center;
   justify-content: center;
 
-  color: ${COLORS.UIWhite};
-  border: 2px solid ${COLORS.bodyBlue};
-  border-right: 1px solid ${COLORS.bodyBlue};
+  color: ${colors.default.white};
+  border: 2px solid ${colors.main.indigo5};
+  border-right: 1px solid ${colors.main.indigo5};
   border-radius: 16px 0px 0px 16px;
 
   ${({ isLeftSelected }) =>
     isLeftSelected
       ? css`
-          color: ${COLORS.UIWhite};
-          background: ${COLORS.bodyBlue};
+          color: ${colors.default.white};
+          background: ${colors.main.indigo5};
         `
       : css`
-          color: ${COLORS.bodyBlue};
+          color: ${colors.main.indigo5};
           background: none;
         `}
 `;
@@ -52,7 +52,7 @@ const Right = styled.div`
   width: 114px;
   height: 31px;
 
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   line-height: 140%;
 
@@ -60,19 +60,19 @@ const Right = styled.div`
   align-items: center;
   justify-content: center;
 
-  color: ${COLORS.bodyBlue};
-  border: 2px solid ${COLORS.bodyBlue};
-  border-left: 1px solid ${COLORS.bodyBlue};
+  color: ${colors.main.indigo5};
+  border: 2px solid ${colors.main.indigo5};
+  border-left: 1px solid ${colors.main.indigo5};
   border-radius: 0px 16px 16px 0px;
 
   ${({ isRightSelected }) =>
     isRightSelected
       ? css`
-          color: ${COLORS.UIWhite};
-          background: ${COLORS.bodyBlue};
+          color: ${colors.default.white};
+          background: ${colors.main.indigo5};
         `
       : css`
-          color: ${COLORS.bodyBlue};
+          color: ${colors.main.indigo5};
           background: none;
         `}
 `;

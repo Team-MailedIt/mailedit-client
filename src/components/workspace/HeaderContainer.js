@@ -1,13 +1,7 @@
 import { useEffect, useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import useInput from '../../hooks/useInput';
-import {
-  TemplateTitleInput,
-  TemplateMemoInput,
-  TemplateSelectGroupButton,
-  SubTitle,
-  TemplateMemoInputContainer,
-} from './Components';
+
 import BubbleContainer from '../bubble/BubbleContainer';
 import GroupComponent from '../commons/GroupComponent';
 import API from '../../utils/API';
@@ -18,7 +12,7 @@ import { ElementPositionContext } from '../../contexts/ElementPositionContexts';
 import CarouselTooltip from '../carousel/CarouselTooltip';
 import { AuthContext } from '../../contexts/AuthContext';
 import AlertContainer from '../alertModal/AlertContainer';
-import NotRegistered from '../alertModal/NotRegistered';
+import { colors } from '../../constants/colors';
 
 const HeaderContainer = ({ handleHeaderData }) => {
   const { isLogin } = useContext(AuthContext);
@@ -70,11 +64,9 @@ const HeaderContainer = ({ handleHeaderData }) => {
   };
   const openModal = () => {
     if (isLogin) {
-      // console.log(isLogin);
       setIsModalOpen(true);
       getPosition(bubbleModal);
     } else {
-      // console.log(isLogin);
       setIsAlertOpen(true);
     }
   };
@@ -86,98 +78,159 @@ const HeaderContainer = ({ handleHeaderData }) => {
   };
 
   return (
-    <Container>
-      <RowContainer>
-        <TemplateTitleInput
-          type="text"
+    <Wrapper>
+      <Top>
+        <Title
           placeholder="템플릿의 제목을 입력하세요"
-          size="100"
-          maxLength={50}
           value={title}
           onChange={setTitle}
-        />
-      </RowContainer>
-      <RowContainer style={{ marginTop: '16px' }}>
-        <SubTitle>메모</SubTitle>
-        <TemplateMemoInputContainer>
-          <TemplateMemoInput
-            type="text"
+        ></Title>
+        <ItemWrapper>
+          <Span>메모</Span>
+          <Memo
             placeholder="상황, 받는 사람, 목적 등을 입력하세요"
-            size="40"
-            maxLength={50}
+            spellCheck={false}
             value={subtitle}
             onChange={setSubtitle}
           />
-        </TemplateMemoInputContainer>
-      </RowContainer>
-      <RowContainer
-        style={{
-          marginTop: '8px',
-          marginBottom: '16px',
-          justifyContent: 'space-between',
-        }}
-      >
-        <RowContainer>
-          <SubTitle ref={bubbleModal}>그룹</SubTitle>
-          {group.name ? (
-            <GroupComponent
-              name={group.name}
-              color={group.color}
-              handleSelectGroup={handleGroupComponent}
-            />
-          ) : (
-            <TemplateSelectGroupButton onClick={openModal}>
-              그룹 지정하기
-            </TemplateSelectGroupButton>
-          )}
-        </RowContainer>
-        <HelpIcon
-          ref={tooltipIcon}
-          style={{ marginRight: '12px' }}
-          src={icon_help}
-          onClick={openTooltip}
-        />
-      </RowContainer>
-      <TooltipContainer
-        isModalOpen={isTooltipOpen}
-        setIsModalOpen={setIsTooltipOpen}
-        ChildComponent={CarouselTooltip}
-        positionX={0}
-        positionY={0}
-      />
-      <AlertContainer
-        isAlertOpen={isAlertOpen}
-        setIsAlertOpen={setIsAlertOpen}
-        ChildComponent={NotRegistered}
-      />
-      <BubbleContainer
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        handleSelected={handleSelected}
-      />
-    </Container>
+        </ItemWrapper>
+        <GroupItemWrapper>
+          <SpanButton>
+            <Span ref={bubbleModal}>그룹</Span>
+            {group.name ? (
+              <GroupComponent
+                name={group.name}
+                color={group.color}
+                handleSelectGroup={handleGroupComponent}
+              />
+            ) : (
+              <GroupBtn onClick={openModal}>그룹 지정하기</GroupBtn>
+            )}
+          </SpanButton>
+
+          <ToolTipBtn
+            ref={tooltipIcon}
+            src={icon_help}
+            alt="workspace tooltip"
+            onClick={openTooltip}
+          />
+          <TooltipContainer
+            isModalOpen={isTooltipOpen}
+            setIsModalOpen={setIsTooltipOpen}
+            ChildComponent={CarouselTooltip}
+            positionX={0}
+            positionY={0}
+          />
+          <AlertContainer
+            isAlertOpen={isAlertOpen}
+            setIsAlertOpen={setIsAlertOpen}
+            text1="아직 회원이 아니신가요?"
+            text2="가입하여 더 많은 서비스를 이용해 보세요."
+          />
+          <BubbleContainer
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            handleSelected={handleSelected}
+          />
+        </GroupItemWrapper>
+      </Top>
+    </Wrapper>
   );
 };
 
-export default HeaderContainer;
+const Wrapper = styled.section`
+  width: 100%;
+  padding-top: 6vh;
 
-const Container = styled.div`
   display: flex;
   flex-direction: column;
-  /* width: 460px; */
+`;
 
-  margin-top: 72px;
-  /* margin-left: 40px;
-  margin-right: 40px; */
+const Top = styled.div`
+  width: 100%;
 `;
-const RowContainer = styled.div`
-  display: flex;
-  flex-direction: 'row';
-`;
-const HelpIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  &:hover {
-    cursor: pointer;
+
+const Title = styled.input`
+  width: 64%;
+  background: none;
+  margin-bottom: 4px;
+
+  font-weight: 500;
+  font-size: 18px;
+
+  border: none;
+
+  ::placeholder {
+    color: ${colors.gray.gray5};
   }
 `;
+
+const ItemWrapper = styled.div`
+  width: 100%;
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+`;
+
+const GroupItemWrapper = styled.div`
+  width: 100%;
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Span = styled.span`
+  margin-right: 16px;
+
+  font-weight: 400;
+  font-size: 12px;
+`;
+
+const Memo = styled.input`
+  width: 57%;
+  height: 21px;
+  padding: 4px 9px;
+
+  border: none;
+
+  border-radius: 2px;
+  background: ${colors.gray.gray1};
+
+  font-weight: 500;
+  font-size: 11px;
+
+  ::placeholder {
+    color: ${colors.gray.gray5};
+  }
+`;
+
+const GroupBtn = styled.button`
+  width: 70px;
+  height: 19px;
+  padding: 0px 7.5px;
+
+  font-weight: 400;
+  font-size: 9px;
+  border-radius: 3px;
+
+  color: ${colors.default.white};
+  background: ${colors.main.indigo4};
+`;
+
+const SpanButton = styled.div`
+  width: 110px;
+  display: flex;
+`;
+
+const ToolTipBtn = styled.img`
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+
+  cursor: pointer;
+`;
+
+export default HeaderContainer;

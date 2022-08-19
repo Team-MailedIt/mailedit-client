@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
-import ReactModal from "react-modal";
+import ReactModal from 'react-modal';
 
 export const Modal = styled(ReactModal)`
-  width: 540px;
-  padding-bottom: 52px;
+  width: 404px;
+  height: 509px;
 
   background: ${COLORS.gray1};
   border-radius: 4px;
@@ -16,9 +16,8 @@ export const Modal = styled(ReactModal)`
 `;
 
 export const Wrapper = styled.div`
-  width: 360px;
-
-  margin: 32px 90px 0px 90px;
+  width: 278px;
+  margin-left: 66px;
 
   display: flex;
   flex-direction: column;
@@ -27,72 +26,85 @@ export const Wrapper = styled.div`
 `;
 
 export const Exit = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 
-  margin-top: 36px;
-  margin-left: 472px;
+  margin-top: 28px;
+  margin-left: 352px;
 
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
-export const Input = styled.input`
-  width: 344px;
-  height: 44px;
-
-  border: 1.5px solid ${COLORS.gray4};
-  border-radius: 4px;
-
-  margin-top: 12px;
-  padding-left: 16px;
-
-  background: none;
+export const Logo = styled.img`
+  width: 186px;
+  height: 39px;
 `;
 
-export const SubmitBtn = styled.button`
-  width: 360px;
-  height: 43px;
+export const Text = styled.span`
+  height: 22px;
 
-  border: none;
-  color: ${COLORS.UIWhite};
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: -0.01em;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 16px;
+`;
 
-  margin-top: 12px;
+// export const Input = styled.input`
+//   width: 344px;
+//   height: 44px;
 
-  background: ${(props) => props.color};
-  border-radius: 4px;
+//   border: 1.5px solid ${COLORS.gray4};
+//   border-radius: 4px;
+
+//   margin-top: 12px;
+//   padding-left: 16px;
+
+//   background: none;
+// `;
+
+// export const SubmitBtn = styled.button`
+//   width: 360px;
+//   height: 43px;
+
+//   border: none;
+//   color: ${COLORS.UIWhite};
+
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+
+//   margin-top: 12px;
+
+//   background: ${(props) => props.color};
+//   border-radius: 4px;
+// `;
+
+export const Illust = styled.img`
+  width: 246px;
+  margin-bottom: 29px;
 `;
 
 export const UnderText = styled.span`
-  height: 19px;
-  font-size: 16px;
-  line-height: 19px;
+  font-weight: 400;
+  font-size: 12px;
 
-  margin-top: 64px;
+  margin-top: 36px;
 
   color: ${COLORS.UIBlack};
 `;
 
-export const Other = styled.div`
-  width: 83px;
-  height: 22px;
+export const Other = styled.span`
+  margin-top: 8px;
 
-  margin-top: 12px;
-
-  font-size: 18px;
-  line-height: 22px;
+  font-weight: 400;
+  font-size: 13px;
 
   color: ${COLORS.indigo5};
 
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 export const ErrorText = styled.div`

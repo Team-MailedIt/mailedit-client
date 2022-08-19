@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components";
-import { normalize } from "styled-normalize";
-import COLORS from "../constants/colors";
-import "./FontStyle.css";
+import { createGlobalStyle } from 'styled-components';
+import { normalize } from 'styled-normalize';
+import COLORS from '../constants/colors';
+import './FontStyle.css';
 
 const GlobalStyle = createGlobalStyle`
 ${normalize}
@@ -14,6 +14,8 @@ body {
 *{
   font-family: 'Pretendard', Arial;
   font-display: fallback;
+  box-sizing: border-box;
+
 }
 a{
   text-decoration-line : none;
@@ -49,6 +51,18 @@ img {
     bottom: 0;
     background-color: rgb(0, 0, 0, 0.5);
   }
+
+  button {
+        border: none;
+        border-radius: 4px;
+        background: none;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        cursor: pointer;
+    }
 `;
 
 export default GlobalStyle;
