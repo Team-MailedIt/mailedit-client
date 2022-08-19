@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 
 import API from '../../utils/API';
-import COLORS, { colors } from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import BaseTemplateModal from './BaseTemplateModal';
 
 import dots from '../../constants/icons/dots.svg';
