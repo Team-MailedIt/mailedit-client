@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from 'react';
 
-import HomeTooltip from "./HomeTooltip";
-import SignInModal from "../auth/SignInModal";
-import SignUpModal from "../auth/SignUpModal";
-import COLORS from "../../constants/colors";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ContentContext } from "../../contexts/ContentContext";
+import HomeTooltip from './HomeTooltip';
+import SignInModal from '../auth/SignInModal';
+import SignUpModal from '../auth/SignUpModal';
+import { colors } from '../../constants/colors';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ContentContext } from '../../contexts/ContentContext';
 
 const HeaderArea = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
   const { setContentHandler } = useContext(ContentContext);
   const { isLogin, setIsLogin } = useContext(AuthContext);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -32,13 +32,13 @@ const HeaderArea = () => {
   const handleSignOutBtnClick = () => {
     setIsLogin(false);
     localStorage.clear();
-    navigate("/");
+    navigate('/');
   };
 
   // go to workspace
   const handleGoToWorkspace = () => {
     setContentHandler(null);
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   // tooltip
@@ -58,93 +58,95 @@ const HeaderArea = () => {
   }, [isTooltipOpen]);
 
   return (
-    <Top>
-      <Hello>
-        {isLogin
-          ? `안녕하세요 ${userName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`
-          : `안녕하세요, 오늘도 이메일 작성의 고수가 되어 보세요!`}
-      </Hello>
-      <TopRight>
-        {isLogin ? (
-          <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
-        ) : (
-          <>
-            <Auth>
-              <AuthText onClick={handleSignInBtnClick}>로그인</AuthText>
-              <AuthBorder />
-              <AuthText onClick={handleSignUpBtnClick}>회원가입</AuthText>
-            </Auth>
-            <SignInModal
-              isSignInModalOpen={isSignInModalOpen}
-              setIsSignInModalOpen={setIsSignInModalOpen}
-              setIsSignUpModalOpen={setIsSignUpModalOpen}
-            />
-            <SignUpModal
-              isSignUpModalOpen={isSignUpModalOpen}
-              setIsSignInModalOpen={setIsSignInModalOpen}
-              setIsSignUpModalOpen={setIsSignUpModalOpen}
-            />
-          </>
-        )}
+    <Wrapper>
+      {isLogin ? (
+        <LogOut onClick={handleSignOutBtnClick}>로그아웃</LogOut>
+      ) : (
+        <>
+          <Auth>
+            <AuthText onClick={handleSignInBtnClick}>로그인</AuthText>
+            <AuthBorder />
+            <AuthText onClick={handleSignUpBtnClick}>회원가입</AuthText>
+          </Auth>
+          <SignInModal
+            isSignInModalOpen={isSignInModalOpen}
+            setIsSignInModalOpen={setIsSignInModalOpen}
+            setIsSignUpModalOpen={setIsSignUpModalOpen}
+          />
+          <SignUpModal
+            isSignUpModalOpen={isSignUpModalOpen}
+            setIsSignInModalOpen={setIsSignInModalOpen}
+            setIsSignUpModalOpen={setIsSignUpModalOpen}
+          />
+        </>
+      )}
+
+      <GreetingNButtonWrapper>
+        <Greeting>
+          {isLogin
+            ? `안녕하세요 ${userName}님, 오늘도 이메일 작성의 고수가 되어 보세요!`
+            : `안녕하세요, 오늘도 이메일 작성의 고수가 되어 보세요!`}
+        </Greeting>
         <TooltipBtnWrapper>
-          <HomeTooltip isVisible={isTooltipOpen} />
-          <GoToWorkSpace
-            onClick={handleGoToWorkspace}
-            onMouseEnter={handleTooltip}
-          >
+          {/* <HomeTooltip isVisible={isTooltipOpen} /> */}
+          <HomeTooltip isVisible={false} />
+          <Button onClick={handleGoToWorkspace} onMouseEnter={handleTooltip}>
             템플릿 만들기
-          </GoToWorkSpace>
+          </Button>
         </TooltipBtnWrapper>
-      </TopRight>
-    </Top>
+      </GreetingNButtonWrapper>
+    </Wrapper>
   );
 };
 
-const Top = styled.header`
-  width: 1512px;
-  height: 120px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  margin: 48px 40px 0px 40px;
-`;
-
-const Hello = styled.div`
-  height: 24px;
-
-  font-weight: 500;
-  font-size: 20px;
-
-  margin-top: 88px;
-
-  color: ${COLORS.primary};
-`;
-
-const TopRight = styled.div`
-  width: 554px;
-  height: 120px;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 91px;
+  margin-top: 4%;
 
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   justify-content: space-between;
-`;
 
-const LogOut = styled.span`
-  margin-left: 498px;
-
-  font-weight: 400;
-  font-size: 16px;
-  color: ${COLORS.gray7};
-
-  &:hover {
-    cursor: pointer;
+  @media screen and (min-width: 1500px) {
+    margin-top: 8vh;
   }
 `;
 
+const LogOut = styled.span`
+  font-weight: 300;
+  font-size: 12px;
+  color: ${colors.gray.gray7};
+`;
+
+const GreetingNButtonWrapper = styled.div`
+  width: 100%;
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Greeting = styled.span`
+  font-weight: 500;
+  font-size: 15px;
+  color: ${colors.main.main};
+`;
+
+const Button = styled.button`
+  width: 208px;
+  height: 35px;
+
+  font-weight: 400;
+  font-size: 14px;
+
+  background: ${colors.main.main};
+  color: ${colors.default.white};
+`;
+
 const Auth = styled.div`
-  width: 138px;
+  width: 116px;
   height: 19px;
 
   margin-left: 413px;
@@ -155,9 +157,9 @@ const Auth = styled.div`
 `;
 
 const AuthText = styled.span`
-  font-size: 16px;
   font-weight: 400;
-  color: ${COLORS.gray7};
+  font-size: 12px;
+  color: ${colors.gray.gray7};
 
   &:hover {
     cursor: pointer;
@@ -166,8 +168,8 @@ const AuthText = styled.span`
 
 const AuthBorder = styled.div`
   width: 1px;
-  height: 18px;
-  background: ${COLORS.gray7};
+  height: 13px;
+  background: ${colors.gray.gray5};
 `;
 
 const TooltipBtnWrapper = styled.div`
@@ -178,19 +180,6 @@ const TooltipBtnWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const GoToWorkSpace = styled.button`
-  width: 274px;
-  height: 46px;
-
-  border: none;
-  border-radius: 4px;
-
-  font-weight: 500;
-  font-size: 18px;
-  color: ${COLORS.UIWhite};
-  background: ${COLORS.primary};
 `;
 
 export default HeaderArea;

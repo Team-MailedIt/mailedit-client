@@ -1,21 +1,21 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import Thumbnail from "./Thumbnail";
-import COLORS from "../../constants/colors";
-import noTemplateIllu from "../../constants/icons/noTemplateIllu.svg";
+import API from '../../utils/API';
+import Thumbnail from './Thumbnail';
+import COLORS, { colors } from '../../constants/colors';
+import noTemplateIllu from '../../constants/icons/noTemplateIllu.svg';
 
-import { AuthContext } from "../../contexts/AuthContext";
-import { ContentContext } from "../../contexts/ContentContext";
-import { FilterLikeContext } from "../../contexts/FilterLikeContext";
-import { SelectGroupContext } from "../../contexts/SelectGroupContext";
-import { SelectTemplateContext } from "../../contexts/SelectTemplateContext";
+import { AuthContext } from '../../contexts/AuthContext';
+import { ContentContext } from '../../contexts/ContentContext';
+import { FilterLikeContext } from '../../contexts/FilterLikeContext';
+import { SelectGroupContext } from '../../contexts/SelectGroupContext';
+import { SelectTemplateContext } from '../../contexts/SelectTemplateContext';
 
 const MyTemplateArea = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const userName = localStorage.getItem('userName');
 
   const [myTemplates, setMyTemplates] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -28,7 +28,7 @@ const MyTemplateArea = () => {
 
   useEffect(() => {
     const getMy = async () => {
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
       setFiltered(data);
     };
@@ -47,7 +47,7 @@ const MyTemplateArea = () => {
   const handleBinIconClick = (e) => {
     const deleteTemplate = async () => {
       await API.delete(`/templates/${e.target.id}`);
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
     };
 
@@ -64,20 +64,17 @@ const MyTemplateArea = () => {
 
     setContent();
 
-    navigate("/workspace");
+    navigate('/workspace');
   };
 
   return (
     <Wrapper>
-      <MyTemplateInfo>
-        <UserName>
-          {isLogin ? `${userName}님의 마이템플릿` : "마이템플릿"}
-        </UserName>
-        <NumberArea>
-          <Text>저장된 템플릿</Text>
-          <TemplateNum>{`${myTemplates.length}개`}</TemplateNum>
-        </NumberArea>
-      </MyTemplateInfo>
+      <TitleWrapper>
+        <Title> {isLogin ? `${userName}님의 마이템플릿` : '마이템플릿'}</Title>
+        <SavedNumWrapper>
+          저장된 템플릿 <SavedNum>{`${myTemplates.length}개`}</SavedNum>
+        </SavedNumWrapper>
+      </TitleWrapper>
       <Border />
 
       {myTemplates.length === 0 ? (
@@ -103,23 +100,22 @@ const MyTemplateArea = () => {
                     isStar={t.isStar}
                     groupId={t.groupId}
                     groupColor={t.group.color}
-                    updatedAt={t.updatedAt.replace("T", " ").substring(0, 19)}
+                    updatedAt={t.updatedAt.replace('T', ' ').substring(0, 19)}
                     handleBinIconClick={handleBinIconClick}
                     handleThumbnailClick={handleThumbnailClick}
                     setMyTemplates={setMyTemplates}
                   />
                 ))}
               </MyTemplateGrid>
-              <VeilBottom />
             </>
           ) : (
             <NoTemplateWrapper>
               <NoTemplateIllust src={noTemplateIllu} />
-              <SelectGroupText>
+              <NoTemplateText>
                 왼쪽 사이드바에서
                 <br />
                 템플릿을 꺼내 보세요!
-              </SelectGroupText>
+              </NoTemplateText>
             </NoTemplateWrapper>
           )}
         </>
@@ -129,83 +125,73 @@ const MyTemplateArea = () => {
 };
 
 const Wrapper = styled.section`
-  width: 1512px;
-  height: 568px;
+  width: 100%;
+  height: 432px;
+  margin-top: 2.8%;
 
-  margin: 36px 40px 0px 40px;
+  background: ${colors.bg.bg};
   border-radius: 4px;
 
-  display: flex;
-  flex-direction: column;
-
-  background: ${COLORS.bgBlue};
+  @media screen and (min-width: 1500px) {
+    margin-top: 7vh;
+  }
 `;
 
-const MyTemplateInfo = styled.div`
-  width: 1444px;
-  height: 89.25px;
-
-  margin-left: 40px;
+const TitleWrapper = styled.div`
+  width: 95.8%;
+  height: 26px;
+  margin-top: 24px;
+  margin-left: 2.4%;
 
   display: flex;
-  flex-direction: row;
+  align-items: flex-end;
   justify-content: space-between;
 `;
 
-const Border = styled.div`
-  width: 1472px;
-  height: 1.5px;
-
-  margin-left: 22px;
-  margin-bottom: 1px;
-
-  background: ${COLORS.gray4};
+const Title = styled.span`
+  font-weight: 600;
+  font-size: 22px;
+  color: ${colors.gray.gray8};
 `;
 
-const UserName = styled.span`
-  height: 34px;
-
-  font-size: 28px;
-  font-weight: 600;
+const SavedNumWrapper = styled.div`
+  width: 120px;
+  height: 15px;
 
   display: flex;
   align-items: center;
-
-  margin-top: 36px;
-  margin-bottom: 20px;
-
-  color: ${COLORS.gray8};
-`;
-
-const NumberArea = styled.div`
-  width: 160px;
-  height: 20px;
-
-  display: flex;
-  flex-direction: row;
   justify-content: flex-end;
 
-  margin-top: 44px;
+  font-weight: 300;
+  font-size: 12px;
 `;
 
-const Text = styled.div`
-  height: 20px;
-  font-size: 16px;
+const SavedNum = styled.span`
+  color: ${colors.main.main};
+
+  margin-left: 4px;
+  border-bottom: 1px solid ${colors.main.main};
 `;
 
-const TemplateNum = styled.div`
-  margin-left: 8px;
-  color: ${COLORS.primary};
+const Border = styled.div`
+  width: 97%;
+  height: 1px;
+
+  margin: 16px 0 22px 1.4%;
+
+  background: ${colors.gray.gray4};
 `;
 
 const MyTemplateGrid = styled.div`
-  width: 1460px;
+  width: 96%;
+  height: 328px;
+  padding-bottom: 8px;
+  margin: 0 2%;
 
-  padding: 24px 0px 4px 36px;
+  grid-row-gap: 18px;
 
   overflow: auto;
   display: grid;
-  justify-items: center;
   grid-template-columns: repeat(4, 1fr);
 
   &::-webkit-scrollbar {
@@ -219,62 +205,43 @@ const MyTemplateGrid = styled.div`
     border-radius: 20px;
     border: 4px solid transparent;
   }
-`;
 
-const VeilBottom = styled.div`
-  width: 1484px;
-  height: 28px;
-
-  position: relative;
-  z-index: 2;
-
-  background: ${COLORS.bgBlue};
+  @media screen and (min-width: 1920px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 const NoTemplateWrapper = styled.div`
-  width: 360px;
-  height: 389px;
+  width: 269px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  margin-top: 44px;
-  margin-left: 548px;
+  margin-top: 34px;
+  margin-left: 36%;
 `;
 
 const NoTemplateIllust = styled.img`
-  width: 360px;
-  height: 309px;
+  width: 269px;
+  height: 231px;
 `;
 
 const NoTemplateText = styled.div`
-  width: 234px;
-  height: 60px;
+  width: 175px;
+  height: 21px;
 
   margin-top: 20px;
   margin-left: 48px;
 
-  font-size: 20px;
-  line-height: 140%;
   text-align: center;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
 
   margin-top: 20px;
-  margin-left: 48px;
+  margin-left: 69px;
 `;
 
-const SelectGroupText = styled.div`
-  width: 173px;
-  height: 60px;
-
-  margin-top: 20px;
-  margin-left: 80px;
-
-  font-size: 20px;
-  line-height: 140%;
-  text-align: center;
-
-  color: ${COLORS.UIBlack};
-`;
 export default MyTemplateArea;

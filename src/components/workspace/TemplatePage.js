@@ -1,30 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
-import {
-  TemplateSubTitle,
-  TemplateTitle,
-  TemplateSelectButton,
-} from './Components';
-import { PrevIcon } from '../../constants/icons';
+import COLORS, { colors } from '../../constants/colors';
 import { useNavigate } from 'react-router';
 import { ContentContext } from '../../contexts/ContentContext';
-import help_circle from '../../constants/icons/help_circle.svg';
-import HelpModal from '../helpModal/HelpModal';
 
 const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
-  // 모달모달
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  useEffect(() => {
-    if (localStorage.getItem('tooltip') === 'false') {
-      setIsModalOpen(false);
-    }
-  }, []);
-
-  const openHelp = () => {
-    setIsModalOpen(true);
-  };
-
   // setBlock used when user select template from sidebar
   const [blocks, setBlocks] = useState([]);
   const [parsedBlocks, setParsedBlocks] = useState([]);
@@ -76,129 +56,156 @@ const TemplatePage = ({ getBlockFromTemplate, getAllBlockFromTemplate }) => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '65px auto',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <RowContainer style={{ marginTop: '42px', marginLeft: '36px' }}>
-            <PrevIcon
-              onClick={goToMain}
-              src="img/prevIcon.png"
-              width="32px"
-              height="32px"
-            />
-          </RowContainer>
-          <HelpCircle src={help_circle} onClick={openHelp} />
-        </div>
-        <div
-          style={{ marginRight: '40px', marginTop: '76px', minWidth: '490px' }}
-        >
-          {content ? (
-            <Container style={{ marginTop: '24px' }}>
-              <RowContainer>
-                <TemplateTitle>{content.title}</TemplateTitle>
-              </RowContainer>
-              <RowContainer style={{ justifyContent: 'space-between' }}>
-                <TemplateSubTitle>{parsedSubtitle}</TemplateSubTitle>
-                <TemplateSelectButton onClick={handleAllTemplate}>
-                  템플릿 쓰기
-                </TemplateSelectButton>
-              </RowContainer>
-            </Container>
-          ) : (
-            <Container style={{ paddingTop: '237px', alignItems: 'center' }}>
-              <Illust src="/img/editorIllust.png" />
-              <Span>템플릿을 조합해서 사용해 보세요!</Span>
-            </Container>
-          )}
-          <TemplateContainer style={{ marginTop: '20px' }}>
-            {parsedBlocks.map(({ id, html }, index) => (
-              <Block id={index} key={id} onClick={onClickHandler}>
-                {html}
-              </Block>
-            ))}
-          </TemplateContainer>
-        </div>
-      </div>
-      <HelpModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-    </>
+    <Wrapper>
+      <Back
+        src={'/img/prevIcon.png'}
+        alt="go to home button"
+        onClick={goToMain}
+      />
+
+      {/* <HelpCircle src={help_circle} onClick={openHelp} /> */}
+      <Template>
+        {content ? (
+          <>
+            <Title>{content.title}</Title>
+            <Top>
+              <Subtitle>{parsedSubtitle}</Subtitle>
+              <UseBtn onClick={handleAllTemplate}>템플릿 쓰기</UseBtn>
+            </Top>
+          </>
+        ) : (
+          <Container>
+            <Illust src="/img/editorIllust.png" />
+            <Span>템플릿을 조합해서 사용해 보세요!</Span>
+          </Container>
+        )}
+      </Template>
+
+      <Blocks>
+        {parsedBlocks.map(({ id, html }, index) => (
+          <Block id={index} key={id} onClick={onClickHandler}>
+            {html}
+          </Block>
+        ))}
+      </Blocks>
+    </Wrapper>
   );
 };
-const HelpCircle = styled.img`
-  width: 44px;
-  height: 44px;
-  margin-left: 24px;
-  margin-bottom: 24px;
+
+const Wrapper = styled.section`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
 `;
+
+const Back = styled.img`
+  width: 24px;
+  height: 24px;
+
+  margin-top: 3.5vh;
+  margin-left: 4.7%;
+
+  cursor: pointer;
+
+  @media screen and (min-width: 1500px) {
+    margin-top: 4vh;
+  }
+`;
+
+const Template = styled.div`
+  width: 83%;
+  align-self: center;
+
+  padding-left: 3%;
+  padding-bottom: 27px;
+`;
+
+const Title = styled.div`
+  width: 58%;
+  margin-top: 18px;
+
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+const Subtitle = styled.div`
+  width: 58%;
+  margin-top: 6px;
+
+  font-weight: 300;
+  font-size: 14px;
+`;
+
+const UseBtn = styled.button`
+  width: 69px;
+  height: 25px;
+  border-radius: 3px;
+
+  font-weight: 400;
+  font-size: 11px;
+  color: ${colors.default.white};
+  background: ${colors.gray.gray7};
+`;
+
+const Top = styled.div`
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Blocks = styled.div`
+  width: 100%;
+  max-height: 80vh;
+  margin-top: 18px;
+
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.main.main};
+    border-radius: 20px;
+  }
+`;
+
+const Block = styled.div`
+  width: 95%;
+  padding: 3px 9px;
+
+  font-weight: 300;
+  font-size: 12px;
+
+  background: rgba(82, 116, 239, 0.15);
+  border: 1px solid ${colors.main.main};
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  & + & {
+    margin-top: 10px;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 24px;
-  padding-right: 24px;
-`;
-const TemplateContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-height: 790px;
-  padding-left: 24px;
-  padding-right: 24px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: ${COLORS.primary};
-    border-radius: 80px;
-    height: 20px;
-  }
-`;
-const RowContainer = styled.div`
-  display: flex;
-  flex-direction: 'row';
-  align-items: 'center';
-  margin-bottom: 8px;
-`;
-const Block = styled.div`
-  width: calc(100% - 1rem);
-  padding: 4px 12px;
-  outline-color: '#4C6EF5';
+  align-items: center;
 
-  white-space: pre-wrap;
-  border: 1px solid ${COLORS.blockBorder};
-  background: ${COLORS.blockBackground};
-  border-radius: 2px;
-
-  margin-top: 6px;
-  margin-bottom: 6px;
-
-  line-height: 24px;
-  font-size: 16px;
-  -webkit-user-select: none;
+  margin-top: 20vh;
 `;
-export const Illust = styled.img`
-  background-image: ${({ src }) => `url(${src})`};
-  background-size: cover;
-  background-position: center;
-  width: 396px;
-  height: 297px;
+
+const Illust = styled.img`
+  width: 296px;
+  height: 230px;
 `;
-export const Span = styled.span`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 24px;
-  margin-top: 28px;
+
+const Span = styled.span`
+  font-weight: 400;
+  font-size: 15px;
+  margin-top: 12px;
 
   display: flex;
   align-items: center;

@@ -46,3 +46,42 @@ const COLORS = {
 };
 
 export default COLORS;
+
+export const colors = {
+  main: {
+    main: '#5274EF',
+    indigo0: '#EDF2FF',
+    indigo1: '#DBE4FF',
+    indigo2: '#BAC8FF',
+    indigo3: '#5C7CFA',
+    indigo4: '#748FFC',
+    indigo5: '#2850DD',
+    indigo6: '#0B38DA',
+  },
+  alert: {
+    alert: '#77E9C7',
+  },
+  default: {
+    white: '#FFFFFF',
+    black: '#111111',
+  },
+  bg: {
+    bg: '#F5F8FF',
+  },
+  tag: {
+    green: '#38D9A9',
+    red: '#FA5252',
+    yellow: '#FFEC99',
+    purple: '#BE4BDB',
+    cyan: '#66D9E8',
+    blue: '#3138FF',
+  },
+  gray: {
+    gray1: '#F1F3F5',
+    gray2: '#E9ECEF',
+    gray4: '#CED4DA',
+    gray5: '#ADB5BD',
+    gray7: '#495057',
+    gray8: '#343A40',
+  },
+};

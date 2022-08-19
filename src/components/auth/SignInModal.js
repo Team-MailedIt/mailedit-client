@@ -3,9 +3,9 @@ import jwtDecode from 'jwt-decode';
 
 import API from '../../utils/API';
 import GoogleAuth from './GoogleAuth';
-import COLORS from '../../constants/colors';
 import useInputs from '../../hooks/useInputs';
 import { ModalStyle } from '../commons/ModalStyle';
+import logoBlue from '../../constants/icons/logoBlue.svg';
 
 import exit from '../../constants/icons/exit.svg';
 
@@ -13,11 +13,11 @@ import {
   Modal,
   Wrapper,
   Exit,
-  Input,
-  SubmitBtn,
+  Logo,
+  Text,
   UnderText,
   Other,
-  ErrorText,
+  Illust,
 } from './AuthPresenter';
 
 const SignInModal = ({
@@ -83,9 +83,13 @@ const SignInModal = ({
     >
       <Exit src={exit} onClick={() => setIsSignInModalOpen(false)} />
       <Wrapper>
-        <GoogleAuth />
+        <Logo src={logoBlue} />
+        <Text>처음 써 보는 메일, MailedIt에서 쉽게 시작해 보세요</Text>
+        <Illust src="/img/signin.png" alt="sign in" />
 
-        <Input
+        <GoogleAuth googleText="구글로 로그인" />
+
+        {/* <Input
           type="email"
           name="email"
           value={email}
@@ -117,16 +121,16 @@ const SignInModal = ({
           <SubmitBtn color={COLORS.primary} onClick={handleSignInBtnClick}>
             로그인
           </SubmitBtn>
-        )}
+        )} */}
 
-        <UnderText>계정이 없으세요?</UnderText>
+        <UnderText>아직 회원이 아니신가요?</UnderText>
         <Other
           onClick={() => {
             setIsSignInModalOpen(false);
             setIsSignUpModalOpen(true);
           }}
         >
-          계정 만들기
+          회원가입
         </Other>
       </Wrapper>
     </Modal>

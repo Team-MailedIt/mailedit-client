@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
 const SidebarGroup = ({ title, icon, item, onClick }) => {
   return (
@@ -14,11 +14,11 @@ const SidebarGroup = ({ title, icon, item, onClick }) => {
 };
 
 const Wrapper = styled.div`
-  width: 240px;
-  height: 20px;
+  width: 190px;
 
-  margin-top: 18px;
-  padding-right: 4px;
+  margin-top: 10px;
+  padding-right: 6px;
+  padding-left: 3px;
 
   display: flex;
   align-items: center;
@@ -26,22 +26,22 @@ const Wrapper = styled.div`
 `;
 
 const IndexGroup = styled.div`
-  width: 172px;
-  height: 20px;
+  width: 129px;
+  height: 15px;
 
   display: flex;
   align-items: center;
 `;
 
 const GroupTitle = styled.div`
-  width: 160px;
-  height: 20px;
+  width: 120px;
 
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  font-size: 16px;
+  font-weight: 300;
+  font-size: 12px;
   color: ${COLORS.UIWhite};
 `;
 

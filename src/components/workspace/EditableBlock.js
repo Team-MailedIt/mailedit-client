@@ -4,6 +4,7 @@ import getSelection from '../../utils/getSelection';
 import getCaretCoordinates from '../../utils/getCaretCoordinates';
 import FloatingButton from './FloatingButton';
 import COLORS from '../../constants/colors';
+import styled from 'styled-components';
 
 class EditableBlock extends React.Component {
   constructor(props) {
@@ -127,11 +128,6 @@ class EditableBlock extends React.Component {
         const middleX = startX + (endX - startX) / 2;
 
         return { x: middleX, y: endY + startY - startY };
-      // case 'DRAG_HANDLE_CLICK':
-      //   const x =
-      //     parent.offsetLeft - parent.scrollLeft + parent.clientLeft - 90;
-      //   const y = parent.offsetTop - parent.scrollTop + parent.clientTop + 35;
-      //   return { x: x, y: y };
       default:
         return { x: null, y: null };
     }
@@ -200,20 +196,7 @@ class EditableBlock extends React.Component {
             }}
           />
         )}
-
-        <ContentEditable
-          //disabled={false} // use true to disable editing
-          style={{
-            width: 'calc(100% - 3.5rem)',
-            padding: '4px 12px',
-            marginTop: '6px',
-            marginBottom: '6px',
-
-            background: this.props.flag ? COLORS.blockBackground : 'none',
-            border: this.props.flag ? `1px solid ${COLORS.blockBorder}` : null,
-            outlineColor: '#4C6EF5',
-            borderRadius: '2px',
-          }}
+        <Block
           innerRef={this.contentEditable}
           html={this.state.html}
           flag={this.props.flag}
@@ -227,4 +210,29 @@ class EditableBlock extends React.Component {
     );
   }
 }
+
+const Block = styled(ContentEditable)`
+  width: 96%;
+  padding: 4px 9px;
+  margin-top: 10px;
+
+  background: ${({ flag }) => (flag ? COLORS.blockBackground : 'none')};
+  border: ${({ flag }) => (flag ? '1px solid #5274EF' : 'none')};
+  border-radius: 2px;
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+
+  letter-spacing: -0.005em;
+
+  ::selection {
+    background-color: #cbe5f3;
+  }
+
+  &:focus {
+    outline: 1px solid #5274ef;
+  }
+`;
+
 export default EditableBlock;

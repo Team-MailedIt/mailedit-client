@@ -73,7 +73,7 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
         setGroupList(newArray);
         // setGroup((p) => [...p, newElement]);
       } else {
-        window.alert('서버상에 문제가 있어요ㅠ');
+        window.alert('서버상에 문제가 있어요.');
       }
     } else {
       setIsModalOpen(false);
@@ -108,8 +108,8 @@ const BubbleContainer = ({ isModalOpen, setIsModalOpen, handleSelected }) => {
         init();
       }}
       ariaHideApp={false}
-      positionTop={position.y}
-      positionLeft={position.x}
+      positionTop={position.y + 12}
+      positionLeft={position.x - 5}
     >
       <ColContainer>
         {mode ? (

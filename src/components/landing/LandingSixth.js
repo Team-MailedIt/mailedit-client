@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import COLORS from '../../constants/colors';
+import { colors } from '../../constants/colors';
 
 const LandingSixth = () => {
   const navigate = useNavigate();
@@ -15,28 +15,28 @@ const LandingSixth = () => {
         <TitleWrapper>
           <Title>메일 작성이 어려울 때는?</Title>
           <Logo
-            src={`${process.env.PUBLIC_URL}/img/landing_footer_logo1.png`}
+            src="/img/landing_footer_logo1.png"
+            alt="landing sixth logo 1"
           />
         </TitleWrapper>
-        <Subtitle>실무 이메일 작성이 나에게 매번 어려웠다면?</Subtitle>
-        <SubtitleWrapper>
-          <Bold>지금 바로 </Bold>
-          <SubtitleLogo
-            src={`${process.env.PUBLIC_URL}/img/landing_footer_logo2.png`}
+        <Subtitle1>실무 이메일 작성이 나에게 매번 어려웠다면?</Subtitle1>
+        <Subtitle2Wrapper>
+          <Subtitle2>지금 바로</Subtitle2>
+          <Logo2
+            src="/img/landing_footer_logo2.png"
+            alt="landing sixth logo 2"
           />
-          <Bold>을 이용해 보세요</Bold>
-        </SubtitleWrapper>
+          <Subtitle2>을 이용해 보세요</Subtitle2>
+        </Subtitle2Wrapper>
         <Button onClick={goToHome}>둘러보기</Button>
       </Content>
-      <Image src={`${process.env.PUBLIC_URL}/img/landing_footer.png`} />
+      <BackgroundImg src="/img/landing_footer.png" alt="landing sixth image" />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  /* width: 1440px; */
-  /* height: 510px; */
-  width: 100vw;
+  width: 100%;
 
   display: flex;
   justify-content: center;
@@ -63,13 +63,16 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  width: 534px;
-  height: 86px;
+  grid-area: title;
 
-  color: ${COLORS.UIWhite};
-  font-weight: 600;
+  width: 400px;
+  height: 64px;
+
+  font-weight: 700;
   font-size: 40px;
   line-height: 160%;
+
+  color: ${colors.default.white};
 `;
 
 const Logo = styled.img`
@@ -77,19 +80,19 @@ const Logo = styled.img`
   height: 64px;
 `;
 
-const Subtitle = styled.div`
-  width: 312px;
+const Subtitle1 = styled.div`
+  width: 313px;
   height: 29px;
   margin-top: 28px;
 
-  color: ${COLORS.UIWhite};
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   line-height: 160%;
+  color: ${colors.default.white};
 `;
 
-const SubtitleWrapper = styled.div`
-  width: 327px;
+const Subtitle2Wrapper = styled.div`
+  width: 332px;
   height: 36px;
   margin-top: 2px;
 
@@ -97,44 +100,37 @@ const SubtitleWrapper = styled.div`
   align-items: center;
 `;
 
-const Bold = styled.span`
+const Subtitle2 = styled.span`
   font-weight: 600;
   font-size: 18px;
   line-height: 160%;
+  margin-top: 4px;
 
-  color: ${COLORS.UIWhite};
+  color: ${colors.default.white};
 `;
 
-const SubtitleLogo = styled.img`
+const Logo2 = styled.img`
   width: 130px;
-  height: 36px;
-  margin-left: 9px;
-  margin-right: 3px;
+  margin-left: 12px;
+  margin-right: 4px;
 `;
 
-const Button = styled.div`
+const BackgroundImg = styled.img`
+  width: 100%;
+`;
+
+const Button = styled.button`
   width: 271px;
   height: 56px;
   margin-top: 56px;
 
-  background: ${COLORS.UIWhite};
-  border-radius: 4px;
-
-  color: ${COLORS.primary};
-  font-weight: 600;
   font-size: 20px;
   line-height: 24px;
+  font-weight: 600;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-`;
-
-const Image = styled.img`
-  width: 100vw;
-  height: 100%;
+  color: ${colors.main.main};
+  background: ${colors.default.white};
+  box-shadow: 3.7523px 4.50276px 4.50276px rgba(0, 0, 0, 0.1);
 `;
 
 export default LandingSixth;

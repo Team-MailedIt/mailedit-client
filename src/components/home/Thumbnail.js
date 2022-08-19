@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import API from "../../utils/API";
-import COLORS from "../../constants/colors";
+import API from '../../utils/API';
+import COLORS, { colors } from '../../constants/colors';
 
-import bin from "../../constants/icons/bin.svg";
-import liked from "../../constants/icons/liked.svg";
-import notLiked from "../../constants/icons/notLiked.svg";
+import bin from '../../constants/icons/bin.svg';
+import liked from '../../constants/icons/liked.svg';
+import notLiked from '../../constants/icons/notLiked.svg';
 
 const Thumbnail = ({
   id,
@@ -21,7 +21,7 @@ const Thumbnail = ({
   setMyTemplates,
 }) => {
   const [isLiked, setIsLiked] = useState(isStar);
-  const [memo, setMemo] = useState("");
+  const [memo, setMemo] = useState('');
 
   const handleStarClick = () => {
     setIsLiked(!isLiked);
@@ -32,7 +32,7 @@ const Thumbnail = ({
         JSON.stringify({ isStar: !isLiked, groupId: groupId })
       );
 
-      const { data } = await API.get("/templates/my");
+      const { data } = await API.get('/templates/my');
       setMyTemplates(data);
     };
 
@@ -41,9 +41,9 @@ const Thumbnail = ({
 
   useEffect(() => {
     const parsed = subtitle
-      .replace(/<div>/gi, "\n")
-      .replace(/<\/div>/gi, "")
-      .replace(/<br>/gi, "\n")
+      .replace(/<div>/gi, '\n')
+      .replace(/<\/div>/gi, '')
+      .replace(/<br>/gi, '\n')
       .slice(0, 45);
     setMemo(parsed);
   }, [subtitle]);
@@ -53,19 +53,21 @@ const Thumbnail = ({
       <IndexArea>
         <Index color={groupColor} />
       </IndexArea>
-      <HoverArea id={id} onClick={handleThumbnailClick}>
-        <Title id={id}>{title}</Title>
-      </HoverArea>
-      <BodyWrapper id={id}>
-        <Subtitle id={id} onClick={handleThumbnailClick}>
-          <SubTitleText id={id}>{memo}</SubTitleText>
-        </Subtitle>
+      <Title id={id} onClick={handleThumbnailClick}>
+        {title}
+      </Title>
+      <Middle>
+        <SubtitleWrapper id={id}>
+          <Subtitle id={id} onClick={handleThumbnailClick}>
+            <SubTitleText id={id}>{memo}</SubTitleText>
+          </Subtitle>
+        </SubtitleWrapper>
         {isLiked ? (
           <Liked src={liked} value={isLiked} onClick={handleStarClick} />
         ) : (
           <Liked src={notLiked} value={isLiked} onClick={handleStarClick} />
         )}
-      </BodyWrapper>
+      </Middle>
       <Bottom>
         <Time>{updatedAt}에 수정됨</Time>
         <Border />
@@ -76,156 +78,131 @@ const Thumbnail = ({
 };
 
 const Wrapper = styled.div`
-  width: 340px;
-  height: 196px;
-  border-radius: 8px;
+  width: 255px;
+  height: 147px;
+  border-radius: 6px;
+  /* margin-top: 18px; */
 
-  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  background: ${COLORS.UIWhite};
-
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  background: ${colors.default.white};
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 `;
 
 const IndexArea = styled.div`
   width: 100%;
-  height: 8px;
+  height: 6px;
 
   display: flex;
   justify-content: flex-end;
 `;
 
 const Index = styled.div`
-  width: 142px;
-  height: 8px;
+  width: 106px;
 
   border-radius: 0px 4px 0px 0px;
-
   border-top: 8px solid ${(props) => props.color};
   border-left: 12px solid transparent;
 `;
 
-const HoverArea = styled.div`
-  width: 100%;
-  height: 60px;
-  padding-top: 24px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 const Title = styled.div`
-  width: 300px;
-  height: 28px;
+  width: 225px;
+  height: 21px;
+  margin-top: 18px;
 
-  margin: 0 20px 0px 20px;
-
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 26px;
+  font-weight: 500;
+  font-size: 16.5px;
+  color: ${colors.gray.gray8};
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  color: ${COLORS.gray8};
 `;
 
-const BodyWrapper = styled.div`
-  width: 308px;
-  height: 46px;
-
-  margin: 0 0 18px 20px;
+const Middle = styled.div`
+  width: 231px;
+  height: 34px;
+  margin-top: 24px;
 
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+`;
 
-  &:hover {
-    cursor: pointer;
-  }
+const SubtitleWrapper = styled.div`
+  width: 198px;
+  height: 31px;
+
+  display: table;
 `;
 
 const Subtitle = styled.div`
-  width: 264px;
-  height: 42px;
+  width: 198px;
+  height: 31px;
 
-  display: table;
-
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 12px;
+  line-height: 17px;
+  color: ${colors.gray.gray8};
 
   overflow: hidden;
   text-overflow: ellipsis;
-
-  color: ${COLORS.gray8};
 `;
 
 const SubTitleText = styled.span`
-  width: 264px;
-  height: 42px;
-
+  font-size: 12px;
+  line-height: 17px;
   display: table-cell;
-
-  font-size: 16px;
-  line-height: 22px;
   vertical-align: bottom;
 `;
 
 const Liked = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 21px;
+  height: 21px;
+  margin-top: 12px;
 
-  margin-top: 18px;
-  margin-left: 16px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Bottom = styled.div`
   width: 100%;
-  height: 40px;
+  height: 30px;
+  margin-top: 14px;
 
   display: flex;
   align-items: center;
 
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 0px 0px 6px 6px;
   background: ${COLORS.bgThumbnail};
 `;
 
 const Time = styled.div`
-  width: 260px;
-  height: 20px;
-
-  margin-left: 24px;
+  width: 195px;
+  height: 15px;
+  margin-left: 18px;
 
   display: flex;
   align-items: center;
 
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 11px;
   color: ${COLORS.gray6};
 `;
 
 const Border = styled.div`
   width: 1px;
-  height: 24px;
+  height: 18px;
 
-  margin-left: 15px;
+  margin-left: 12px;
 
   background: ${COLORS.gray4};
 `;
 
 const Bin = styled.img`
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
 
-  margin-left: 11px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  margin-left: 8px;
 `;
 
 export default Thumbnail;

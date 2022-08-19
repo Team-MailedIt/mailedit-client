@@ -1,9 +1,10 @@
 import ReactModal from 'react-modal';
 import styled from 'styled-components';
+import { ModalStyle } from '../commons/ModalStyle';
 import HelpContainer from './HelpContainer';
 
 const HelpModal = ({ setIsModalOpen, isModalOpen }) => {
-  ReactModal.defaultStyles.overlay.backgroundColor = `rgba(0,0,0,0.5)`;
+  Modal.defaultStyles.overlay.backgroundColor = `rgba(0,0,0,0.5)`;
 
   return (
     <Modal
@@ -12,6 +13,7 @@ const HelpModal = ({ setIsModalOpen, isModalOpen }) => {
         setIsModalOpen(false);
       }}
       ariaHideApp={false}
+      style={ModalStyle}
     >
       <HelpContainer setIsModalOpen={setIsModalOpen} />
     </Modal>

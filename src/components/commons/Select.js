@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import styled from 'styled-components';
+import COLORS from '../../constants/colors';
 
-import fold from "../../constants/icons/fold.svg";
-import unfold from "../../constants/icons/unfold.svg";
+import fold from '../../constants/icons/fold.svg';
+import unfold from '../../constants/icons/unfold.svg';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 const Select = ({ option, setOption }) => {
   const [isSelected, setIsSelected] = useState(false);
@@ -22,14 +22,14 @@ const Select = ({ option, setOption }) => {
   return (
     <Wrapper>
       <Title onClick={handleChangeSelect} isSelected={isSelected}>
-        {option === "company" ? "회사" : "학교"}
+        {option === 'company' ? '회사' : '학교'}
 
         {isSelected ? <ArrowIcon src={fold} /> : <ArrowIcon src={unfold} />}
       </Title>
       {isSelected && (
         <OptionWrapper onClick={handleChangeOption}>
-          <Option id="company">회사</Option>
           <Option id="school">학교</Option>
+          <Option id="company">회사</Option>
         </OptionWrapper>
       )}
     </Wrapper>
@@ -37,18 +37,16 @@ const Select = ({ option, setOption }) => {
 };
 
 const Wrapper = styled.div`
-  width: 102px;
+  width: 96px;
 
   position: relative;
   z-index: 0;
 `;
 
 const Title = styled.div`
-  width: 102px;
-  height: 36px;
-  padding: 0px 10px 0px 16px;
-
-  margin-left: 512px;
+  width: 96px;
+  height: 30px;
+  padding: 6.5px 8px 6.5px 12px;
 
   position: relative;
   display: flex;
@@ -57,10 +55,10 @@ const Title = styled.div`
 
   border: 1.5px solid ${COLORS.gray2};
 
-  font-size: 16px;
+  font-size: 12px;
   color: ${COLORS.gray8};
 
-  border-radius: ${(props) => (props.isSelected ? "4px 4px 0px 0px" : "4px")};
+  border-radius: ${(props) => (props.isSelected ? '4px 4px 0px 0px' : '4px')};
 
   &:hover {
     cursor: pointer;
@@ -68,8 +66,8 @@ const Title = styled.div`
 `;
 
 const OptionWrapper = styled.div`
-  width: 128px;
-  height: 68px;
+  width: 96px;
+  height: 52px;
 
   position: absolute;
   z-index: 2;
@@ -79,8 +77,6 @@ const OptionWrapper = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
 
-  margin-left: 512px;
-
   border: 1.5px solid ${COLORS.gray2};
   border-top: none;
   border-radius: 0px 0px 4px 4px;
@@ -89,13 +85,13 @@ const OptionWrapper = styled.div`
 `;
 
 const Option = styled.div`
-  width: 104px;
-  height: 25px;
+  width: 84px;
+  height: 18px;
   padding-left: 8px;
 
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 10px;
 
   border-radius: 2px;
   color: ${COLORS.gray8};
@@ -107,8 +103,7 @@ const Option = styled.div`
 `;
 
 const ArrowIcon = styled.img`
-  width: 16px;
-  height: 10px;
+  width: 12px;
 `;
 
 export default Select;

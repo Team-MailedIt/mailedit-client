@@ -7,6 +7,7 @@ import GoogleAuth from './GoogleAuth';
 import COLORS from '../../constants/colors';
 import useInputs from '../../hooks/useInputs';
 import { ModalStyle } from '../commons/ModalStyle';
+import logoBlue from '../../constants/icons/logoBlue.svg';
 
 import exit from '../../constants/icons/exit.svg';
 
@@ -14,11 +15,11 @@ import {
   Modal,
   Wrapper,
   Exit,
-  Input,
-  SubmitBtn,
+  Logo,
+  Text,
   UnderText,
   Other,
-  ErrorText,
+  Illust,
 } from './AuthPresenter';
 
 const SignUpModal = ({
@@ -90,8 +91,11 @@ const SignUpModal = ({
         >
           <Exit src={exit} onClick={() => setIsSignUpModalOpen(false)} />
           <Wrapper>
-            <GoogleAuth />
-
+            <Logo src={logoBlue} />
+            <Text>처음 써 보는 메일, MailedIt에서 쉽게 시작해 보세요</Text>
+            <Illust src="/img/signup.png" alt="sign up" />
+            <GoogleAuth googleText="구글로 회원가입" />
+            {/*
             <Input
               type="email"
               name="email"
@@ -99,7 +103,7 @@ const SignUpModal = ({
               onChange={handleInputChange}
               placeholder="이메일 주소"
             />
-            {isPassedEmail && (
+             {isPassedEmail && (
               <>
                 <Input
                   type="password"
@@ -118,8 +122,8 @@ const SignUpModal = ({
                   autoComplete="off"
                 />
               </>
-            )}
-            {!isValidEmail && (
+            )} */}
+            {/* {!isValidEmail && (
               <ErrorText>이 이메일 주소는 이미 사용 중입니다</ErrorText>
             )}
             {!isCorrectPsword && <ErrorText>비밀번호가 틀렸습니다</ErrorText>}
@@ -132,7 +136,7 @@ const SignUpModal = ({
               <SubmitBtn color={COLORS.primary} onClick={handleConfirmPassword}>
                 회원가입
               </SubmitBtn>
-            )}
+            )} */}
 
             <UnderText>계정이 이미 있으신가요?</UnderText>
             <Other
@@ -141,12 +145,12 @@ const SignUpModal = ({
                 setIsSignInModalOpen(true);
               }}
             >
-              로그인하기
+              로그인
             </Other>
           </Wrapper>
         </Modal>
       )}
-      {isValidUser && !isAllPassedUser && (
+      {/* {isValidUser && !isAllPassedUser && (
         <ValidUserModal
           isOpen={isSignUpModalOpen}
           onRequestClose={() => setIsSignUpModalOpen(false)}
@@ -184,86 +188,86 @@ const SignUpModal = ({
             확인
           </SubmitFormBtn>
         </VerifyEmailModal>
-      )}
+      )} */}
     </>
   );
 };
 
-const ValidUserModal = styled(ReactModal)`
-  width: 540px;
-  height: 322px;
+// const ValidUserModal = styled(ReactModal)`
+//   width: 540px;
+//   height: 322px;
 
-  background: ${COLORS.gray1};
-  border-radius: 4px;
+//   background: ${COLORS.gray1};
+//   border-radius: 4px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  &:focus {
-    outline: none;
-  }
-`;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   &:focus {
+//     outline: none;
+//   }
+// `;
 
-const WelcomText = styled.div`
-  width: 293px;
-  height: 56px;
+// const WelcomText = styled.div`
+//   width: 293px;
+//   height: 56px;
 
-  font-size: 20px;
-  line-height: 140%;
+//   font-size: 20px;
+//   line-height: 140%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  letter-spacing: -0.01em;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   letter-spacing: -0.01em;
 
-  margin-top: 48px;
+//   margin-top: 48px;
 
-  color: ${COLORS.UIBlack};
-`;
+//   color: ${COLORS.UIBlack};
+// `;
 
-const NameInput = styled.input`
-  width: 344px;
-  height: 44px;
+// const NameInput = styled.input`
+//   width: 344px;
+//   height: 44px;
 
-  border: 1.5px solid ${COLORS.gray4};
-  border-radius: 4px;
+//   border: 1.5px solid ${COLORS.gray4};
+//   border-radius: 4px;
 
-  margin-top: 36px;
-  padding-left: 16px;
+//   margin-top: 36px;
+//   padding-left: 16px;
 
-  background: none;
-`;
+//   background: none;
+// `;
 
-const SubmitFormBtn = styled.button`
-  width: 148px;
-  height: 43px;
+// const SubmitFormBtn = styled.button`
+//   width: 148px;
+//   height: 43px;
 
-  border: none;
-  color: ${COLORS.UIWhite};
+//   border: none;
+//   color: ${COLORS.UIWhite};
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
 
-  margin-top: 53px;
-  margin-bottom: 42px;
+//   margin-top: 53px;
+//   margin-bottom: 42px;
 
-  background: ${COLORS.primary};
-  border-radius: 4px;
-`;
+//   background: ${COLORS.primary};
+//   border-radius: 4px;
+// `;
 
-const VerifyEmailModal = styled(ReactModal)`
-  width: 400px;
-  height: 240px;
+// const VerifyEmailModal = styled(ReactModal)`
+//   width: 400px;
+//   height: 240px;
 
-  border-radius: 4px;
-  background: ${COLORS.gray1};
+//   border-radius: 4px;
+//   background: ${COLORS.gray1};
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `;
 
 export default SignUpModal;
