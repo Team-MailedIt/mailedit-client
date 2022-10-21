@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 
-export default function MLandingSixth() {
+export default function MLandingSixth({ goToHome }) {
   return (
     <Wrapper>
       <Content>
@@ -17,7 +17,7 @@ export default function MLandingSixth() {
           <br />
           <b>지금 바로 이용해 보세요.</b>
         </Subtitle>
-        <Button>지금 시작하기</Button>
+        <Button onClick={goToHome}>둘러보기</Button>
       </Content>
       <BackgroundImg
         src="/images/mlanding_sixth_image.png"
@@ -81,7 +81,7 @@ const Logo = styled.img`
 const Subtitle = styled.div`
   margin-top: 11px;
 
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   line-height: 140%;
   text-align: center;

@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import SignInModal from '../../auth/SignInModal';
 import SignUpModal from '../../auth/SignUpModal';
 
 export default function MHeader() {
+  const navigate = useNavigate();
+
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
@@ -16,11 +19,15 @@ export default function MHeader() {
     setIsSignInModalOpen(!isSignInModalOpen);
   };
 
+  const goToLanding = () => {
+    navigate('/');
+  };
+
   return (
     <Wrapper>
       <Content>
         <Top>
-          <Logo src="/images/mhome_logo.png" />
+          <Logo src="/images/mhome_logo.png" onClick={goToLanding} />
           <Option>
             <Text onClick={handleSignInBtnClick}>로그인</Text>
             <Border />
@@ -54,14 +61,12 @@ export default function MHeader() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 204px;
-
   display: flex;
   justify-content: center;
 `;
 
 const Content = styled.div`
-  width: 360px;
+  width: 90%;
   height: 140px;
   margin-top: 20px;
 
@@ -69,7 +74,7 @@ const Content = styled.div`
 `;
 
 const Top = styled.header`
-  width: 360px;
+  width: 100%;
   height: 26px;
 
   display: flex;
@@ -79,6 +84,7 @@ const Top = styled.header`
 
 const Logo = styled.img`
   width: 132px;
+  cursor: pointer;
 `;
 
 const Option = styled.div`

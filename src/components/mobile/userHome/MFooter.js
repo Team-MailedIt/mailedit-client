@@ -36,7 +36,7 @@ const Div = styled.div`
 `;
 
 const Span = styled.span`
-  font-weight: 400;
+  font-weight: 00;
   font-size: 12px;
   color: ${colors.gray.gray8};
 `;

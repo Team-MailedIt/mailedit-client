@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { AuthContext } from '../../contexts/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import SignUpModal from '../auth/SignUpModal';

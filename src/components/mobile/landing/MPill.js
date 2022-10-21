@@ -1,15 +1,7 @@
 import styled, { css } from 'styled-components';
 import { colors } from '../../../constants/colors';
 
-interface ILeft {
-  isLeftSelected: boolean;
-}
-
-interface IRight {
-  isRightSelected: boolean;
-}
-
-const MPill = ({ isLeftSelected, isRightSelected }: ILeft & IRight) => {
+const MPill = ({ isLeftSelected, isRightSelected }) => {
   return (
     <Wrapper>
       <Left isLeftSelected={isLeftSelected}>기본템플릿</Left>
@@ -27,7 +19,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const Left = styled.div<ILeft>`
+const Left = styled.div`
   width: 66px;
   height: 21px;
   padding-top: 3px;
@@ -52,7 +44,7 @@ const Left = styled.div<ILeft>`
         `}
 `;
 
-const Right = styled.div<IRight>`
+const Right = styled.div`
   width: 66px;
   height: 21px;
   padding-top: 3px;

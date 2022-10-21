@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
-import Select from '../../commons/Select';
+import MSelect from './MSelect';
 import MThumbnail from './MThumbnail';
+import school from '../../../constants/school.json';
+import company from '../../../constants/company.json';
 
 export default function MBody() {
   const [option, setOption] = useState('school');
@@ -15,22 +17,37 @@ export default function MBody() {
             ? '회사에서 일잘러가 되려면?'
             : '학교에서 교수님, 조교님께는...'}
         </Title>
-        <Select option={option} setOption={setOption} />
+        <MSelect option={option} setOption={setOption} />
       </Top>
-      <MThumbnail />
-      <MThumbnail />
-      <MThumbnail />
-      <MThumbnail />
-      <MThumbnail />
-      <MThumbnail />
-      <MThumbnail />
-      <MThumbnail />
+      {option === 'company'
+        ? company.map(
+            ({ TemplateId, title, subtitle, description, content }) => (
+              <MThumbnail
+                id={TemplateId}
+                title={title}
+                subtitle={subtitle}
+                description={description}
+                content={content[1].html}
+              />
+            )
+          )
+        : school.map(
+            ({ TemplateId, title, subtitle, description, content }) => (
+              <MThumbnail
+                id={TemplateId}
+                title={title}
+                subtitle={subtitle}
+                description={description}
+                content={content[1].html}
+              />
+            )
+          )}
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 90%;
 
   display: flex;
   flex-direction: column;
@@ -38,12 +55,13 @@ const Wrapper = styled.div`
 `;
 
 const Top = styled.div`
-  width: 360px;
+  width: 100%;
   height: 24px;
   margin-top: 32px;
   margin-bottom: 20px;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 

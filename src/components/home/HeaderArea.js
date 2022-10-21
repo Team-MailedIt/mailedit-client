@@ -109,9 +109,9 @@ const Wrapper = styled.div`
   align-items: flex-end;
   justify-content: space-between;
 
-  @media screen and (min-width: 1500px) {
+  /* @media screen and (min-width: 1500px) {
     margin-top: 8vh;
-  }
+  } */
 `;
 
 const LogOut = styled.span`

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import MFooter from '../../components/mobile/landing/MFooter';
 import MHeader from '../../components/mobile/landing/MHeader';
@@ -9,15 +10,21 @@ import MLandingSixth from '../../components/mobile/landing/MLandingSixth';
 import MLandingThird from '../../components/mobile/landing/MLandingThird';
 
 export default function MLanding() {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/home');
+  };
+
   return (
     <Wrapper>
       <MHeader />
-      <MLandingFirst />
+      <MLandingFirst goToHome={goToHome} />
       <MLandingSecond />
       <MLandingThird />
       <MLandingFourth />
       <MLandingFifth />
-      <MLandingSixth />
+      <MLandingSixth goToHome={goToHome} />
       <MFooter />
     </Wrapper>
   );

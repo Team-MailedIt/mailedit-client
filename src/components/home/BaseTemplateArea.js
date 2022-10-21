@@ -118,7 +118,8 @@ const Wrapper = styled.section`
   grid-template-columns: 4fr 1fr;
 
   @media screen and (min-width: 1500px) {
-    margin-top: 7vh;
+    /* margin-top: 7vh; */
+    margin-top: 2.8%;
   }
 `;
 

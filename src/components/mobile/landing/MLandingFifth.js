@@ -23,8 +23,7 @@ export default function MLandingFifth() {
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 12px;
-  padding-right: 24px;
+  padding: 25px 24px 20px 0;
   background: ${colors.bg.bg};
 
   display: flex;
@@ -52,7 +51,7 @@ const Text = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 24px;
   line-height: 140%;
 
@@ -67,7 +66,7 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   line-height: 140%;
 

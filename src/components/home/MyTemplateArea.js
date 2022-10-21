@@ -133,7 +133,8 @@ const Wrapper = styled.section`
   border-radius: 4px;
 
   @media screen and (min-width: 1500px) {
-    margin-top: 7vh;
+    /* margin-top: 7vh; */
+    margin-top: 2.8%;
   }
 `;
 

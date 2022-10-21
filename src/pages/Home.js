@@ -23,7 +23,7 @@ const Home = () => {
       <SelectTemplateProvider>
         <FilterLikeProvider>
           <PositionProvider>
-            {isLogin ? <UserHome /> : <DefaultHome />}
+            {!isLogin ? <UserHome /> : <DefaultHome />}
             <Wrapper>
               <MainSidebar />
               <Main>
@@ -38,11 +38,6 @@ const Home = () => {
     </SelectGroupProvider>
   );
 };
-
-const View = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -61,14 +56,14 @@ const Wrapper = styled.div`
 const Main = styled.main`
   grid-area: main;
 
-  padding: 0 3%;
+  padding: 0% 3%;
 
   display: flex;
   flex-direction: column;
 
-  @media screen and (min-width: 1500px) {
+  /* @media screen and (min-width: 1500px) {
     padding-right: 7%;
-  }
+  } */
 `;
 
 export default Home;

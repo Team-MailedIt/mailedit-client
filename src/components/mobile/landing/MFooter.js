@@ -46,7 +46,7 @@ const Logo = styled.img`
 const Text = styled.div`
   margin-top: 12px;
 
-  font-weight: 200;
+  font-weight: 300;
   font-size: 12px;
   line-height: 140%;
   color: ${colors.gray.gray4};
@@ -61,7 +61,7 @@ const Bottom = styled.div`
 `;
 
 const Span = styled.span`
-  font-weight: 300;
+  font-weight: 400;
   font-size: 10px;
   line-height: 12px;
   color: ${colors.gray.gray4};

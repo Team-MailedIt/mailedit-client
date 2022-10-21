@@ -1,20 +1,62 @@
+import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
+import { AuthContext } from '../../../contexts/AuthContext';
+import SignInModal from '../../auth/SignInModal';
+import SignUpModal from '../../auth/SignUpModal';
 
 export default function Header() {
+  const { isLogin, setIsLogin } = useContext(AuthContext);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  const handleSignInBtnClick = () => {
+    setIsSignInModalOpen(!isSignInModalOpen);
+  };
+
+  const handleSignUpBtnClick = () => {
+    setIsSignUpModalOpen(!isSignUpModalOpen);
+  };
+
+  const handleSignOutBtnClick = () => {
+    setIsLogin(false);
+    localStorage.clear();
+  };
+
   return (
     <Wrapper>
       <Top>
         <Logo src="/images/landing_header_logo.png" alt="landing header logo" />
         <Option>
-          <Span>로그인</Span>
-          <Border />
-          <Span>회원가입</Span>
+          {isLogin ? (
+            <>
+              <div />
+              <Span onClick={handleSignOutBtnClick}>로그아웃</Span>
+            </>
+          ) : (
+            <>
+              <Span onClick={handleSignInBtnClick}>로그인</Span>
+              <Border />
+              <Span onClick={handleSignUpBtnClick}>회원가입</Span>
+            </>
+          )}
         </Option>
       </Top>
       <Video autoPlay loop muted playsInline>
         <source src="/videos/mobile_landing_header.mp4" type="video/mp4" />
       </Video>
+
+      <SignInModal
+        isSignInModalOpen={isSignInModalOpen}
+        setIsSignInModalOpen={setIsSignInModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+      />
+      <SignUpModal
+        isSignUpModalOpen={isSignUpModalOpen}
+        setIsSignInModalOpen={setIsSignInModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+      />
     </Wrapper>
   );
 }

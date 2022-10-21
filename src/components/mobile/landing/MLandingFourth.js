@@ -45,7 +45,7 @@ const Text = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 24px;
   line-height: 140%;
   color: ${colors.default.black};
@@ -56,7 +56,7 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   letter-spacing: -0.02em;
   color: ${colors.default.black};

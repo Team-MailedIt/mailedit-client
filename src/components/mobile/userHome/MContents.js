@@ -91,7 +91,7 @@ const SpanWrapper = styled.div`
 const Span = styled.span`
   padding: 4px;
 
-  font-weight: 300;
+  font-weight: 400;
   font-size: 12px;
   color: ${colors.default.black};
 

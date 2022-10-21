@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 
-export default function MLandingFirst() {
+export default function MLandingFirst({ goToHome }) {
   return (
     <Wrapper>
       <Title>
@@ -15,7 +15,7 @@ export default function MLandingFirst() {
         보다 쉬운 이메일 작성을 돕습니다.
       </Subtitle>
       <Items>
-        <Button>둘러보기</Button>
+        <Button onClick={goToHome}>둘러보기</Button>
         <Image
           src="/images/mlanding_first_image.png"
           alt="landing first illust"
@@ -44,7 +44,7 @@ const Title = styled.div`
 const Subtitle = styled.div`
   margin-top: 8px;
 
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   line-height: 140%;
 

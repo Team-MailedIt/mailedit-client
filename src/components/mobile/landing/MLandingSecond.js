@@ -7,7 +7,7 @@ export default function MLandingSecond() {
       <Title>메일 작성을 완벽하게 해내다,</Title>
       <Logo src="/images/landing_second_logo.png" alt="landing second logo" />
       <Subtitle>
-        개인 이메일 작성 개선에서 나아가 올바른 메일 문화를 선두합니다.
+        개인 이메일 작성 개선에서 나아가 올바른 메일 문화를 선두합니다
       </Subtitle>
       <Image
         src="/images/mobile_landing_second.png"
@@ -46,7 +46,7 @@ const Logo = styled.img`
 const Subtitle = styled.div`
   margin-top: 16px;
 
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
   color: ${colors.default.black};
 
