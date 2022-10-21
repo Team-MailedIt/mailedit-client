@@ -13,6 +13,11 @@ export const Modal = styled(ReactModal)`
   &:focus {
     outline: none;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 344px;
+    height: 491px;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -23,6 +28,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    margin-left: 36px;
+  }
 `;
 
 export const Exit = styled.img`
@@ -33,6 +42,11 @@ export const Exit = styled.img`
   margin-left: 352px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 24px;
+    margin-left: 300px;
+  }
 `;
 
 export const Logo = styled.img`
@@ -85,6 +99,11 @@ export const Text = styled.span`
 export const Illust = styled.img`
   width: 246px;
   margin-bottom: 29px;
+
+  @media screen and (min-width: 768px) {
+    width: 220px;
+    margin-bottom: 40px;
+  }
 `;
 
 export const UnderText = styled.span`

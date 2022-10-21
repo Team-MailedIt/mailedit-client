@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 
 import API from '../../utils/API';
-import COLORS, { colors } from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import BaseTemplateModal from './BaseTemplateModal';
 
 import dots from '../../constants/icons/dots.svg';
@@ -109,7 +109,6 @@ const BaseTemplateArea = () => {
 const Wrapper = styled.section`
   width: 100%;
   height: 20%;
-
   /* margin-top: 2.8%; */
   margin-top: 5.3vh;
 
@@ -118,7 +117,8 @@ const Wrapper = styled.section`
   grid-template-columns: 4fr 1fr;
 
   @media screen and (min-width: 1500px) {
-    margin-top: 7vh;
+    /* margin-top: 7vh; */
+    margin-top: 2.8%;
   }
 `;
 

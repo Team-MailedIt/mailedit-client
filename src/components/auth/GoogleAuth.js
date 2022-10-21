@@ -48,7 +48,7 @@ const GoogleAuth = ({ googleText }) => {
         render={(renderProps) => (
           <GoogleButton onClick={renderProps.onClick}>
             <GoogleWrapper>
-              <GoogleLogo src={google} />
+              <GoogleLogo src="/img/google.png" alt="google logo" />
               <GoogleText>{googleText}</GoogleText>
             </GoogleWrapper>
           </GoogleButton>
@@ -67,6 +67,7 @@ const GoogleAuth = ({ googleText }) => {
 const GoogleButton = styled.button`
   width: 270px;
   height: 45px;
+  padding: 9px 84px 9px 21px;
 
   background: none;
   display: flex;
@@ -83,8 +84,6 @@ const GoogleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  margin: 9px 84px 9px 21px;
 `;
 
 const GoogleLogo = styled.img`
