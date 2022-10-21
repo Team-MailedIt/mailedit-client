@@ -109,7 +109,6 @@ const BaseTemplateArea = () => {
 const Wrapper = styled.section`
   width: 100%;
   height: 20%;
-
   /* margin-top: 2.8%; */
   margin-top: 5.3vh;
 
